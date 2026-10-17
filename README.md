@@ -71,4 +71,4 @@ Der [gemeinsame Drive-Brief](https://docs.google.com/document/d/16gTQyCiOEIZr9Xn
 
 ## Hosting
 
-Der Code liegt im privaten [GitHub-Repository](https://github.com/gilles-pe/ai-in-medicine-monitor). Ein Hosting-Projekt und eine Live-URL sind noch nicht eingerichtet. Die aktuelle Sitzung konnte keine lokale Laufzeit starten; Browserausführung und Online-Bereitstellung müssen vom verfügbaren Laufzeit-/CI-Ergebnis getrennt beurteilt werden.
+Der Code liegt im privaten [GitHub-Repository](https://github.com/gilles-pe/ai-in-medicine-monitor). Ein Hosting-Projekt und eine Live-URL sind noch nicht eingerichtet. Die lokale Laufzeit war nicht verfügbar. 12 Node- und 16 Desktop-/Mobil-Browserprüfungen sowie die Paketierung sind in GitHub CI bestanden. Eine manuelle visuelle Abnahme und die private Live-Bereitstellung stehen aus; siehe [Prüfstand](docs/implementation-status.md).

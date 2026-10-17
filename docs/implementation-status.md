@@ -8,26 +8,37 @@ Gilles hat die Programmierung und bei Bedarf Subagenten ausdrücklich beauftragt
 
 Die erste statische Anwendung ist implementiert: drei Messspuren, Datum/Monatsregler, Abspielfunktion, Modellfilter, Quellen- und Detailansicht, Forschungsereignisse, Anwendungsübersicht, Vortragsmodus und gefilterter JSON-Export.
 
-Als technische Grundlage dienen Browser-ES-Module und CSS. Es gibt keine Laufzeitabhängigkeiten oder Datenbank. Der Build kopiert die Anwendung nach dist/.
+Technische Grundlage sind Browser-ES-Module und CSS ohne Laufzeitpakete, Datenbank oder externe Dienste. Der Build kopiert die Anwendung nach dist/.
 
 ## Daten
 
-13 aggregierte historische Ergebnisse aus drei versionierten Originalarbeiten. Die Wissensspur nutzt den vollständigen MedXpertQA-Text-Test; kleinere Stichproben sind ausgeschlossen. Alle Seed-Daten verwenden Publikationsdaten. Jede Spur enthält zunächst nur einen Publikationsstand, daher keine behauptete Zeitentwicklung.
+13 aggregierte historische Ergebnisse aus drei versionierten Originalarbeiten. Die Wissensspur nutzt den vollständigen MedXpertQA-Text-Test; kleinere Stichproben sind ausgeschlossen. Alle Seed-Daten verwenden Publikationsdaten. Pro Spur liegt zunächst eine Ausgabe vor; ein Zeittrend wird daraus nicht abgeleitet.
 
-Medizinische Daten werden nicht automatisch nachgeladen. Das Quellenprüfdatum und der betrachtete Datenstand sind getrennt. Der Startdatensatz ist nicht unabhängig fachlich freigegeben.
+Quellenprüfung und betrachteter Datenstand sind getrennt. Die Daten aktualisieren sich nicht automatisch und sind noch nicht unabhängig fachlich freigegeben.
 
-## Prüfung
+## Bestandene Prüfungen
 
-Ausgeführt: JavaScript-Syntaxprüfung und 49 Daten-/Logik-Assertions im verfügbaren V8-Runtime. Der Subagent für Filterlogik hat zusätzlich die Assertions seiner neun Tests im V8-Kontext geprüft.
+Implementierungs-Commit: 38f3c403a79893a3ba75580db88f9dea3b297afe.
 
-Vorbereitet: native Node-Tests für Filter und Datenintegrität sowie acht Browser-Smoke-Tests jeweils auf Desktop und 390px Mobilbreite. Ein GitHub-Actions-Workflow führt sie aus. Sein Ergebnis muss gesondert geprüft werden.
+[CI-Prüfung](https://github.com/gilles-pe/ai-in-medicine-monitor/actions/runs/39047376173):
 
-Die lokale Ausführungsumgebung war bei Implementierung nicht verfügbar. Deshalb wurden kein lokaler Server und keine manuelle Browseransicht ausgeführt. Eine vorbereitete Prüfung ist kein bestandener Test. Eine Live-Website ist noch nicht eingerichtet.
+- 12 Node-Tests bestanden.
+- Statische Paketierung bestanden.
+- 16 Playwright-Prüfungen bestanden, acht jeweils auf Desktop und 390px Mobilbreite.
+- Geprüft wurden Startansicht, Quellendialog und Fokus, Datum-/Modellfilter, Ansichtswechsel, Vortragsmodus/Escape, gefilterter JSON-Export und horizontale Überläufe.
+
+Zusätzlich ausgeführt: Syntaxprüfung, 49 Daten-/Logik-Assertions und 13 Integrationsprüfungen im V8-DOM-Shim. Diese ersetzen keine Browserprüfung; die echten Browserprüfungen wurden gesondert in CI ausgeführt.
+
+Der erste CI-Lauf hatte trotz bestandener Tests einen roten Gesamtstatus, weil GitHubs Artefaktspeicherkontingent voll war. Der optionale Berichtupload wurde deshalb auf fehlgeschlagene Prüfungen begrenzt und darf deren Auswertung nicht zusätzlich blockieren. Es wurden keine vorhandenen Artefakte gelöscht und keine Abrechnungs-/Kontoeinstellungen geändert.
+
+## Verbleibende Grenzen
+
+Die lokale Ausführungsumgebung war nicht verfügbar. Eine manuelle visuelle Abnahme gegen Variante A und eine private Live-Bereitstellung stehen aus. Das Bestehen der Interaktionstests ist keine pixelgenaue Designabnahme. Es gibt noch keine Live-URL.
 
 ## Nächste Arbeit
 
-1. CI-Ergebnis auswerten und etwaige Fehler korrigieren.
-2. Browserdarstellung gegen Variante A prüfen, insbesondere Mobilbreite und Vortragsmodus.
+1. Korrigierten CI-Workflow prüfen.
+2. Browserdarstellung manuell gegen Variante A abnehmen.
 3. Private Online-Bereitstellung über den unterstützten Hosting-Prozess durchführen, sobald eine Ausführungsumgebung verfügbar ist.
-4. Weitere vergleichbare historische und aktuelle Messstände sowie klinische Evidenz fachlich kuratieren.
+4. Weitere vergleichbare Messstände und klinische Evidenz fachlich kuratieren.
 5. Erst nach definiertem Prüf- und Freigabeprozess eine wöchentliche Datenaktualisierung einrichten.
