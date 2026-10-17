@@ -29,6 +29,8 @@ test('PPT-style overview starts in 1950, exposes AlphaFold and uses the requeste
   await expect(page.locator('#cutoff-date')).toHaveAttribute('min','1950-01-01');
   await expect(page.locator('#cutoff-date')).toHaveAttribute('max','2035-12-31');
   await expect(page.locator('.overview-scroll svg')).toBeVisible();
+  const chartViewport = await page.locator('.overview-scroll').evaluate(element => ({width:element.clientWidth,left:element.scrollLeft,content:element.scrollWidth}));
+  if (chartViewport.width < 600 && chartViewport.content > chartViewport.width) expect(chartViewport.left).toBeGreaterThan(0);
   await expect(page.locator('[data-history-id="alphafold3-2024"]')).toBeVisible();
   await page.locator('#cutoff-date').fill('2020-12-31');
   await page.locator('#cutoff-date').press('Tab');

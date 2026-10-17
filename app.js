@@ -99,6 +99,11 @@ function renderStudies() {
 function renderTimeline() {
   const rows = visibleRows();
   content.innerHTML = renderOverview(state.cutoff, today) + '<details class="benchmark-details" open><summary>Messwerte & Benchmarks <span>' + rows.length + ' veröffentlichte Punkte</span></summary><div class="section-title"><h2>Die gemessenen Fähigkeiten</h2><p>Getrennte Skalen und Testbedingungen</p></div><p class="view-intro">Diese Ergebnisse sind Originalmesswerte. Die schematische Hauptgrafik verwendet einen eigenen illustrativen Index. Der Modellfilter gilt für die Messwerte.</p>' + tracks.map((track, index) => renderTrack(track, index, rows)).join('') + '<div class="chart-axis"><span>Jan 2025</span><span>2026</span><span>' + e(monthFormat.format(new Date(today + 'T00:00:00Z'))) + '</span></div></details><details class="milestone-details"><summary>Studien und Meilensteine im Detail</summary>' + renderEvents() + '</details>';
+  const overviewScroll = content.querySelector('.overview-scroll');
+  if (matchMedia('(max-width: 600px)').matches) {
+    const cursor = (68 + (Number(state.cutoff.slice(0,4)) - 1950) / 85 * 1030) / 1200 * overviewScroll.scrollWidth;
+    overviewScroll.scrollLeft = Math.max(0, cursor - overviewScroll.clientWidth * 0.65);
+  }
 }
 
 function renderApplications() {
