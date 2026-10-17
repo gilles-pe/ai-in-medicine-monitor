@@ -50,8 +50,8 @@ test('all visible overview dots have primary evidence, finite illustration posit
   const html = renderOverview('2030-12-31','2026-10-17');
   assert.match(html,/IQ zur Verdeutlichung/);
   assert.doesNotMatch(html,/kein IQ-Test|2035|2033|NaN|undefined/);
-  assert.equal((html.match(/class="anchor-dot"/g)||[]).length,24);
-  assert.equal((html.match(/class="overview-point"/g)||[]).length,24);
+  assert.equal((html.match(/class="anchor-dot"/g)||[]).length,22);
+  assert.equal((html.match(/class="overview-point"/g)||[]).length,22);
   const old = renderOverview('1953-12-31','2026-10-17');
   assert.equal((old.match(/class="anchor-dot"/g)||[]).length,1,'interpolation must not create a source-backed point');
 });
@@ -62,7 +62,6 @@ test('same-year papers have distinct dated x positions instead of hidden overlap
   assert.ok(fractionalYear('2025-02-12') < fractionalYear('2025-04-09'));
   assert.equal(fractionalYear('2024-01-01'),2024);
   const html = renderOverview('2026-10-17','2026-10-17');
-  const mira = html.match(/data-overview-point="mira-2026"[^]*?class="anchor-dot" cx="([^"]+)"/)[1];
-  const residency = html.match(/data-overview-point="residency-2026"[^]*?class="anchor-dot" cx="([^"]+)"/)[1];
-  assert.notEqual(mira,residency);
+  assert.match(html,/data-overview-cluster="mira-2026,residency-2026"/);
+  assert.match(html,/data-overview-cluster="amie-2025,medagent-2025"/);
 });

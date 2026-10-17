@@ -208,6 +208,13 @@ function setPresentation(on) {
 function detailRows(pairs) {
   return '<dl class="detail-list">' + pairs.map(([name,value]) => '<div><dt>' + e(name) + '</dt><dd>' + e(value) + '</dd></div>').join('') + '</dl>';
 }
+function showOverviewCluster(ids) {
+  const points = visibleAnchors(state.cutoff).filter(point=>ids.split(',').includes(point.id));
+  if (!points.length) return;
+  stopPlaying();
+  $('#detail-body').innerHTML = '<h2 class="dialog-title" id="detail-title">' + points[0].year + ' · ' + points.length + ' Studien</h2><p>Mehrere Arbeiten liegen hier dicht zusammen. Wähle den Befund mit Originalquelle.</p><div class="point-index-list">' + points.map(point=>'<button type="button" data-overview-point="'+e(point.id)+'">'+e(point.label)+'</button>').join('')+'</div>';
+  dialog.showModal();
+}
 function showOverviewPoint(id) {
   const point = visibleAnchors(state.cutoff).find(item => item.id === id);
   if (!point) return;
@@ -293,10 +300,18 @@ document.querySelectorAll('[data-view]').forEach((button,index,buttons) => {
   });
 });
 content.addEventListener('keydown',event => {
+  const cluster = event.target.closest('[data-overview-cluster]');
+  if (cluster && ['Enter',' '].includes(event.key)) { event.preventDefault(); showOverviewCluster(cluster.dataset.overviewCluster); return; }
   const point = event.target.closest('[data-overview-point]');
   if (point && ['Enter',' '].includes(event.key)) { event.preventDefault(); showOverviewPoint(point.dataset.overviewPoint); }
 });
+$('#detail-body').addEventListener('click',event => {
+  const point = event.target.closest('[data-overview-point]');
+  if (point) showOverviewPoint(point.dataset.overviewPoint);
+});
 content.addEventListener('click',event => {
+  const cluster = event.target.closest('[data-overview-cluster]');
+  if (cluster) { showOverviewCluster(cluster.dataset.overviewCluster); return; }
   const overviewPoint = event.target.closest('[data-overview-point]');
   if (overviewPoint) { showOverviewPoint(overviewPoint.dataset.overviewPoint); return; }
   const history = event.target.closest('[data-history-id]');

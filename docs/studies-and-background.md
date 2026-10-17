@@ -8,7 +8,7 @@ Die Beschriftung lautet „IQ zur Verdeutlichung“. Die vertikale Position, die
 
 Tagesgenaue Publikationen werden innerhalb ihres Jahres positioniert. Der letzte historische Linien-Stützpunkt für 2026 liegt am heutigen Zeitpunkt; die Zukunft beginnt danach. Auch diese Anpassung ist rein schematisch.
 
-Sichtbare Punkte werden ausschließlich aus `data/point-evidence.js` erzeugt: 24 Quellenanker. Unsichtbare Stützpunkte in `data/presentation-chart.js` dienen nur der Liniengeometrie. Nicht belegte Zwischenpunkte, interpolierte Endpunkte und zukünftige Szenarien bekommen keine Punktmarker. Daten bis zum gewählten Veröffentlichungsdatum werden berücksichtigt; bei historischen Jahresangaben wird kein Tag erfunden. Der Modellfilter betrifft nur die 13 Benchmark-Messwerte.
+Sichtbare Punkte werden ausschließlich aus `data/point-evidence.js` erzeugt: 24 Quellenanker. Die zwei gleichjährigen Paare AMIE/MedAgentBench (2025) und MIRA/ResidencyRL (2026) erscheinen als nummerierte Sammelpunkte mit Auswahl; 22 Marker erschließen alle 24 Einträge. Unsichtbare Stützpunkte in `data/presentation-chart.js` dienen nur der Liniengeometrie. Nicht belegte Zwischenpunkte, interpolierte Endpunkte und zukünftige Szenarien bekommen keine Punktmarker. Daten bis zum gewählten Veröffentlichungsdatum werden berücksichtigt; bei historischen Jahresangaben wird kein Tag erfunden. Der Modellfilter betrifft nur die 13 Benchmark-Messwerte.
 
 Zukunft: ausschließlich als Annahmen bezeichnete, gestrichelte Szenarien bis 2030. Keine zukünftigen Studienergebnisse oder bestätigten Prognosen. METR betrifft Software-/Reasoning-Aufgaben und ist kein Beleg klinischer Autonomie.
 

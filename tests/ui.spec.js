@@ -205,7 +205,12 @@ test('every view fits the viewport without horizontal scrolling', async ({ page 
 test('overview sources and benchmark thumbnails work with keyboard and date filtering', async ({ page }) => {
   await expect(page.locator('#time-slider')).toHaveAttribute('max','80');
   await expect(page.locator('.overview-axis-title').first()).toHaveText('IQ zur Verdeutlichung');
-  await expect(page.locator('.overview-point')).toHaveCount(24);
+  await expect(page.locator('.overview-point')).toHaveCount(22);
+  await page.locator('.overview-point[data-overview-cluster="mira-2026,residency-2026"]').press('Enter');
+  await expect(page.locator('#detail-dialog')).toContainText('2 Studien');
+  await page.locator('#detail-dialog [data-overview-point="mira-2026"]').click();
+  await expect(page.locator('#detail-dialog a')).toHaveAttribute('href','https://www.nature.com/articles/s41586-026-10675-5');
+  await page.keyboard.press('Escape');
   await page.locator('.point-index summary').click();
   const trigger = page.locator('.point-index-list [data-overview-point="mira-2026"]');
   await trigger.focus();
