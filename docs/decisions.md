@@ -8,6 +8,7 @@
 | 2026-10-17 | Git-Projekt mit Repository-Namen ai-in-medicine-monitor anlegen. | Nutzer: „Erstelle mir ein git Projekt dafür“ |
 | 2026-10-17 | Privates Repository gilles-pe/ai-in-medicine-monitor auf GitHub anlegen. | Nutzer beauftragt die Anlage über den Browser und bestätigt die Anmeldung. |
 | 2026-10-17 | Angefügte Startanweisung befolgen; Name AI in Medicine Monitor verwenden. | Aktueller Nutzerauftrag |
+| 2026-10-17 | Das angefügte Bild Konzept A · Zeitverlauf als visuelle Referenz hinterlegen. | Nutzer ergänzt die zuvor angeforderte Variante A |
 
 Die Benchmark-Auswahl, der technische Stack und das Hosting sind nicht entschieden. Ein wöchentlicher Aktualisierungsrhythmus ist das Ziel; eine Automatisierung läuft noch nicht.
 

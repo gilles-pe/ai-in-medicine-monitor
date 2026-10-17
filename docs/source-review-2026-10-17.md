@@ -22,9 +22,9 @@ Die illustrative IQ-Skala der Präsentation ist keine validierte medizinische Me
 
 Die Einschränkungen von HealthBench Professional, MedAgentBench und METR sind im Datenquellenplan beschrieben. Noch keine aktuellen Spitzenwerte oder klinischen Nutzenbehauptungen freigegeben.
 
-## Verbleibende Lücke
+## Visuelle Referenz ergänzt
 
-Das tatsächlich gewählte Bild „Variante A“ wurde in dieser Sitzung weder als Datei bereitgestellt noch durch die gezielte Suche eindeutig gefunden. Die Beschreibung ist übernommen; eine originale Bildreferenz liegt noch nicht im Repository. Ein anderes Bild wird nicht als Variante A ausgegeben.
+Nachtrag vom 17. Oktober 2026: Gilles hat das Originalbild „Konzept A · Zeitverlauf“ als 173056.png angefügt. Es wurde visuell geprüft und mit unveränderten Bildbytes unter [docs/design/reference-variant-a.jpg](design/reference-variant-a.jpg) hinterlegt. Die frühere Lücke ist damit geschlossen. Die [Gestaltungsnotizen](design/README.md) trennen sichtbare Gestaltung von offenen Umsetzungsentscheidungen.
 
 ## Ergebnis dieser Runde
 

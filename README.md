@@ -22,6 +22,7 @@ Messwerte werden nur bei vergleichbaren Methoden verbunden. Simulation, klinisch
 
 ## Projektunterlagen
 
+- [Visuelle Referenz: Variante A](docs/design/README.md)
 - [Aktive Übergabe mit neuem Namen](docs/ai-in-medicine-monitor-handover.md)
 - [Geprüfte Datenquellen und Messgrößen](docs/data-sources.md)
 - [Entwurf des Evidenzregisters](docs/evidence-register.md)

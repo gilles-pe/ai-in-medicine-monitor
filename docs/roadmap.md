@@ -2,6 +2,8 @@
 
 ## Erledigt
 
+- [x] Originalbild der Variante A als visuelle Referenz hinterlegt.
+
 - [x] Name AI in Medicine Monitor festgelegt.
 - [x] Angefügte Übergabe mit neuem Namen als aktive Quelle hinterlegt.
 - [x] Originalquellen zu den drei Benchmark-Kandidaten geprüft.
@@ -17,7 +19,6 @@
 - [ ] Vergleichbare historische Messwerte und Konfigurationen ermitteln.
 - [ ] Regeln für Meilensteine, Autonomie und klinische Evidenz festlegen.
 - [ ] Registerentwurf und Freigabeprozess abstimmen; gemeinsames Drive-Register einrichten.
-- [ ] Originalbild der Variante A ergänzen.
 
 ## Spätere Umsetzung
 

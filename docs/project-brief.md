@@ -10,7 +10,7 @@ Eine mobile, perspektivisch wöchentlich aktualisierte Übersicht des belegten K
 
 - Name: AI in Medicine Monitor.
 - Privates Git-Projekt angelegt; die angefügte Übergabe unter dem neuen Namen befolgen.
-- Bevorzugte Gestaltung: Variante A, hell mit Petrol und klarer Typografie.
+- Bevorzugte Gestaltung: Variante A, hell mit Petrol und klarer Typografie. Das Originalbild ist als [visuelle Referenz](design/README.md) hinterlegt.
 - Autonomie als eigene Entwicklungsspur.
 - Zunächst Planung; die Repository-Anlage ist noch kein Auftrag zum Bau oder zur Veröffentlichung.
 
@@ -29,7 +29,6 @@ Vorgeschlagen sind Messpunkte für Modellversionen, getrennte Entwicklungsspuren
 - Darstellung von Sicherheit, Kosten und Eingriffen bei autonomen Aufgaben.
 - Evidenzregister, Prüfprozess und späterer wöchentlicher Aktualisierungsrhythmus.
 - Framework, Hosting, öffentliche oder private Ansichten.
-- Übernahme des tatsächlichen visuellen Entwurfs A; die Bilddatei liegt noch nicht im Repository.
 
 ## Zusammenarbeit mit Substack / TED
 

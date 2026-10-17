@@ -71,3 +71,7 @@ Dieses Projekt entwickelt den AI in Medicine Monitor von Gilles Penning. Lies di
 - [ChatGPT Projekte und gemeinsame Quellen](https://learn.chatgpt.com/docs/projects)
 
 Für das neue Projekt: diesen Brief als Quelle hinterlegen und den gewählten visuellen Entwurf A aus dem bisherigen Chat ergänzen. Der nächste Schritt bleibt die Planung der Datenbasis.
+
+## Ergänzte visuelle Referenz
+
+Das anschließend angefügte Originalbild von Variante A liegt unter [design/reference-variant-a.jpg](design/reference-variant-a.jpg). Die [Gestaltungsnotizen](design/README.md) verwenden den aktuellen Namen AI in Medicine Monitor. Die Kurven im Originalbild bleiben als schematische Platzhalter erkennbar.

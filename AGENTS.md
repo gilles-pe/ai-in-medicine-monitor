@@ -6,7 +6,7 @@ This repository currently holds planning documents only. The user authorized cre
 
 ## Project context
 
-Read README.md, docs/project-brief.md, docs/decisions.md and docs/data-sources.md before changes. The active handover is docs/ai-in-medicine-monitor-handover.md. Preserve the preferred visual direction (Variant A: light background, petrol, clear typography) and the separate autonomy track. The actual reference image has not been copied into this repository; do not claim an exact visual match.
+Read README.md, docs/project-brief.md, docs/decisions.md and docs/data-sources.md before changes. The active handover is docs/ai-in-medicine-monitor-handover.md. Preserve the preferred visual direction (Variant A: light background, petrol, clear typography) and the separate autonomy track. The original reference image is docs/design/reference-variant-a.jpg. Read docs/design/README.md before design work. The image is a schematic visual reference, not benchmark data; the active project title is AI in Medicine Monitor.
 
 ## Evidence
 
