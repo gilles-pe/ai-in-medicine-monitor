@@ -12,6 +12,12 @@ Mobiles Dashboard von Gilles Penning für belegten KI-Fortschritt in der Medizin
 - JSON-Export des gefilterten Stands einschließlich Quellen.
 - Responsive Ansicht, Tastaturnavigation, native Dialoge und Unterstützung reduzierter Bewegung.
 
+## Pharma & Studien
+
+Die zusätzliche Ansicht Studien enthält fünf geprüfte Einträge aus der Pharma-Präsentation: AlphaFold 2, AlphaFold 3, Chemie-Nobelpreis 2024, ResidencyRL und das Lernexperiment von Contractor & Reyes. Themen- und Datumsfilter sowie Detaildialoge zeigen Design, Befunde und Grenzen. Nobelpreis, Strukturbenchmark, Simulation und Lernexperiment sind getrennt gekennzeichnet. Der JSON-Export enthält die ausgewählten Studien samt Quellen.
+
+Unter Anwendungen ergänzen vier Pharma-Ansätze die Messspuren. Ideen ohne konkreten Nutzenbeleg bleiben als Anwendungsansatz oder Szenario markiert. Details und bewusste Ausschlüsse: [Quellenprüfung](docs/pharma-source-review-2026-10-17.md).
+
 ## Datenstand
 
 Die erste Ausgabe enthält 13 historische Messpunkte aus drei Originalarbeiten. Die Daten stehen in `data/evidence.js`, getrennt vom Darstellungs- und Filtercode.
