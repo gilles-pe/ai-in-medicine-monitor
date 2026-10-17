@@ -31,14 +31,15 @@ Zusätzlich ausgeführt: Syntaxprüfung, 49 Daten-/Logik-Assertions und 13 Integ
 
 Der erste CI-Lauf hatte trotz bestandener Tests einen roten Gesamtstatus, weil GitHubs Artefaktspeicherkontingent voll war. Der optionale Berichtupload wurde deshalb auf fehlgeschlagene Prüfungen begrenzt und darf deren Auswertung nicht zusätzlich blockieren. Es wurden keine vorhandenen Artefakte gelöscht und keine Abrechnungs-/Kontoeinstellungen geändert.
 
+Der [korrigierte CI-Lauf](https://github.com/gilles-pe/ai-in-medicine-monitor/actions/runs/39047543934) für Commit fcfdaab246cb305e6eb9deb18e1545455e73e447 ist anschließend vollständig grün abgeschlossen. Der Anwendungscode ist gegenüber dem ersten bestandenen Testlauf unverändert.
+
 ## Verbleibende Grenzen
 
 Die lokale Ausführungsumgebung war nicht verfügbar. Eine manuelle visuelle Abnahme gegen Variante A und eine private Live-Bereitstellung stehen aus. Das Bestehen der Interaktionstests ist keine pixelgenaue Designabnahme. Es gibt noch keine Live-URL.
 
 ## Nächste Arbeit
 
-1. Korrigierten CI-Workflow prüfen.
-2. Browserdarstellung manuell gegen Variante A abnehmen.
-3. Private Online-Bereitstellung über den unterstützten Hosting-Prozess durchführen, sobald eine Ausführungsumgebung verfügbar ist.
-4. Weitere vergleichbare Messstände und klinische Evidenz fachlich kuratieren.
-5. Erst nach definiertem Prüf- und Freigabeprozess eine wöchentliche Datenaktualisierung einrichten.
+1. Browserdarstellung manuell gegen Variante A abnehmen.
+2. Private Online-Bereitstellung über den unterstützten Hosting-Prozess durchführen, sobald eine Ausführungsumgebung verfügbar ist.
+3. Weitere vergleichbare Messstände und klinische Evidenz fachlich kuratieren.
+4. Erst nach definiertem Prüf- und Freigabeprozess eine wöchentliche Datenaktualisierung einrichten.
