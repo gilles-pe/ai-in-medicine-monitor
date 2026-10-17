@@ -10,7 +10,7 @@ Read README.md, docs/project-brief.md, docs/decisions.md, docs/data-sources.md a
 
 ## Data and evidence
 
-data/evidence.js owns curated results, sources and events. The initial 13 results are historical paper-publication snapshots, not current SOTA or a complete model comparison. Do not invent benchmark results, clinical claims or trend curves. Only connect methodologically comparable results from the same comparisonGroup. Keep model/system configuration, source, version, date basis and limitations attached to each result. Distinguish simulation, clinical study and routine deployment.
+data/evidence.js owns curated results, sources and events. The initial 13 results are historical paper-publication snapshots, not current SOTA or a complete model comparison. Do not invent benchmark results, clinical claims or trend curves. The user explicitly requested the PPT-style 1950–2035 overview on 2026-10-17: its extracted schematic positions in data/presentation-chart.js may be displayed only as an illustration, with future scenarios and the METR software context labelled. Never mix that index with benchmark scores. Only connect methodologically comparable results from the same comparisonGroup. Keep model/system configuration, source, version, date basis and limitations attached to each result. Distinguish simulation, clinical study and routine deployment.
 
 The interface must not imply that HealthBench points are percent accuracy or that MedAgentBench demonstrates safe autonomous care. The initial dataset has no independent clinical/editorial approval. The source review of 2026-10-17 is documented.
 

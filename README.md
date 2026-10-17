@@ -2,6 +2,10 @@
 
 Mobiles Dashboard von Gilles Penning für belegten KI-Fortschritt in der Medizin. Die erste Anwendung folgt [Variante A](docs/design/README.md): warmer heller Hintergrund, große Serifentitel und drei farbige Messspuren.
 
+## Hauptgrafik 1950–2035
+
+Die Startansicht orientiert sich am Zeitdiagramm der PowerPoint: gemeinsame Achse ab 1950, getrennte farbige Kurven, AlphaFold-Meilensteine und gestrichelte Szenarien bis 2035. Die Kurvenpositionen wurden aus Folie 6 extrahiert. Sie sind ausdrücklich schematisch und keine IQ- oder medizinische Leistungszeitreihe. Die METR-Kontextspur bezieht sich auf Software-Aufgaben. Originale Benchmark-Messwerte bleiben darunter in eigenen Skalen.
+
 ## Implementierter Umfang
 
 - Verlauf mit getrennten Skalen für Wissen, Assistenz und selbstständige Abläufe.

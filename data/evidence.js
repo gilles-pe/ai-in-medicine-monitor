@@ -4,6 +4,7 @@
 // This file contains aggregate results only; no benchmark questions or patient records.
 
 import { pharmaSources, pharmaMilestones } from './pharma.js';
+import { historySources } from './history.js';
 export { studies, presentationSource, pharmaApplications } from './pharma.js';
 
 export const tracks = [
@@ -188,9 +189,11 @@ export const milestones = [
 ];
 
 sourceCatalog.push(...pharmaSources);
+sourceCatalog.push(...historySources);
 milestones.push(...pharmaMilestones);
 
 export const editorialStatus = {
+  updatedAt: '2026-10-17',
   checkedAt: '2026-10-17',
   coverageNote: 'Historischer Startdatensatz aus drei Originalarbeiten: 13 Messpunkte. Keine vollständige Marktübersicht und keine Behauptung zum aktuellen Spitzenstand. Jede Spur enthält bislang nur eine Publikationsausgabe; daraus entsteht kein Zeittrend.',
   updateNote: 'Quellen am 17.10.2026 geprüft. Noch keine automatische Aktualisierung und keine unabhängige fachliche Freigabe. Neue Werte benötigen Quellen- und Methodikprüfung; fehlende Daten bleiben leer.'

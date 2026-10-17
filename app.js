@@ -1,16 +1,17 @@
 import { tracks, measurements, milestones, sourceCatalog, editorialStatus, studies, presentationSource, pharmaApplications } from './data/evidence.js';
 import { filterStudies } from './lib/studies.js';
+import { renderOverview, visibleHistory } from './lib/overview.js';
 import { filterMeasurements, latestByModel, groupComparable, frontierPoints, formatDate, escapeHtml } from './lib/selectors.js';
 
 const $ = selector => document.querySelector(selector);
 const e = escapeHtml;
 const today = new Date().toISOString().slice(0, 10);
-const startDate = '2025-01-01';
-const endDate = today < startDate ? startDate : today;
-const startTime = Date.parse(startDate + 'T00:00:00Z');
-const endTime = Date.parse(endDate + 'T00:00:00Z');
-const monthCount = Math.max(0, (Number(endDate.slice(0, 4)) - 2025) * 12 + Number(endDate.slice(5, 7)) - 1);
-const state = { cutoff: endDate, model: '', view: 'verlauf', studyTopic: '', playing: false, presentation: false };
+const startDate = '1950-01-01';
+const endDate = '2035-12-31';
+const startTime = Date.parse('2025-01-01T00:00:00Z');
+const endTime = Date.parse(today + 'T00:00:00Z');
+const yearCount = 85;
+const state = { cutoff: today, model: '', view: 'verlauf', studyTopic: '', playing: false, presentation: false };
 let playTimer = null;
 const content = $('#content');
 const dialog = $('#detail-dialog');
@@ -97,7 +98,7 @@ function renderStudies() {
 }
 function renderTimeline() {
   const rows = visibleRows();
-  content.innerHTML = '<div class="section-title"><h2>Fortschritt über die Zeit</h2><p>' + rows.length + ' belegte Messpunkte · Stand bis ' + e(formatDate(state.cutoff)) + '</p></div><div class="context-note"><span class="note-symbol" aria-hidden="true">◇</span><p>Historischer Startdatensatz. Die Punkte stammen aus drei veröffentlichten Testständen. Lücken bleiben sichtbar; eine Verlaufslinie entsteht erst mit weiteren vergleichbaren Messungen. Kein aktuelles Gesamtranking.</p></div>' + tracks.map((track, index) => renderTrack(track, index, rows)).join('') + '<div class="chart-axis"><span>Jan 2025</span><span>2026</span><span>' + e(monthFormat.format(new Date(endDate + 'T00:00:00Z'))) + '</span></div>' + renderEvents() + '<button class="change-card" type="button" id="changes-button"><strong>Was hat sich verändert? <span aria-hidden="true">↗</span></strong><span>13 Messpunkte als Ausgangsbasis. Quellen und Grenzen dieser Ausgabe.</span></button>';
+  content.innerHTML = renderOverview(state.cutoff, today) + '<details class="benchmark-details" open><summary>Messwerte & Benchmarks <span>' + rows.length + ' veröffentlichte Punkte</span></summary><div class="section-title"><h2>Die gemessenen Fähigkeiten</h2><p>Getrennte Skalen und Testbedingungen</p></div><p class="view-intro">Diese Ergebnisse sind Originalmesswerte. Die schematische Hauptgrafik verwendet einen eigenen illustrativen Index. Der Modellfilter gilt für die Messwerte.</p>' + tracks.map((track, index) => renderTrack(track, index, rows)).join('') + '<div class="chart-axis"><span>Jan 2025</span><span>2026</span><span>' + e(monthFormat.format(new Date(today + 'T00:00:00Z'))) + '</span></div></details><details class="milestone-details"><summary>Studien und Meilensteine im Detail</summary>' + renderEvents() + '</details>';
 }
 
 function renderApplications() {
@@ -146,9 +147,9 @@ function setView(view, focus = false) {
 }
 function syncControls() {
   $('#cutoff-date').value = state.cutoff;
-  const months = (Number(state.cutoff.slice(0,4)) - 2025) * 12 + Number(state.cutoff.slice(5,7)) - 1;
-  $('#time-slider').value = String(Math.max(0, Math.min(monthCount, months)));
-  $('#time-slider').setAttribute('aria-valuetext', monthFormat.format(new Date(state.cutoff + 'T00:00:00Z')));
+  const years = Number(state.cutoff.slice(0,4)) - 1950;
+  $('#time-slider').value = String(Math.max(0, Math.min(yearCount, years)));
+  $('#time-slider').setAttribute('aria-valuetext', state.cutoff.slice(0,4));
 }
 function setCutoff(value, userChange = true) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value) || !Number.isFinite(Date.parse(value + 'T00:00:00Z'))) { syncControls(); return; }
@@ -159,9 +160,8 @@ function setCutoff(value, userChange = true) {
   syncControls(); render();
   if (userChange) announce(visibleRows().length + ' Messpunkte bis ' + formatDate(state.cutoff));
 }
-function dateForMonth(index) {
-  const day = new Date(Date.UTC(2025, index + 1, 0)).toISOString().slice(0,10);
-  return day > endDate ? endDate : day;
+function dateForYear(index) {
+  return new Date(Date.UTC(1950 + index, 11, 31)).toISOString().slice(0,10);
 }
 function stopPlaying() {
   if (playTimer) clearInterval(playTimer);
@@ -172,16 +172,16 @@ function stopPlaying() {
 }
 function togglePlaying() {
   if (state.playing) { stopPlaying(); return; }
-  if (Number($('#time-slider').value) >= monthCount) setCutoff(startDate, false);
+  if (Number($('#time-slider').value) >= yearCount) setCutoff(startDate, false);
   state.playing = true;
   $('#play-button').textContent = 'Ⅱ';
   $('#play-button').setAttribute('aria-label','Zeitreise pausieren');
   $('#play-button').setAttribute('aria-pressed','true');
   playTimer = setInterval(() => {
     const next = Number($('#time-slider').value) + 1;
-    if (next > monthCount) { stopPlaying(); return; }
-    setCutoff(dateForMonth(next), false);
-    if (next === monthCount) stopPlaying();
+    if (next > yearCount) { stopPlaying(); return; }
+    setCutoff(dateForYear(next), false);
+    if (next === yearCount) stopPlaying();
   }, 1100);
 }
 function setPresentation(on) {
@@ -212,6 +212,15 @@ function showMilestone(id) {
   $('#detail-body').innerHTML = '<h2 class="dialog-title" id="detail-title">' + e(item.title) + '</h2><p>' + e(item.summary) + '</p>' + detailRows([['Veröffentlicht',formatDate(item.date)],['Typ','Forschungsveröffentlichung'],['Umgebung',environmentNames[item.environment] || item.environment]]) + '<p class="detail-limit">' + e(item.limitations) + '</p>' + sourceLink(source);
   dialog.showModal();
 }
+function showHistory(id) {
+  const item = visibleHistory(state.cutoff).find(event => event.id === id);
+  if (!item) return;
+  if (item.studyId) { showStudy(item.studyId); return; }
+  stopPlaying();
+  const source = sourceCatalog.find(row => row.id === item.sourceId);
+  $('#detail-body').innerHTML = '<h2 class="dialog-title" id="detail-title">' + item.year + ' · ' + e(item.label) + '</h2><span class="environment-label">Historischer Meilenstein</span><p>' + e(item.summary) + '</p>' + detailRows([['Zeitangabe','Jahr ' + item.year + ' (ohne erfundenes Tagesdatum)']]) + '<p class="detail-limit">' + e(item.limit) + '</p>' + sourceLink(source);
+  dialog.showModal();
+}
 function showStudy(id) {
   const item = visibleStudies().find(study => study.id === id) || studies.find(study => study.id === id && study.date <= state.cutoff);
   if (!item) return;
@@ -224,8 +233,9 @@ function exportSnapshot() {
   const rows = visibleRows();
   const events = visibleMilestones();
   const selectedStudies = visibleStudies();
-  const sourceIds = new Set([...rows.map(row => row.sourceId), ...events.map(item => item.sourceId), ...selectedStudies.map(item => item.sourceId)]);
-  const payload = { title:'AI in Medicine Monitor',exportedAt:new Date().toISOString(),cutoff:state.cutoff,model:state.model,studyTopic:state.studyTopic,filterNote:'Modellfilter gilt nur für Benchmark-Messpunkte; Studien nach Thema und Publikationsdatum.',measurements:rows,milestones:events,studies:selectedStudies,sourceCatalog:sourceCatalog.filter(source => sourceIds.has(source.id)),editorialStatus };
+  const historicalEvents = visibleHistory(state.cutoff);
+  const sourceIds = new Set([...rows.map(row => row.sourceId), ...events.map(item => item.sourceId), ...selectedStudies.map(item => item.sourceId), ...historicalEvents.map(item => item.sourceId)]);
+  const payload = { title:'AI in Medicine Monitor',exportedAt:new Date().toISOString(),cutoff:state.cutoff,model:state.model,studyTopic:state.studyTopic,filterNote:'Modellfilter gilt nur für Benchmark-Messpunkte; Studien nach Thema und Publikationsdatum.',measurements:rows,milestones:events,studies:selectedStudies,historicalEvents,presentationNote:'Hauptgrafik: schematische PPT-Illustration, keine gemessenen IQ-Werte oder medizinischen Autonomiezeiten.',sourceCatalog:sourceCatalog.filter(source => sourceIds.has(source.id)),editorialStatus };
   const url = URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));
   const link = document.createElement('a');
   link.href = url; link.download = 'ai-in-medicine-monitor-' + state.cutoff + '.json';
@@ -235,15 +245,15 @@ function exportSnapshot() {
 }
 
 $('#cutoff-date').max = endDate;
-$('#time-slider').max = String(monthCount);
-$('#range-end').textContent = monthFormat.format(new Date(endDate + 'T00:00:00Z'));
-$('#editorial-check').textContent = 'Quellen geprüft am ' + formatDate(editorialStatus.checkedAt) + ' · Startdatensatz';
+$('#time-slider').max = String(yearCount);
+$('#range-end').textContent = '2035';
+$('#editorial-check').textContent = 'Letztes Update: ' + formatDate(editorialStatus.updatedAt);
 const modelNames = [...new Set(measurements.map(row => row.model))].sort((a,b) => a.localeCompare(b));
 $('#model-filter').innerHTML = '<option value="">Alle Modelle</option>' + modelNames.map(model => '<option value="' + e(model) + '">' + e(model) + '</option>').join('');
 $('#model-filter').addEventListener('change',event => { state.model = event.target.value; stopPlaying(); render(); announce(visibleRows().length + ' Messpunkte für ' + (state.model || 'alle Modelle')); });
 $('#cutoff-date').addEventListener('change',event => setCutoff(event.target.value));
-$('#time-slider').addEventListener('input',event => setCutoff(dateForMonth(Number(event.target.value))));
-$('#today-button').addEventListener('click',() => setCutoff(endDate));
+$('#time-slider').addEventListener('input',event => setCutoff(dateForYear(Number(event.target.value))));
+$('#today-button').addEventListener('click',() => setCutoff(today));
 $('#play-button').addEventListener('click',togglePlaying);
 $('#present-button').addEventListener('click',() => setPresentation(!state.presentation));
 $('#close-dialog').addEventListener('click',() => dialog.close());
@@ -261,6 +271,8 @@ document.querySelectorAll('[data-view]').forEach((button,index,buttons) => {
   });
 });
 content.addEventListener('click',event => {
+  const history = event.target.closest('[data-history-id]');
+  if (history) { showHistory(history.dataset.historyId); return; }
   const topic = event.target.closest('[data-study-topic]');
   if (topic) { state.studyTopic = topic.dataset.studyTopic; renderStudies(); content.querySelector('[data-study-topic="' + state.studyTopic + '"]').focus(); announce(visibleStudies().length + ' Studien- und Kontexteinträge'); return; }
   const study = event.target.closest('[data-study-id]');

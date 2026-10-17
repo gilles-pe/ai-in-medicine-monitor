@@ -13,21 +13,17 @@
 <a class="skip-link" href="#content">Zum Inhalt</a>
 <div class="shell">
   <header class="masthead">
-    <a class="brand" href="#verlauf" aria-label="AI in Medicine Monitor - Start"><span class="brand-mark" aria-hidden="true">m<span>·</span></span><span>GILLES PENNING<br><small>AI IN MEDICINE MONITOR</small></span></a>
+    <a class="brand" href="#verlauf" aria-label="AI in Medicine Monitor - Start"><span>GILLES PENNING<br><small>AI IN MEDICINE MONITOR</small></span></a>
     <div class="header-actions"><button id="present-button" class="button button-outline" type="button"><span aria-hidden="true">▷</span> Vortragsmodus</button></div>
   </header>
   <section class="intro" aria-labelledby="page-title">
     <div>
-      <p class="eyebrow"><span class="status-dot"></span> FORTSCHRITT MIT QUELLEN</p>
       <h1 id="page-title">AI in Medicine <em>Monitor</em></h1>
       <p class="intro-question">Wie weit sind wir?</p>
-      <p class="intro-copy">Was Modelle wissen. Wie gut sie unterstützen.<br>Welche Aufgaben sie selbstständig erledigen.</p>
+      <p class="intro-copy">Entwicklung seit 1950. Meilensteine der Medizin. Szenarien bis 2035.</p>
     </div>
     <aside class="edition-card">
-      <span class="edition-label">ERSTE AUSGABE</span>
-      <strong>Vom Test<br>zur Anwendung.</strong>
-      <p>Eine gemeinsame Zeitachse.<br>Drei unterschiedliche Maßstäbe.</p>
-      <span class="editorial-check" id="editorial-check">Quellenstand wird geladen</span>
+      <span class="editorial-check" id="editorial-check">Letztes Update: 17.10.2026</span>
     </aside>
   </section>
   <div class="page-navigation">
@@ -40,8 +36,8 @@
     <p id="nav-summary">Historische Messpunkte · offene Datenbasis</p>
   </div>
   <section id="time-controls" class="time-controls" aria-label="Betrachtungszeitpunkt und Modellfilter">
-    <div class="time-heading"><div><span class="eyebrow">ZEITREISE</span><label for="cutoff-date">Belegter Stand bis</label></div><div class="date-controls"><input type="date" id="cutoff-date" min="2025-01-01" aria-label="Belegter Stand bis"><button type="button" class="small-button" id="today-button">Heute</button></div></div>
-    <div class="slider-row"><button type="button" class="play-button" id="play-button" aria-label="Zeitreise abspielen" aria-pressed="false">▶</button><div class="slider-wrap"><label class="sr-only" for="time-slider">Betrachtungsmonat</label><input type="range" id="time-slider" min="0" max="21" step="1" value="21"><div class="slider-labels"><span>Jan 2025</span><span>2026</span><span id="range-end">Okt 2026</span></div></div><label class="model-control" for="model-filter"><span>Modell</span><select id="model-filter"><option value="">Alle Modelle</option></select></label></div>
+    <div class="time-heading"><div><span class="eyebrow">ZEITREISE</span><label for="cutoff-date">Zeitpunkt</label></div><div class="date-controls"><input type="date" id="cutoff-date" min="1950-01-01" max="2035-12-31" aria-label="Zeitpunkt"><button type="button" class="small-button" id="today-button">Heute</button></div></div>
+    <div class="slider-row"><button type="button" class="play-button" id="play-button" aria-label="Zeitreise abspielen" aria-pressed="false">▶</button><div class="slider-wrap"><label class="sr-only" for="time-slider">Betrachtungsjahr</label><input type="range" id="time-slider" min="0" max="85" step="1" value="76"><div class="slider-labels"><span>1950</span><span>2000</span><span id="range-end">2035</span></div></div><label class="model-control" for="model-filter"><span>Modell · Messwerte</span><select id="model-filter"><option value="">Alle Modelle</option></select></label></div>
   </section>
   <main id="content" role="tabpanel" aria-labelledby="tab-verlauf" tabindex="-1"><p class="loading">Die Ansicht wird geladen.</p></main>
   <div class="footer-actions"><button type="button" class="text-button" id="export-button">Daten exportieren <span aria-hidden="true">↓</span></button><button type="button" class="text-button" id="methods-button">Wie wir messen <span aria-hidden="true">↗</span></button></div>

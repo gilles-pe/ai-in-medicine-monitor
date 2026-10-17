@@ -22,6 +22,26 @@ test('opens a working overview with three evidence tracks', async ({ page }) => 
   expect(errors).toEqual([]);
 });
 
+test('PPT-style overview starts in 1950, exposes AlphaFold and uses the requested header', async ({ page }) => {
+  await expect(page.locator('.brand-mark')).toHaveCount(0);
+  await expect(page.getByText('FORTSCHRITT MIT QUELLEN', {exact:true})).toHaveCount(0);
+  await expect(page.locator('#editorial-check')).toHaveText('Letztes Update: 17.10.2026');
+  await expect(page.locator('#cutoff-date')).toHaveAttribute('min','1950-01-01');
+  await expect(page.locator('#cutoff-date')).toHaveAttribute('max','2035-12-31');
+  await expect(page.locator('.overview-scroll svg')).toBeVisible();
+  await expect(page.locator('[data-history-id="alphafold3-2024"]')).toBeVisible();
+  await page.locator('#cutoff-date').fill('2020-12-31');
+  await page.locator('#cutoff-date').press('Tab');
+  await expect(page.locator('[data-history-id="alphafold3-2024"]')).toHaveCount(0);
+  await page.locator('[data-history-id="alphafold2-2020"]').click();
+  await expect(page.locator('#detail-dialog')).toContainText('CASP14');
+  await expect(page.locator('#detail-dialog a')).toHaveAttribute('href',/deepmind.google/);
+  await page.keyboard.press('Escape');
+  await page.getByRole('button',{name:'Heute',exact:true}).click();
+  await expect(page.locator('[data-history-id="alphafold3-2024"]')).toBeVisible();
+  await expect(page.locator('.scenario-line')).toHaveCount(3);
+});
+
 test('opens a source-backed detail dialog and restores keyboard focus', async ({ page }) => {
   const trigger = pointButtons(page).first();
   const pointId = await trigger.getAttribute('data-point-id');
