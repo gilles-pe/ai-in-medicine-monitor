@@ -71,4 +71,8 @@ Der [gemeinsame Drive-Brief](https://docs.google.com/document/d/16gTQyCiOEIZr9Xn
 
 ## Hosting
 
-Der Code liegt im privaten [GitHub-Repository](https://github.com/gilles-pe/ai-in-medicine-monitor). Ein Hosting-Projekt und eine Live-URL sind noch nicht eingerichtet. Die lokale Laufzeit war nicht verfügbar. 12 Node- und 16 Desktop-/Mobil-Browserprüfungen sowie die Paketierung sind in GitHub CI bestanden. Eine manuelle visuelle Abnahme und die private Live-Bereitstellung stehen aus; siehe [Prüfstand](docs/implementation-status.md).
+Live: [AI in Medicine Monitor](https://ai-in-medicine-monitor.gillesp.chatgpt.site). Die Website wurde am 17. Oktober 2026 über Sites privat bereitgestellt; Zugriff hat zunächst nur der Eigentümer nach Anmeldung. Die erfolgreiche Bereitstellung wurde vom Hosting-Dienst bestätigt.
+
+Die Projektidentität steht in `.openai/hosting.json`. Der Anwendungscode entspricht dem in GitHub CI geprüften Stand: 12 Node- und 16 Desktop-/Mobil-Browserprüfungen sowie die Paketierung bestanden. Die zusätzliche manuelle Vorschau war wegen einer Berechtigung der Ausführungsumgebung nicht möglich; siehe [Prüfstand](docs/implementation-status.md).
+
+GitHub bleibt das Entwicklungsrepository. Die Sites-Quellversion wird über den unterstützten Veröffentlichungsprozess synchronisiert; ein GitHub-Push veröffentlicht nicht automatisch.

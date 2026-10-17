@@ -33,13 +33,26 @@ Der erste CI-Lauf hatte trotz bestandener Tests einen roten Gesamtstatus, weil G
 
 Der [korrigierte CI-Lauf](https://github.com/gilles-pe/ai-in-medicine-monitor/actions/runs/39047543934) für Commit fcfdaab246cb305e6eb9deb18e1545455e73e447 ist anschließend vollständig grün abgeschlossen. Der Anwendungscode ist gegenüber dem ersten bestandenen Testlauf unverändert.
 
+## Private Live-Bereitstellung
+
+Am 17. Oktober 2026 ausdrücklich beauftragt und erfolgreich abgeschlossen.
+
+- URL: https://ai-in-medicine-monitor.gillesp.chatgpt.site
+- Zugriff: zunächst nur Eigentümer nach Anmeldung.
+- Site: appgprj_6ad39d7f6b508191ae06d99968c42699
+- Bereitstellung: appgdep_6ad39de047e08191b808ae8f2c6fe7ca
+- Gespeicherte Version: appgprj_6ad39d7f6b508191ae06d99968c42699~appgver_802e8700b818819183275f4f0cee30c8
+- Veröffentlichter Sites-Quellcommit: 3a35abe347a9917715d393219615e75a222c2875
+- Herkunft des Anwendungscodes: GitHub-Commit b4716fa339b9effae017f7b37c8dd86cc91e8a79; alle 26 Textdateien wurden beim Übernehmen anhand ihrer Git-Blob-Hashes geprüft. Die Hosting-Konfiguration kam hinzu.
+
+Das statische Paket wurde lokal erfolgreich gebaut, die Quelle über den Sites-Prozess übertragen und die Bereitstellung mit Status `succeeded` und der oben genannten URL bestätigt. Zugangsdaten sind nicht im Repository gespeichert.
+
 ## Verbleibende Grenzen
 
-Die lokale Ausführungsumgebung war nicht verfügbar. Eine manuelle visuelle Abnahme gegen Variante A und eine private Live-Bereitstellung stehen aus. Das Bestehen der Interaktionstests ist keine pixelgenaue Designabnahme. Es gibt noch keine Live-URL.
+Die zusätzliche manuelle Vorschau konnte nicht starten: `bwrap: Can't mount proc on /newroot/proc: Operation not permitted`. Dies ist eine Einschränkung der Vorschauumgebung. Es wurde kein Ersatzserver gestartet und keine erfolgreiche visuelle Abnahme behauptet. Die zuvor bestandenen echten Desktop-/Mobil-Interaktionstests bleiben für den unveränderten Anwendungscode gültig. Eine pixelgenaue Abnahme gegen Variante A steht aus.
 
 ## Nächste Arbeit
 
-1. Browserdarstellung manuell gegen Variante A abnehmen.
-2. Private Online-Bereitstellung über den unterstützten Hosting-Prozess durchführen, sobald eine Ausführungsumgebung verfügbar ist.
-3. Weitere vergleichbare Messstände und klinische Evidenz fachlich kuratieren.
-4. Erst nach definiertem Prüf- und Freigabeprozess eine wöchentliche Datenaktualisierung einrichten.
+1. Gestaltung manuell gegen Variante A abnehmen, sobald die Vorschau wieder verfügbar ist.
+2. Weitere vergleichbare Messstände und klinische Evidenz fachlich kuratieren.
+3. Erst nach definiertem Prüf- und Freigabeprozess eine wöchentliche Datenaktualisierung einrichten.
