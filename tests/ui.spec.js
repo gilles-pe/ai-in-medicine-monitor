@@ -1,0 +1,141 @@
+import { test, expect } from '@playwright/test';
+
+const pointButtons = (page) => page.locator('[data-point-id]:visible');
+
+test.beforeEach(async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-10-17T12:00:00Z') });
+  await page.goto('/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(/AI\s+in\s+Medicine\s+Monitor/);
+});
+
+test('opens a working overview with three evidence tracks', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.reload();
+  await expect(page.getByRole('tab', { name: 'Verlauf', exact: true })).toHaveAttribute('aria-selected', 'true');
+  for (const track of ['knowledge', 'assistance', 'autonomy']) {
+    await expect(page.locator(`[data-track="${track}"]`)).toBeVisible();
+  }
+  await expect(pointButtons(page).first()).toBeVisible();
+  await expect(page.locator('#time-slider')).toHaveAttribute('min', '0');
+  expect(Number(await page.locator('#time-slider').getAttribute('max'))).toBeGreaterThan(0);
+  expect(errors).toEqual([]);
+});
+
+test('opens a source-backed detail dialog and restores keyboard focus', async ({ page }) => {
+  const trigger = pointButtons(page).first();
+  const pointId = await trigger.getAttribute('data-point-id');
+  await trigger.click();
+  const dialog = page.locator('#detail-dialog');
+  await expect(dialog).toBeVisible();
+  const original = dialog.getByRole('link', { name: 'Originalquelle öffnen', exact: true });
+  await expect(original).toHaveAttribute('href', /^https:\/\//);
+  await dialog.getByRole('button', { name: 'Schließen', exact: true }).click();
+  await expect(dialog).not.toBeVisible();
+  await expect(page.locator(`[data-point-id="${pointId}"]`)).toBeFocused();
+  await page.locator(`[data-point-id="${pointId}"]`).click();
+  await expect(dialog).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(dialog).not.toBeVisible();
+});
+
+test('date cutoff hides future evidence and Heute restores it', async ({ page }) => {
+  const initialCount = await pointButtons(page).count();
+  expect(initialCount).toBeGreaterThan(0);
+  await page.locator('#cutoff-date').fill('2025-01-01');
+  await page.locator('#cutoff-date').press('Tab');
+  await expect(pointButtons(page)).toHaveCount(0);
+  for (const track of ['knowledge', 'assistance', 'autonomy']) {
+    await expect(page.locator(`[data-track="${track}"]`)).toContainText(/keine|noch kein/i);
+  }
+  await page.getByRole('button', { name: 'Heute', exact: true }).click();
+  await expect(pointButtons(page)).toHaveCount(initialCount);
+});
+
+test('model filter reduces displayed measurements and can be reset', async ({ page }) => {
+  const allCount = await pointButtons(page).count();
+  const select = page.locator('#model-filter');
+  const allValue = await select.inputValue();
+  const modelValue = await select.locator('option').evaluateAll(
+    (options, initial) => options.find((option) => !option.disabled && option.value !== initial)?.value,
+    allValue,
+  );
+  expect(modelValue).toBeTruthy();
+  await select.selectOption(modelValue);
+  await expect.poll(() => pointButtons(page).count()).toBeLessThan(allCount);
+  expect(await pointButtons(page).count()).toBeGreaterThan(0);
+  await select.selectOption(allValue);
+  await expect(pointButtons(page)).toHaveCount(allCount);
+});
+
+test('tab navigation exposes applications and source links', async ({ page }) => {
+  await page.getByRole('tab', { name: 'Anwendungen', exact: true }).click();
+  await expect(page).toHaveURL(/#anwendungen$/);
+  await expect(page.getByRole('tab', { name: 'Anwendungen', exact: true })).toHaveAttribute('aria-selected', 'true');
+  await expect(page.locator('#content')).toBeFocused();
+  await expect(page.locator('#content')).not.toBeEmpty();
+
+  await page.getByRole('tab', { name: 'Quellen', exact: true }).click();
+  await expect(page).toHaveURL(/#quellen$/);
+  await expect(page.getByRole('tab', { name: 'Quellen', exact: true })).toHaveAttribute('aria-selected', 'true');
+  await expect(page.locator('#content')).toBeFocused();
+  const sourceLinks = page.locator('#content').getByRole('link', { name: 'Originalquelle öffnen', exact: true });
+  expect(await sourceLinks.count()).toBeGreaterThan(0);
+  for (const link of await sourceLinks.all()) {
+    await expect(link).toHaveAttribute('href', /^https:\/\//);
+  }
+
+  await page.getByRole('tab', { name: 'Verlauf', exact: true }).click();
+  await expect(page).toHaveURL(/#verlauf$/);
+  await expect(page.locator('[data-track="knowledge"]')).toBeVisible();
+});
+
+test('presentation mode can be entered and exited with Escape', async ({ page }) => {
+  await page.getByRole('button', { name: 'Vortragsmodus', exact: true }).click();
+  await expect(page.locator('body')).toHaveClass(/presentation-mode/);
+  await expect(page.getByRole('button', { name: 'Vortrag beenden', exact: true })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('body')).not.toHaveClass(/presentation-mode/);
+  await expect(page.getByRole('button', { name: 'Vortragsmodus', exact: true })).toBeVisible();
+});
+
+test('exports the selected model as a readable JSON snapshot', async ({ page }) => {
+  const select = page.locator('#model-filter');
+  const allValue = await select.inputValue();
+  const modelValue = await select.locator('option').evaluateAll(
+    (options, initial) => options.find((option) => !option.disabled && option.value !== initial)?.value,
+    allValue,
+  );
+  expect(modelValue).toBeTruthy();
+  await select.selectOption(modelValue);
+  await expect(pointButtons(page).first()).toBeVisible();
+  const cutoff = await page.locator('#cutoff-date').inputValue();
+  const downloadPromise = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Daten exportieren', exact: true }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toMatch(/^ai-in-medicine-monitor-\d{4}-\d{2}-\d{2}\.json$/);
+  expect(await download.failure()).toBeNull();
+  const stream = await download.createReadStream();
+  expect(stream).not.toBeNull();
+  let content = '';
+  for await (const chunk of stream) content += chunk.toString();
+  const snapshot = JSON.parse(content);
+  expect(snapshot.title).toBe('AI in Medicine Monitor');
+  expect(snapshot.model).toBe(modelValue);
+  expect(snapshot.cutoff).toBe(cutoff);
+  expect(Array.isArray(snapshot.measurements)).toBe(true);
+  expect(snapshot.measurements.length).toBeGreaterThan(0);
+  expect(snapshot.measurements.every((row) => row.model === modelValue && row.date <= cutoff)).toBe(true);
+  expect(Array.isArray(snapshot.sourceCatalog)).toBe(true);
+});
+
+test('every view fits the viewport without horizontal scrolling', async ({ page }) => {
+  for (const name of ['Verlauf', 'Anwendungen', 'Quellen']) {
+    await page.getByRole('tab', { name, exact: true }).click();
+    await expect(page.locator('#content')).toBeVisible();
+    const overflow = await page.evaluate(
+      () => Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) - window.innerWidth,
+    );
+    expect(overflow, `${name} overflows horizontally`).toBeLessThanOrEqual(1);
+  }
+});

@@ -1,5 +1,13 @@
 # Nächste Schritte
 
+## Implementiert
+
+- [x] Responsive Oberfläche im Stil von Variante A.
+- [x] Drei Spuren mit historischen Messpunkten und getrennten Einheiten.
+- [x] Datum, Modellfilter, Zeitreise und Quellendetails.
+- [x] Anwendungs- und Quellenansicht, Vortragsmodus und JSON-Export.
+- [x] Node- und Browserprüfungen sowie CI-Workflow vorbereitet.
+
 ## Erledigt
 
 - [x] Originalbild der Variante A als visuelle Referenz hinterlegt.
@@ -22,10 +30,12 @@
 
 ## Spätere Umsetzung
 
-- [ ] Technischen Stack und Hosting wählen.
-- [ ] Mobile Ansicht und Vortragsansicht entwerfen und umsetzen.
+- [x] Technischen Stack wählen: Browser-ES-Module und CSS ohne Laufzeitpakete.
+- [ ] Hosting einrichten.
+- [x] Mobile Ansicht und Vortragsansicht implementieren.
+- [ ] Laufzeit-/Browserprüfung auswerten; manuelle visuelle Abnahme.
 - [ ] Datenimport und Quellenanzeige umsetzen.
 - [ ] Wöchentliche Aktualisierung einrichten.
 - [ ] Online veröffentlichen.
 
-Umsetzung, Veröffentlichung und Automatisierung sind noch nicht beauftragt. Das Planungsprojekt liegt privat auf GitHub; das Dashboard selbst ist noch nicht online.
+Die Programmierung ist beauftragt und im Repository umgesetzt. Der aktuelle Prüf- und Hostingstatus steht in [Umsetzungsstand](implementation-status.md). Die lokale Laufzeit war nicht verfügbar; eine öffentliche Website und wiederkehrende Quellenaktualisierung sind nicht eingerichtet.

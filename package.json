@@ -1,0 +1,20 @@
+{
+  "name": "ai-in-medicine-monitor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Source-backed mobile dashboard for AI in medicine",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "python3 -m http.server 4173 --bind 127.0.0.1",
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.js",
+    "test:ui": "playwright test",
+    "test:all": "npm test && npm run test:ui"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2"
+  }
+}

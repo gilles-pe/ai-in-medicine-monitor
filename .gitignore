@@ -1,21 +1,17 @@
-# Dependencies and build output
 node_modules/
-.next/
 dist/
 build/
 coverage/
-.venv/
-__pycache__/
-*.py[cod]
-
-# Credentials and local settings
+playwright-report/
+test-results/
 .env
 .env.*
 !.env.example
+.venv/
+__pycache__/
+*.py[cod]
 *.pem
 *.key
-
-# OS and editor files
 .DS_Store
 Thumbs.db
 .vscode/

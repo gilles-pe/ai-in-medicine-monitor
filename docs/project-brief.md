@@ -12,13 +12,13 @@ Eine mobile, perspektivisch wöchentlich aktualisierte Übersicht des belegten K
 - Privates Git-Projekt angelegt; die angefügte Übergabe unter dem neuen Namen befolgen.
 - Bevorzugte Gestaltung: Variante A, hell mit Petrol und klarer Typografie. Das Originalbild ist als [visuelle Referenz](design/README.md) hinterlegt.
 - Autonomie als eigene Entwicklungsspur.
-- Zunächst Planung; die Repository-Anlage ist noch kein Auftrag zum Bau oder zur Veröffentlichung.
+- Am 17. Oktober 2026 Programmierung ausdrücklich beauftragt, einschließlich sinnvoller Subagenten. Die erste Anwendung ist nun im Repository implementiert; der Laufzeit-/Hostingstatus steht in [Umsetzungsstand](implementation-status.md).
 
 ## Geprüfter Planungsvorschlag
 
 Die Originalquellen zu MedXpertQA, HealthBench Professional und MedAgentBench wurden am 17. Oktober 2026 geprüft. Empfohlene Metriken, Vergleichsregeln und Grenzen stehen im [Datenquellenplan](data-sources.md). Die drei Quellen bilden zunächst Sprachmodelle und klinische Agenten ab; sie vermessen nicht sämtliche Bereiche der Medizin.
 
-Quellenprüfung ist keine Reproduktion. Es gibt noch keine freigegebene Ergebnisserie. Vollständige aktuelle Modellabdeckung, eingefrorene Evaluationsversionen und reproduzierbarer Zugriff sind weiter zu prüfen. Ein [Registerentwurf](evidence-register.md) liegt vor; ein gemeinsames Drive-Register ist noch nicht eingerichtet.
+Quellenprüfung ist keine Reproduktion. Ein historischer Startdatensatz mit 13 aggregierten Ergebnissen ist für die erste Oberfläche hinterlegt. Er ist noch nicht unabhängig fachlich freigegeben. Vollständige aktuelle Modellabdeckung, eingefrorene Evaluationsversionen und reproduzierbarer Zugriff sind weiter zu prüfen. Ein [Registerentwurf](evidence-register.md) und die Datei data/evidence.js liegen vor; ein gemeinsames Drive-Register ist noch nicht eingerichtet.
 
 Vorgeschlagen sind Messpunkte für Modellversionen, getrennte Entwicklungsspuren und ein Streifen für Meilensteine. Forschung und Medikamentenentwicklung können eine zusätzliche Ereignisspur erhalten.
 

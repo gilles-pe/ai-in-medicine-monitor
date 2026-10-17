@@ -2,20 +2,26 @@
 
 ## Scope
 
-This repository currently holds planning documents only. The user authorized creating the Git project and chose the name AI in Medicine Monitor on 2026-10-17. Building the dashboard, publishing it, and scheduling updates remain future work.
+On 2026-10-17 the user authorized implementing the dashboard and using smart subagents. The repository now contains the first dependency-free static application plus planning and source documents. Recurring medical-data updates remain unconfigured.
 
 ## Project context
 
-Read README.md, docs/project-brief.md, docs/decisions.md and docs/data-sources.md before changes. The active handover is docs/ai-in-medicine-monitor-handover.md. Preserve the preferred visual direction (Variant A: light background, petrol, clear typography) and the separate autonomy track. The original reference image is docs/design/reference-variant-a.jpg. Read docs/design/README.md before design work. The image is a schematic visual reference, not benchmark data; the active project title is AI in Medicine Monitor.
+Read README.md, docs/project-brief.md, docs/decisions.md, docs/data-sources.md and docs/implementation-status.md before changes. The active handover is docs/ai-in-medicine-monitor-handover.md. Its original planning-only limitation was superseded by the user's explicit implementation request. Preserve the visual direction described in docs/design/README.md and the separate autonomy track. The original image at docs/design/reference-variant-a.jpg is schematic, never numeric evidence.
 
-## Evidence
+## Data and evidence
 
-Separate confirmed decisions, proposals and open questions. Do not invent benchmark results, curves or clinical claims. The benchmark primary sources were reviewed on 2026-10-17; see docs/data-sources.md and docs/source-review-2026-10-17.md. No benchmark has been rerun and no numerical result series has been approved. The shortlist remains a proposal. Keep benchmark version, model/system configuration, measurement date and source with every future result. Connect only methodologically comparable results; distinguish simulation, clinical study and routine deployment.
+data/evidence.js owns curated results, sources and events. The initial 13 results are historical paper-publication snapshots, not current SOTA or a complete model comparison. Do not invent benchmark results, clinical claims or trend curves. Only connect methodologically comparable results from the same comparisonGroup. Keep model/system configuration, source, version, date basis and limitations attached to each result. Distinguish simulation, clinical study and routine deployment.
+
+The interface must not imply that HealthBench points are percent accuracy or that MedAgentBench demonstrates safe autonomous care. The initial dataset has no independent clinical/editorial approval. The source review of 2026-10-17 is documented.
+
+## Development
+
+Vanilla browser ES modules and CSS. No runtime dependencies. npm test runs Node builtin tests; npm run test:ui runs Playwright; npm run build packages dist/. Code CI is not a medical-data update automation. Do not expose secrets, patient records or benchmark questions. Preserve privacy when selecting hosting.
 
 ## Coordination
 
-The Drive brief linked in README.md is shared with Substack / TED. The dated handover is a source snapshot; newer explicit user decisions override it. Before further planning, read the current shared brief and reconcile changes explicitly. No automatic project or Drive synchronization exists.
+The shared Drive brief is linked in README.md. Read its current version before materially changing goals. No automatic synchronization of chats, Drive or repository data exists. New explicit user instructions override older planning snapshots.
 
-## Implementation
+## Validation limits
 
-No framework or hosting provider has been selected. Keep credentials out of Git. Changes should be scoped to the user's current request.
+The implementation was created through GitHub because the local environment was unavailable. Never infer successful browser QA, CI or publication from code being committed. Read the latest workflow result and implementation-status.md before claiming them.

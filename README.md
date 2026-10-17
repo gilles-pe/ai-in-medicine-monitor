@@ -1,48 +1,74 @@
 # AI in Medicine Monitor
 
-Ein mobiles Dashboard von Gilles Penning, das den belegten Fortschritt von KI in der Medizin sichtbar machen soll. Es begleitet Vorträge, TEDs, Substack und Social Posts.
+Mobiles Dashboard von Gilles Penning für belegten KI-Fortschritt in der Medizin. Die erste Anwendung folgt [Variante A](docs/design/README.md): warmer heller Hintergrund, große Serifentitel und drei farbige Messspuren.
 
-## Status
+## Implementierter Umfang
 
-Planung. Git-Projekt am 17. Oktober 2026 angelegt. Übergabe übernommen, Originalquellen geprüft und Datenquellenplan ausgearbeitet. Noch keine Anwendung, Website oder automatische Aktualisierung.
+- Verlauf mit getrennten Skalen für Wissen, Assistenz und selbstständige Abläufe.
+- Zeitregler mit Abspielfunktion und exaktem Datumsfilter.
+- Modellfilter und Detaildialog mit Quelle, Testkonfiguration und Grenzen.
+- Forschungsereignisse, Anwendungsübersicht und Quellenregister.
+- Reduzierter Vortragsmodus; Escape beendet den Modus.
+- JSON-Export des gefilterten Stands einschließlich Quellen.
+- Responsive Ansicht, Tastaturnavigation, native Dialoge und Unterstützung reduzierter Bewegung.
 
-## Festgelegt
+## Datenstand
 
-- Projektname: AI in Medicine Monitor
-- Repository-Name: `ai-in-medicine-monitor`
-- Gestaltung: Variante A, heller Hintergrund, Petrol, klare Typografie.
-- Autonomie erhält eine eigene Spur.
-- Ziel: mobile Ansicht und reduzierte Vortragsansicht; perspektivisch wöchentliche Aktualisierung.
+Die erste Ausgabe enthält 13 historische Messpunkte aus drei Originalarbeiten. Die Daten stehen in `data/evidence.js`, getrennt vom Darstellungs- und Filtercode.
 
-## Arbeitsvorschläge
+Die Datumswerte sind Veröffentlichungsdaten der jeweiligen Paper-Version. Pro Spur liegt bislang nur eine Ausgabe vor. Deshalb werden Punkte gezeigt, keine erfundenen Wachstumskurven. Unterschiedliche Systemkonfigurationen bleiben getrennte Vergleichsgruppen.
 
-Drei Entwicklungsspuren: medizinisches Wissen und Falllösung, Qualität medizinischer Assistenz sowie selbstständige Aufgabenerledigung. Modellversionen werden als Messpunkte, Meilensteine in einer Ereignisspur gezeigt. Benchmarks und Messgrößen sind noch auszuwählen.
+Die Quellen wurden am 17. Oktober 2026 geprüft. Diese Auswahl ist kein aktuelles Gesamtranking und noch nicht unabhängig fachlich freigegeben. Es läuft keine automatische wöchentliche Quellenaktualisierung.
 
-Messwerte werden nur bei vergleichbaren Methoden verbunden. Simulation, klinische Studie und Routineeinsatz bleiben unterscheidbar. Keine erfundenen Scores.
+## Starten
 
-## Projektunterlagen
-
-- [Visuelle Referenz: Variante A](docs/design/README.md)
-- [Aktive Übergabe mit neuem Namen](docs/ai-in-medicine-monitor-handover.md)
-- [Geprüfte Datenquellen und Messgrößen](docs/data-sources.md)
-- [Entwurf des Evidenzregisters](docs/evidence-register.md)
-- [Quellenprüfung und verbleibende Lücken](docs/source-review-2026-10-17.md)
-- [Aktueller Projektstand und offene Entscheidungen](docs/project-brief.md)
-- [Nächste Schritte](docs/roadmap.md)
-- [Entscheidungen](docs/decisions.md)
-- [Übergabe aus dem ursprünglichen Projekt](docs/sources/drive-handover-2026-10-17.md)
-
-Der gemeinsame [Projektbrief auf Google Drive](https://docs.google.com/document/d/16gTQyCiOEIZr9XnZ7nV4oHsHxHlLLYbLWlL4ovtRvu4/edit) verbindet die Planung mit Substack / TED. Die Datei im Repository ist ein datierter Snapshot. Neuere ausdrückliche Entscheidungen stehen in `docs/decisions.md`. Eine automatische Synchronisierung ist nicht eingerichtet.
-
-## Git
-
-Branch: `main`. Das Repository enthält die Planungsgrundlage.
+Die Anwendung benötigt zur Laufzeit keine Pakete, Konten oder externen Dienste. ES-Module müssen über einen Webserver geladen werden:
 
 ```bash
 git clone https://github.com/gilles-pe/ai-in-medicine-monitor.git
 cd ai-in-medicine-monitor
+python3 -m http.server 4173 --bind 127.0.0.1
 ```
 
-Für das private Repository ist ein berechtigtes GitHub-Konto erforderlich. Das ursprünglich erstellte ZIP ist ein Snapshot vor der GitHub-Anlage.
+Dann http://127.0.0.1:4173 öffnen.
 
-GitHub: https://github.com/gilles-pe/ai-in-medicine-monitor (privat). Framework, Hosting, Lizenz und Datenpipeline bleiben offen.
+## Prüfen und paketieren
+
+Node.js 22 oder neuer:
+
+```bash
+npm install
+npm test
+npx playwright install chromium
+npm run test:ui
+npm run build
+```
+
+`dist/` enthält danach ausschließlich die statische Anwendung. Die Node-Tests prüfen Datumssicherheit, Vergleichsgruppen, HTML-Escaping und Datenintegrität. Die Browserprüfungen decken die Hauptfunktionen auf Desktop und 390px Mobilbreite ab.
+
+Ein CI-Workflow führt Tests und Paketierung bei Codeänderungen aus. Der Workflow aktualisiert keine medizinischen Daten und veröffentlicht keine Website.
+
+## Struktur
+
+- `index.html`, `styles.css`, `app.js`: Oberfläche und Interaktionen.
+- `data/evidence.js`: kuratierte Messpunkte, Quellen und Ereignisse.
+- `lib/selectors.js`: pure Filter- und Vergleichslogik.
+- `tests/`: Daten-, Logik- und Browserprüfungen.
+- `scripts/build.mjs`: statisches Ausgabepaket.
+- `docs/`: Planung, Methode, Entscheidungen und visuelle Referenz.
+
+## Projektunterlagen
+
+- [Projektbrief](docs/project-brief.md)
+- [Datenquellen und Messgrößen](docs/data-sources.md)
+- [Evidenzregister-Entwurf](docs/evidence-register.md)
+- [Entscheidungen](docs/decisions.md)
+- [Umsetzungs- und Prüfstand](docs/implementation-status.md)
+- [Aktive Übergabe](docs/ai-in-medicine-monitor-handover.md)
+- [Roadmap](docs/roadmap.md)
+
+Der [gemeinsame Drive-Brief](https://docs.google.com/document/d/16gTQyCiOEIZr9XnZ7nV4oHsHxHlLLYbLWlL4ovtRvu4/edit) verbindet das Vorhaben mit Substack / TED. Eine automatische Projekt- oder Drive-Synchronisierung ist nicht eingerichtet.
+
+## Hosting
+
+Der Code liegt im privaten [GitHub-Repository](https://github.com/gilles-pe/ai-in-medicine-monitor). Ein Hosting-Projekt und eine Live-URL sind noch nicht eingerichtet. Die aktuelle Sitzung konnte keine lokale Laufzeit starten; Browserausführung und Online-Bereitstellung müssen vom verfügbaren Laufzeit-/CI-Ergebnis getrennt beurteilt werden.

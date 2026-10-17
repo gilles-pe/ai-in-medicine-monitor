@@ -75,3 +75,7 @@ Für das neue Projekt: diesen Brief als Quelle hinterlegen und den gewählten vi
 ## Ergänzte visuelle Referenz
 
 Das anschließend angefügte Originalbild von Variante A liegt unter [design/reference-variant-a.jpg](design/reference-variant-a.jpg). Die [Gestaltungsnotizen](design/README.md) verwenden den aktuellen Namen AI in Medicine Monitor. Die Kurven im Originalbild bleiben als schematische Platzhalter erkennbar.
+
+## Neuer Auftrag: Programmierung
+
+Am 17. Oktober 2026 beauftragt Gilles die Programmierung und bei Bedarf smarte Subagenten. Damit ist die ältere reine Planungsbegrenzung aufgehoben. Die ursprüngliche Übergabe bleibt als dokumentierter Ausgangspunkt erhalten; den aktuellen technischen und Prüfstand beschreibt [implementation-status.md](implementation-status.md).

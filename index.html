@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0c3540">
+  <meta name="description" content="Belegter KI-Fortschritt in der Medizin: medizinisches Wissen, Assistenz und selbstständige Abläufe. Quellen, Systeme und Grenzen in einer Ansicht.">
+  <title>AI in Medicine Monitor</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<a class="skip-link" href="#content">Zum Inhalt</a>
+<div class="shell">
+  <header class="masthead">
+    <a class="brand" href="#verlauf" aria-label="AI in Medicine Monitor - Start"><span class="brand-mark" aria-hidden="true">m<span>·</span></span><span>GILLES PENNING<br><small>AI IN MEDICINE MONITOR</small></span></a>
+    <div class="header-actions"><button id="present-button" class="button button-outline" type="button"><span aria-hidden="true">▷</span> Vortragsmodus</button></div>
+  </header>
+  <section class="intro" aria-labelledby="page-title">
+    <div>
+      <p class="eyebrow"><span class="status-dot"></span> FORTSCHRITT MIT QUELLEN</p>
+      <h1 id="page-title">AI in Medicine <em>Monitor</em></h1>
+      <p class="intro-question">Wie weit sind wir?</p>
+      <p class="intro-copy">Was Modelle wissen. Wie gut sie unterstützen.<br>Welche Aufgaben sie selbstständig erledigen.</p>
+    </div>
+    <aside class="edition-card">
+      <span class="edition-label">ERSTE AUSGABE</span>
+      <strong>Vom Test<br>zur Anwendung.</strong>
+      <p>Eine gemeinsame Zeitachse.<br>Drei unterschiedliche Maßstäbe.</p>
+      <span class="editorial-check" id="editorial-check">Quellenstand wird geladen</span>
+    </aside>
+  </section>
+  <div class="page-navigation">
+    <nav class="tabs" role="tablist" aria-label="Dashboard-Ansichten">
+      <button id="tab-verlauf" type="button" role="tab" aria-controls="content" aria-selected="true" data-view="verlauf"><span aria-hidden="true">↗</span> Verlauf</button>
+      <button id="tab-anwendungen" type="button" role="tab" aria-controls="content" aria-selected="false" tabindex="-1" data-view="anwendungen"><span aria-hidden="true">▦</span> Anwendungen</button>
+      <button id="tab-quellen" type="button" role="tab" aria-controls="content" aria-selected="false" tabindex="-1" data-view="quellen"><span aria-hidden="true">▤</span> Quellen</button>
+    </nav>
+    <p id="nav-summary">Historische Messpunkte · offene Datenbasis</p>
+  </div>
+  <section id="time-controls" class="time-controls" aria-label="Betrachtungszeitpunkt und Modellfilter">
+    <div class="time-heading"><div><span class="eyebrow">ZEITREISE</span><label for="cutoff-date">Belegter Stand bis</label></div><div class="date-controls"><input type="date" id="cutoff-date" min="2025-01-01" aria-label="Belegter Stand bis"><button type="button" class="small-button" id="today-button">Heute</button></div></div>
+    <div class="slider-row"><button type="button" class="play-button" id="play-button" aria-label="Zeitreise abspielen" aria-pressed="false">▶</button><div class="slider-wrap"><label class="sr-only" for="time-slider">Betrachtungsmonat</label><input type="range" id="time-slider" min="0" max="21" step="1" value="21"><div class="slider-labels"><span>Jan 2025</span><span>2026</span><span id="range-end">Okt 2026</span></div></div><label class="model-control" for="model-filter"><span>Modell</span><select id="model-filter"><option value="">Alle Modelle</option></select></label></div>
+  </section>
+  <main id="content" role="tabpanel" aria-labelledby="tab-verlauf" tabindex="-1"><p class="loading">Die Ansicht wird geladen.</p></main>
+  <div class="footer-actions"><button type="button" class="text-button" id="export-button">Daten exportieren <span aria-hidden="true">↓</span></button><button type="button" class="text-button" id="methods-button">Wie wir messen <span aria-hidden="true">↗</span></button></div>
+  <footer class="site-footer"><span>AI in Medicine Monitor <span class="footer-dot">·</span> Gilles Penning</span><span>Fragen stellen. Quellen öffnen. Fortschritt einordnen.</span></footer>
+</div>
+<dialog id="detail-dialog" aria-labelledby="detail-title">
+  <div class="dialog-top"><span class="eyebrow">EVIDENZ IM DETAIL</span><button class="icon-button" id="close-dialog" type="button" aria-label="Schließen">×</button></div>
+  <div id="detail-body"></div>
+</dialog>
+<p id="live-status" role="status" aria-live="polite" class="sr-only"></p>
+<noscript><p class="noscript">Bitte JavaScript aktivieren. Die Quellen und Planungsunterlagen findest du im GitHub-Projekt.</p></noscript>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
