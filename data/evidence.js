@@ -4,6 +4,7 @@
 // This file contains aggregate results only; no benchmark questions or patient records.
 
 import { pharmaSources, pharmaMilestones } from './pharma.js';
+import { pointSources } from './point-evidence.js';
 import { historySources } from './history.js';
 export { studies, presentationSource, pharmaApplications } from './pharma.js';
 
@@ -189,7 +190,7 @@ export const milestones = [
 ];
 
 sourceCatalog.push(...pharmaSources);
-sourceCatalog.push(...historySources);
+sourceCatalog.push(...historySources, ...pointSources);
 milestones.push(...pharmaMilestones);
 
 export const editorialStatus = {

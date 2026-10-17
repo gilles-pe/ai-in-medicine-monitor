@@ -1,4 +1,5 @@
 // Schematic positions extracted from the supplied PPT, slide 6.
+// Display horizon capped at 2030 by user request on 2026-10-17.
 // NOT measurements, IQ scores or medical task horizons.
 export const presentationSeries = [
   {
@@ -62,10 +63,6 @@ export const presentationSeries = [
       {
         "year": 2030,
         "index": 150.0
-      },
-      {
-        "year": 2035,
-        "index": 160.0
       }
     ]
   },
@@ -114,10 +111,6 @@ export const presentationSeries = [
       {
         "year": 2030,
         "index": 143.0
-      },
-      {
-        "year": 2035,
-        "index": 151.0
       }
     ]
   },
@@ -162,10 +155,6 @@ export const presentationSeries = [
       {
         "year": 2030,
         "index": 106.0
-      },
-      {
-        "year": 2035,
-        "index": 117.0
       }
     ]
   },

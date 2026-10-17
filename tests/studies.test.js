@@ -17,7 +17,7 @@ test('evidence types remain separate from benchmark scales and patient studies',
   assert.equal(studies.length, new Set(studies.map(x => x.id)).size);
   for (const study of studies) {
     assert.ok(sourceCatalog.some(source => source.id === study.sourceId));
-    assert.ok(study.findings.length && study.design && study.limitations && study.presentationSlides.length);
+    assert.ok(study.findings.length && study.design && study.limitations && Array.isArray(study.presentationSlides));
     assert.ok(!measurements.some(row => row.id === study.id));
     assert.notEqual(study.environment, 'clinical_study');
   }

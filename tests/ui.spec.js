@@ -27,7 +27,7 @@ test('PPT-style overview starts in 1950, exposes AlphaFold and uses the requeste
   await expect(page.getByText('FORTSCHRITT MIT QUELLEN', {exact:true})).toHaveCount(0);
   await expect(page.locator('#editorial-check')).toHaveText('Letztes Update: 17.10.2026');
   await expect(page.locator('#cutoff-date')).toHaveAttribute('min','1950-01-01');
-  await expect(page.locator('#cutoff-date')).toHaveAttribute('max','2035-12-31');
+  await expect(page.locator('#cutoff-date')).toHaveAttribute('max','2030-12-31');
   await expect(page.locator('.overview-scroll svg')).toBeVisible();
   const chartViewport = await page.locator('.overview-scroll').evaluate(element => ({width:element.clientWidth,left:element.scrollLeft,content:element.scrollWidth}));
   if (chartViewport.width < 600 && chartViewport.content > chartViewport.width) expect(chartViewport.left).toBeGreaterThan(0);
@@ -153,7 +153,7 @@ test('exports the selected model as a readable JSON snapshot', async ({ page }) 
 
 test('study library filters topics and publication dates and opens original evidence', async ({ page }) => {
   await page.getByRole('tab', { name:'Studien', exact:true }).click();
-  await expect(page.locator('[data-study-card]')).toHaveCount(5);
+  await expect(page.locator('[data-study-card]')).toHaveCount(6);
   await expect(page.locator('#model-filter')).not.toBeVisible();
   await page.getByRole('button', { name:'Pharmaforschung', exact:true }).click();
   await expect(page.locator('[data-study-card]')).toHaveCount(3);
@@ -176,7 +176,7 @@ test('Pharma applications link to evidence and JSON retains study context', asyn
   await page.getByRole('button', { name:'Pharma-Studien und Befunde öffnen', exact:true }).click();
   await expect(page).toHaveURL(/#studien$/);
   await page.getByRole('button', { name:'Klinische Simulation', exact:true }).click();
-  await expect(page.locator('[data-study-card]')).toHaveCount(1);
+  await expect(page.locator('[data-study-card]')).toHaveCount(2);
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('button', { name:'Daten exportieren', exact:true }).click();
   const download = await downloadPromise;
@@ -185,7 +185,7 @@ test('Pharma applications link to evidence and JSON retains study context', asyn
   for await (const chunk of stream) text += chunk.toString();
   const snapshot = JSON.parse(text);
   expect(snapshot.studyTopic).toBe('simulation');
-  expect(snapshot.studies.map(x => x.id)).toEqual(['residencyrl']);
+  expect(snapshot.studies.map(x => x.id)).toEqual(['residencyrl','mira']);
   expect(snapshot.studies[0].environment).toBe('simulation');
   expect(snapshot.sourceCatalog.some(x => x.id === snapshot.studies[0].sourceId)).toBe(true);
 });
@@ -199,4 +199,28 @@ test('every view fits the viewport without horizontal scrolling', async ({ page 
     );
     expect(overflow, `${name} overflows horizontally`).toBeLessThanOrEqual(1);
   }
+});
+
+
+test('overview sources and benchmark thumbnails work with keyboard and date filtering', async ({ page }) => {
+  await expect(page.locator('#time-slider')).toHaveAttribute('max','80');
+  await expect(page.locator('.overview-axis-title').first()).toHaveText('IQ zur Verdeutlichung');
+  await expect(page.locator('.overview-point')).toHaveCount(24);
+  await page.locator('.point-index summary').click();
+  const trigger = page.locator('.point-index-list [data-overview-point="mira-2026"]');
+  await trigger.focus();
+  await trigger.press('Enter');
+  await expect(page.locator('#detail-dialog')).toContainText('MIRA');
+  await expect(page.locator('#detail-dialog')).toContainText('vertikale Position ist schematisch');
+  await expect(page.locator('#detail-dialog a')).toHaveAttribute('href','https://www.nature.com/articles/s41586-026-10675-5');
+  await page.keyboard.press('Escape');
+  await expect(trigger).toBeFocused();
+  await expect(page.locator('.chart-thumbnail')).toHaveCount(3);
+  await page.locator('.benchmark-details summary').click();
+  await page.locator('.chart-thumbnail[data-track-link="assistance"]').click();
+  await expect(page.locator('[data-track="assistance"]')).toBeVisible();
+  await expect(page.locator('.benchmark-details')).toHaveAttribute('open','');
+  await page.locator('#cutoff-date').fill('2026-06-16');
+  await page.locator('#cutoff-date').press('Tab');
+  await expect(page.locator('.overview-point[data-overview-point="mira-2026"]')).toHaveCount(0);
 });

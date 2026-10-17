@@ -1,16 +1,16 @@
 import { tracks, measurements, milestones, sourceCatalog, editorialStatus, studies, presentationSource, pharmaApplications } from './data/evidence.js';
 import { filterStudies } from './lib/studies.js';
-import { renderOverview, visibleHistory } from './lib/overview.js';
+import { renderOverview, visibleHistory, visibleAnchors } from './lib/overview.js';
 import { filterMeasurements, latestByModel, groupComparable, frontierPoints, formatDate, escapeHtml } from './lib/selectors.js';
 
 const $ = selector => document.querySelector(selector);
 const e = escapeHtml;
 const today = new Date().toISOString().slice(0, 10);
 const startDate = '1950-01-01';
-const endDate = '2035-12-31';
+const endDate = '2030-12-31';
 const startTime = Date.parse('2025-01-01T00:00:00Z');
 const endTime = Date.parse(today + 'T00:00:00Z');
-const yearCount = 85;
+const yearCount = 80;
 const state = { cutoff: today, model: '', view: 'verlauf', studyTopic: '', playing: false, presentation: false };
 let playTimer = null;
 const content = $('#content');
@@ -96,12 +96,20 @@ function renderStudies() {
   const topics = [['','Alle'],['pharma','Pharmaforschung'],['simulation','Klinische Simulation'],['learning','Lernen & Kompetenz']];
   content.innerHTML = '<div class="section-title"><h2>Pharma & Studien</h2><p>' + items.length + ' Einträge bis ' + e(formatDate(state.cutoff)) + '</p></div><p class="view-intro">Aus dem Pharma-Vortrag: Originalarbeiten mit Befunden und Grenzen. Strukturbiologie, Simulation und Bildungsforschung beantworten unterschiedliche Fragen.</p><div class="study-filters" role="group" aria-label="Studienthema">' + topics.map(([id,label]) => '<button type="button" data-study-topic="' + id + '" aria-pressed="' + (state.studyTopic === id) + '">' + e(label) + '</button>').join('') + '</div><div class="study-grid">' + (items.length ? items.map(item => '<article class="study-card" data-study-card="' + e(item.id) + '"><div class="source-meta"><span>' + e(item.type) + '</span><time datetime="' + e(item.date) + '">' + e(formatDate(item.date)) + '</time></div><h3>' + e(item.title) + '</h3><p>' + e(item.summary) + '</p><p class="study-boundary">' + e(item.limitations) + '</p><button type="button" class="text-button" data-study-id="' + e(item.id) + '">Befunde & Studiendesign ↗</button></article>').join('') : '<p class="view-intro">Für Thema und Zeitpunkt sind keine Einträge hinterlegt.</p>') + '</div><p class="study-origin">Ausgangspunkt: <a href="' + e(safeUrl(presentationSource.url)) + '" target="_blank" rel="noopener noreferrer">Pharma-Präsentation auf Google Drive ↗</a>. Die verlinkten Originalarbeiten tragen die Evidenz.</p>';
 }
+function renderThumbnails(rows) {
+  return '<section class="benchmark-previews" aria-labelledby="preview-title"><div class="section-title"><h2 id="preview-title">Messwerte im Detail</h2><p>Vorschau wählen und Grafik öffnen</p></div><div class="thumbnail-grid">' + tracks.map(track => {
+    const selected = rows.filter(row => row.trackId === track.id);
+    const dots = selected.map(row => '<circle cx="' + (18 + (xPosition(row.date)-40)/930*244) + '" cy="' + (82-row.score*.64) + '" r="4"/>').join('');
+    return '<button type="button" class="chart-thumbnail" data-track-link="' + track.id + '" style="--track:' + track.color + '"><span class="thumbnail-title">' + e(track.label) + '<span aria-hidden="true">↗</span></span><svg viewBox="0 0 280 100" aria-hidden="true"><path d="M18 18H262 M18 50H262 M18 82H262" class="thumbnail-gridline"/><g fill="currentColor">' + dots + '</g></svg><span class="thumbnail-meta">' + selected.length + ' Messpunkte · ' + e(track.unit === '%' ? 'Prozent' : 'Rubrikpunkte') + '</span></button>';
+  }).join('') + '</div></section>';
+}
+
 function renderTimeline() {
   const rows = visibleRows();
-  content.innerHTML = renderOverview(state.cutoff, today) + '<details class="benchmark-details" open><summary>Messwerte & Benchmarks <span>' + rows.length + ' veröffentlichte Punkte</span></summary><div class="section-title"><h2>Die gemessenen Fähigkeiten</h2><p>Getrennte Skalen und Testbedingungen</p></div><p class="view-intro">Diese Ergebnisse sind Originalmesswerte. Die schematische Hauptgrafik verwendet einen eigenen illustrativen Index. Der Modellfilter gilt für die Messwerte.</p>' + tracks.map((track, index) => renderTrack(track, index, rows)).join('') + '<div class="chart-axis"><span>Jan 2025</span><span>2026</span><span>' + e(monthFormat.format(new Date(today + 'T00:00:00Z'))) + '</span></div></details><details class="milestone-details"><summary>Studien und Meilensteine im Detail</summary>' + renderEvents() + '</details>';
+  content.innerHTML = renderOverview(state.cutoff, today) + renderThumbnails(rows) + '<details class="benchmark-details" open><summary>Messwerte & Benchmarks <span>' + rows.length + ' veröffentlichte Punkte</span></summary><div class="section-title"><h2>Die gemessenen Fähigkeiten</h2><p>Getrennte Skalen und Testbedingungen</p></div><p class="view-intro">Diese Ergebnisse sind Originalmesswerte. Die schematische Hauptgrafik verwendet einen eigenen illustrativen Index. Der Modellfilter gilt für die Messwerte.</p>' + tracks.map((track, index) => renderTrack(track, index, rows)).join('') + '<div class="chart-axis"><span>Jan 2025</span><span>2026</span><span>' + e(monthFormat.format(new Date(today + 'T00:00:00Z'))) + '</span></div></details><details class="milestone-details"><summary>Studien und Meilensteine im Detail</summary>' + renderEvents() + '</details>';
   const overviewScroll = content.querySelector('.overview-scroll');
   if (matchMedia('(max-width: 600px)').matches) {
-    const cursor = (68 + (Number(state.cutoff.slice(0,4)) - 1950) / 85 * 1030) / 1200 * overviewScroll.scrollWidth;
+    const cursor = (68 + (Number(state.cutoff.slice(0,4)) - 1950) / 80 * 1030) / 1200 * overviewScroll.scrollWidth;
     overviewScroll.scrollLeft = Math.max(0, cursor - overviewScroll.clientWidth * 0.65);
   }
 }
@@ -125,7 +133,7 @@ function renderSources() {
     ['Vergleichbare Bedingungen','Datensatz, Testsplit, Werkzeugzugriff, Budget und Bewerter gehören zum Ergebnis. Unterschiedliche Konfigurationen bleiben getrennt.'],
     ['Sichtbare Unsicherheit','Fehlende Intervalle und kleine Rangunterschiede rechtfertigen keine Aussage über eine gesicherte Überlegenheit. Grenzen stehen bei jedem Messpunkt.'],
     ['Quellenprüfung statt Live-Versprechen','Der Quellenstand ist ein Prüfdatum. Es läuft noch keine automatische wöchentliche Aktualisierung.'],
-    ['Historischer Ausgangspunkt','13 Benchmark-Messpunkte aus drei Arbeiten plus fünf Studien- und Kontexteinträge. Die Auswahl bildet weder alle Anbieter noch den aktuellen Spitzenstand ab.']
+    ['Historischer Ausgangspunkt','13 Benchmark-Messpunkte aus drei Arbeiten plus ergänzenden Studien und belegten historischen Meilensteinen. Die Auswahl bildet weder alle Anbieter noch den aktuellen Spitzenstand ab.']
   ];
   content.innerHTML = '<div class="section-title"><h2>Die Quellen hinter den Punkten</h2><p>Originalarbeiten · zuletzt geprüft ' + e(formatDate(editorialStatus.checkedAt)) + '</p></div><p class="view-intro">Jeder Messpunkt führt zur Originalquelle, zur Testkonfiguration und zu den Grenzen seiner Aussage. Der Startdatensatz ist redaktionell vorbereitet und noch nicht unabhängig fachlich freigegeben.</p><div class="source-list">' + sourceCatalog.map(source => '<article class="source-card"><div class="source-meta"><span>' + e(source.kind) + '</span><span>Geprüft ' + e(formatDate(source.checkedAt)) + '</span></div><h3>' + e(source.title) + '</h3><p>' + e(source.publisher) + ' <span aria-hidden="true">·</span> ' + e(source.version) + '</p><p>' + e(source.summary) + '</p>' + sourceLink(source) + '</article>').join('') + '</div><section class="source-section" id="methodology"><h3>Wie wir messen</h3><div class="method-grid">' + methods.map(item => '<section><h4>' + item[0] + '</h4><p>' + item[1] + '</p></section>').join('') + '</div></section>';
 }
@@ -200,6 +208,14 @@ function setPresentation(on) {
 function detailRows(pairs) {
   return '<dl class="detail-list">' + pairs.map(([name,value]) => '<div><dt>' + e(name) + '</dt><dd>' + e(value) + '</dd></div>').join('') + '</dl>';
 }
+function showOverviewPoint(id) {
+  const point = visibleAnchors(state.cutoff).find(item => item.id === id);
+  if (!point) return;
+  stopPlaying();
+  const source = sourceCatalog.find(item => item.id === point.sourceId);
+  $('#detail-body').innerHTML = '<h2 class="dialog-title" id="detail-title">' + e(point.label) + '</h2><span class="environment-label">' + e(point.kind) + '</span><p>' + e(point.finding) + '</p>' + detailRows([['Zeitangabe',point.date ? formatDate(point.date) : 'Jahr ' + point.year],['Fundstelle',point.locator],['Darstellung','IQ zur Verdeutlichung. Die Quelle belegt den Meilenstein; die vertikale Position ist schematisch.']]) + '<p class="detail-limit">' + e(point.limitations) + '</p>' + sourceLink(source);
+  dialog.showModal();
+}
 function showMeasurement(id) {
   const row = visibleRows().find(item => item.id === id);
   if (!row) return;
@@ -231,7 +247,7 @@ function showStudy(id) {
   if (!item) return;
   stopPlaying();
   const source = sourceCatalog.find(row => row.id === item.sourceId);
-  $('#detail-body').innerHTML = '<h2 class="dialog-title" id="detail-title">' + e(item.title) + '</h2><span class="environment-label">' + e(item.type) + '</span>' + detailRows([['Veröffentlicht',formatDate(item.date)],['Design',item.design],...item.findings,['Bedeutung',item.relevance],['Fundstelle',item.sourceDetail],['Im Vortrag','Folie ' + item.presentationSlides.join(', ')]]) + '<p class="detail-limit">' + e(item.limitations) + '</p>' + sourceLink(source);
+  $('#detail-body').innerHTML = '<h2 class="dialog-title" id="detail-title">' + e(item.title) + '</h2><span class="environment-label">' + e(item.type) + '</span>' + detailRows([['Veröffentlicht',formatDate(item.date)],['Design',item.design],...item.findings,['Bedeutung',item.relevance],['Fundstelle',item.sourceDetail],['Herkunft',item.presentationSlides.length ? 'Vortrag, Folie ' + item.presentationSlides.join(', ') : 'Vom Nutzer ergänzte Originalarbeit']]) + '<p class="detail-limit">' + e(item.limitations) + '</p>' + sourceLink(source);
   dialog.showModal();
 }
 function exportSnapshot() {
@@ -239,8 +255,9 @@ function exportSnapshot() {
   const events = visibleMilestones();
   const selectedStudies = visibleStudies();
   const historicalEvents = visibleHistory(state.cutoff);
-  const sourceIds = new Set([...rows.map(row => row.sourceId), ...events.map(item => item.sourceId), ...selectedStudies.map(item => item.sourceId), ...historicalEvents.map(item => item.sourceId)]);
-  const payload = { title:'AI in Medicine Monitor',exportedAt:new Date().toISOString(),cutoff:state.cutoff,model:state.model,studyTopic:state.studyTopic,filterNote:'Modellfilter gilt nur für Benchmark-Messpunkte; Studien nach Thema und Publikationsdatum.',measurements:rows,milestones:events,studies:selectedStudies,historicalEvents,presentationNote:'Hauptgrafik: schematische PPT-Illustration, keine gemessenen IQ-Werte oder medizinischen Autonomiezeiten.',sourceCatalog:sourceCatalog.filter(source => sourceIds.has(source.id)),editorialStatus };
+  const overviewPoints = visibleAnchors(state.cutoff);
+  const sourceIds = new Set([...rows.map(row => row.sourceId), ...events.map(item => item.sourceId), ...selectedStudies.map(item => item.sourceId), ...historicalEvents.map(item => item.sourceId), ...overviewPoints.map(item => item.sourceId)]);
+  const payload = { title:'AI in Medicine Monitor',exportedAt:new Date().toISOString(),cutoff:state.cutoff,model:state.model,studyTopic:state.studyTopic,filterNote:'Modellfilter gilt nur für Benchmark-Messpunkte; Studien nach Thema und Publikationsdatum.',measurements:rows,milestones:events,studies:selectedStudies,historicalEvents,overviewPoints,presentationNote:'Hauptgrafik: schematische PPT-Illustration, keine gemessenen IQ-Werte oder medizinischen Autonomiezeiten.',sourceCatalog:sourceCatalog.filter(source => sourceIds.has(source.id)),editorialStatus };
   const url = URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));
   const link = document.createElement('a');
   link.href = url; link.download = 'ai-in-medicine-monitor-' + state.cutoff + '.json';
@@ -251,7 +268,7 @@ function exportSnapshot() {
 
 $('#cutoff-date').max = endDate;
 $('#time-slider').max = String(yearCount);
-$('#range-end').textContent = '2035';
+$('#range-end').textContent = '2030';
 $('#editorial-check').textContent = 'Letztes Update: ' + formatDate(editorialStatus.updatedAt);
 const modelNames = [...new Set(measurements.map(row => row.model))].sort((a,b) => a.localeCompare(b));
 $('#model-filter').innerHTML = '<option value="">Alle Modelle</option>' + modelNames.map(model => '<option value="' + e(model) + '">' + e(model) + '</option>').join('');
@@ -275,7 +292,13 @@ document.querySelectorAll('[data-view]').forEach((button,index,buttons) => {
     if (next !== undefined) { event.preventDefault(); setView(buttons[next].dataset.view); buttons[next].focus(); }
   });
 });
+content.addEventListener('keydown',event => {
+  const point = event.target.closest('[data-overview-point]');
+  if (point && ['Enter',' '].includes(event.key)) { event.preventDefault(); showOverviewPoint(point.dataset.overviewPoint); }
+});
 content.addEventListener('click',event => {
+  const overviewPoint = event.target.closest('[data-overview-point]');
+  if (overviewPoint) { showOverviewPoint(overviewPoint.dataset.overviewPoint); return; }
   const history = event.target.closest('[data-history-id]');
   if (history) { showHistory(history.dataset.historyId); return; }
   const topic = event.target.closest('[data-study-topic]');
@@ -288,7 +311,7 @@ content.addEventListener('click',event => {
   const milestone = event.target.closest('[data-event-id]');
   if (milestone) { showMilestone(milestone.dataset.eventId); return; }
   const track = event.target.closest('[data-track-link]');
-  if (track) { const id = track.dataset.trackLink; setView('verlauf',true); $('[data-track="' + id + '"]').scrollIntoView({block:'start'}); return; }
+  if (track) { const id = track.dataset.trackLink; setView('verlauf',true); $('.benchmark-details').open = true; $('[data-track="' + id + '"]').scrollIntoView({block:'start'}); return; }
   if (event.target.closest('#changes-button')) { setView('quellen',true); announce('Erste Ausgabe: 13 historische Messpunkte aus drei Originalarbeiten.'); }
 });
 document.addEventListener('keydown',event => { if (event.key === 'Escape') { if (dialog.open) return; stopPlaying(); if (state.presentation) setPresentation(false); } });

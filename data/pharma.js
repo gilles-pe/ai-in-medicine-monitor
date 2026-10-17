@@ -72,7 +72,33 @@ export const studies = [
     relevance: 'Anstoß für die Gestaltung von Schulungen im pharmazeutischen Team.',
     limitations: 'Keine medizinische Population, kein Langzeit-Deskilling-Test. Regelverstöße belasten den unmittelbaren Test; Übertragbarkeit auf Fachpersonal offen.',
     sourceDetail: 'Contractor & Reyes, arXiv v2; Tabellen 4, 7 und A3.', presentationSlides: [22]
-  }
+  },
+{
+  "id": "mira",
+  "topic": "simulation",
+  "topicLabel": "Klinische Simulation",
+  "title": "MIRA: Diagnostik und Aktionen in der virtuellen Patientenakte",
+  "date": "2026-06-17",
+  "sourceId": "mira-2026-source",
+  "type": "Peer-reviewed · klinische Simulation",
+  "environment": "simulation",
+  "design": "Retrospektive MIMIC-IV-Fälle in einer EHR-Sandbox; 574 Fälle, acht Diagnosen.",
+  "summary": "Ein Agent verbindet simulierte Anamnese, Diagnostik und strukturierte EHR-Aktionen.",
+  "findings": [
+    [
+      "Diagnostik im direkten Vergleich",
+      "87,8 % gegenüber 78,1 % bei vier Fachärzten, n=311 gepaarte Fälle; exakter McNemar-p=0,000287."
+    ],
+    [
+      "Gesamtdatensatz",
+      "88,9 % diagnostische Genauigkeit bei n=574."
+    ]
+  ],
+  "relevance": "Untersucht Denken und Handeln innerhalb eines kontrollierten klinischen Workflows.",
+  "limitations": "Simulierte Gespräche aus retrospektiven Akten. Keine prospektive Patientenversorgung; Generalisierung und reale Sicherheit bleiben zu prüfen.",
+  "sourceDetail": "Ferber et al., Nature 655, 1282–1291; Abb. 3a, Methods und Discussion.",
+  "presentationSlides": []
+}
 ];
 
 export const pharmaSources = [

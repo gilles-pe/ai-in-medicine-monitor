@@ -15,8 +15,4 @@ export const historyEvents = [
   {id:'residencyrl-2026',year:2026,date:'2026-08-07',label:'ResidencyRL',sourceId:'residencyrl-v1',studyId:'residencyrl'}
 ];
 
-export const presentationScenarios = [
-  {year:2030,label:'Überwachte Teilautonomie'},
-  {year:2033,label:'KI-gestützte Arzneimittel?'},
-  {year:2035,label:'Ausgewählte autonome Abläufe?'}
-];
+export const presentationScenarios = [{year:2030,label:'Überwachte Teilautonomie · Annahme aus der PPT'}];
