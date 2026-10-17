@@ -110,7 +110,7 @@ function renderApplications() {
 }
 
 function renderPharmaApplications() {
-  content.insertAdjacentHTML('beforeend','<section class="source-section"><div class="section-title"><h2>Pharma & Apotheke</h2><p>Anwendungsansätze aus dem Vortrag</p></div><p class="view-intro">Diese Ideen beschreiben mögliche Workflows. Der Nutzen der hier skizzierten Systeme wurde noch nicht nachgewiesen.</p><div class="study-grid">' + pharmaApplications.map(item => '<article class="study-card"><span class="environment-label">' + e(item.status) + '</span><h3>' + e(item.title) + '</h3><p>' + e(item.text) + '</p><p class="study-boundary">' + e(item.limit) + '</p><small>Vortrag, Folien ' + e(item.slides) + '</small></article>').join('') + '</div><button type="button" class="button button-outline studies-link" data-studies-link>Pharma-Studien und Befunde öffnen ↗</button></section>');
+  content.insertAdjacentHTML('beforeend','<section class="source-section"><div class="section-title"><h2>Pharma & Apotheke</h2><p>Anwendungsansätze aus dem Vortrag</p></div><p class="view-intro">Diese Ideen beschreiben mögliche Workflows. Der Nutzen der hier skizzierten Systeme wurde noch nicht nachgewiesen.</p><div class="study-grid">' + pharmaApplications.map(item => '<article class="study-card"><span class="environment-label">' + e(item.status) + '</span><h3>' + e(item.title) + '</h3><p>' + e(item.text) + '</p><p class="study-boundary">' + e(item.limit) + '</p><small>Vortrag, Folien ' + e(item.slides) + '</small></article>').join('') + '</div><button type="button" class="button button-outline studies-link" data-studies-link>Pharma-Studien und Befunde öffnen <span aria-hidden="true">↗</span></button></section>');
 }
 function renderSources() {
   const methods = [
