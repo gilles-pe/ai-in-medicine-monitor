@@ -3,6 +3,9 @@
 ## Erledigt
 
 - [x] Name AI in Medicine Monitor festgelegt.
+- [x] Angefügte Übergabe mit neuem Namen als aktive Quelle hinterlegt.
+- [x] Originalquellen zu den drei Benchmark-Kandidaten geprüft.
+- [x] Datenquellenplan und Registerentwurf dokumentiert.
 - [x] Git-Repository mit Branch main und erstem Commit angelegt.
 - [x] Gemeinsamen Projektbrief eingelesen und Planungsstand dokumentiert.
 - [x] Privates GitHub-Repository gilles-pe/ai-in-medicine-monitor angelegt.
@@ -10,10 +13,10 @@
 ## Als Nächstes planen
 
 - [ ] Zielpublikum und thematischen Umfang festlegen.
-- [ ] Benchmark-Kandidaten anhand von Originalquellen prüfen.
+- [ ] Benchmark-Auswahl und vorgeschlagenen ersten Themenumfang festlegen.
 - [ ] Vergleichbare historische Messwerte und Konfigurationen ermitteln.
 - [ ] Regeln für Meilensteine, Autonomie und klinische Evidenz festlegen.
-- [ ] Gemeinsames Evidenzregister und Prüfprozess abstimmen.
+- [ ] Registerentwurf und Freigabeprozess abstimmen; gemeinsames Drive-Register einrichten.
 - [ ] Originalbild der Variante A ergänzen.
 
 ## Spätere Umsetzung

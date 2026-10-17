@@ -9,14 +9,16 @@ Eine mobile, perspektivisch wöchentlich aktualisierte Übersicht des belegten K
 ## Bestätigt
 
 - Name: AI in Medicine Monitor.
-- Git-Projekt anlegen.
+- Privates Git-Projekt angelegt; die angefügte Übergabe unter dem neuen Namen befolgen.
 - Bevorzugte Gestaltung: Variante A, hell mit Petrol und klarer Typografie.
 - Autonomie als eigene Entwicklungsspur.
 - Zunächst Planung; die Repository-Anlage ist noch kein Auftrag zum Bau oder zur Veröffentlichung.
 
-## Noch zu prüfen
+## Geprüfter Planungsvorschlag
 
-Die Übergabe nennt MedXpertQA, HealthBench Professional und MedAgentBench als Kandidaten. Verfügbarkeit, historische Ergebnisse, Methodik und Eignung sind in diesem Repository noch nicht verifiziert. Es gibt noch keine freigegebene Datenbasis.
+Die Originalquellen zu MedXpertQA, HealthBench Professional und MedAgentBench wurden am 17. Oktober 2026 geprüft. Empfohlene Metriken, Vergleichsregeln und Grenzen stehen im [Datenquellenplan](data-sources.md). Die drei Quellen bilden zunächst Sprachmodelle und klinische Agenten ab; sie vermessen nicht sämtliche Bereiche der Medizin.
+
+Quellenprüfung ist keine Reproduktion. Es gibt noch keine freigegebene Ergebnisserie. Vollständige aktuelle Modellabdeckung, eingefrorene Evaluationsversionen und reproduzierbarer Zugriff sind weiter zu prüfen. Ein [Registerentwurf](evidence-register.md) liegt vor; ein gemeinsames Drive-Register ist noch nicht eingerichtet.
 
 Vorgeschlagen sind Messpunkte für Modellversionen, getrennte Entwicklungsspuren und ein Streifen für Meilensteine. Forschung und Medikamentenentwicklung können eine zusätzliche Ereignisspur erhalten.
 

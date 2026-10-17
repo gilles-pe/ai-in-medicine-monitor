@@ -4,11 +4,11 @@ Ein mobiles Dashboard von Gilles Penning, das den belegten Fortschritt von KI in
 
 ## Status
 
-Planung. Git-Projekt am 17. Oktober 2026 angelegt; noch keine Anwendung, Veröffentlichung oder automatische Aktualisierung.
+Planung. Git-Projekt am 17. Oktober 2026 angelegt. Übergabe übernommen, Originalquellen geprüft und Datenquellenplan ausgearbeitet. Noch keine Anwendung, Website oder automatische Aktualisierung.
 
 ## Festgelegt
 
-- Projektname: **AI in Medicine Monitor**
+- Projektname: AI in Medicine Monitor
 - Repository-Name: `ai-in-medicine-monitor`
 - Gestaltung: Variante A, heller Hintergrund, Petrol, klare Typografie.
 - Autonomie erhält eine eigene Spur.
@@ -22,6 +22,10 @@ Messwerte werden nur bei vergleichbaren Methoden verbunden. Simulation, klinisch
 
 ## Projektunterlagen
 
+- [Aktive Übergabe mit neuem Namen](docs/ai-in-medicine-monitor-handover.md)
+- [Geprüfte Datenquellen und Messgrößen](docs/data-sources.md)
+- [Entwurf des Evidenzregisters](docs/evidence-register.md)
+- [Quellenprüfung und verbleibende Lücken](docs/source-review-2026-10-17.md)
 - [Aktueller Projektstand und offene Entscheidungen](docs/project-brief.md)
 - [Nächste Schritte](docs/roadmap.md)
 - [Entscheidungen](docs/decisions.md)
