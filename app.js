@@ -1,4 +1,5 @@
-import { tracks, measurements, milestones, sourceCatalog, editorialStatus } from './data/evidence.js';
+import { tracks, measurements, milestones, sourceCatalog, editorialStatus, studies, presentationSource, pharmaApplications } from './data/evidence.js';
+import { filterStudies } from './lib/studies.js';
 import { filterMeasurements, latestByModel, groupComparable, frontierPoints, formatDate, escapeHtml } from './lib/selectors.js';
 
 const $ = selector => document.querySelector(selector);
@@ -9,13 +10,13 @@ const endDate = today < startDate ? startDate : today;
 const startTime = Date.parse(startDate + 'T00:00:00Z');
 const endTime = Date.parse(endDate + 'T00:00:00Z');
 const monthCount = Math.max(0, (Number(endDate.slice(0, 4)) - 2025) * 12 + Number(endDate.slice(5, 7)) - 1);
-const state = { cutoff: endDate, model: '', view: 'verlauf', playing: false, presentation: false };
+const state = { cutoff: endDate, model: '', view: 'verlauf', studyTopic: '', playing: false, presentation: false };
 let playTimer = null;
 const content = $('#content');
 const dialog = $('#detail-dialog');
 const scoreFormat = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 });
 const monthFormat = new Intl.DateTimeFormat('de-DE', { month: 'short', year: 'numeric', timeZone: 'UTC' });
-const environmentNames = { benchmark: 'Benchmark', simulation: 'Simulation', clinical_study: 'Klinische Studie', routine: 'Routineeinsatz' };
+const environmentNames = { benchmark: 'Benchmark', simulation: 'Simulation', clinical_study: 'Klinische Studie', routine: 'Routineeinsatz', structure_research:'Strukturbiologie', education_experiment:'Lernexperiment ohne Patienten', award:'Auszeichnung' };
 
 function safeUrl(value) {
   try { const url = new URL(value); return url.protocol === 'https:' ? url.href : ''; } catch { return ''; }
@@ -32,6 +33,7 @@ function visibleRows() {
   return filterMeasurements(measurements, { cutoff: state.cutoff }).filter(row => !state.model || row.model === state.model);
 }
 function visibleMilestones() { return milestones.filter(item => item.date <= state.cutoff).sort((a, b) => a.date.localeCompare(b.date)); }
+function visibleStudies() { return filterStudies(studies, { cutoff:state.cutoff, topic:state.studyTopic }); }
 function systemLabel(row) { return row.trackId === 'assistance' ? row.system : row.model; }
 function announce(message) { $('#live-status').textContent = message; }
 function xPosition(date) { return 40 + 930 * Math.max(0, Math.min(1, (Date.parse(date + 'T00:00:00Z') - startTime) / Math.max(1, endTime - startTime))); }
@@ -86,7 +88,12 @@ function renderTrack(track, index, allRows) {
 
 function renderEvents() {
   const events = visibleMilestones();
-  return '<section class="milestones-section"><div class="section-title"><h2>Meilensteine mit Kontext</h2><p>Forschungsveröffentlichungen · keine Versorgungsergebnisse</p></div><div class="events">' + (events.length ? events.map(item => '<article class="event"><time datetime="' + e(item.date) + '">' + e(formatDate(item.date)) + '</time><h3>' + e(item.title) + '</h3><p>' + e(item.summary) + '</p><button type="button" data-event-id="' + e(item.id) + '">Einordnen & Quelle ↗</button></article>').join('') : '<p class="view-intro">Bis zu diesem Zeitpunkt sind noch keine Ereignisse hinterlegt.</p>') + '</div></section>';
+  return '<section class="milestones-section"><div class="section-title"><h2>Meilensteine mit Kontext</h2><p>Forschung, Lernexperiment und Auszeichnung · jeweils gekennzeichnet</p></div><p class="view-intro">Die Benchmark-Achse beginnt 2025. Frühere Pharma-Meilensteine stehen hier mit ihrem tatsächlichen Datum.</p><div class="events">' + (events.length ? events.map(item => '<article class="event"><time datetime="' + e(item.date) + '">' + e(formatDate(item.date)) + '</time><span class="event-kind">' + e(item.type || environmentNames[item.environment]) + '</span><h3>' + e(item.title) + '</h3><p>' + e(item.summary) + '</p><button type="button" data-event-id="' + e(item.id) + '">Einordnen & Quelle ↗</button></article>').join('') : '<p class="view-intro">Bis zu diesem Zeitpunkt sind noch keine Ereignisse hinterlegt.</p>') + '</div></section>';
+}
+function renderStudies() {
+  const items = visibleStudies();
+  const topics = [['','Alle'],['pharma','Pharmaforschung'],['simulation','Klinische Simulation'],['learning','Lernen & Kompetenz']];
+  content.innerHTML = '<div class="section-title"><h2>Pharma & Studien</h2><p>' + items.length + ' Einträge bis ' + e(formatDate(state.cutoff)) + '</p></div><p class="view-intro">Aus dem Pharma-Vortrag: Originalarbeiten mit Befunden und Grenzen. Strukturbiologie, Simulation und Bildungsforschung beantworten unterschiedliche Fragen.</p><div class="study-filters" role="group" aria-label="Studienthema">' + topics.map(([id,label]) => '<button type="button" data-study-topic="' + id + '" aria-pressed="' + (state.studyTopic === id) + '">' + e(label) + '</button>').join('') + '</div><div class="study-grid">' + (items.length ? items.map(item => '<article class="study-card" data-study-card="' + e(item.id) + '"><div class="source-meta"><span>' + e(item.type) + '</span><time datetime="' + e(item.date) + '">' + e(formatDate(item.date)) + '</time></div><h3>' + e(item.title) + '</h3><p>' + e(item.summary) + '</p><p class="study-boundary">' + e(item.limitations) + '</p><button type="button" class="text-button" data-study-id="' + e(item.id) + '">Befunde & Studiendesign ↗</button></article>').join('') : '<p class="view-intro">Für Thema und Zeitpunkt sind keine Einträge hinterlegt.</p>') + '</div><p class="study-origin">Ausgangspunkt: <a href="' + e(safeUrl(presentationSource.url)) + '" target="_blank" rel="noopener noreferrer">Pharma-Präsentation auf Google Drive ↗</a>. Die verlinkten Originalarbeiten tragen die Evidenz.</p>';
 }
 function renderTimeline() {
   const rows = visibleRows();
@@ -99,9 +106,12 @@ function renderApplications() {
     { number:'02',title:'Klinische Assistenz',label:'Antwortbewertung',text:'Wie hilfreich sind Antworten bei Beratung, Dokumentation und Recherche? Hier zählt das System einschließlich seiner Werkzeuge.',trackId:'assistance' },
     { number:'03',title:'Selbstständige Abläufe',label:'Simulation',text:'Kann ein Agent Informationen aus einer Patientenakte abrufen und Aufgaben korrekt vorbereiten? Diese Spur bleibt ausdrücklich ein virtueller EHR-Test.',trackId:'autonomy' }
   ];
-  content.innerHTML = '<div class="section-title"><h2>Vom Test zur Anwendung</h2><p>Fähigkeit, Evidenz und Einsatz getrennt betrachten</p></div><p class="view-intro">Die erste Ausgabe konzentriert sich auf Sprachmodelle und klinische Agenten. Bilddiagnostik, Robotik und Arzneimittelforschung sind damit noch nicht umfassend abgebildet.</p><div class="application-grid">' + cards.map(card => '<article class="application-card"><span class="application-number">' + card.number + '</span><span class="environment-label">' + card.label + '</span><h3>' + card.title + '</h3><p>' + card.text + '</p><button class="text-button" type="button" data-track-link="' + card.trackId + '">Zur Messspur ↗</button></article>').join('') + '</div><section class="source-section"><h3>Vom Durchbruch zur Versorgung</h3><p class="view-intro">Ein vereinfachter Weg am Beispiel Arzneimittelforschung. Die Stufen sind kein universelles Zulassungsschema für medizinische KI.</p><div class="journey">' + [['01','Entdeckung','Neue Ansätze und Hypothesen.'],['02','Validierung','Nachweise in definierten Modellen und Tests.'],['03','Studien','Wirksamkeit und Sicherheit im vorgesehenen Kontext prüfen.'],['04','Versorgung','Dokumentierter Einsatz und Ergebnisse im Alltag.']].map(item => '<article class="journey-step"><span>' + item[0] + '</span><h3>' + item[1] + '</h3><p>' + item[2] + '</p></article>').join('') + '</div><div class="context-note"><span aria-hidden="true">◇</span><p>Ein gutes Testergebnis allein belegt weder Patientennutzen noch sicheren Routineeinsatz. Die erste Ausgabe enthält Forschungsereignisse; klinische Studien und Anwendungsergebnisse kommen als eigene, geprüfte Einträge hinzu.</p></div></section>';
+  content.innerHTML = '<div class="section-title"><h2>Vom Test zur Anwendung</h2><p>Fähigkeit, Evidenz und Einsatz getrennt betrachten</p></div><p class="view-intro">Die drei Messspuren zeigen Sprachmodelle und klinische Agenten. Pharmaforschung und Lernen ergänzen sie als getrennte Studien- und Kontexteinträge.</p><div class="application-grid">' + cards.map(card => '<article class="application-card"><span class="application-number">' + card.number + '</span><span class="environment-label">' + card.label + '</span><h3>' + card.title + '</h3><p>' + card.text + '</p><button class="text-button" type="button" data-track-link="' + card.trackId + '">Zur Messspur ↗</button></article>').join('') + '</div><section class="source-section"><h3>Vom Durchbruch zur Versorgung</h3><p class="view-intro">Ein vereinfachter Weg am Beispiel Arzneimittelforschung. Die Stufen sind kein universelles Zulassungsschema für medizinische KI.</p><div class="journey">' + [['01','Entdeckung','Neue Ansätze und Hypothesen.'],['02','Validierung','Nachweise in definierten Modellen und Tests.'],['03','Studien','Wirksamkeit und Sicherheit im vorgesehenen Kontext prüfen.'],['04','Versorgung','Dokumentierter Einsatz und Ergebnisse im Alltag.']].map(item => '<article class="journey-step"><span>' + item[0] + '</span><h3>' + item[1] + '</h3><p>' + item[2] + '</p></article>').join('') + '</div><div class="context-note"><span aria-hidden="true">◇</span><p>Ein gutes Testergebnis allein belegt weder Patientennutzen noch sicheren Routineeinsatz. Die ergänzten Arbeiten untersuchen Strukturen, Simulationen und Lernen. Prospektive Versorgungsstudien werden jeweils gesondert gekennzeichnet.</p></div></section>';
 }
 
+function renderPharmaApplications() {
+  content.insertAdjacentHTML('beforeend','<section class="source-section"><div class="section-title"><h2>Pharma & Apotheke</h2><p>Anwendungsansätze aus dem Vortrag</p></div><p class="view-intro">Diese Ideen beschreiben mögliche Workflows. Der Nutzen der hier skizzierten Systeme wurde noch nicht nachgewiesen.</p><div class="study-grid">' + pharmaApplications.map(item => '<article class="study-card"><span class="environment-label">' + e(item.status) + '</span><h3>' + e(item.title) + '</h3><p>' + e(item.text) + '</p><p class="study-boundary">' + e(item.limit) + '</p><small>Vortrag, Folien ' + e(item.slides) + '</small></article>').join('') + '</div><button type="button" class="button button-outline studies-link" data-studies-link>Pharma-Studien und Befunde öffnen ↗</button></section>');
+}
 function renderSources() {
   const methods = [
     ['Drei getrennte Maßstäbe','Wissen, Assistenz und Aufgabenerledigung haben eigene Skalen. Aus Prozenten und Punkten entsteht kein gemeinsamer Medizin-IQ.'],
@@ -109,24 +119,25 @@ function renderSources() {
     ['Vergleichbare Bedingungen','Datensatz, Testsplit, Werkzeugzugriff, Budget und Bewerter gehören zum Ergebnis. Unterschiedliche Konfigurationen bleiben getrennt.'],
     ['Sichtbare Unsicherheit','Fehlende Intervalle und kleine Rangunterschiede rechtfertigen keine Aussage über eine gesicherte Überlegenheit. Grenzen stehen bei jedem Messpunkt.'],
     ['Quellenprüfung statt Live-Versprechen','Der Quellenstand ist ein Prüfdatum. Es läuft noch keine automatische wöchentliche Aktualisierung.'],
-    ['Historischer Ausgangspunkt','13 Messpunkte aus drei Originalarbeiten. Die Auswahl bildet weder alle Anbieter noch den aktuellen Spitzenstand ab.']
+    ['Historischer Ausgangspunkt','13 Benchmark-Messpunkte aus drei Arbeiten plus fünf Studien- und Kontexteinträge. Die Auswahl bildet weder alle Anbieter noch den aktuellen Spitzenstand ab.']
   ];
   content.innerHTML = '<div class="section-title"><h2>Die Quellen hinter den Punkten</h2><p>Originalarbeiten · zuletzt geprüft ' + e(formatDate(editorialStatus.checkedAt)) + '</p></div><p class="view-intro">Jeder Messpunkt führt zur Originalquelle, zur Testkonfiguration und zu den Grenzen seiner Aussage. Der Startdatensatz ist redaktionell vorbereitet und noch nicht unabhängig fachlich freigegeben.</p><div class="source-list">' + sourceCatalog.map(source => '<article class="source-card"><div class="source-meta"><span>' + e(source.kind) + '</span><span>Geprüft ' + e(formatDate(source.checkedAt)) + '</span></div><h3>' + e(source.title) + '</h3><p>' + e(source.publisher) + ' <span aria-hidden="true">·</span> ' + e(source.version) + '</p><p>' + e(source.summary) + '</p>' + sourceLink(source) + '</article>').join('') + '</div><section class="source-section" id="methodology"><h3>Wie wir messen</h3><div class="method-grid">' + methods.map(item => '<section><h4>' + item[0] + '</h4><p>' + item[1] + '</p></section>').join('') + '</div></section>';
 }
 function render() {
   document.title = 'AI in Medicine Monitor';
-  $('#time-controls').hidden = state.view !== 'verlauf';
+  $('#time-controls').hidden = !['verlauf','studien'].includes(state.view);
+  $('.model-control').hidden = state.view === 'studien';
   content.setAttribute('aria-labelledby', 'tab-' + state.view);
   document.querySelectorAll('[data-view]').forEach(button => {
     const active = button.dataset.view === state.view;
     button.setAttribute('aria-selected', String(active)); button.tabIndex = active ? 0 : -1;
   });
-  if (state.view === 'quellen') renderSources(); else if (state.view === 'anwendungen') renderApplications(); else renderTimeline();
-  $('#nav-summary').textContent = '13 Messpunkte · Quellenprüfung ' + formatDate(editorialStatus.checkedAt);
+  if (state.view === 'quellen') renderSources(); else if (state.view === 'anwendungen') { renderApplications(); renderPharmaApplications(); } else if (state.view === 'studien') renderStudies(); else renderTimeline();
+  $('#nav-summary').textContent = '13 Messpunkte · ' + studies.length + ' Studien & Kontext';
 }
 
 function setView(view, focus = false) {
-  if (!['verlauf','anwendungen','quellen'].includes(view)) view = 'verlauf';
+  if (!['verlauf','anwendungen','studien','quellen'].includes(view)) view = 'verlauf';
   stopPlaying();
   state.view = view;
   if (location.hash !== '#' + view) history.replaceState(null, '', '#' + view);
@@ -196,15 +207,25 @@ function showMilestone(id) {
   stopPlaying();
   const item = visibleMilestones().find(event => event.id === id);
   if (!item) return;
+  if (item.studyId) { showStudy(item.studyId); return; }
   const source = sourceCatalog.find(row => row.id === item.sourceId);
   $('#detail-body').innerHTML = '<h2 class="dialog-title" id="detail-title">' + e(item.title) + '</h2><p>' + e(item.summary) + '</p>' + detailRows([['Veröffentlicht',formatDate(item.date)],['Typ','Forschungsveröffentlichung'],['Umgebung',environmentNames[item.environment] || item.environment]]) + '<p class="detail-limit">' + e(item.limitations) + '</p>' + sourceLink(source);
+  dialog.showModal();
+}
+function showStudy(id) {
+  const item = visibleStudies().find(study => study.id === id) || studies.find(study => study.id === id && study.date <= state.cutoff);
+  if (!item) return;
+  stopPlaying();
+  const source = sourceCatalog.find(row => row.id === item.sourceId);
+  $('#detail-body').innerHTML = '<h2 class="dialog-title" id="detail-title">' + e(item.title) + '</h2><span class="environment-label">' + e(item.type) + '</span>' + detailRows([['Veröffentlicht',formatDate(item.date)],['Design',item.design],...item.findings,['Bedeutung',item.relevance],['Fundstelle',item.sourceDetail],['Im Vortrag','Folie ' + item.presentationSlides.join(', ')]]) + '<p class="detail-limit">' + e(item.limitations) + '</p>' + sourceLink(source);
   dialog.showModal();
 }
 function exportSnapshot() {
   const rows = visibleRows();
   const events = visibleMilestones();
-  const sourceIds = new Set([...rows.map(row => row.sourceId), ...events.map(item => item.sourceId)]);
-  const payload = { title:'AI in Medicine Monitor',exportedAt:new Date().toISOString(),cutoff:state.cutoff,model:state.model,measurements:rows,milestones:events,sourceCatalog:sourceCatalog.filter(source => sourceIds.has(source.id)),editorialStatus };
+  const selectedStudies = visibleStudies();
+  const sourceIds = new Set([...rows.map(row => row.sourceId), ...events.map(item => item.sourceId), ...selectedStudies.map(item => item.sourceId)]);
+  const payload = { title:'AI in Medicine Monitor',exportedAt:new Date().toISOString(),cutoff:state.cutoff,model:state.model,studyTopic:state.studyTopic,filterNote:'Modellfilter gilt nur für Benchmark-Messpunkte; Studien nach Thema und Publikationsdatum.',measurements:rows,milestones:events,studies:selectedStudies,sourceCatalog:sourceCatalog.filter(source => sourceIds.has(source.id)),editorialStatus };
   const url = URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));
   const link = document.createElement('a');
   link.href = url; link.download = 'ai-in-medicine-monitor-' + state.cutoff + '.json';
@@ -240,6 +261,11 @@ document.querySelectorAll('[data-view]').forEach((button,index,buttons) => {
   });
 });
 content.addEventListener('click',event => {
+  const topic = event.target.closest('[data-study-topic]');
+  if (topic) { state.studyTopic = topic.dataset.studyTopic; renderStudies(); content.querySelector('[data-study-topic="' + state.studyTopic + '"]').focus(); announce(visibleStudies().length + ' Studien- und Kontexteinträge'); return; }
+  const study = event.target.closest('[data-study-id]');
+  if (study) { showStudy(study.dataset.studyId); return; }
+  if (event.target.closest('[data-studies-link]')) { setView('studien',true); return; }
   const point = event.target.closest('[data-point-id]');
   if (point) { showMeasurement(point.dataset.pointId); return; }
   const milestone = event.target.closest('[data-event-id]');

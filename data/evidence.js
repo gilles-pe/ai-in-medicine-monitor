@@ -3,6 +3,9 @@
 // Dates are publication dates, never inferred model-release/evaluation dates.
 // This file contains aggregate results only; no benchmark questions or patient records.
 
+import { pharmaSources, pharmaMilestones } from './pharma.js';
+export { studies, presentationSource, pharmaApplications } from './pharma.js';
+
 export const tracks = [
   {
     id: 'knowledge',
@@ -183,6 +186,9 @@ export const milestones = [
     limitations: 'Publikationsereignis mit Anbieterbeteiligung. Keine prospektive Versorgungsstudie.'
   }
 ];
+
+sourceCatalog.push(...pharmaSources);
+milestones.push(...pharmaMilestones);
 
 export const editorialStatus = {
   checkedAt: '2026-10-17',

@@ -129,8 +129,47 @@ test('exports the selected model as a readable JSON snapshot', async ({ page }) 
   expect(Array.isArray(snapshot.sourceCatalog)).toBe(true);
 });
 
+test('study library filters topics and publication dates and opens original evidence', async ({ page }) => {
+  await page.getByRole('tab', { name:'Studien', exact:true }).click();
+  await expect(page.locator('[data-study-card]')).toHaveCount(5);
+  await expect(page.locator('#model-filter')).not.toBeVisible();
+  await page.getByRole('button', { name:'Pharmaforschung', exact:true }).click();
+  await expect(page.locator('[data-study-card]')).toHaveCount(3);
+  await page.locator('[data-study-card="alphafold2"] button').click();
+  await expect(page.locator('#detail-dialog')).toContainText('0,96 Å');
+  await expect(page.locator('#detail-dialog a')).toHaveAttribute('href','https://www.nature.com/articles/s41586-021-03819-2');
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name:'Lernen & Kompetenz', exact:true }).click();
+  await expect(page.locator('[data-study-card]')).toHaveCount(1);
+  await page.locator('#cutoff-date').fill('2026-10-03');
+  await page.locator('#cutoff-date').press('Tab');
+  await expect(page.locator('[data-study-card]')).toHaveCount(0);
+  await page.getByRole('button', { name:'Heute', exact:true }).click();
+  await expect(page.locator('[data-study-card="learning-impact"]')).toBeVisible();
+});
+
+test('Pharma applications link to evidence and JSON retains study context', async ({ page }) => {
+  await page.getByRole('tab', { name:'Anwendungen', exact:true }).click();
+  await expect(page.getByRole('heading', { name:'Pharma & Apotheke', exact:true })).toBeVisible();
+  await page.getByRole('button', { name:'Pharma-Studien und Befunde öffnen', exact:true }).click();
+  await expect(page).toHaveURL(/#studien$/);
+  await page.getByRole('button', { name:'Klinische Simulation', exact:true }).click();
+  await expect(page.locator('[data-study-card]')).toHaveCount(1);
+  const downloadPromise = page.waitForEvent('download');
+  await page.getByRole('button', { name:'Daten exportieren', exact:true }).click();
+  const download = await downloadPromise;
+  const stream = await download.createReadStream();
+  let text = '';
+  for await (const chunk of stream) text += chunk.toString();
+  const snapshot = JSON.parse(text);
+  expect(snapshot.studyTopic).toBe('simulation');
+  expect(snapshot.studies.map(x => x.id)).toEqual(['residencyrl']);
+  expect(snapshot.studies[0].environment).toBe('simulation');
+  expect(snapshot.sourceCatalog.some(x => x.id === snapshot.studies[0].sourceId)).toBe(true);
+});
+
 test('every view fits the viewport without horizontal scrolling', async ({ page }) => {
-  for (const name of ['Verlauf', 'Anwendungen', 'Quellen']) {
+  for (const name of ['Verlauf', 'Anwendungen', 'Studien', 'Quellen']) {
     await page.getByRole('tab', { name, exact: true }).click();
     await expect(page.locator('#content')).toBeVisible();
     const overflow = await page.evaluate(
