@@ -95,3 +95,10 @@ Die obere Grafik und ihre Quellenanker bleiben erhalten. Der übrige Aufbau folg
 Die unteren Spuren haben eine gemeinsame Zeitachse ab 2022 und je drei datierte Studienmeilensteine. Ihre Ereignismarker haben keine Leistungsordinate. Die 13 ursprünglichen Benchmark-Messwerte bleiben als eigene Messungen erhalten; unterschiedliche Tests werden nicht zu einer Verlaufskurve verbunden. Eine zusätzliche Vertrauensbefragung von 2023 ist in der Assistenzspur verlinkt.
 
 Quellen und Grenzen: [Studien und Hintergrunddaten](docs/studies-and-background.md). Strukturierte Ereignisse: `data/track-milestones.js`.
+
+
+## Compact English interface (18 October 2026)
+
+The live interface is now a single English page. Tabs, application screens and the methodology control have been removed. Three visible mini charts link to full sections below, with return and next links. Details and original sources remain available on demand. No presentation provenance is shown in the interface.
+
+The overview retains its illustrative curves and evidence-linked milestones. Benchmark comparisons now use scaled horizontal lines with result markers, rather than implying a time trend from a single publication snapshot. Milestones remain connected chronological timelines. All 13 scores, 24 overview anchors, nine track milestones and six studies are preserved.

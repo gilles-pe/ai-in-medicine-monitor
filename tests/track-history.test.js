@@ -19,10 +19,10 @@ test('each lower group has three dated original-source milestones and valid evid
     assert.ok(Number.isFinite(Date.parse(item.date)));
     assert.ok(!measurements.some(row=>row.id===item.id));
   }
-  assert.match(trackMilestones.find(x=>x.id==='lower-star-2022').limitations,/präklinische|Aufsicht/);
-  assert.match(trackMilestones.find(x=>x.id==='lower-mira-2026').limitations,/Diagnostik, nicht/);
-  assert.match(trustContext.finding,/3,4\/5/);
-  assert.match(trustContext.limitations,/schwach positives/);
+  assert.match(trackMilestones.find(x=>x.id==='lower-star-2022').limitations,/preclinical|supervis/);
+  assert.match(trackMilestones.find(x=>x.id==='lower-mira-2026').limitations,/diagnos|Diagnosis/);
+  assert.match(trustContext.finding,/3.4\/5/);
+  assert.match(trustContext.limitations,/weakly positive/);
 });
 
 test('history filters never reveal later papers or relabel events as comparable scores',()=>{
@@ -33,8 +33,8 @@ test('history filters never reveal later papers or relabel events as comparable 
   assert.equal(visibleTrackMilestones('assistance','2023-04-28').length,1);
   assert.equal(renderTrackHistory('autonomy','2022-01-25','2026-10-18'),'');
   const html=renderTrackHistory('autonomy','2026-10-18','2026-10-18');
-  assert.match(html,/Markerhöhe ohne Leistungsbedeutung/);
-  assert.match(html,/Tiermodell/);
+  assert.match(html,/Marker height does not indicate performance/);
+  assert.match(html,/animal|pigs|preclinical/i);
   assert.equal((html.match(/class="milestone-anchor"/g)||[]).length,3);
   assert.doesNotMatch(html,/NaN|undefined|frontier-path/);
   assert.equal(JSON.stringify(trackMilestones),before);

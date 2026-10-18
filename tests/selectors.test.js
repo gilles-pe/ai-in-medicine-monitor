@@ -106,8 +106,8 @@ test('historical snapshots cannot see future records or unpublished evaluations'
 });
 
 test('formatDate is UTC-stable and rejects invalid calendar dates', () => {
-  assert.equal(formatDate('2025-01-01'), '01.01.2025');
-  assert.equal(formatDate('2024-02-29'), '29.02.2024');
+  assert.equal(formatDate('2025-01-01'), '1 Jan 2025');
+  assert.equal(formatDate('2024-02-29'), '29 Feb 2024');
   assert.equal(formatDate('2025-02-29'), '–');
   assert.equal(formatDate(undefined), '–');
 });

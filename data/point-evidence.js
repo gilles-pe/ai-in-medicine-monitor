@@ -7,8 +7,8 @@ export const pointSources = [
     "url": "https://academic.oup.com/mind/article/LIX/236/433/986238",
     "publisher": "Mind 59(236), 433–460",
     "version": "1950-10-01 · DOI 10.1093/mind/LIX.236.433",
-    "kind": "Konzeptionelle Originalarbeit",
-    "summary": "Formuliert das Imitation Game als Ansatz zur Diskussion maschineller Intelligenz.",
+    "kind": "Original conceptual paper",
+    "summary": "Introduces the imitation game as an approach to discussing machine intelligence.",
     "checkedAt": "2026-10-17"
   },
   {
@@ -18,8 +18,8 @@ export const pointSources = [
     "url": "https://doi.org/10.1145/365153.365168",
     "publisher": "Communications of the ACM 9(1), 36–45",
     "version": "1966 · DOI 10.1145/365153.365168",
-    "kind": "Originalarbeit",
-    "summary": "Beschreibt regelbasierten Dialog zwischen Menschen und Computer.",
+    "kind": "Original paper",
+    "summary": "Describes rule-based conversation between people and a computer.",
     "checkedAt": "2026-10-17"
   },
   {
@@ -29,8 +29,8 @@ export const pointSources = [
     "url": "https://www.sciencedirect.com/science/article/pii/0010480975900099",
     "publisher": "Computers and Biomedical Research",
     "version": "1975 · DOI 10.1016/0010-4809(75)90009-9",
-    "kind": "Originalarbeit zu regelbasierter Entscheidungsunterstützung",
-    "summary": "Beschreibt regelbasierte Antibiotika-Beratung sowie Erklärungs- und Wissenserwerbsfunktionen.",
+    "kind": "Original rule-based decision-support paper",
+    "summary": "Describes rule-based antibiotic advice, explanations and knowledge acquisition.",
     "checkedAt": "2026-10-17"
   },
   {
@@ -40,8 +40,8 @@ export const pointSources = [
     "url": "https://www.nature.com/articles/323533a0",
     "publisher": "Nature 323, 533–536",
     "version": "1986-10-09 · DOI 10.1038/323533a0",
-    "kind": "Methodische Originalarbeit",
-    "summary": "Beschreibt das Lernen verborgener Repräsentationen durch rückwärts propagierte Fehler und Gewichtsänderungen.",
+    "kind": "Original methods paper",
+    "summary": "Describes learning hidden representations through back-propagated errors and weight updates.",
     "checkedAt": "2026-10-17"
   },
   {
@@ -51,8 +51,8 @@ export const pointSources = [
     "url": "https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html",
     "publisher": "Advances in Neural Information Processing Systems 25",
     "version": "2012",
-    "kind": "Konferenz-Originalarbeit",
-    "summary": "Tiefes CNN zur Klassifikation von 1,3 Millionen ImageNet-Trainingsbildern; Abstract berichtet Top-1/Top-5-Fehler 39,7 %/18,9 % auf dem LSVRC-2010-Test.",
+    "kind": "Original conference paper",
+    "summary": "Deep CNN trained on 1.3 million ImageNet images; the abstract reports 39.7% top-1 and 18.9% top-5 error on the LSVRC-2010 test.",
     "checkedAt": "2026-10-17"
   },
   {
@@ -62,8 +62,8 @@ export const pointSources = [
     "url": "https://www.nature.com/articles/nature16961",
     "publisher": "Nature 529, 484–489",
     "version": "2016-01-27 · DOI 10.1038/nature16961",
-    "kind": "Originalarbeit",
-    "summary": "AlphaGo schlägt den europäischen Go-Meister Fan Hui mit 5:0 und erreicht 99,8 % Siege gegen andere Go-Programme im beschriebenen Vergleich.",
+    "kind": "Original paper",
+    "summary": "AlphaGo defeats European Go champion Fan Hui 5–0 and wins 99.8% of games against other Go programs in the reported comparison.",
     "checkedAt": "2026-10-17"
   },
   {
@@ -73,8 +73,8 @@ export const pointSources = [
     "url": "https://www.nature.com/articles/nature21056",
     "publisher": "Nature 542, 115–118",
     "version": "2017-01-25 · DOI 10.1038/nature21056",
-    "kind": "Retrospektiver Bildklassifikationsbenchmark",
-    "summary": "Training mit 129.450 klinischen Bildern; Vergleich mit 21 Fachärzten bei zwei binären Hautläsions-Aufgaben.",
+    "kind": "Retrospective image-classification benchmark",
+    "summary": "Trained on 129,450 clinical images; compared with 21 board-certified dermatologists on two binary skin-lesion tasks.",
     "checkedAt": "2026-10-17"
   },
   {
@@ -84,8 +84,8 @@ export const pointSources = [
     "url": "https://arxiv.org/abs/2005.14165v1",
     "publisher": "arXiv 2005.14165v1; NeurIPS 2020",
     "version": "2020-05-28",
-    "kind": "Originalarbeit / erste Preprint-Version",
-    "summary": "GPT-3 mit 175 Milliarden Parametern zeigt auf verschiedenen NLP-Aufgaben Few-shot-Leistung ohne aufgabenspezifische Gewichtsänderung.",
+    "kind": "Original paper / first preprint version",
+    "summary": "GPT-3, with 175 billion parameters, demonstrates few-shot performance on several NLP tasks without task-specific weight updates.",
     "checkedAt": "2026-10-17"
   },
   {
@@ -95,8 +95,8 @@ export const pointSources = [
     "url": "https://arxiv.org/abs/2203.02155v1",
     "publisher": "arXiv 2203.02155v1",
     "version": "2022-03-04",
-    "kind": "Originalarbeit / Preprint",
-    "summary": "Auf der untersuchten Promptverteilung bevorzugen menschliche Bewerter Antworten des 1,3B-InstructGPT gegenüber dem 175B-GPT-3.",
+    "kind": "Original paper / preprint",
+    "summary": "On the tested prompt distribution, human evaluators prefer 1.3B InstructGPT responses over those from 175B GPT-3.",
     "checkedAt": "2026-10-17"
   },
   {
@@ -106,8 +106,8 @@ export const pointSources = [
     "url": "https://arxiv.org/abs/2212.13138v1",
     "publisher": "arXiv 2212.13138v1",
     "version": "2022-12-26",
-    "kind": "Erste Preprint-Verfügbarkeit",
-    "summary": "Führt MultiMedQA und medizinisch angepasstes Med-PaLM ein; Flan-PaLM erzielt 67,6 % auf MedQA-Fragen.",
+    "kind": "First preprint release",
+    "summary": "Introduces MultiMedQA and medically adapted Med-PaLM; Flan-PaLM scores 67.6% on MedQA questions.",
     "checkedAt": "2026-10-17"
   },
   {
@@ -117,8 +117,8 @@ export const pointSources = [
     "url": "https://arxiv.org/abs/2303.08774v1",
     "publisher": "arXiv 2303.08774v1",
     "version": "2023-03-15",
-    "kind": "Technischer Autorenbericht",
-    "summary": "Beschreibt einen multimodalen GPT-4-Modellstand und dessen Evaluation.",
+    "kind": "Technical authors' report",
+    "summary": "Describes a multimodal GPT-4 model and its evaluation.",
     "checkedAt": "2026-10-17"
   },
   {
@@ -128,8 +128,8 @@ export const pointSources = [
     "url": "https://www.nature.com/articles/s41586-023-06291-2",
     "publisher": "Nature 620, 172–180",
     "version": "2023-07-12 · DOI 10.1038/s41586-023-06291-2",
-    "kind": "Peer-reviewed Benchmark und menschliche Antwortbewertung",
-    "summary": "Flan-PaLM erreicht 67,6 % MedQA-Genauigkeit; Med-PaLM verbessert mehrere menschlich bewertete Antwortmerkmale.",
+    "kind": "Peer-reviewed benchmark and human answer evaluation",
+    "summary": "Flan-PaLM achieves 67.6% MedQA accuracy; Med-PaLM improves several human-rated answer characteristics.",
     "checkedAt": "2026-10-17"
   },
   {
@@ -139,8 +139,8 @@ export const pointSources = [
     "url": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2825395",
     "publisher": "JAMA Network Open 7(10):e2440969",
     "version": "2024-10-28 · DOI 10.1001/jamanetworkopen.2024.40969",
-    "kind": "Randomisiertes Vignettenexperiment mit 50 Ärzten",
-    "summary": "Diagnostischer Rubrikscore median 76 % mit LLM versus 74 % ohne; adjustiert +2 Prozentpunkte (95%-KI −4 bis 8; p=0,60). Kein signifikanter Assistenznutzen im Hauptvergleich.",
+    "kind": "Randomized vignette experiment with 50 physicians",
+    "summary": "Median diagnostic rubric score: 76% with LLM access versus 74% without; adjusted difference +2 percentage points (95% CI −4 to 8; p=0.60). No significant assistance benefit in the primary comparison.",
     "checkedAt": "2026-10-17"
   },
   {
@@ -150,8 +150,8 @@ export const pointSources = [
     "url": "https://arxiv.org/abs/2503.14499v1",
     "publisher": "arXiv 2503.14499v1",
     "version": "2025-03-18",
-    "kind": "Originalarbeit zu Software-/Reasoning-Aufgaben",
-    "summary": "Definiert den 50%-Zeithorizont anhand menschlicher Aufgabenbearbeitungsdauer; berichtet etwa sieben Monate Verdopplungszeit seit 2019 und etwa 50 Minuten für Claude 3.7 Sonnet.",
+    "kind": "Original software/reasoning task study",
+    "summary": "Defines the 50% task-completion horizon using human task duration; reports roughly seven-month doubling since 2019 and about 50 minutes for Claude 3.7 Sonnet.",
     "checkedAt": "2026-10-17"
   },
   {
@@ -161,8 +161,8 @@ export const pointSources = [
     "url": "https://www.nature.com/articles/s41586-025-08866-7",
     "publisher": "Nature 642, 442–450",
     "version": "2025-04-09 · DOI 10.1038/s41586-025-08866-7",
-    "kind": "Verblindeter, randomisierter Simulationsvergleich",
-    "summary": "Randomisierte, doppelt verblindete Crossover-Studie: 159 Fall-Szenarien, 20 Hausärzte und Patientendarsteller. AMIE erzielt höhere diagnostische Genauigkeit und bessere Bewertungen auf 30/32 ärztlichen und 25/26 Patientendarsteller-Achsen.",
+    "kind": "Blinded, randomized simulation comparison",
+    "summary": "Randomized, double-blind crossover study: 159 scenarios, 20 primary care physicians and patient actors. AMIE achieves higher diagnostic accuracy and better ratings on 30/32 physician-rated and 25/26 patient-actor-rated dimensions.",
     "checkedAt": "2026-10-17"
   },
   {
@@ -172,8 +172,8 @@ export const pointSources = [
     "url": "https://www.nature.com/articles/s41586-026-10675-5",
     "publisher": "Nature",
     "version": "2026-06-17 · DOI 10.1038/s41586-026-10675-5",
-    "kind": "Retrospektive, fallbasierte klinische Simulation",
-    "summary": "Untersucht einen medizinischen Agenten in patientendatenbasierten simulierten Notaufnahme-Begegnungen.",
+    "kind": "Retrospective case-based clinical simulation",
+    "summary": "Studies a medical agent in simulated emergency-department encounters based on patient records.",
     "checkedAt": "2026-10-17"
   }
 ];
@@ -186,11 +186,11 @@ export const pointEvidence = [
     "date": "1950-10-01",
     "label": "Turing: Imitation Game",
     "sourceId": "turing-1950-source",
-    "kind": "Konzeptionelle Originalarbeit",
-    "finding": "Formuliert das Imitation Game als Ansatz zur Diskussion maschineller Intelligenz.",
-    "limitations": "Kein empirischer Leistungsbenchmark, kein IQ-Wert und kein medizinischer Nachweis.",
+    "kind": "Original conceptual paper",
+    "finding": "Introduces the imitation game as an approach to discussing machine intelligence.",
+    "limitations": "Not an empirical performance benchmark, IQ score or medical validation.",
     "locator": "10.1093/mind/LIX.236.433",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "dartmouth-1956",
@@ -198,11 +198,11 @@ export const pointEvidence = [
     "year": 1956,
     "label": "Dartmouth",
     "sourceId": "dartmouth-history",
-    "kind": "Institutionelle Primärquelle zum historischen Ereignis",
-    "finding": "Dartmouth Summer Research Project on Artificial Intelligence im Sommer 1956.",
-    "limitations": "Forschungsereignis, keine Messung einer KI-Fähigkeit.",
-    "locator": "Institutioneller Autorenbericht",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "kind": "Institutional primary source for a historical event",
+    "finding": "Dartmouth Summer Research Project on Artificial Intelligence in summer 1956.",
+    "limitations": "Research event, not a measurement of AI capability.",
+    "locator": "Institutional authors' report",
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "eliza-1966",
@@ -210,11 +210,11 @@ export const pointEvidence = [
     "year": 1966,
     "label": "ELIZA",
     "sourceId": "eliza-1966-source",
-    "kind": "Originalarbeit",
-    "finding": "Beschreibt regelbasierten Dialog zwischen Menschen und Computer.",
-    "limitations": "Sprachmusterverarbeitung; kein Nachweis von Verständnis, Psychotherapie oder IQ. DOI 10.1145/357980.357991 ist eine spätere Neuveröffentlichung, nicht die 1966er Originalreferenz.",
+    "kind": "Original paper",
+    "finding": "Describes rule-based conversation between people and a computer.",
+    "limitations": "Pattern-based language processing; no evidence of understanding, psychotherapy or IQ. DOI 10.1145/357980.357991 is a later republication, not the 1966 original.",
     "locator": "10.1145/365153.365168",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "mycin-1975",
@@ -222,11 +222,11 @@ export const pointEvidence = [
     "year": 1975,
     "label": "MYCIN",
     "sourceId": "mycin-1975-source",
-    "kind": "Originalarbeit zu regelbasierter Entscheidungsunterstützung",
-    "finding": "Beschreibt regelbasierte Antibiotika-Beratung sowie Erklärungs- und Wissenserwerbsfunktionen.",
-    "limitations": "Belegt Systemkonzept und spezifischen Anwendungsbereich, keine allgemeine klinische Autonomie und kein IQ-Niveau.",
+    "kind": "Original rule-based decision-support paper",
+    "finding": "Describes rule-based antibiotic advice, explanations and knowledge acquisition.",
+    "limitations": "Establishes the system concept and specific application, not general clinical autonomy or an IQ level.",
     "locator": "10.1016/0010-4809(75)90009-9",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "backprop-1986",
@@ -235,11 +235,11 @@ export const pointEvidence = [
     "date": "1986-10-09",
     "label": "Backpropagation",
     "sourceId": "backprop-1986-source",
-    "kind": "Methodische Originalarbeit",
-    "finding": "Beschreibt das Lernen verborgener Repräsentationen durch rückwärts propagierte Fehler und Gewichtsänderungen.",
-    "limitations": "Methodenmeilenstein ohne vergleichbaren medizinischen Leistungswert oder IQ-Skala.",
+    "kind": "Original methods paper",
+    "finding": "Describes learning hidden representations through back-propagated errors and weight updates.",
+    "limitations": "Methods milestone without a comparable medical performance value or IQ scale.",
     "locator": "10.1038/323533a0",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "deep-blue-1997",
@@ -247,11 +247,11 @@ export const pointEvidence = [
     "year": 1997,
     "label": "Deep Blue",
     "sourceId": "deep-blue-history",
-    "kind": "Institutionelle Primärquelle zum Ereignis",
-    "finding": "Deep Blue gewinnt im Mai 1997 das Sechs-Partien-Match gegen Kasparow mit 3,5:2,5.",
-    "limitations": "Spezialisierte Schachleistung, keine allgemeine Intelligenz- oder medizinische Kompetenzmessung.",
-    "locator": "Institutioneller Autorenbericht",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "kind": "Institutional primary source for an event",
+    "finding": "Deep Blue wins the May 1997 six-game match against Kasparov 3.5–2.5.",
+    "limitations": "Specialized chess performance, not general intelligence or medical competence.",
+    "locator": "Institutional authors' report",
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "alexnet-2012",
@@ -259,11 +259,11 @@ export const pointEvidence = [
     "year": 2012,
     "label": "AlexNet",
     "sourceId": "alexnet-2012-source",
-    "kind": "Konferenz-Originalarbeit",
-    "finding": "Tiefes CNN zur Klassifikation von 1,3 Millionen ImageNet-Trainingsbildern; Abstract berichtet Top-1/Top-5-Fehler 39,7 %/18,9 % auf dem LSVRC-2010-Test.",
-    "limitations": "Bildklassifikation eines bestimmten Datensatzes, kein klinischer oder allgemeiner IQ-Test. Die oft zitierten 15,3 % beziehen sich auf einen anderen Wettbewerbsaufbau; nicht vermischen.",
+    "kind": "Original conference paper",
+    "finding": "Deep CNN trained on 1.3 million ImageNet images; the abstract reports 39.7% top-1 and 18.9% top-5 error on the LSVRC-2010 test.",
+    "limitations": "Image classification on a specific dataset, not a clinical or general IQ test. The often-cited 15.3% comes from a different competition setup; do not combine them.",
     "locator": "Advances in Neural Information Processing Systems 25",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "alphago-2016",
@@ -272,24 +272,24 @@ export const pointEvidence = [
     "date": "2016-01-27",
     "label": "AlphaGo",
     "sourceId": "alphago-2016-source",
-    "kind": "Originalarbeit",
-    "finding": "AlphaGo schlägt den europäischen Go-Meister Fan Hui mit 5:0 und erreicht 99,8 % Siege gegen andere Go-Programme im beschriebenen Vergleich.",
-    "limitations": "Spezialisierter Go-Benchmark. Diese Januar-Arbeit berichtet nicht das spätere Lee-Sedol-Match.",
+    "kind": "Original paper",
+    "finding": "AlphaGo defeats European Go champion Fan Hui 5–0 and wins 99.8% of games against other Go programs in the reported comparison.",
+    "limitations": "Specialized Go benchmark. This January paper does not report the later Lee Sedol match.",
     "locator": "10.1038/nature16961",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "skin-cancer-2017",
     "seriesId": "knowledge",
     "year": 2017,
     "date": "2017-01-25",
-    "label": "Dermatologie-CNN",
+    "label": "Dermatology CNN",
     "sourceId": "skin-cancer-2017-source",
-    "kind": "Retrospektiver Bildklassifikationsbenchmark",
-    "finding": "Training mit 129.450 klinischen Bildern; Vergleich mit 21 Fachärzten bei zwei binären Hautläsions-Aufgaben.",
-    "limitations": "Spezialisierte Bildklassifikation, keine umfassende Wissensprüfung, prospektive Versorgung oder Patientennutzenstudie. Als Themen-Meilenstein markieren, nicht als IQ-Messung.",
+    "kind": "Retrospective image-classification benchmark",
+    "finding": "Trained on 129,450 clinical images; compared with 21 board-certified dermatologists on two binary skin-lesion tasks.",
+    "limitations": "Specialized image classification, not broad medical knowledge, prospective care or patient benefit. A topic milestone, not an IQ measurement.",
     "locator": "10.1038/nature21056",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "gpt3-2020",
@@ -298,11 +298,11 @@ export const pointEvidence = [
     "date": "2020-05-28",
     "label": "GPT-3",
     "sourceId": "gpt3-2020-source",
-    "kind": "Originalarbeit / erste Preprint-Version",
-    "finding": "GPT-3 mit 175 Milliarden Parametern zeigt auf verschiedenen NLP-Aufgaben Few-shot-Leistung ohne aufgabenspezifische Gewichtsänderung.",
-    "limitations": "Autorenbenchmark mit Aufgaben- und Kontaminationsgrenzen; keine allgemeine IQ-Kalibrierung und keine klinische Validierung.",
+    "kind": "Original paper / first preprint version",
+    "finding": "GPT-3, with 175 billion parameters, demonstrates few-shot performance on several NLP tasks without task-specific weight updates.",
+    "limitations": "Authors' benchmark with task and contamination limitations; no general IQ calibration or clinical validation.",
     "locator": "arXiv 2005.14165v1; NeurIPS 2020",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "instructgpt-2022",
@@ -311,11 +311,11 @@ export const pointEvidence = [
     "date": "2022-03-04",
     "label": "InstructGPT / RLHF",
     "sourceId": "instructgpt-2022-source",
-    "kind": "Originalarbeit / Preprint",
-    "finding": "Auf der untersuchten Promptverteilung bevorzugen menschliche Bewerter Antworten des 1,3B-InstructGPT gegenüber dem 175B-GPT-3.",
-    "limitations": "Bewerterpräferenz unter diesem Protokoll; Fehler bleiben möglich. Nicht gleichbedeutend mit medizinischer Korrektheit oder IQ.",
+    "kind": "Original paper / preprint",
+    "finding": "On the tested prompt distribution, human evaluators prefer 1.3B InstructGPT responses over those from 175B GPT-3.",
+    "limitations": "Evaluator preference under this protocol; simple errors remain. Not equivalent to medical accuracy or IQ.",
     "locator": "arXiv 2203.02155v1",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "medpalm-preprint-2022",
@@ -324,24 +324,24 @@ export const pointEvidence = [
     "date": "2022-12-26",
     "label": "MultiMedQA / Med-PaLM (Preprint)",
     "sourceId": "medpalm-preprint-2022-source",
-    "kind": "Erste Preprint-Verfügbarkeit",
-    "finding": "Führt MultiMedQA und medizinisch angepasstes Med-PaLM ein; Flan-PaLM erzielt 67,6 % auf MedQA-Fragen.",
-    "limitations": "Gleiche Studienfamilie wie Nature 2023, keine zweite unabhängige Bestätigung. Fragenbenchmark ersetzt keine klinische Validierung.",
+    "kind": "First preprint release",
+    "finding": "Introduces MultiMedQA and medically adapted Med-PaLM; Flan-PaLM scores 67.6% on MedQA questions.",
+    "limitations": "Same study family as Nature 2023, not independent confirmation. A question benchmark does not replace clinical validation.",
     "locator": "arXiv 2212.13138v1",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "gpt4-2023",
     "seriesId": "general",
     "year": 2023,
     "date": "2023-03-15",
-    "label": "GPT-4-Bericht",
+    "label": "GPT-4 report",
     "sourceId": "gpt4-2023-source",
-    "kind": "Technischer Autorenbericht",
-    "finding": "Beschreibt einen multimodalen GPT-4-Modellstand und dessen Evaluation.",
-    "limitations": "Anbieterbericht; nicht vollständig offengelegte Trainingsdaten. Bericht erstmals 2023, Revision 2024 ist kein neuer Modellmeilenstein. Kein hier belegtes IQ-Niveau.",
+    "kind": "Technical authors' report",
+    "finding": "Describes a multimodal GPT-4 model and its evaluation.",
+    "limitations": "Provider report with incompletely disclosed training data. First published in 2023; the 2024 revision is not a new model milestone. No IQ level is established here.",
     "locator": "arXiv 2303.08774v1",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "medpalm-2023",
@@ -350,50 +350,50 @@ export const pointEvidence = [
     "date": "2023-07-12",
     "label": "Med-PaLM (Nature)",
     "sourceId": "medpalm-2023-source",
-    "kind": "Peer-reviewed Benchmark und menschliche Antwortbewertung",
-    "finding": "Flan-PaLM erreicht 67,6 % MedQA-Genauigkeit; Med-PaLM verbessert mehrere menschlich bewertete Antwortmerkmale.",
-    "limitations": "Med-PaLM bleibt in der Studie insgesamt hinter ärztlichen Antworten; keine Patientennutzen-Endpunkte. Preprint 2022 und Nature 2023 nicht unabhängig zählen.",
+    "kind": "Peer-reviewed benchmark and human answer evaluation",
+    "finding": "Flan-PaLM achieves 67.6% MedQA accuracy; Med-PaLM improves several human-rated answer characteristics.",
+    "limitations": "Med-PaLM remains below physician responses overall in this study; no patient-benefit endpoints. Do not count the 2022 preprint and 2023 Nature paper as independent studies.",
     "locator": "10.1038/s41586-023-06291-2",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "diagnostic-rct-2024",
     "seriesId": "reasoning",
     "year": 2024,
     "date": "2024-10-28",
-    "label": "GPT-4: Diagnostik-RCT",
+    "label": "GPT-4: Diagnostic reasoning trial",
     "sourceId": "diagnostic-rct-2024-source",
-    "kind": "Randomisiertes Vignettenexperiment mit 50 Ärzten",
-    "finding": "Diagnostischer Rubrikscore median 76 % mit LLM versus 74 % ohne; adjustiert +2 Prozentpunkte (95%-KI −4 bis 8; p=0,60). Kein signifikanter Assistenznutzen im Hauptvergleich.",
-    "limitations": "50 Ärzte, bis zu sechs Vignetten; kein realer Patienten-Endpunkt. Explorative KI-allein-Analyse darf den negativen Hauptvergleich nicht verdrängen. Ein Meilenstein für Evaluation, kein Beleg einer monoton steigenden IQ-Kurve.",
+    "kind": "Randomized vignette experiment with 50 physicians",
+    "finding": "Median diagnostic rubric score: 76% with LLM access versus 74% without; adjusted difference +2 percentage points (95% CI −4 to 8; p=0.60). No significant assistance benefit in the primary comparison.",
+    "limitations": "50 physicians, up to six vignettes; no real patient endpoint. The exploratory LLM-only analysis must not displace the negative primary comparison. An evaluation milestone, not evidence of a steadily rising IQ curve.",
     "locator": "10.1001/jamanetworkopen.2024.40969",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "metr-2025",
     "seriesId": "autonomy",
     "year": 2025,
     "date": "2025-03-18",
-    "label": "METR: Software-Zeithorizont",
+    "label": "METR: Software task horizon",
     "sourceId": "metr-2025-source",
-    "kind": "Originalarbeit zu Software-/Reasoning-Aufgaben",
-    "finding": "Definiert den 50%-Zeithorizont anhand menschlicher Aufgabenbearbeitungsdauer; berichtet etwa sieben Monate Verdopplungszeit seit 2019 und etwa 50 Minuten für Claude 3.7 Sonnet.",
-    "limitations": "Kein medizinischer Aufgabenhorizont. 50 % Erfolgswahrscheinlichkeit ist keine verlässliche klinische Autonomie. PPT-Jahresindizes nicht als extrahierte METR-Werte ausgeben; Modelle und Rohdaten müssten separat übernommen werden.",
+    "kind": "Original software/reasoning task study",
+    "finding": "Defines the 50% task-completion horizon using human task duration; reports roughly seven-month doubling since 2019 and about 50 minutes for Claude 3.7 Sonnet.",
+    "limitations": "Not a medical task horizon. A 50% success probability is not reliable clinical autonomy. Illustrative yearly indices are not extracted METR measurements; model results and raw data require separate curation.",
     "locator": "arXiv 2503.14499v1",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "amie-2025",
     "seriesId": "reasoning",
     "year": 2025,
     "date": "2025-04-09",
-    "label": "AMIE: Diagnostische Dialoge",
+    "label": "AMIE: Diagnostic dialogue",
     "sourceId": "amie-2025-source",
-    "kind": "Verblindeter, randomisierter Simulationsvergleich",
-    "finding": "Randomisierte, doppelt verblindete Crossover-Studie: 159 Fall-Szenarien, 20 Hausärzte und Patientendarsteller. AMIE erzielt höhere diagnostische Genauigkeit und bessere Bewertungen auf 30/32 ärztlichen und 25/26 Patientendarsteller-Achsen.",
-    "limitations": "Simulierte textbasierte Konsultationen mit Patientendarstellern. Ungewohnter synchroner Textchat für Ärzte; keine reale autonome Patientenversorgung.",
+    "kind": "Blinded, randomized simulation comparison",
+    "finding": "Randomized, double-blind crossover study: 159 scenarios, 20 primary care physicians and patient actors. AMIE achieves higher diagnostic accuracy and better ratings on 30/32 physician-rated and 25/26 patient-actor-rated dimensions.",
+    "limitations": "Simulated text consultations with patient actors. Synchronous text chat is unfamiliar to physicians; not real autonomous patient care.",
     "locator": "10.1038/s41586-025-08866-7",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "mira-2026",
@@ -402,24 +402,24 @@ export const pointEvidence = [
     "date": "2026-06-17",
     "label": "MIRA",
     "sourceId": "mira-2026-source",
-    "kind": "Retrospektive, fallbasierte klinische Simulation",
-    "finding": "Untersucht einen medizinischen Agenten in patientendatenbasierten simulierten Notaufnahme-Begegnungen.",
-    "limitations": "Keine prospektive klinische Versorgung, keine validierte IQ-Skala. Gleicher Artikel kann zwei thematische Karten speisen, bleibt eine Studie.",
+    "kind": "Retrospective case-based clinical simulation",
+    "finding": "Studies a medical agent in simulated emergency-department encounters based on patient records.",
+    "limitations": "No prospective clinical care or validated IQ scale. The same article can support two thematic cards but remains one study.",
     "locator": "10.1038/s41586-026-10675-5",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "af2-paper-2021",
     "seriesId": "knowledge",
     "year": 2021,
     "date": "2021-07-15",
-    "label": "AlphaFold 2 · Originalarbeit",
+    "label": "AlphaFold 2 · original paper",
     "sourceId": "alphafold2-nature",
-    "kind": "Strukturbiologie",
-    "finding": "Proteinstrukturvorhersage im verblindeten CASP14-Vergleich.",
-    "limitations": "Grundlagenforschung, kein klinischer Wissens- oder Patientennutzen-Endpunkt.",
-    "locator": "Nature 596, Abb. 1a",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "kind": "Structural biology",
+    "finding": "Protein structure prediction in the blinded CASP14 comparison.",
+    "limitations": "Basic research, not a clinical knowledge or patient-benefit endpoint.",
+    "locator": "Nature 596, Fig. 1a",
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "af3-paper-2024",
@@ -428,11 +428,11 @@ export const pointEvidence = [
     "date": "2024-05-08",
     "label": "AlphaFold 3",
     "sourceId": "alphafold3-nature",
-    "kind": "Strukturbiologie",
-    "finding": "Vorhersage biomolekularer Komplexe einschließlich kleiner Moleküle.",
-    "limitations": "Kein Beleg einer Arzneimittelzulassung oder automatischen Therapiewahl.",
-    "locator": "Nature 630, Abstract und Model limitations",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "kind": "Structural biology",
+    "finding": "Prediction of biomolecular complexes, including small molecules.",
+    "limitations": "No evidence of drug approval or automatic treatment selection.",
+    "locator": "Nature 630, Abstract and Model limitations",
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "medxpert-2025",
@@ -441,11 +441,11 @@ export const pointEvidence = [
     "date": "2025-06-06",
     "label": "MedXpertQA v3",
     "sourceId": "medxpertqa-v3",
-    "kind": "Medizinischer Fragenbenchmark",
-    "finding": "Anspruchsvolle Wissens- und Fallaufgaben; Originalwerte stehen in der Messspur.",
-    "limitations": "Kein echter Patientenverlauf. Text und multimodale Aufgaben getrennt halten.",
-    "locator": "arXiv v3, Tabellen 4/5, Text Avg",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "kind": "Medical question benchmark",
+    "finding": "Challenging knowledge and case questions; original results appear in the measurement track.",
+    "limitations": "Not a real patient trajectory. Keep text and multimodal tasks separate.",
+    "locator": "arXiv v3, Tables 4/5, Text Avg",
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "healthbench-2026",
@@ -454,11 +454,11 @@ export const pointEvidence = [
     "date": "2026-04-30",
     "label": "HealthBench Professional",
     "sourceId": "healthbench-pro-v1",
-    "kind": "Antwortbewertung",
-    "finding": "Rubrikbewertete Qualität klinischer Assistenzantworten.",
-    "limitations": "Rubrikpunkte, keine Prozent-Trefferquote oder IQ-Kalibrierung.",
-    "locator": "arXiv v1, Abschnitte 5.1/5.3",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "kind": "Answer evaluation",
+    "finding": "Rubric-rated quality of clinical assistance answers.",
+    "limitations": "Rubric points, not percentage accuracy or IQ calibration.",
+    "locator": "arXiv v1, Sections 5.1/5.3",
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "medagent-2025",
@@ -467,11 +467,11 @@ export const pointEvidence = [
     "date": "2025-02-12",
     "label": "MedAgentBench",
     "sourceId": "medagentbench-v2",
-    "kind": "Virtuelle EHR-Simulation",
-    "finding": "300 Aufgaben, pass@1 mit höchstens acht Interaktionsrunden.",
-    "limitations": "GET ausgeführt, POST-Schreibaktionen simuliert. Keine autonome reale Versorgung.",
-    "locator": "arXiv v2, Tabelle 3 und Abschnitte 2.4/2.5",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "kind": "Virtual EHR simulation",
+    "finding": "300 tasks, pass@1 with a maximum of eight interaction rounds.",
+    "limitations": "GET actions executed, POST writes simulated. No real autonomous care.",
+    "locator": "arXiv v2, Table 3 and Sections 2.4/2.5",
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   },
   {
     "id": "residency-2026",
@@ -480,10 +480,10 @@ export const pointEvidence = [
     "date": "2026-08-07",
     "label": "ResidencyRL",
     "sourceId": "residencyrl-v1",
-    "kind": "Preprint · Simulation",
-    "finding": "Training an simulierten Patientendialogen; diagnostische Rubrik und ärztliche Präferenzbewertung.",
-    "limitations": "Trainingsnahe automatische Rubrik. Prospektive Versorgungsevidenz fehlt.",
-    "locator": "arXiv v1, Tabelle 4, Abschnitt 4.5, Anhang C.7",
-    "positionBasis": "PPT illustration; source does not validate vertical coordinate"
+    "kind": "Preprint · simulation",
+    "finding": "Training on simulated patient conversations; diagnostic rubric and physician preference ratings.",
+    "limitations": "Automated rubric related to training. Prospective care evidence is missing.",
+    "locator": "arXiv v1, Table 4, Section 4.5, Appendix C.7",
+    "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
   }
 ];

@@ -23,8 +23,8 @@ test('evidence types remain separate from benchmark scales and patient studies',
   }
   const learning = studies.find(x => x.id === 'learning-impact');
   assert.equal(learning.environment, 'education_experiment');
-  assert.match(learning.findings[1][1], /0,068/);
-  assert.match(learning.limitations, /Keine medizinische Population/);
+  assert.match(learning.findings[1][1], /0.068/);
+  assert.match(learning.limitations, /Not a medical population|No medical population|Non-medical|non-medical/);
   for (const event of milestones.filter(x => x.studyId)) {
     assert.ok(studies.some(x => x.id === event.studyId && x.date === event.date));
   }

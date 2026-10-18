@@ -569,3 +569,10 @@ Neue Originalquellen:
 - `lower-ayers-2023-source`: John W. Ayers et al.. [Comparing Physician and Artificial Intelligence Chatbot Responses to Patient Questions Posted to a Public Social Media Forum](https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2804309). 2023-04-28 · DOI 10.1001/jamainternmed.2023.1838. Geprüft am 2026-10-18.
 - `lower-star-2022-source`: Hamed Saeidi et al.. [Autonomous robotic laparoscopic surgery for intestinal anastomosis](https://www.science.org/doi/10.1126/scirobotics.abj2908). 2022-01-26 · DOI 10.1126/scirobotics.abj2908. Geprüft am 2026-10-18.
 - `nov-trust-2023-source`: Oded Nov, Nina Singh, Devin Mann · JMIR Medical Education. [Putting ChatGPT’s Medical Advice to the (Turing) Test: Survey Study](https://mededu.jmir.org/2023/1/e46939/). 10.07.2023 · DOI 10.2196/46939. Geprüft am 2026-10-18.
+
+
+## Interface update - 18 October 2026
+
+The website and its source dialogs now use English. Presentation references are no longer displayed; the historical provenance recorded earlier in this document is retained for auditability. No scientific scores, dates or source URLs changed in this interface update.
+
+Missing benchmark trend lines were caused by having only one publication date per comparison protocol. The compact interface now shows actual scaled model-comparison lines, with the original date, score and protocol behind each result. These are not time trends. Publication timelines connect the dated study milestones without assigning them a shared performance score. New comparable dated evaluations remain a curation task, not an interpolation task.

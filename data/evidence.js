@@ -12,27 +12,27 @@ export { studies, presentationSource, pharmaApplications } from './pharma.js';
 export const tracks = [
   {
     id: 'knowledge',
-    label: 'Medizinisches Wissen',
-    subtitle: 'Wissen und Falllösung',
+    label: "Medical knowledge",
+    subtitle: "Knowledge and case solving",
     unit: '%',
     color: '#209b8e',
-    metricDescription: 'MedXpertQA Text: richtige Antworten auf dem vollständigen Text-Test. Keine Aussage über Patientennutzen.'
+    metricDescription: "MedXpertQA Text: correct answers on the full text test. Does not measure patient benefit."
   },
   {
     id: 'assistance',
-    label: 'Medizinische Assistenz',
-    subtitle: 'Qualität klinischer Antworten',
-    unit: 'Punkte',
+    label: "Clinical assistance",
+    subtitle: "Quality of clinical answers",
+    unit: "points",
     color: '#d49b32',
-    metricDescription: 'HealthBench Professional: längenbereinigter Rubrikscore. Punkte auf einer 0-100-Skala, keine Trefferquote.'
+    metricDescription: "HealthBench Professional: length-adjusted rubric score. Points on a 0–100 scale, not percentage accuracy."
   },
   {
     id: 'autonomy',
-    label: 'Selbstständige Abläufe',
-    subtitle: 'Virtueller EHR-Test',
+    label: "Autonomous workflows",
+    subtitle: "Virtual EHR test",
     unit: '%',
     color: '#4d7dbe',
-    metricDescription: 'MedAgentBench: Erfolgsquote beim ersten Versuch in einer simulierten elektronischen Patientenakte.'
+    metricDescription: "MedAgentBench: first-attempt success rate in a simulated electronic health record."
   }
 ];
 
@@ -44,8 +44,8 @@ export const sourceCatalog = [
     publisher: 'Zuo et al., Tsinghua University / Shanghai AI Laboratory',
     version: 'arXiv 2501.18362v3 · 06.06.2025',
     checkedAt: '2026-10-17',
-    kind: 'Forschungspublikation',
-    summary: 'Tabellen 4 und 5, Text-Gesamtscore; 2.450 Testaufgaben. Null-Beispiel-CoT nach Autorenprotokoll. Die kleineren o1/o3-mini-Stichproben sind hier ausgeschlossen.'
+    kind: "Research publication",
+    summary: "Tables 4 and 5, overall text score; 2,450 test items. Zero-shot CoT under the authors' protocol. Smaller o1/o3-mini samples are excluded here."
   },
   {
     id: 'healthbench-pro-v1',
@@ -54,8 +54,8 @@ export const sourceCatalog = [
     publisher: 'OpenAI et al.',
     version: 'arXiv 2604.27470v1 · 30.04.2026',
     checkedAt: '2026-10-17',
-    kind: 'Preprint · Anbieterbeteiligung',
-    summary: 'Abschnitte 4.1-4.3, 5.1 und 5.3; 525 Aufgaben, acht Antworten je Aufgabe. GPT-5.4 bei niedrigem Reasoning als Bewerter. Hersteller- und Systemvergleich mit Längenkorrektur.'
+    kind: "Preprint · provider involvement",
+    summary: "Sections 4.1–4.3, 5.1 and 5.3; 525 tasks, eight answers per task. GPT-5.4 with low reasoning is the evaluator. Provider and system comparison with length adjustment."
   },
   {
     id: 'medagentbench-v2',
@@ -65,7 +65,7 @@ export const sourceCatalog = [
     version: 'arXiv 2501.14654v2 · 12.02.2025',
     checkedAt: '2026-10-17',
     kind: 'Preprint',
-    summary: 'Tabelle 3, Gesamt-Erfolgsquote; 300 Aufgaben, pass@1, höchstens acht Runden. Identische Autoren-Orchestrierung; GET ausgeführt, POST-Schreibaktionen nur simuliert und geprüft.'
+    summary: "Table 3, overall success rate; 300 tasks, pass@1, maximum eight rounds. Same authors' orchestration; GET executed, POST writes simulated and checked."
   }
 ];
 
@@ -75,13 +75,13 @@ const knowledgeBase = {
   dateBasis: 'publication',
   benchmark: 'MedXpertQA',
   benchmarkVersion: 'Paper v3 (2501.18362v3)',
-  subset: 'Text · vollständiger Test · n=2.450',
+  subset: "Text · full test · n=2,450",
   comparisonGroup: 'medxpertqa-v3-text-full-authors-zero-shot-cot',
   sourceId: 'medxpertqa-v3',
-  sourceDetail: 'Tabellen 4/5 · Text Avg · Abschnitte 4.1/4.2',
-  system: 'Autoren-Evaluationsprotokoll',
-  setting: 'Null-Beispiel-CoT; greedy decoding, sofern verfügbar.',
-  limitations: 'Historischer Prüfungsbenchmark. Kein klinischer Einsatznachweis; Unsicherheitsintervalle hier nicht übernommen. Publikationsdatum ersetzt unbekanntes Evaluationsdatum.',
+  sourceDetail: "Tables 4/5 · Text Avg · Sections 4.1/4.2",
+  system: "Authors' evaluation protocol",
+  setting: "Zero-shot CoT; greedy decoding where available.",
+  limitations: "Historical exam benchmark. No evidence of clinical deployment; uncertainty intervals are not reproduced here. Publication date is used because the evaluation date is unknown.",
   environment: 'benchmark',
   isHuman: false
 };
@@ -92,10 +92,10 @@ const assistanceBase = {
   dateBasis: 'publication',
   benchmark: 'HealthBench Professional',
   benchmarkVersion: 'Paper v1 (2604.27470v1)',
-  subset: 'Gesamt · n=525',
+  subset: "Overall · n=525",
   sourceId: 'healthbench-pro-v1',
-  sourceDetail: 'Abschnitte 5.1/5.3 · längenbereinigter Gesamtwert',
-  limitations: 'Anbieterbeteiligung; Systemkonfiguration beeinflusst den Score. Keine Prozent-Trefferquote und kein Patientennutzen-Endpunkt. 95%-Intervalle im Original, hier nicht numerisch übernommen; keine Rang-Signifikanz ableiten. Evaluationsdatum unbekannt.',
+  sourceDetail: "Sections 5.1/5.3 · length-adjusted overall score",
+  limitations: "Provider involvement; system configuration affects the score. Not percentage accuracy or a patient-benefit endpoint. The original reports 95% intervals, which are not reproduced numerically here; do not infer significant ranking differences. Evaluation date unknown.",
   environment: 'benchmark',
   isHuman: false
 };
@@ -109,10 +109,10 @@ const autonomyBase = {
   subset: 'Overall SR · n=300',
   comparisonGroup: 'medagentbench-v2-overall-authors-pass1-8rounds',
   sourceId: 'medagentbench-v2',
-  sourceDetail: 'Tabelle 3 · Overall SR · Abschnitte 2.4/2.5',
-  system: 'Autoren-Agent mit FHIR-Werkzeugen',
-  setting: 'pass@1; maximal acht Runden; Temperatur 0.',
-  limitations: 'Virtueller EHR-Test, keine reale autonome Versorgung. POST nur simuliert. Modell-Snapshot im Paper nicht für alle Anbieter präzisiert; Unsicherheit nicht berichtet. Publikationsdatum ersetzt unbekanntes Evaluationsdatum.',
+  sourceDetail: "Table 3 · Overall SR · Sections 2.4/2.5",
+  system: "Authors' agent with FHIR tools",
+  setting: "pass@1; maximum eight rounds; temperature 0.",
+  limitations: "Virtual EHR test, not real autonomous care. POST actions are simulated. The paper does not specify every provider's model snapshot; uncertainty is not reported. Publication date is used because the evaluation date is unknown.",
   environment: 'simulation',
   isHuman: false
 };
@@ -127,19 +127,19 @@ export const measurements = [
     ...assistanceBase,
     id: 'hbp-gpt54-base',
     model: 'GPT-5.4',
-    system: 'GPT-5.4 · Basis-API',
+    system: "GPT-5.4 · base API",
     score: 48.1,
     comparisonGroup: 'hbp-v1-base-api-xhigh-default-verbosity',
-    setting: 'API-Standardprompt; xhigh Reasoning; Standard-Verbosity.'
+    setting: "Default API prompt; xhigh reasoning; default verbosity."
   },
   {
     ...assistanceBase,
     id: 'hbp-gpt54-browsing',
     model: 'GPT-5.4',
-    system: 'GPT-5.4 · Browsing-Harness',
+    system: "GPT-5.4 · browsing harness",
     score: 45.8,
     comparisonGroup: 'hbp-v1-gpt54-browsing-harness',
-    setting: 'Einfaches Autoren-Harness mit Websuche; eigener Systemaufbau.'
+    setting: "Simple authors' harness with web search; a separate system configuration."
   },
   {
     ...assistanceBase,
@@ -148,7 +148,7 @@ export const measurements = [
     system: 'ChatGPT for Clinicians',
     score: 59.0,
     comparisonGroup: 'hbp-v1-chatgpt-for-clinicians-harness',
-    setting: 'Produkt-Harness mit eigener Werkzeug- und Promptkonfiguration.'
+    setting: "Product harness with its own tools and prompt configuration."
   },
   { ...autonomyBase, id: 'mab-claude35v2', model: 'Claude 3.5 Sonnet v2', score: 69.67 },
   { ...autonomyBase, id: 'mab-gpt4o', model: 'GPT-4o', score: 64.0 },
@@ -161,32 +161,32 @@ export const milestones = [
   {
     id: 'milestone-medagentbench-v2',
     date: '2025-02-12',
-    title: 'Autonomie wird im EHR-Test messbar',
+    title: "Measuring autonomy in a virtual EHR",
     category: 'research',
-    summary: 'MedAgentBench v2 veröffentlicht einen Systemvergleich für eine virtuelle Patientenakte.',
+    summary: "MedAgentBench v2 publishes a system comparison in a virtual patient record.",
     sourceId: 'medagentbench-v2',
     environment: 'simulation',
-    limitations: 'Publikationsereignis. Kein Beleg für sicheren Routineeinsatz.'
+    limitations: "Publication event. No evidence of safe routine deployment."
   },
   {
     id: 'milestone-medxpertqa-v3',
     date: '2025-06-06',
-    title: 'Anspruchsvolle medizinische Aufgaben',
+    title: "Challenging medical tasks",
     category: 'research',
-    summary: 'MedXpertQA v3 ist die Referenzausgabe dieses historischen Text-Vergleichs.',
+    summary: "MedXpertQA v3 is the reference version for this historical text comparison.",
     sourceId: 'medxpertqa-v3',
     environment: 'benchmark',
-    limitations: 'Publikationsereignis. Aufgabenleistung ersetzt keine klinische Validierung.'
+    limitations: "Publication event. Task performance does not replace clinical validation."
   },
   {
     id: 'milestone-healthbench-pro-v1',
     date: '2026-04-30',
-    title: 'Assistenz als Systemleistung',
+    title: "Assistance as system performance",
     category: 'research',
-    summary: 'HealthBench Professional vergleicht Antwortqualität und unterschiedliche GPT-5.4-Systemaufbauten.',
+    summary: "HealthBench Professional compares answer quality across different GPT-5.4 system configurations.",
     sourceId: 'healthbench-pro-v1',
     environment: 'benchmark',
-    limitations: 'Publikationsereignis mit Anbieterbeteiligung. Keine prospektive Versorgungsstudie.'
+    limitations: "Publication event with provider involvement. Not a prospective clinical study."
   }
 ];
 
@@ -197,6 +197,6 @@ milestones.push(...pharmaMilestones);
 export const editorialStatus = {
   updatedAt: '2026-10-18',
   checkedAt: '2026-10-18',
-  coverageNote: 'Historischer Startdatensatz aus drei Originalarbeiten: 13 Messpunkte. Keine vollständige Marktübersicht und keine Behauptung zum aktuellen Spitzenstand. Jede Spur enthält bislang nur eine Publikationsausgabe; daraus entsteht kein Zeittrend.',
-  updateNote: 'Historische Meilensteine am 18.10.2026 ergänzt; Benchmark-Stand unverändert. Noch keine automatische Aktualisierung und keine unabhängige fachliche Freigabe. Neue Werte benötigen Quellen- und Methodikprüfung; fehlende Daten bleiben leer.'
+  coverageNote: "Historical starter dataset from three original papers: 13 measurements. Not a complete market overview or a claim about current leading performance. Each track currently contains one publication version, so it cannot establish a time trend.",
+  updateNote: "Historical milestones added on 18 October 2026; benchmark values unchanged. No automatic updates or independent expert review yet. New values require source and methodology checks; missing data remain empty."
 };

@@ -40,3 +40,13 @@ Aktuell öffnen Punkte per Klick/Enter ein Quellen-Dialogfenster. Ein natives Ti
 - [x] Frühe Vertrauensbefragung 2023 getrennt von Ayers' Antwortpräferenz verlinkt.
 - [x] Untere Datumsachse auf 2022 erweitert; keine Prozentwerte unterschiedlicher Tests verbunden.
 - [ ] Neue Gestaltung im verbundenen Browser visuell abnehmen, sobald dieser wieder verfügbar ist. Die aktuelle Sitzung bietet keine Browser-Steuerung; keine manuelle Sichtprüfung behaupten.
+
+
+## Compact English release - 18 October 2026
+
+- [x] Remove tabs, applications and methodology controls.
+- [x] Translate interface, evidence and source dialogs into concise English.
+- [x] Restore three visible mini charts, down-links, return links and next-chart links.
+- [x] Replace verbose labels with short text; remove presentation references from the interface.
+- [x] Show benchmark values as actual scaled lines; retain connected milestone timelines.
+- [ ] Curate additional same-protocol publication dates before drawing benchmark time-trend lines. Current benchmark results are single publication snapshots.

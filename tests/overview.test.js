@@ -30,8 +30,8 @@ test('historical visibility distinguishes CASP 2020 from the 2021 paper and late
   assert.doesNotMatch(old,/class="overview-line scenario-line"/);
   const current = renderOverview('2026-10-17','2026-10-17');
   assert.match(current,/scenario-line/);
-  assert.match(current,/keine Messreihe/);
-  assert.match(current,/Szenarien, keine Prognosen/);
+  assert.match(current,/Illustrative scale/);
+  assert.match(current,/Dashed: scenarios/);
 });
 
 
@@ -48,7 +48,7 @@ test('all visible overview dots have primary evidence, finite illustration posit
   assert.equal(visibleAnchors('2026-06-16').some(point=>point.id==='mira-2026'),false);
   assert.ok(visibleAnchors('2026-06-17').some(point=>point.id==='mira-2026'));
   const html = renderOverview('2030-12-31','2026-10-17');
-  assert.match(html,/IQ zur Verdeutlichung/);
+  assert.match(html,/IQ for illustration/);
   assert.doesNotMatch(html,/kein IQ-Test|2035|2033|NaN|undefined/);
   assert.equal((html.match(/class="anchor-dot"/g)||[]).length,22);
   assert.equal((html.match(/class="overview-point"/g)||[]).length,22);
