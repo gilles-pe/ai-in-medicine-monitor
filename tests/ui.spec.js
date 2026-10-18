@@ -24,10 +24,10 @@ test('milestones owns stable timeline controls and stays open through slider, da
   expect(await panel.evaluate(e=>e.children[1].id)).toBe('timeline-slot');
   await slider.evaluate(e=>{window.__slider=e;});await slider.focus();await slider.press('ArrowLeft');await slider.press('ArrowLeft');
   await expect(panel).toHaveAttribute('open','');await expect(slider).toBeFocused();expect(await slider.evaluate(e=>e===window.__slider)).toBe(true);
-  await date(page,'2025-06-30');await page.locator('#model-filter').selectOption('GPT-5.4');
+  await date(page,'2025-06-30');await page.locator('#model-filter').selectOption('GPT-5.2');
   await expect(panel).toHaveAttribute('open','');await expect(page.locator('#cutoff-date')).toHaveValue('2025-06-30');
   await page.setViewportSize({width:360,height:844});await page.clock.runFor(200);await expect(panel).toHaveAttribute('open','');
-  await expect(page.locator('#model-filter')).toHaveValue('GPT-5.4');expect(await slider.evaluate(e=>e===window.__slider)).toBe(true);
+  await expect(page.locator('#model-filter')).toHaveValue('GPT-5.2');expect(await slider.evaluate(e=>e===window.__slider)).toBe(true);
   await page.locator('#today-button').click();await expect(panel).toHaveAttribute('open','');await expect(page.locator('#cutoff-date')).toHaveValue('2026-10-18');
 });
 
@@ -68,7 +68,7 @@ test('only checked observations appear and 2026 MedQA stays an independent serie
 });
 
 test('point cards retain quantitative findings, validity, source and active context',async({page})=>{
-  await openMonitor(page,'3.9');const card=page.getByRole('dialog');await expect(card).toContainText('69.67%');await expect(card.locator('.point-card-sections dt')).toHaveText(['SETUP & COHORT','LIMITATIONS & VALIDITY']);await expect(card.locator('.point-sources a')).toHaveAttribute('href','https://stanfordmlgroup.github.io/projects/medagentbench/');await expect(page.locator('[data-observation-id="3.9"]')).toHaveClass(/is-selected/);await page.keyboard.press('Escape');
+  await openMonitor(page,'3.9');const card=page.getByRole('dialog');await expect(card).toContainText('69.67%');await expect(card.locator('.point-card-sections dt')).toHaveText(['SETUP & COHORT','LIMITATIONS & VALIDITY']);await expect(card.locator('.point-sources a')).toHaveAttribute('href','https://stanfordmlgroup.github.io/projects/medagentbench/');await expect(page.locator('.detail-charts [data-observation-id="3.9"]')).toHaveClass(/is-selected/);await page.keyboard.press('Escape');
   await page.locator('[data-track-milestone="lower-amie-2025"]').click();await expect(card).toContainText('30/32');await expect(card).toContainText('25/26');await expect(card.locator('.semantic-badge')).toHaveText('Peer-reviewed · 2025');await expect(card.locator('.card-tags')).not.toHaveText(/^\s*·/);await expect(card).not.toContainText(/What was tested\?|How sure are we\?|Historical source-backed/);
 });
 
@@ -84,7 +84,7 @@ test('320px fits the header, charts, menu and touch controls',async({page})=>{
 });
 
 test('language preserves date, model, open milestones and translated cards',async({page})=>{
-  await date(page,'2026-07-31');await page.locator('#model-filter').selectOption('GPT-5.4');await page.locator('#menu-button').click();await page.locator('[data-language="de"]').click();await expect(page.locator('html')).toHaveAttribute('lang','de');await page.keyboard.press('Escape');await expect(page.locator('#milestones-panel')).toHaveAttribute('open','');await expect(page.locator('#cutoff-date')).toHaveValue('2026-07-31');await expect(page.locator('#model-filter')).toHaveValue('GPT-5.4');await expect(page.locator('#track-knowledge')).toHaveText('Medizinisches Wissen');
+  await date(page,'2026-07-31');await page.locator('#model-filter').selectOption('GPT-5.2');await page.locator('#menu-button').click();await page.locator('[data-language="de"]').click();await expect(page.locator('html')).toHaveAttribute('lang','de');await page.keyboard.press('Escape');await expect(page.locator('#milestones-panel')).toHaveAttribute('open','');await expect(page.locator('#cutoff-date')).toHaveValue('2026-07-31');await expect(page.locator('#model-filter')).toHaveValue('GPT-5.2');await expect(page.locator('#track-knowledge')).toHaveText('Medizinisches Wissen');
   await openMonitor(page,'3.9');await expect(page.getByRole('dialog').locator('.point-card-sections dt')).toHaveText(['AUFBAU & STICHPROBE','GRENZEN & VALIDITÄT']);await page.keyboard.press('Escape');await page.reload();await expect(page.locator('html')).toHaveAttribute('lang','de');await page.locator('#menu-button').click();await page.locator('[data-language="en"]').click();await expect(page.locator('#track-knowledge')).toHaveText('Medical knowledge');await expect(page.getByRole('heading',{level:1})).toHaveText('Digital Health & AI in Medicine');
 });
 
