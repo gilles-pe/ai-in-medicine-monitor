@@ -13,7 +13,7 @@ async function openBenchmark(page,trackId='knowledge'){
 test.beforeEach(async({page})=>{
   await page.clock.install({time:new Date('2026-10-18T06:30:00Z')});
   await page.goto('/');
-  await expect(page.getByRole('heading',{level:1})).toHaveText(/AI in Medicine Monitor/);
+  await expect(page.getByRole('heading',{level:1})).toHaveText(/Digital Health & AI in Medicine/);
 });
 
 test('compact English single page has no tabs, methodology control or slide references',async({page})=>{
@@ -239,4 +239,49 @@ test('autonomy PNG preserves both separate benchmark bands',async({page})=>{
   expect([...bytes.subarray(0,8)]).toEqual([137,80,78,71,13,10,26,10]);
   expect(bytes.readUInt32BE(16)).toBeGreaterThanOrEqual(1200);
   expect(bytes.readUInt32BE(20)).toBeGreaterThan(1000);
+});
+
+test('language switch preserves selection and translates new point cards, then restores English',async({page})=>{
+  await page.locator('#cutoff-date').fill('2026-07-31');await page.locator('#cutoff-date').press('Tab');
+  await page.locator('#model-filter').selectOption('GPT-5.4');
+  await page.locator('[data-language="de"]').click();
+  await expect(page.locator('html')).toHaveAttribute('lang','de');
+  await expect(page.locator('#cutoff-date')).toHaveValue('2026-07-31');
+  await expect(page.locator('#model-filter')).toHaveValue('GPT-5.4');
+  await expect(page.locator('#track-knowledge')).toHaveText('Medizinisches Wissen');
+  await expect(page.locator('#editorial-check')).toHaveText('Zuletzt geprüft 18. Okt. 2026');
+  await expect(page.locator('.monitor-calendar-note').first()).toContainText('Vorläufiger Zeitverlauf');
+  await openMonitor(page,'3.9');
+  await expect(page.getByRole('dialog').locator('.point-card-sections dt')).toHaveText(['Was wurde getestet?','Was bedeutet dieser Wert?','Wie wurde getestet?','Wie sicher ist das Ergebnis?','Quelle']);
+  await expect(page.getByRole('dialog')).toContainText('69,67%');
+  await page.keyboard.press('Escape');
+  await page.reload();await expect(page.locator('html')).toHaveAttribute('lang','de');
+  await page.locator('[data-language="en"]').click();
+  await expect(page.locator('html')).toHaveAttribute('lang','en');
+  await expect(page.locator('#track-knowledge')).toHaveText('Medical knowledge');
+  await expect(page.locator('#editorial-check')).toHaveText('Last reviewed 18 Oct 2026');
+});
+
+test('hamburger menu has verified social links, articles and accessible feedback',async({page})=>{
+  await expect(page.locator('#site-menu')).not.toBeVisible();
+  await page.locator('#menu-button').click();await expect(page.locator('#menu-button')).toHaveAttribute('aria-expanded','true');
+  await expect(page.locator('#site-menu a[aria-label="LinkedIn"]')).toHaveAttribute('href','https://de.linkedin.com/in/gillespenning');
+  await expect(page.locator('#site-menu').getByRole('link',{name:'My articles on Substack',exact:false})).toHaveAttribute('href','https://medtechsignal.substack.com/');
+  await expect(page.locator('#site-menu button[disabled]')).toHaveAccessibleName('Bluesky: profile link pending');
+  await page.keyboard.press('Escape');await expect(page.locator('#site-menu')).not.toBeVisible();await expect(page.locator('#menu-button')).toBeFocused();
+  await page.locator('#menu-button').click();await page.locator('#feedback-button').click();
+  await expect(page.locator('#feedback-dialog')).toBeVisible();await expect(page.locator('#site-menu')).not.toBeVisible();
+  await page.locator('#feedback-text').fill('Please add this study.');
+  await expect(page.locator('#feedback-dialog')).toContainText('Nothing is sent automatically.');
+  await page.locator('#feedback-close').click();await expect(page.locator('#feedback-dialog')).not.toBeVisible();
+  await page.locator('[data-language="de"]').click();await page.locator('#menu-button').click();
+  await expect(page.locator('#site-menu')).toContainText('Meine Artikel auf Substack');
+  await page.locator('#feedback-button').click();await expect(page.locator('#feedback-dialog')).toContainText('E-Mail-Entwurf');
+});
+
+test('German header and menu fit at 320px and close on outside click',async({page})=>{
+  await page.setViewportSize({width:320,height:844});await page.locator('[data-language="de"]').click();
+  await page.locator('#menu-button').click();await expect(page.locator('#site-menu')).toBeVisible();
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
+  await page.locator('#page-title').click();await expect(page.locator('#site-menu')).not.toBeVisible();
 });

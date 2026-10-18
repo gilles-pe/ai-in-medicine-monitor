@@ -1,4 +1,4 @@
-# AI in Medicine Monitor
+# Digital Health & AI in Medicine
 
 A compact English dashboard with an illustrative historical overview and three benchmark-specific medical-AI timelines. The existing design, studies, milestone rails, presentation mode, model/date controls and chart exports remain available.
 

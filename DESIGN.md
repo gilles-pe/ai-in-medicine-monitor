@@ -1,11 +1,11 @@
-# AI in Medicine Monitor - Design & Interaction
+# Digital Health & AI in Medicine - Design & Interaction
 Version: 1.0 | Date: 2026-10-18
 
 ## Product idea
 A glanceable medical AI progress radar for presentations, mobile screens, physicians, industry and a broad audience. First impression: progress over calendar time. Second glance: what does it actually mean? Third level: evidence.
 
 ## Information hierarchy
-1. Header: AI in Medicine Monitor, concise one-line explanation, visible 'Last reviewed' date.
+1. Header: Digital Health & AI in Medicine, concise one-line explanation, visible 'Last reviewed' date.
 2. Three aligned timeline charts (same x-axis: Jan 2022 through current reviewed month): Medical Knowledge; Clinical Assistance; Autonomous Workflows.
 3. Each chart has a **human question**, plain-language score definition, and small 'About this benchmark' affordance.
 4. A point card on hover, tap or keyboard focus. Deeper source links available from the card.
@@ -50,13 +50,19 @@ Point card: 'Claude 3.5 Sonnet v2 - 69.7% on Stanford MedAgentBench (published 2
 ## Export use
 The same data + explanation fields should be reused in website hover cards, slides, speaker notes and social-media visualizations. No copy/paste data forks. Use the JSON as the single content source; presentation-specific layouts may be generated from it.
 
+## Bilingual navigation - 18 October 2026
+
+Keep the English brand name in both languages. EN/DE changes UI labels, axes and evidence explanations, persists locally and can be shared with the lang query parameter. Language selection must preserve cutoff, model, chart position and open card. Bibliographic titles, model names, metrics and primary facts remain unchanged in the central JSON.
+
+The compact header includes a language switch and hamburger navigation. The menu provides Feedback, verified LinkedIn/Substack icon links and articles on Substack. A Bluesky icon remains inactive until its profile URL is verified. Feedback opens a user-controlled email draft; it does not transmit automatically. Menu dismissal works via Escape and outside click. Preserve 320px layout and keyboard access.
+
 <!-- monitor-data-contract:start -->
 ## Generated data contract
 
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.0
-- SHA-256 (parsed JSON): `464446fcd78931cd924955d793c2dfe363aae7c86c7b670677dfd85437b6a2df`
+- SHA-256 (parsed JSON): `e3c0f4d89f2ca6dcac5f058667bf5eac1c77e899721f11af4e791b867896f34e`
 - Tracks / benchmark series / measurements: 3 / 5 / 41
 - Score validation: 18 confirmed, 0 reported, 23 under review
 - Main-line eligible scores: 17; original-link gaps: 22

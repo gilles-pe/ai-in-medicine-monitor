@@ -13,5 +13,5 @@ for (const name of ['index.html', 'styles.css', 'editorial.css', 'monitor.css', 
 await mkdir(path.join(output,'docs'),{recursive:true});
 await cp(path.join(root,'docs/MONITOR_DATA_STATUS.md'),path.join(output,'docs/MONITOR_DATA_STATUS.md'));
 const html = await readFile(path.join(output, 'index.html'), 'utf8');
-if (!html.includes('AI in Medicine Monitor')) throw new Error('Missing application title');
+if (!html.includes('Digital Health &amp; AI in Medicine')) throw new Error('Missing application title');
 console.log('Static site packaged in dist/. No network services or secrets required.');

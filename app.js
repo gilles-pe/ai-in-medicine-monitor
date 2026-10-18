@@ -1,3 +1,5 @@
+import { feedbackUrl } from './lib/navigation.js';
+import { applyLanguage, getLanguage, setLanguage, preferredLanguage, translateText } from './lib/i18n.js';
 import { monitorData } from './lib/monitor-data.js';
 import { buildTrackSeries } from './lib/monitor-series.js';
 import { renderMonitorChart } from './lib/monitor-chart.js';
@@ -12,6 +14,9 @@ import { filterMeasurements, latestByModel, escapeHtml as e } from './lib/select
 
 const $=selector=>document.querySelector(selector);
 const content=$('#content'),dialog=$('#detail-dialog'),timeControls=$('#time-controls');
+let preferenceStorage;try{preferenceStorage=window.localStorage;}catch{}
+setLanguage(preferredLanguage(location.search,preferenceStorage));
+document.documentElement.lang=getLanguage();
 const today=new Date().toISOString().slice(0,10);
 const sharedCutoff=new URLSearchParams(location.search).get('cutoff');
 const initialCutoff=/^\d{4}-\d{2}-\d{2}$/.test(sharedCutoff||'')&&Number.isFinite(Date.parse(sharedCutoff+'T00:00:00Z'))&&new Date(sharedCutoff+'T00:00:00Z').toISOString().slice(0,10)===sharedCutoff&&sharedCutoff>='1950-01-01'&&sharedCutoff<='2030-12-31'?sharedCutoff:today;
@@ -115,8 +120,8 @@ function exportData(){
   const selectedStudies=studies.filter(item=>item.date<=state.cutoff).map(({presentationSlides,...item})=>item);
   const historicalEvents=visibleHistory(state.cutoff);
   const ids=new Set([...results,...overviewPoints,...historicalTrackMilestones,...selectedStudies,...historicalEvents].map(item=>item.sourceId));
-  const payload={title:'AI in Medicine Monitor',cutoff:state.cutoff,model:state.model,exportedAt:new Date().toISOString(),measurements:results,monitorData,selection:{cutoff:state.cutoff,model:state.model},overviewPoints,historicalTrackMilestones,studies:selectedStudies,historicalEvents,scaleNote:'Illustrative overview. Lower charts show benchmark-specific frontiers by provisional model availability; publication cutoffs apply.',sourceCatalog:sourceCatalog.filter(item=>ids.has(item.id)),editorialStatus};
-  const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='ai-in-medicine-monitor-'+state.cutoff+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('Data exported.');
+  const payload={title:monitorData.meta.title,cutoff:state.cutoff,model:state.model,exportedAt:new Date().toISOString(),measurements:results,monitorData,selection:{cutoff:state.cutoff,model:state.model,language:getLanguage()},overviewPoints,historicalTrackMilestones,studies:selectedStudies,historicalEvents,scaleNote:'Illustrative overview. Lower charts show benchmark-specific frontiers by provisional model availability; publication cutoffs apply.',sourceCatalog:sourceCatalog.filter(item=>ids.has(item.id)),editorialStatus};
+  const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='digital-health-ai-in-medicine-'+state.cutoff+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('Data exported.');
 }
 async function action(event){
   const copy=event.target.closest('[data-chart-copy]');
@@ -158,3 +163,28 @@ function hoverCard(target){
 }
 const hover=installPointHover(content,hoverCard);
 let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{hover.hide();render();},150);});
+
+// UI language changes preserve the active chart, cutoff, model and open details.
+function chooseLanguage(value,persist=true){
+  setLanguage(value);document.documentElement.lang=getLanguage();
+  document.querySelectorAll('[data-language]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.language===getLanguage())));
+  if(persist){try{preferenceStorage?.setItem('digital-health-language',getLanguage());}catch{}const url=new URL(location.href);url.searchParams.set('lang',getLanguage());history.replaceState(null,'',url);}
+  applyLanguage(document);
+}
+document.querySelectorAll('[data-language]').forEach(button=>button.addEventListener('click',()=>chooseLanguage(button.dataset.language)));
+const menuButton=$('#menu-button'),siteMenu=$('#site-menu');
+function closeMenu(returnFocus=false){siteMenu.hidden=true;menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Open menu');if(returnFocus)menuButton.focus();}
+menuButton.addEventListener('click',()=>{siteMenu.hidden=!siteMenu.hidden;menuButton.setAttribute('aria-expanded',String(!siteMenu.hidden));menuButton.setAttribute('aria-label',siteMenu.hidden?'Open menu':'Close menu');});
+document.addEventListener('click',event=>{if(!siteMenu.hidden&&!event.target.closest('#site-menu,#menu-button'))closeMenu();});
+siteMenu.addEventListener('click',event=>{if(event.target.closest('a'))closeMenu();});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!siteMenu.hidden){event.preventDefault();closeMenu(true);}});
+const feedbackDialog=$('#feedback-dialog');
+$('#feedback-button').addEventListener('click',()=>{stop();hover.hide();closeMenu();feedbackDialog.showModal();});
+$('#feedback-close').addEventListener('click',()=>feedbackDialog.close());
+feedbackDialog.addEventListener('close',()=>menuButton.focus());
+$('#feedback-form').addEventListener('submit',event=>{event.preventDefault();const body=$('#feedback-text').value.trim();if(!body)return;window.location.href=feedbackUrl(body,monitorData.meta.title,monitorData.extensions.navigation.feedbackEmail);});
+chooseLanguage(getLanguage(),false);
+// All freshly rendered chart labels, cards, hover previews and announcements use
+// the selected dictionary. Original research titles and model names stay intact.
+const languageObserver=new MutationObserver(()=>applyLanguage(document));
+languageObserver.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','title','placeholder','aria-valuetext']});
