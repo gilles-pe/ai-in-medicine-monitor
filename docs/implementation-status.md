@@ -106,3 +106,13 @@ Wissen: Flan-PaLM/Med-PaLM (2022), ChatGPT/USMLE-Beispielfragen (2023), MedXpert
 Quellen und Hintergrund: [Studienregister](studies-and-background.md). Offene visuelle Abnahme: [TODO](TODO.md). Die Screenshots weiter oben dokumentieren den vorherigen Stand vom 17.10.2026.
 
 Private Bereitstellung am 18.10.2026 erfolgreich bestätigt: https://ai-in-medicine-monitor.gillesp.chatgpt.site. Deployment: `appgdep_6ad43db87b4c8191b9a4199ee409913d`; Sites-Quellcommit: `277e21e9c330eba2d98bbb6fe286d344c3f487e2`. Bestehender Eigentümerzugang bleibt erhalten. Der native Erfolgsstatus bestätigt die Bereitstellung, ersetzt die noch offene manuelle Sichtprüfung jedoch nicht.
+
+## Compact English release - 18 October 2026
+
+The interface is now a single English page. Tabs, application screens and the methodology control have been removed. Three visible chart previews link to the detailed sections below, with return and next-chart links. Copy is shorter; the overview list is labelled Milestones. Evidence dialogs and source context are in English. Presentation provenance is not displayed or included in exported study metadata; historical source provenance remains in the repository documentation.
+
+The upper overview retains its curves, scale and evidence anchors. Lower benchmark comparisons use scaled horizontal score lines and markers. The connected dated milestone timelines remain separate from quantitative performance. Repeated comparable evaluations are still needed for a genuine benchmark time trend. All 13 scores, 24 overview anchors, nine lower milestones and six studies are preserved.
+
+[CI](https://github.com/gilles-pe/ai-in-medicine-monitor/actions/runs/39104045758), commit f0909f8e3dff5e244085d1ca25a607d5ba38a502: successful. 21 data/logic tests, build and 20 browser checks across desktop/mobile. Checks cover the single-page layout, no tabs or presentation references, source dialogs, preview/back/next jumps, line scaling, filters, keyboard access, playback, export and overflow. Two bounded agents translated scientific text and reviewed layout/navigation. No extra manual browser inspection was available in this session.
+
+Private publication succeeded: https://ai-in-medicine-monitor.gillesp.chatgpt.site. Deployment `appgdep_6ad4672d28088191bda581ca9dedf8d5`, source commit `f4d4fee897a0758f84730000735e75b0b31109ad`. Existing owner-only access was preserved.
