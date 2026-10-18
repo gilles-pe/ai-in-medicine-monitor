@@ -53,7 +53,7 @@ The same data + explanation fields should be reused in website hover cards, slid
 
 Keep the English brand name in both languages. EN/DE changes UI labels, axes and evidence explanations, persists locally and can be shared with the lang query parameter. Language selection must preserve cutoff, model, chart position and open card. Bibliographic titles, model names, metrics and primary facts remain unchanged in the central JSON.
 
-The compact header includes a language switch and hamburger navigation. The menu provides Feedback, verified LinkedIn/Substack icon links and articles on Substack. A Bluesky icon remains inactive until its profile URL is verified. Feedback opens a user-controlled email draft; it does not transmit automatically. Menu dismissal works via Escape and outside click. Preserve 320px layout and keyboard access.
+The compact header includes a language switch and hamburger navigation. The menu provides Feedback, LinkedIn/Substack/Bluesky icon links and the compact label "articles on substack" (translated in German). The Bluesky icon and introduction contact link use the owner-supplied profile https://bsky.app/profile/gillespe.bsky.social. Feedback opens a user-controlled email draft; it does not transmit automatically. Menu dismissal works via Escape and outside click. Preserve 320px layout and keyboard access.
 
 <!-- monitor-data-contract:start -->
 ## Generated data contract
@@ -61,7 +61,7 @@ The compact header includes a language switch and hamburger navigation. The menu
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `f823515984ad81144764fd7b5ce9eb9a0a5bf6e569e10b777812608711bb0bf2`
+- SHA-256 (parsed JSON): `ee055c6bae9ef80136f8938b846a60934939a42aa80916f65124eb83df1c4244`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2
@@ -78,3 +78,6 @@ Run `node scripts/sync-monitor-docs.mjs` after a JSON change, and `node scripts/
 The top row contains the title and menu only; presentation/language live inside the menu. No chart copy/image controls, benchmark result accordions, review queues or back-to-charts links in the reading view. Only source-confirmed benchmark records appear; unconfirmed candidates remain in the portable dataset. Sources, setup and limitations are reached through point cards. Each lower track has a single plot and one optional Both/benchmark selector. Milestone buttons sit above the plot. Same-point multiple results switch inside one card. Small overview markers do not display count bubbles.
 
 The Milestones details element and its first-child timeline controls remain stable DOM nodes during cutoff/model/view changes; the slider must not lose focus or close the disclosure. The other open study disclosure also remains open. Published point values and benchmark eligibility remain data driven; sparse or incomparable data do not gain fabricated lines.
+
+## Introduction - 18 October 2026
+The owner-approved introduction is expanded on initial load. Its native disclosure shows only the triangle, with an accessible Introduction label; no visible About this monitor heading. The supplied English paragraph is preserved verbatim, with an equivalent German translation. The triangle remains keyboard operable and has a 44px touch target.
