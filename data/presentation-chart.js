@@ -5,7 +5,7 @@ export const presentationSeries = [
   {
     "id": "general",
     "label": "General AI capability",
-    "color": "#2878b5",
+    "color": "#60727c",
     "shape": "ellipse",
     "points": [
       {
@@ -69,7 +69,7 @@ export const presentationSeries = [
   {
     "id": "knowledge",
     "label": "Medical knowledge",
-    "color": "#e88725",
+    "color": "#1c9d90",
     "shape": "rect",
     "points": [
       {
@@ -116,8 +116,8 @@ export const presentationSeries = [
   },
   {
     "id": "reasoning",
-    "label": "Clinical reasoning",
-    "color": "#2e9b42",
+    "label": "Clinical assistance",
+    "color": "#d69b28",
     "shape": "diamond",
     "points": [
       {
@@ -161,7 +161,7 @@ export const presentationSeries = [
   {
     "id": "autonomy",
     "label": "Autonomy · METR context",
-    "color": "#1565a6",
+    "color": "#4d7fbd",
     "shape": "custom",
     "points": [
       {

@@ -15,7 +15,7 @@ export const tracks = [
     label: "Medical knowledge",
     subtitle: "Knowledge and case solving",
     unit: '%',
-    color: '#209b8e',
+    color: '#1c9d90',
     metricDescription: "MedXpertQA Text: correct answers on the full text test. Does not measure patient benefit."
   },
   {
@@ -23,7 +23,7 @@ export const tracks = [
     label: "Clinical assistance",
     subtitle: "Quality of clinical answers",
     unit: "points",
-    color: '#d49b32',
+    color: '#d69b28',
     metricDescription: "HealthBench Professional: length-adjusted rubric score. Points on a 0–100 scale, not percentage accuracy."
   },
   {
@@ -31,7 +31,7 @@ export const tracks = [
     label: "Autonomous workflows",
     subtitle: "Virtual EHR test",
     unit: '%',
-    color: '#4d7dbe',
+    color: '#4d7fbd',
     metricDescription: "MedAgentBench: first-attempt success rate in a simulated electronic health record."
   }
 ];

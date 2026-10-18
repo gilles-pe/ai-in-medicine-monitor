@@ -576,3 +576,15 @@ Neue Originalquellen:
 The website and its source dialogs now use English. Presentation references are no longer displayed; the historical provenance recorded earlier in this document is retained for auditability. No scientific scores, dates or source URLs changed in this interface update.
 
 Missing benchmark trend lines were caused by having only one publication date per comparison protocol. The compact interface now shows actual scaled model-comparison lines, with the original date, score and protocol behind each result. These are not time trends. Publication timelines connect the dated study milestones without assigning them a shared performance score. New comparable dated evaluations remain a curation task, not an interpolation task.
+
+## Source-native curves - 18 October 2026
+
+The lower charts now show eight additional values from the existing three primary publications. These are cross-sectional comparisons, not calendar-time progress. Full 0–100 axes and straight connecting segments are used; the segments do not represent measurements at intermediate x values. Publication cutoff controls availability. The model filter applies to the separate historical benchmark tables, not these fixed paper comparisons.
+
+| Track | Source location | x variable | Exact reported values |
+| --- | --- | --- | --- |
+| Knowledge | MedXpertQA v3, Table 5, Text Avg | Qwen2.5 Instruct model size | 32B: 15.06%; 72B: 18.90% |
+| Assistance | HealthBench Professional v1, Figure 4, Overall panel | GPT-5 family model categories | GPT-5: 46.2; GPT-5.2: 45.9; GPT-5.4: 48.1 length-adjusted rubric points |
+| Workflows | MedAgentBench v2, Appendix A.3, Table 4 | Required task steps for GPT-4o | 1 step: 86.67%; 2 steps: 70.00%; ≥3 steps: 33.33% first-attempt success |
+
+Originals: https://arxiv.org/html/2501.18362v3 ; https://arxiv.org/html/2604.27470v1 ; https://arxiv.org/html/2501.14654v2 . The HealthBench values are printed figure labels, not estimated pixels. Reasoning budgets differ by model within that paper's highest-available-reasoning comparison. Small differences are not asserted significant. The MedAgent groups contain different tasks, and the falling difficulty curve does not mean historical deterioration. No human reference threshold is invented. Existing 13 benchmark records remain unchanged; the eight curve records have separate IDs and protocol metadata in data/trend-series.js.

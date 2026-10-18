@@ -116,3 +116,7 @@ The upper overview retains its curves, scale and evidence anchors. Lower benchma
 [CI](https://github.com/gilles-pe/ai-in-medicine-monitor/actions/runs/39104045758), commit f0909f8e3dff5e244085d1ca25a607d5ba38a502: successful. 21 data/logic tests, build and 20 browser checks across desktop/mobile. Checks cover the single-page layout, no tabs or presentation references, source dialogs, preview/back/next jumps, line scaling, filters, keyboard access, playback, export and overflow. Two bounded agents translated scientific text and reviewed layout/navigation. No extra manual browser inspection was available in this session.
 
 Private publication succeeded: https://ai-in-medicine-monitor.gillesp.chatgpt.site. Deployment `appgdep_6ad4672d28088191bda581ca9dedf8d5`, source commit `f4d4fee897a0758f84730000735e75b0b31109ad`. Existing owner-only access was preserved.
+
+## Compact monitor redesign - 18 October 2026
+
+Implementation in progress: Changes beside the introduction, personal text in About, removal of the visible author name, verified contact links, compact full-width overview, controls below it, consistent solid/dotted/scenario styles, chart-specific links and image exports. Bluesky handle remains unverified. Lower curves retain explicit scientific axes rather than inventing longitudinal performance from publication snapshots. Existing benchmark comparisons remain available in compact disclosures; milestone rails are preserved. Validation and publication results will be recorded after completion.

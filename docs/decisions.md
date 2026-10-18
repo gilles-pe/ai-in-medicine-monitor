@@ -28,3 +28,11 @@ Implementierungswahl: buildlose Browser-ES-Module mit CSS, getrennten kuratierte
 ## Überarbeitung vom 18. Oktober 2026
 
 Auf Nutzerwunsch bleibt der obere Graph weitgehend erhalten. Die übrige Gestaltung orientiert sich erneut an Konzept A: weniger Karten und Umrandungen, größere Typografie und drei offene Diagrammspuren. Je unterer Gruppe werden drei belegte Publikationsmeilensteine ab 2022/2023 ergänzt. Ihre Ereignispositionen sind keine gemeinsame Leistungsmessung. Patientenvertrauen und fachliche Antwortpräferenz werden getrennt dargestellt. Die Grenze 2030 bleibt bestehen.
+
+## Compact monitor design - 18 October 2026
+
+The user approved implementing the discussed design and placed Changes at the top, to the right of the introductory copy. The author name is removed from visible page branding. The personal introduction is retained in an About disclosure; verified Substack and LinkedIn destinations are used. The Bluesky destination remains pending rather than guessed.
+
+The overview keeps its angular illustrative geometry, uses one solid general-AI line and three dotted medical-context lines, and fits without internal scrolling. Future scenarios use long dashes. The timeline controls follow the overview. Lower performance curves must come from a comparable source protocol and explicitly named axes. A publication date is not a model evaluation date; incompatible benchmarks cannot become a temporal performance curve. Dated milestone rails remain separate.
+
+Chart-specific links retain the selected cutoff; image exports include title, date and evidence context. Changes records actual editorial work, not automatic source freshness. No automatic research schedule is enabled.

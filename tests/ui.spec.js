@@ -1,5 +1,10 @@
 import { test,expect } from '@playwright/test';
 const results=page=>page.locator('.result-row');
+async function openBenchmark(page,trackId='knowledge'){
+  const details=page.locator('#chart-'+trackId+' details.benchmark-details');
+  if(await details.count()&&!await details.evaluate(element=>element.open))await details.locator('summary').click();
+  return details;
+}
 
 test.beforeEach(async({page})=>{
   await page.clock.install({time:new Date('2026-10-18T06:30:00Z')});
@@ -16,14 +21,25 @@ test('compact English single page has no tabs, methodology control or slide refe
   await expect(page.locator('#content')).not.toContainText(/PPT|PowerPoint|Präsentation|Wie wir|Meilensteine|Fortschritt/);
   await expect(page.locator('.chart-thumbnail')).toHaveCount(3);
   await expect(results(page)).toHaveCount(13);
+  await expect(page.locator('.changes')).toContainText('Changes');
+  await expect(page.locator('.masthead')).not.toContainText('Gilles Penning');
+  await expect(page.locator('.site-footer')).not.toContainText('Gilles Penning');
+  await expect(page.locator('.about-monitor')).not.toHaveAttribute('open','');
+  await page.locator('.about-monitor summary').click();
+  await expect(page.locator('.contact-links')).toBeVisible();
+  const order=await page.locator('#content').evaluate(element=>Array.from(element.children).map(child=>child.id||child.className));
+  expect(order.indexOf('timeline-slot')).toBeGreaterThan(order.indexOf('overview'));
 });
 
-test('overview retains four solid curves, three scenarios, early years and AlphaFold sources',async({page})=>{
+test('overview preserves four curves, differentiated lines, scenarios and AlphaFold sources',async({page})=>{
   await expect(page.locator('#cutoff-date')).toHaveAttribute('min','1950-01-01');
   await expect(page.locator('#cutoff-date')).toHaveAttribute('max','2030-12-31');
   await expect(page.locator('.overview-line:not(.scenario-line)')).toHaveCount(4);
   await expect(page.locator('.scenario-line')).toHaveCount(3);
   await expect(page.locator('.overview-point')).toHaveCount(22);
+  const histories=await page.locator('.overview-line:not(.scenario-line)').evaluateAll(elements=>elements.map(element=>getComputedStyle(element).strokeDasharray));
+  expect(histories[0]).toBe('none');
+  expect(histories.slice(1).every(value=>value!=='none')).toBe(true);
   await page.locator('[data-history-id="alphafold2-2020"]').click();
   await expect(page.getByRole('dialog')).toContainText('CASP14');
   await expect(page.getByRole('dialog').getByRole('link',{name:/Source/})).toHaveAttribute('href',/deepmind.google/);
@@ -37,7 +53,7 @@ test('three visible mini charts jump down to detailed charts and back or onward'
   for(const id of ['knowledge','assistance','autonomy']){
     const preview=page.locator('.chart-thumbnail[href="#chart-'+id+'"]');
     await expect(preview.locator('svg')).toBeVisible();
-    await expect(preview.locator('line')).not.toHaveCount(0);
+    await expect(preview.locator('svg path,svg line')).not.toHaveCount(0);
     await preview.click();await expect(page).toHaveURL(new RegExp('#chart-'+id+'$'));
     await expect(page.locator('#chart-'+id)).toBeInViewport();
     await page.locator('#chart-'+id+' .back-link').click();await expect(page).toHaveURL(/#charts$/);
@@ -47,11 +63,12 @@ test('three visible mini charts jump down to detailed charts and back or onward'
   await page.locator('#chart-knowledge .track-navigation a').click();await expect(page).toHaveURL(/#chart-assistance$/);
 });
 
-test('benchmark comparisons show actual scaled lines and source details with focus restored',async({page})=>{
+test('benchmark disclosure preserves scores, original sources and focus',async({page})=>{
+  await expect(results(page).first()).not.toBeVisible();
+  await openBenchmark(page);
   const trigger=results(page).first();
   const id=await trigger.getAttribute('data-point-id');
-  await expect(trigger.locator('.score-line i')).toBeVisible();
-  await expect(trigger.locator('.score-line')).toHaveAttribute('style','--value:30.37%');
+  await expect(trigger.locator('.result-score')).toContainText('30.37%');
   await trigger.click();await expect(page.getByRole('dialog')).toContainText('30.37%');
   await expect(page.getByRole('dialog').getByRole('link',{name:/Source/})).toHaveAttribute('href',/^https:/);
   await page.getByRole('button',{name:'Close',exact:true}).click();
@@ -113,6 +130,57 @@ test('page remains compact and fits mobile and desktop without horizontal page o
   const height=await page.locator('#chart-knowledge').evaluate(element=>element.getBoundingClientRect().height);
   expect(height).toBeLessThan(800);
   await expect(page.locator('.chart-thumbnail svg').first()).toBeVisible();
-  const scroll=await page.locator('.overview-scroll').evaluate(element=>({width:element.clientWidth,left:element.scrollLeft}));
-  if(scroll.width<600)expect(scroll.left).toBeGreaterThan(0);
+  const chart=await page.locator('.overview-scroll').evaluate(element=>({width:element.clientWidth,scroll:element.scrollWidth,left:element.scrollLeft,svg:element.querySelector('svg').getBoundingClientRect().width}));
+  expect(chart.scroll-chart.width).toBeLessThanOrEqual(1);
+  expect(chart.svg-chart.width).toBeLessThanOrEqual(1);
+  expect(chart.left).toBe(0);
+});
+
+
+test('chart image export downloads a real PNG',async({page})=>{
+  const pending=page.waitForEvent('download');
+  await page.locator('[data-chart-export="overview"]').click();
+  const download=await pending,stream=await download.createReadStream();
+  const chunks=[];for await(const chunk of stream)chunks.push(chunk);
+  const data=Buffer.concat(chunks);
+  expect(download.suggestedFilename()).toMatch(/\.png$/);
+  expect([...data.subarray(0,8)]).toEqual([137,80,78,71,13,10,26,10]);
+  expect(data.length).toBeGreaterThan(1000);
+});
+
+test('copied chart link restores date and destination',async({page})=>{
+  await page.evaluate(()=>{window.__copiedText='';Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>{window.__copiedText=text;}}});});
+  await page.locator('#cutoff-date').fill('2025-06-30');await page.locator('#cutoff-date').press('Tab');
+  await page.locator('[data-chart-copy="chart-knowledge"]').click();
+  await expect(page.locator('[data-chart-copy="chart-knowledge"]')).toHaveText('Copied');
+  const link=await page.evaluate(()=>window.__copiedText);
+  expect(new URL(link).searchParams.get('cutoff')).toBe('2025-06-30');
+  expect(new URL(link).hash).toBe('#chart-knowledge');
+  await page.goto(link);
+  await expect(page.locator('#cutoff-date')).toHaveValue('2025-06-30');
+  await expect(page).toHaveURL(/#chart-knowledge$/);
+});
+
+test('scientific curves retain source-defined axes, solid lines and original-study access',async({page})=>{
+  const charts=page.locator('.scientific-chart-svg');
+  await expect(charts).toHaveCount(3);
+  for(const chart of await charts.all()){
+    await expect(chart).toHaveAttribute('aria-label',/Not a time trend/);
+    await expect(chart).toHaveAttribute('data-axis-type',/quantitative|ordinal/);
+    const curve=chart.locator('.scientific-curve');
+    await expect(curve).toHaveAttribute('data-source-id',/.+/);
+    await expect(curve).toHaveAttribute('data-comparison-group',/.+/);
+    expect(await curve.evaluate(element=>getComputedStyle(element).strokeDasharray)).toBe('none');
+  }
+  await page.locator('.scientific-point[data-trend-point="trend-mab-hard"]').press('Enter');
+  await expect(page.getByRole('dialog')).toContainText('33.33');
+  await expect(page.getByRole('dialog')).toContainText(/simulat/i);
+  await expect(page.getByRole('dialog').getByRole('link',{name:/Source/})).toHaveAttribute('href',/arxiv\.org\/html\/2501\.14654v2/);
+  await page.keyboard.press('Escape');
+  await page.locator('#cutoff-date').fill('2025-03-01');await page.locator('#cutoff-date').press('Tab');
+  await expect(charts).toHaveCount(1);
+  await expect(page.locator('#chart-autonomy .scientific-chart-svg')).toBeVisible();
+  await expect(page.locator('#chart-knowledge .scientific-chart-svg,#chart-assistance .scientific-chart-svg')).toHaveCount(0);
+  await page.locator('#cutoff-date').fill('2025-02-11');await page.locator('#cutoff-date').press('Tab');
+  await expect(charts).toHaveCount(0);
 });

@@ -31,7 +31,7 @@ test('historical visibility distinguishes CASP 2020 from the 2021 paper and late
   const current = renderOverview('2026-10-17','2026-10-17');
   assert.match(current,/scenario-line/);
   assert.match(current,/Illustrative scale/);
-  assert.match(current,/Dashed: scenarios/);
+  assert.match(current,/Long dashes: scenarios/);
 });
 
 
