@@ -2,6 +2,7 @@ import { feedbackUrl } from './lib/navigation.js';
 import { applyLanguage, getLanguage, setLanguage, preferredLanguage, translateText } from './lib/i18n.js';
 import { monitorData } from './lib/monitor-data.js';
 import { buildTrackSeries } from './lib/monitor-series.js';
+import { renderTrackContext } from './lib/track-context.js';
 import { renderMonitorChart } from './lib/monitor-chart.js';
 import { monitorCardData, monitorPoint, editorialCard, pointCardHtml, installPointHover } from './lib/point-card.js';
 import { downloadMonitorPackage } from './lib/monitor-export.js';
@@ -63,12 +64,13 @@ function showMonitorPoint(id){
 }
 function showMonitorCluster(ids){showCardSelection(ids.split(',').filter(id=>monitorPoint(id)?.point.validation.status==='confirmed'));}
 function renderTrack(track,index){
-  const series=buildTrackSeries(track.id,state.cutoff).series;
+  const trackData=buildTrackSeries(track.id,state.cutoff);
+  const series=trackData.series;
   const selected=state.seriesView[track.id]||'all';
   const selector=series.length>1?'<select class="series-selector" data-series-view="'+track.id+'" aria-label="'+e(track.label+' benchmark view')+'"><option value="all"'+(selected==='all'?' selected':'')+'>Both</option>'+series.map(s=>'<option value="'+e(s.seriesId)+'"'+(selected===s.seriesId?' selected':'')+'>'+e(s.shortLabel||s.benchmarkName.split(' (')[0].split(' · ')[0])+'</option>').join('')+'</select>':'';
   const marks=trackMilestones.filter(p=>p.trackId===track.id&&p.date<=state.cutoff);
   const stories='<div class="chart-stories" aria-label="Milestones">'+marks.map(p=>'<button type="button" data-track-milestone="'+e(p.id)+'"><time>'+p.date.slice(0,4)+'</time><span>'+e(p.shortTitle)+'</span></button>').join('')+'</div>';
-  return '<section class="track" id="chart-'+track.id+'" data-track="'+track.id+'" tabindex="-1" aria-labelledby="track-'+track.id+'" style="--track:'+track.color+'"><div class="track-top"><h2 id="track-'+track.id+'">'+e(track.label)+'</h2>'+selector+'</div><div class="track-visual">'+stories+renderMonitorChart(track,state.cutoff,{model:state.model,seriesView:selected})+'</div></section>';
+  return '<section class="track" id="chart-'+track.id+'" data-track="'+track.id+'" tabindex="-1" aria-labelledby="track-'+track.id+'" style="--track:'+track.color+'"><div class="track-top"><h2 id="track-'+track.id+'">'+e(track.label)+'</h2>'+selector+'</div><p class="track-description">'+e(trackData.track.readingGuide.description)+'</p><div class="track-visual">'+stories+renderMonitorChart(track,state.cutoff,{model:state.model,seriesView:selected})+'</div>'+renderTrackContext(track.id,state.cutoff,{model:state.model,seriesView:selected})+'</section>';
 }
 let rendered=false;
 function render(){
@@ -109,9 +111,11 @@ function exportData(){
   const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='ai-in-medicine-'+state.cutoff+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('Data exported.');
 }
 async function action(event){
+  const hit=event.target.closest('.monitor-point-hit');
+  if(hit&&event.type==='click'&&event.pointerType==='mouse'){const card=hoverCard(hit,event);if(card){if(hit.dataset.monitorCluster){const ids=hit.dataset.monitorCluster.split(',');showCardSelection(ids,Math.max(0,ids.indexOf(card.id)));}else showMonitorPoint(card.id);return;}}
   const choice=event.target.closest('[data-card-choice]');
   if(choice){showCardSelection((dialog.dataset.cardIds||'').split(','),Number(choice.dataset.cardChoice));return;}
-  for(const [attribute,handler] of [['data-monitor-cluster',showMonitorCluster],['data-monitor-point',showMonitorPoint],['data-overview-cluster',showOverviewCluster],['data-overview-point',showOverviewPoint],['data-history-id',showHistory],['data-track-milestone',showTrackMilestone],['data-point-id',showMeasurement],['data-study-id',showStudy]]){
+  for(const [attribute,handler] of [['data-monitor-cluster',showMonitorCluster],['data-monitor-point',showMonitorPoint],['data-observation-id',showMonitorPoint],['data-overview-cluster',showOverviewCluster],['data-overview-point',showOverviewPoint],['data-history-id',showHistory],['data-track-milestone',showTrackMilestone],['data-point-id',showMeasurement],['data-study-id',showStudy]]){
     const target=event.target.closest('['+attribute+']');if(target){handler(target.getAttribute(attribute));return;}
   }
 }
@@ -138,8 +142,17 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
 sync();render();
 if(location.hash)requestAnimationFrame(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView({block:'start'}));
 
-function hoverCard(target){
-  const id=target.dataset.monitorPoint||target.dataset.pointId||target.dataset.overviewPoint||target.dataset.trackMilestone||target.dataset.studyId||target.dataset.historyId;
+function hoverCard(target,event){
+  let id=target.dataset.observationId||target.dataset.monitorPoint||target.dataset.pointId||target.dataset.overviewPoint||target.dataset.trackMilestone||target.dataset.studyId||target.dataset.historyId;
+  if(target.matches('.monitor-point-hit')){
+    const ids=(target.dataset.monitorCluster||target.dataset.monitorPoint||'').split(',');
+    const box=target.getBoundingClientRect();
+    const px=Number.isFinite(event?.clientX)?event.clientX:box.left+box.width/2;
+    const py=Number.isFinite(event?.clientY)?event.clientY:box.top+box.height/2;
+    const points=[...target.closest('.monitor-chart').querySelectorAll('[data-observation-id]')].filter(p=>ids.includes(p.dataset.observationId));
+    const nearest=points.map(p=>{const r=p.getBoundingClientRect();return {id:p.dataset.observationId,d:(r.left+r.width/2-px)**2+(r.top+r.height/2-py)**2};}).sort((a,b)=>a.d-b.d)[0];
+    id=nearest?.id||ids[0];
+  }
   return editorialCard(id);
 }
 const hover=installPointHover(content,hoverCard,{onOpen:(id)=>{if(!dialog.open)highlightCard(id);},onClose:()=>{if(!dialog.open)highlightCard(null);}});

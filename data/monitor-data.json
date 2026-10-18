@@ -729,7 +729,11 @@
               "journal_citation": "npj Digital Medicine 8, 240 (2025)"
             }
           ],
-          "sourceReviewStatus": "Reviewed per-point; see validation and date qualifications."
+          "sourceReviewStatus": "Reviewed per-point; see validation and date qualifications.",
+          "readingGuide": {
+            "label": "MedQA",
+            "test": "medical exam questions"
+          }
         },
         {
           "seriesId": "medqa_nyu_search_500_2026",
@@ -900,11 +904,20 @@
               "evaluationAccessMonth": "2026-02"
             }
           ],
-          "shortLabel": "MedQA · 2026 study"
+          "shortLabel": "MedQA · 2026 study",
+          "readingGuide": {
+            "label": "MedQA · 2026 study",
+            "test": "500 questions, search enabled"
+          }
         }
       ],
       "question": "How much does AI know about medicine?",
-      "caveat": "Exam answers are not proof of safe clinical performance."
+      "caveat": "Exam answers are not proof of safe clinical performance.",
+      "readingGuide": {
+        "description": "How well does AI answer medical exam questions?",
+        "metric": "Accuracy (%)",
+        "limitation": "Exam questions, not patient outcomes. Historical MedQA setups differ."
+      }
     },
     {
       "trackId": "clinical_assistance",
@@ -1291,7 +1304,11 @@
               "journal_citation": "arXiv:2505.08775v1 (2025)"
             }
           ],
-          "sourceReviewStatus": "Reviewed per-point; see validation and date qualifications."
+          "sourceReviewStatus": "Reviewed per-point; see validation and date qualifications.",
+          "readingGuide": {
+            "label": "HealthBench Core",
+            "test": "clinical conversations"
+          }
         },
         {
           "seriesId": "healthbench_pro_2026",
@@ -2005,11 +2022,20 @@
               "journal_citation": null
             }
           ],
-          "sourceReviewStatus": "Reviewed per-point; see validation and date qualifications."
+          "sourceReviewStatus": "Reviewed per-point; see validation and date qualifications.",
+          "readingGuide": {
+            "label": "HealthBench Professional",
+            "test": "professional clinical tasks"
+          }
         }
       ],
       "question": "How well can AI help clinicians?",
-      "caveat": "Rubric scores do not equal percent correct diagnoses."
+      "caveat": "Rubric scores do not equal percent correct diagnoses.",
+      "readingGuide": {
+        "description": "How well does AI respond to clinical questions and conversations?",
+        "metric": "Rubric score (0–100 points)",
+        "limitation": "Quality ratings of responses, not the share of correct diagnoses."
+      }
     },
     {
       "trackId": "autonomous_workflows",
@@ -2444,7 +2470,11 @@
               "journal_citation": "Stanford ML Group - official benchmark; publication month imported as January 2025"
             }
           ],
-          "sourceReviewStatus": "Reviewed per-point; see validation and date qualifications."
+          "sourceReviewStatus": "Reviewed per-point; see validation and date qualifications.",
+          "readingGuide": {
+            "label": "MedAgentBench",
+            "test": "simulated health-record tasks"
+          }
         },
         {
           "seriesId": "healthagentbench_msft_2026",
@@ -2814,11 +2844,20 @@
               "journal_citation": "Microsoft Research - official benchmark leaderboard"
             }
           ],
-          "sourceReviewStatus": "Reviewed per-point; see validation and date qualifications."
+          "sourceReviewStatus": "Reviewed per-point; see validation and date qualifications.",
+          "readingGuide": {
+            "label": "HealthAgentBench",
+            "test": "simulated clinical workflows"
+          }
         }
       ],
       "question": "Can AI complete medical tasks on its own?",
-      "caveat": "Success on simulated tasks is not clinical authorization or patient outcomes."
+      "caveat": "Success on simulated tasks is not clinical authorization or patient outcomes.",
+      "readingGuide": {
+        "description": "How reliably does AI complete multi-step tasks in simulated clinical systems?",
+        "metric": "Task success (%)",
+        "limitation": "Simulated workflows, not autonomous care or patient outcomes."
+      }
     }
   ],
   "extensions": {
@@ -6579,7 +6618,27 @@
         "Source checked": "Quelle geprüft",
         "articles on substack": "Artikel auf Substack",
         "Introduction": "Einführung",
-        "I'm keenly interested in the impact of AI on healthcare, because I consider it a key technology to solve some of our biggest challenges - such as quality of care, costs, resource constraints, staffing shortages, and how to benefit as many people as possible. As I'm reading and paying close attention to these topics, I gather them all in this small dashboard. Please feel free to send me your input, comments, or additional studies on this topic.": "Mich interessiert besonders, wie KI die Gesundheitsversorgung verändert. Ich halte sie für eine Schlüsseltechnologie, um einige unserer größten Herausforderungen anzugehen - etwa Versorgungsqualität, Kosten, knappe Ressourcen, Personalmangel und die Frage, wie möglichst viele Menschen davon profitieren können. Ich lese viel zu diesen Themen und verfolge die Entwicklungen aufmerksam. In diesem kleinen Dashboard trage ich sie zusammen. Hinweise, Kommentare und weitere Studien zum Thema sind willkommen."
+        "I'm keenly interested in the impact of AI on healthcare, because I consider it a key technology to solve some of our biggest challenges - such as quality of care, costs, resource constraints, staffing shortages, and how to benefit as many people as possible. As I'm reading and paying close attention to these topics, I gather them all in this small dashboard. Please feel free to send me your input, comments, or additional studies on this topic.": "Mich interessiert besonders, wie KI die Gesundheitsversorgung verändert. Ich halte sie für eine Schlüsseltechnologie, um einige unserer größten Herausforderungen anzugehen - etwa Versorgungsqualität, Kosten, knappe Ressourcen, Personalmangel und die Frage, wie möglichst viele Menschen davon profitieren können. Ich lese viel zu diesen Themen und verfolge die Entwicklungen aufmerksam. In diesem kleinen Dashboard trage ich sie zusammen. Hinweise, Kommentare und weitere Studien zum Thema sind willkommen.",
+        "How well does AI answer medical exam questions?": "Wie gut beantwortet KI medizinische Prüfungsfragen?",
+        "How well does AI respond to clinical questions and conversations?": "Wie gut beantwortet KI klinische Fragen und führt medizinische Gespräche?",
+        "How reliably does AI complete multi-step tasks in simulated clinical systems?": "Wie zuverlässig erledigt KI mehrstufige Aufgaben in simulierten klinischen Systemen?",
+        "Rubric score (0–100 points)": "Bewertung nach Kriterien (0–100 Punkte)",
+        "Exam questions, not patient outcomes. Historical MedQA setups differ.": "Prüfungsfragen, keine Behandlungsergebnisse. Historische MedQA-Ergebnisse nutzen unterschiedliche Verfahren.",
+        "Quality ratings of responses, not the share of correct diagnoses.": "Bewertung der Antwortqualität, keine Quote korrekter Diagnosen.",
+        "Simulated workflows, not autonomous care or patient outcomes.": "Simulierte Abläufe, keine autonome Versorgung oder Behandlungsergebnisse.",
+        "medical exam questions": "medizinische Prüfungsfragen",
+        "500 questions, search enabled": "500 Fragen, mit Websuche",
+        "professional clinical tasks": "klinische Fachaufgaben",
+        "simulated health-record tasks": "Aufgaben in simulierten Patientenakten",
+        "simulated clinical workflows": "simulierte klinische Abläufe",
+        "Lines: best comparable result to date": "Linien: bestes vergleichbares Ergebnis bis zum gewählten Zeitpunkt",
+        "Dots: other models": "Punkte: weitere Modelle",
+        "Different tests; scores are not directly comparable.": "Verschiedene Tests; die Werte sind nicht direkt vergleichbar.",
+        "No comparable trend established for this series.": "Für diese Reihe ist kein vergleichbarer Verlauf belegt.",
+        "No published result for this selection.": "Für diese Auswahl liegt kein veröffentlichtes Ergebnis vor.",
+        "Selected result": "Ausgewähltes Ergebnis",
+        "vs.": "gegenüber",
+        "Illustrative scale. Sources support milestones, not real IQ scores.": "Illustrative Skala. Die Quellen belegen Meilensteine, keine echten IQ-Werte."
       }
     },
     "navigation": {

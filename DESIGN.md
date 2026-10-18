@@ -7,7 +7,7 @@ A glanceable medical AI progress radar for presentations, mobile screens, physic
 ## Information hierarchy
 1. Header: AI in Medicine, concise one-line explanation, visible 'Last reviewed' date.
 2. Three aligned timeline charts (same x-axis: Jan 2022 through current reviewed month): Medical Knowledge; Clinical Assistance; Autonomous Workflows.
-3. Each lower track uses one compact canvas. Benchmark names/metrics remain visible; question, method, caveats, result tables and export controls are grouped in one initially closed Details disclosure.
+3. Each lower track uses one compact canvas. A short measurement question stays visible beneath the title. Test names and metric, one source-linked result, a compact line/dot legend and the main limitation remain visible below the plot; detailed methodology stays in point cards.
 4. A point card on hover, tap or keyboard focus. Deeper source links available from the card.
 5. Optional 'Method & sources' panel, kept away from the first-glance view.
 
@@ -16,7 +16,7 @@ A glanceable medical AI progress radar for presentations, mobile screens, physic
 - For benchmark changes, present visibly distinct sub-series (different line style/label), no direct bridge.
 - Retrospective points: hollow marker and brief legend ('Older models evaluated later').
 - No invented intermediate observations, smoothed extrapolation or predictive line.
-- Each lower track has one shared calendar plot. Series with the same metric unit have independent, labeled frontiers and distinct line/marker styling. Never bridge benchmarks or treat their vertical differences as direct performance comparisons; retain that explanation under Details. If future metrics use different units, use an explicit benchmark selector rather than a shared y-axis.
+- Each lower track has one shared calendar plot. Series with the same metric unit have independent, labeled frontiers and distinct line/marker styling. Never bridge benchmarks or treat their vertical differences as direct performance comparisons; show that warning directly beneath the plot. If future metrics use different units, use an explicit benchmark selector rather than a shared y-axis.
 - Y-axis label explicitly says Accuracy (%) or Rubric score (points) or Task success (%). Do not call every number 'percent'.
 - Horizontal baseline only when test protocol supports it; benchmark context baselines use different styling with an explanation.
 - Highlight meaningful real milestones, not every press release.
@@ -61,7 +61,7 @@ The compact header includes a language switch and hamburger navigation. The menu
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `ee055c6bae9ef80136f8938b846a60934939a42aa80916f65124eb83df1c4244`
+- SHA-256 (parsed JSON): `75d74d1ea2e1aab0ca2d6a8e904d9a651856b2bb01b9ab4ef8fc4fcc2ca4acd8`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2
@@ -83,3 +83,8 @@ The Milestones details element and its first-child timeline controls remain stab
 The owner-approved introduction is expanded on initial load. Its native disclosure shows only the triangle, with an accessible Introduction label; no visible About this monitor heading. The supplied English paragraph is preserved verbatim, with an equivalent German translation. The triangle remains keyboard operable and has a 44px touch target.
 
 AlphaFold has no separate highlight buttons beneath the overview heading. CASP announcements and paper milestones remain accessible in the shared Milestones disclosure and existing timeline anchors. Do not duplicate the same source as an additional milestone.
+
+## Visible chart context - 18 October 2026
+Each lower chart shows its plain-language measurement question, active benchmark descriptions and metric, one selected source-linked result, a compact line/dot legend and its main limitation. The portable track/series readingGuide fields supply this copy. Result and comparator derive from the same selected series, publication cutoff and model selection; only eligible same-protocol points may be compared. In the Both view, highlight one result from the most recent nonempty benchmark series without comparing across benchmarks. Confirmed qualified scores can be shown as selected observations, with no implied trend or comparator. Different-test warnings and unknown comparability remain visible. No new accordions or second plot. Keep mobile text readable and the per-track layout compact.
+
+Every visible lower-chart marker supports a mouse hover card and pinning by click, including markers near grouped touch targets. Nearby touch targets keep a result switcher; hover resolves the closest member. Desktop groups use the actual chart coordinate scale rather than forcing mobile-sized clustering. Marker keyboard activation and touch cards remain available.

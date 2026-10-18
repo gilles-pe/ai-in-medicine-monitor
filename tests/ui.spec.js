@@ -47,7 +47,7 @@ test('nearby overview studies use one card with switchable results',async({page}
 });
 
 test('thumbnails navigate to three compact single-chart tracks',async({page})=>{
-  for(const id of ['knowledge','assistance','autonomy']){const preview=page.locator('.chart-thumbnail[href="#chart-'+id+'"]');await expect(preview.locator('svg')).toBeVisible();await preview.click();await expect(page).toHaveURL(new RegExp('#chart-'+id+'$'));const track=page.locator('#chart-'+id);await expect(track).toBeInViewport();await expect(track.locator('svg.monitor-chart-svg')).toHaveCount(1);await expect(track.locator('.chart-stories')).toBeVisible();expect(await track.evaluate(e=>e.getBoundingClientRect().height)).toBeLessThan(430);}
+  for(const id of ['knowledge','assistance','autonomy']){const preview=page.locator('.chart-thumbnail[href="#chart-'+id+'"]');await expect(preview.locator('svg')).toBeVisible();await preview.click();await expect(page).toHaveURL(new RegExp('#chart-'+id+'$'));const track=page.locator('#chart-'+id);await expect(track).toBeInViewport();await expect(track.locator('svg.monitor-chart-svg')).toHaveCount(1);await expect(track.locator('.chart-stories')).toBeVisible();await expect(track.locator('.track-description')).toBeVisible();await expect(track.locator('.track-test-summary')).toBeVisible();await expect(track.locator('.track-reading-key')).toBeVisible();await expect(track.locator('.track-reality')).toBeVisible();expect(await track.evaluate(e=>e.getBoundingClientRect().height)).toBeLessThan(620);}
 });
 
 test('benchmark selector combines or isolates results without recoloring the series',async({page})=>{
@@ -73,7 +73,7 @@ test('point cards retain quantitative findings, validity, source and active cont
 });
 
 test('desktop hover sources remain reachable and keyboard pins the same card',async({page},info)=>{
-  test.skip(info.project.name.includes('mobile'),'Hover is desktop-only.');const hit=page.locator('.detail-charts [data-monitor-point="2.1"]');await hit.hover();const preview=page.locator('.point-hover');await expect(preview).toBeVisible();const source=preview.locator('.point-sources a').first();await expect(source).toHaveAttribute('href',/^https:/);await source.hover();await page.clock.runFor(300);await expect(preview).toBeVisible();await page.keyboard.press('Escape');await expect(preview).not.toBeVisible();await hit.focus();await hit.press('Enter');await expect(page.getByRole('dialog').locator('.card-key-finding')).toContainText('15.54');
+  test.skip(info.project.name.includes('mobile'),'Hover is desktop-only.');const hit=page.locator('.detail-charts .monitor-point-hit[data-monitor-point="2.1"]');await hit.hover();const preview=page.locator('.point-hover');await expect(preview).toBeVisible();const source=preview.locator('.point-sources a').first();await expect(source).toHaveAttribute('href',/^https:/);await source.hover();await page.clock.runFor(300);await expect(preview).toBeVisible();await page.keyboard.press('Escape');await expect(preview).not.toBeVisible();await hit.focus();await hit.press('Enter');await expect(page.getByRole('dialog').locator('.card-key-finding')).toContainText('15.54');
 });
 
 test('320px fits the header, charts, menu and touch controls',async({page})=>{
@@ -100,4 +100,21 @@ test('timeline playback keeps milestones open and study disclosure persists on u
 test('portable ZIP preserves full central data, archived review records and document checksums',async({page})=>{
   let pending=page.waitForEvent('download');await page.getByRole('link',{name:'Monitor data',exact:false}).click();const central=await bytesOf(pending),data=JSON.parse(central.bytes);expect(data.meta.title).toBe('Digital Health & AI in Medicine');expect(data.tracks.flatMap(t=>t.series.flatMap(s=>s.data))).toHaveLength(44);
   pending=page.waitForEvent('download');await page.locator('#package-export-button').click();const archive=await bytesOf(pending),files=zipFiles(archive.bytes),manifest=JSON.parse(files['PACKAGE_MANIFEST.json']);expect(JSON.parse(files['data/monitor-data.json'])).toEqual(data);expect(manifest.dataSha256).toBe(createHash('sha256').update(JSON.stringify(data)).digest('hex'));for(const f of manifest.files){expect(files[f.path].length).toBe(f.bytes);expect(createHash('sha256').update(files[f.path]).digest('hex')).toBe(f.sha256);}expect(Object.keys(files)).toEqual(expect.arrayContaining(['AGENTS.md','MONITOR_STANDARD.md','DESIGN.md','VALIDATION_REPORT.md','docs/MONITOR_DATA_STATUS.md']));
+});
+
+
+test('nearby lower-chart markers support source-backed hover and keyboard pinning',async({page},info)=>{
+  test.skip(info.project.name.includes('mobile'),'Hover is desktop-only.');
+  await page.locator('.chart-thumbnail[href="#chart-knowledge"]').click();
+  const preview=page.locator('.point-hover');
+  for(const id of ['knowledge-nyu-gemini31','2.10','3.17']){
+    const dot=page.locator('.detail-charts [data-observation-id="'+id+'"]');
+    await dot.scrollIntoViewIfNeeded();const box=await dot.boundingBox();
+    await page.mouse.move(box.x+box.width/2,box.y+box.height/2);
+    await expect(preview).toBeVisible();
+    await expect(preview.locator('.editorial-evidence-card')).toHaveAttribute('data-card-id',id);
+    await expect(preview.locator('.point-sources a').first()).toHaveAttribute('href',/^https:/);
+    await page.keyboard.press('Escape');
+    await dot.press('Enter');await expect(page.getByRole('dialog').locator('.editorial-evidence-card')).toHaveAttribute('data-card-id',id);await page.keyboard.press('Escape');
+  }
 });
