@@ -281,6 +281,7 @@ test('hamburger menu has verified social links, articles and accessible feedback
 
 test('German header and menu fit at 320px and close on outside click',async({page})=>{
   await page.setViewportSize({width:320,height:844});await page.locator('[data-language="de"]').click();
+  for(const button of await page.locator('[data-language]').all()){const box=await button.boundingBox();expect(box.width).toBeGreaterThanOrEqual(44);expect(box.height).toBeGreaterThanOrEqual(44);}
   await page.locator('#menu-button').click();await expect(page.locator('#site-menu')).toBeVisible();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
   await page.locator('#overview-title').click();await expect(page.locator('#site-menu')).not.toBeVisible();
