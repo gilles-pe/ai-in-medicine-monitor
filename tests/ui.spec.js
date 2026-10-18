@@ -35,8 +35,8 @@ test('overview keeps illustration, separate scenarios, source cards and date cut
   await expect(page.locator('.overview-line:not(.scenario-line)')).toHaveCount(4);await expect(page.locator('.scenario-line')).toHaveCount(3);await expect(page.locator('.overview-point')).toHaveCount(22);
   const dash=await page.locator('.overview-line:not(.scenario-line)').evaluateAll(els=>els.map(e=>getComputedStyle(e).strokeDasharray));expect(dash[0]).toBe('none');expect(dash.slice(1).every(v=>v!=='none')).toBe(true);
   const radii=await page.locator('.overview-point .anchor-dot').evaluateAll(els=>els.map(e=>Number(e.getAttribute('r'))));expect(Math.max(...radii)).toBeLessThanOrEqual(4.5);
-  await page.locator('[data-history-id="alphafold2-2020"]').click();await expect(page.getByRole('dialog')).toContainText('CASP14');await expect(page.getByRole('dialog').locator('.point-sources a').first()).toHaveAttribute('href',/deepmind.google/);await page.keyboard.press('Escape');
-  await date(page,'2020-12-31');await expect(page.locator('[data-history-id="alphafold3-2024"]')).toHaveCount(0);await expect(page.locator('.scenario-line')).toHaveCount(0);
+  await milestones(page);await page.locator('[data-history-id="alphafold2-2020"]').click();await expect(page.getByRole('dialog')).toContainText('CASP14');await expect(page.getByRole('dialog').locator('.point-sources a').first()).toHaveAttribute('href',/deepmind.google/);await page.keyboard.press('Escape');
+  await date(page,'2020-12-31');await expect(page.locator('[data-overview-point="af3-paper-2024"]')).toHaveCount(0);await expect(page.locator('.scenario-line')).toHaveCount(0);
 });
 
 test('nearby overview studies use one card with switchable results',async({page})=>{

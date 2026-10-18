@@ -81,3 +81,5 @@ The Milestones details element and its first-child timeline controls remain stab
 
 ## Introduction - 18 October 2026
 The owner-approved introduction is expanded on initial load. Its native disclosure shows only the triangle, with an accessible Introduction label; no visible About this monitor heading. The supplied English paragraph is preserved verbatim, with an equivalent German translation. The triangle remains keyboard operable and has a 44px touch target.
+
+AlphaFold has no separate highlight buttons beneath the overview heading. CASP announcements and paper milestones remain accessible in the shared Milestones disclosure and existing timeline anchors. Do not duplicate the same source as an additional milestone.

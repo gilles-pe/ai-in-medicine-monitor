@@ -7,7 +7,7 @@ import { monitorCardData, monitorPoint, editorialCard, pointCardHtml, installPoi
 import { downloadMonitorPackage } from './lib/monitor-export.js';
 import { tracks, measurements, sourceCatalog, editorialStatus, studies } from './data/evidence.js';
 import { trackMilestones, trustContext } from './data/track-milestones.js';
-import { renderOverview, visibleHistory, visibleAnchors } from './lib/overview.js';
+import { renderOverview, renderMilestoneLinks, visibleHistory, visibleAnchors } from './lib/overview.js';
 import { filterMeasurements, latestByModel, escapeHtml as e } from './lib/selectors.js';
 
 const $=selector=>document.querySelector(selector);
@@ -78,7 +78,7 @@ function render(){
     $('#timeline-slot').append(timeControls);rendered=true;
   }
   $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false});
-  $('#milestone-list').innerHTML=visibleAnchors(state.cutoff).map(p=>'<button type="button" data-overview-point="'+e(p.id)+'">'+p.year+' · '+e(p.label)+'</button>').join('');
+  $('#milestone-list').innerHTML=renderMilestoneLinks(state.cutoff);
   $('#previews-slot').innerHTML=renderPreviews(rows());
   $('#tracks-slot').innerHTML=tracks.map(renderTrack).join('');
   $('#study-list').innerHTML=studies.filter(p=>p.date<=state.cutoff).map(p=>'<button type="button" data-study-id="'+p.id+'"><time>'+p.date.slice(0,4)+'</time><span>'+e(p.title)+'</span><span aria-hidden="true">↗</span></button>').join('');
