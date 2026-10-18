@@ -1,0 +1,3996 @@
+{
+  "meta": {
+    "title": "AI in Medicine Monitor",
+    "xAxisRange": {
+      "start": "2022-01",
+      "end": "2026-10"
+    },
+    "lastUpdated": "2026-10-18",
+    "rules": {
+      "xAxisMapping": "modelReleaseDate",
+      "connectOnlyFrontier": true,
+      "interpolateMissingYears": false,
+      "neverConnectDifferentSeriesIds": true,
+      "frontierDefinition": "running maximum of eligible comparable primary-source-verified results per series",
+      "mainlineEligibility": "confirmed + same_protocol + original source URL + explicit review",
+      "releaseDateIsProxy": true
+    },
+    "schemaVersion": "1.0",
+    "editorialStandard": "MONITOR_STANDARD.md",
+    "designSpec": "DESIGN.md",
+    "agentInstructions": "AGENTS.md",
+    "lastReviewedAt": "2026-10-18",
+    "lastDataChangeAt": "2026-10-18",
+    "importedFrom": "gemini-code-1792312905225.json",
+    "reviewNote": "17 official agent-benchmark scores and Flan-PaLM score checked against primary sources; other entries remain needs_review. Benchmark scores may be confirmed while approximate model-release months remain provisional.",
+    "auditSummary": "17 official agent-benchmark scores and Flan-PaLM score checked against primary sources; other entries remain needs_review. Benchmark scores may be confirmed while approximate model-release months remain provisional.",
+    "timelineQualification": "Model release months are approximate availability proxies, not dates of the benchmark evaluations. Tests on older models are retrospective.",
+    "packageVersion": "1.1",
+    "importedReviewNote": "41 imported data points are unverified in this migrated dataset; original flags retained in legacy. Do not publish as verified frontier until primary-source audit.",
+    "changeLog": [
+      {
+        "date": "2026-10-18",
+        "action": "Imported v1.1 as the content authority; preserved all 41 records, numeric values and validation states. Archived prior dashboard content in extensions.legacyDashboard. Corrected stale reviewNote from package auditSummary. Unvalidated baselines and ceiling are retained but not displayed as confirmed references.",
+        "sourceSha256": "900953f655a3d011c575d3d2df2c02b621af6aed63b28daab7caf4d14e1efde8"
+      }
+    ]
+  },
+  "tracks": [
+    {
+      "trackId": "medical_knowledge",
+      "title": "1. Medical Knowledge",
+      "subtitle": "Prüfungs- und Faktenwissen (USMLE / MedQA)",
+      "yAxis": {
+        "label": "MedQA Accuracy (%)",
+        "min": 0,
+        "max": 100,
+        "unit": "%"
+      },
+      "saturationCeiling": {
+        "value": 95,
+        "note": "Deckeneffekt ab ~95 % durch mehrdeutige Fragen im MedQA-Datensatz (vgl. ReMedQA, EACL März 2026)."
+      },
+      "baselines": [
+        {
+          "label": "USMLE Pass Mark (Bestehensgrenze)",
+          "value": 60,
+          "style": "dashed-gray"
+        },
+        {
+          "label": "Human Expert Baseline (Clinician Ref)",
+          "value": 87,
+          "style": "dashed-accent"
+        }
+      ],
+      "series": [
+        {
+          "seriesId": "medqa_main",
+          "benchmarkName": "MedQA (USMLE 4-Option)",
+          "lineStyle": "solid",
+          "verified": false,
+          "data": [
+            {
+              "id": "1.0a",
+              "model": "PubMedGPT (2.7B)",
+              "modelReleaseDate": "2022-12",
+              "evalPubDate": "2022-12",
+              "value": 50.3,
+              "isFrontier": false,
+              "isRetrospective": false,
+              "setup": "0-shot",
+              "source": "Bolton et al., Stanford CRFM (2022)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "Bolton et al., Stanford CRFM (2022)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2022-12",
+              "sources": [
+                {
+                  "label": "Nature - Large language models encode clinical knowledge",
+                  "url": "https://www.nature.com/articles/s41586-023-06291-2",
+                  "locator": "State of the art on MedQA: PubMedGPT 50.3%",
+                  "type": "peer_reviewed_secondary_report"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Medical multiple-choice questions resembling medical licensing examinations.",
+                "whatValueMeans": "50.3% correct on the reported MedQA-based evaluation; prompting and tools may differ between studies.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "50.3% corroborated by Nature, but original Bolton et al. paper and release month not yet audited. Not independently confirmed from original source."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "1.1",
+              "model": "Flan-PaLM (540B)",
+              "modelReleaseDate": "2022-12",
+              "evalPubDate": "2022-12",
+              "value": 67.6,
+              "isFrontier": true,
+              "isRetrospective": false,
+              "setup": "MedQA 4-option; paper reports best Flan-PaLM result using prompting strategies",
+              "source": "Singhal et al., Nature (2023)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "Singhal et al., Nature (2023)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2022-12",
+              "sources": [
+                {
+                  "label": "Nature - Large language models encode clinical knowledge",
+                  "url": "https://www.nature.com/articles/s41586-023-06291-2",
+                  "locator": "State of the art on MedQA / Extended Data Table 4",
+                  "type": "peer_reviewed_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Medical multiple-choice questions resembling medical licensing examinations.",
+                "whatValueMeans": "67.6% correct on the reported MedQA-based evaluation; prompting and tools may differ between studies.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "qualified",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Corrected model attribution from Med-PaLM to Flan-PaLM. 67.6% confirmed by Nature. Release month proxy and comparison of prompting strategies need caveat."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "1.1b",
+              "model": "GPT-4 (Base)",
+              "modelReleaseDate": "2023-03",
+              "evalPubDate": "2023-03",
+              "value": 86.1,
+              "isFrontier": false,
+              "isRetrospective": false,
+              "setup": "5-shot",
+              "source": "Nori et al., Microsoft Research (2023)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "Nori et al., Microsoft Research (2023)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2023-03",
+              "sources": [
+                {
+                  "label": "Nori et al., Microsoft Research (2023)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Medical multiple-choice questions resembling medical licensing examinations.",
+                "whatValueMeans": "86.1% correct on the reported MedQA-based evaluation; prompting and tools may differ between studies.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "1.2",
+              "model": "Med-PaLM 2",
+              "modelReleaseDate": "2023-03",
+              "evalPubDate": "2023-05",
+              "value": 86.5,
+              "isFrontier": true,
+              "isRetrospective": false,
+              "setup": "Ensemble Refinement",
+              "source": "Singhal et al., Google Research (2023)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "Singhal et al., Google Research (2023)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2023-05",
+              "sources": [
+                {
+                  "label": "Singhal et al., Google Research (2023)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Medical multiple-choice questions resembling medical licensing examinations.",
+                "whatValueMeans": "86.5% correct on the reported MedQA-based evaluation; prompting and tools may differ between studies.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "1.2b",
+              "model": "GPT-4 + Medprompt",
+              "modelReleaseDate": "2023-11",
+              "evalPubDate": "2023-11",
+              "value": 90.2,
+              "isFrontier": true,
+              "isRetrospective": false,
+              "setup": "Dynamic Few-Shot + CoT Ensemble",
+              "source": "Nori et al., Microsoft Research (Nov 2023)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "Nori et al., Microsoft Research (Nov 2023)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2023-11",
+              "sources": [
+                {
+                  "label": "Nori et al., Microsoft Research (Nov 2023)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Medical multiple-choice questions resembling medical licensing examinations.",
+                "whatValueMeans": "90.2% correct on the reported MedQA-based evaluation; prompting and tools may differ between studies.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "1.3",
+              "model": "Med-Gemini (L 1.0)",
+              "modelReleaseDate": "2024-04",
+              "evalPubDate": "2024-04",
+              "value": 91.1,
+              "isFrontier": true,
+              "isRetrospective": false,
+              "setup": "Self-Training + Web Search",
+              "source": "Saab et al., Google Research (2024)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "Saab et al., Google Research (2024)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2024-04",
+              "sources": [
+                {
+                  "label": "Saab et al., Google Research (2024)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Medical multiple-choice questions resembling medical licensing examinations.",
+                "whatValueMeans": "91.1% correct on the reported MedQA-based evaluation; prompting and tools may differ between studies.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "1.4",
+              "model": "GPT-4o",
+              "modelReleaseDate": "2024-05",
+              "evalPubDate": "2025-03",
+              "value": 83.6,
+              "isFrontier": false,
+              "isRetrospective": true,
+              "setup": "Standardized 0-shot (ohne Medprompt)",
+              "source": "Vergleichsstudie / ReMedQA (2025/2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "Vergleichsstudie / ReMedQA (2025/2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-03",
+              "sources": [
+                {
+                  "label": "Vergleichsstudie / ReMedQA (2025/2026)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Medical multiple-choice questions resembling medical licensing examinations.",
+                "whatValueMeans": "83.6% correct on the reported MedQA-based evaluation; prompting and tools may differ between studies.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "1.5",
+              "model": "OpenAI o1",
+              "modelReleaseDate": "2024-12",
+              "evalPubDate": "2025-03",
+              "value": 95.7,
+              "isFrontier": true,
+              "isRetrospective": true,
+              "setup": "Internal CoT Reasoning",
+              "source": "Vergleichsstudie / ReMedQA (2025/2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "Vergleichsstudie / ReMedQA (2025/2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-03",
+              "sources": [
+                {
+                  "label": "Vergleichsstudie / ReMedQA (2025/2026)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Medical multiple-choice questions resembling medical licensing examinations.",
+                "whatValueMeans": "95.7% correct on the reported MedQA-based evaluation; prompting and tools may differ between studies.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "1.6",
+              "model": "OpenAI o3-mini",
+              "modelReleaseDate": "2025-01",
+              "evalPubDate": "2025-03",
+              "value": 91.8,
+              "isFrontier": false,
+              "isRetrospective": false,
+              "setup": "Small Reasoning Model",
+              "source": "Vergleichsstudie / ReMedQA (2025/2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "Vergleichsstudie / ReMedQA (2025/2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-03",
+              "sources": [
+                {
+                  "label": "Vergleichsstudie / ReMedQA (2025/2026)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Medical multiple-choice questions resembling medical licensing examinations.",
+                "whatValueMeans": "91.8% correct on the reported MedQA-based evaluation; prompting and tools may differ between studies.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            }
+          ],
+          "sourceReviewStatus": "requires_point_by_point_audit"
+        }
+      ],
+      "question": "How much does AI know about medicine?",
+      "caveat": "Exam answers are not proof of safe clinical performance."
+    },
+    {
+      "trackId": "clinical_assistance",
+      "title": "2. Clinical Assistance",
+      "subtitle": "Klinische Entscheidungsfindung, Dokumentation & Beratung",
+      "yAxis": {
+        "label": "Rubric Score (0-100)",
+        "min": 0,
+        "max": 100,
+        "unit": "pts"
+      },
+      "baselines": [
+        {
+          "label": "Fachärzte (mit Web-Zugang & ohne Zeitlimit auf HealthBench Pro)",
+          "value": 43.7,
+          "appliesToSeries": "healthbench_pro_2026",
+          "style": "dashed-accent"
+        }
+      ],
+      "milestones": [
+        {
+          "id": "2.3_amie",
+          "model": "Google AMIE",
+          "date": "2024-01",
+          "label": "AMIE übertrifft Hausärzte in DDx Top-10 Accuracy (59,1 % vs. 33,6 %)",
+          "source": "Tu et al., Nature (2024/2025)"
+        }
+      ],
+      "series": [
+        {
+          "seriesId": "healthbench_core_2025",
+          "benchmarkName": "HealthBench Core (5.000 Dialoge, 48.562 Kriterien, Grader: GPT-4.1)",
+          "lineStyle": "dashed-retrospective",
+          "verified": false,
+          "data": [
+            {
+              "id": "2.1",
+              "model": "GPT-3.5 Turbo",
+              "modelReleaseDate": "2023-03",
+              "evalPubDate": "2025-05",
+              "value": 15.54,
+              "isFrontier": true,
+              "isRetrospective": true,
+              "setup": "Mean of 16 eval runs",
+              "source": "OpenAI HealthBench Paper, Tab. 7 (Mai 2025)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "OpenAI HealthBench Paper, Tab. 7 (Mai 2025)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-05",
+              "sources": [
+                {
+                  "label": "OpenAI HealthBench Paper, Tab. 7 (Mai 2025)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                "whatValueMeans": "15.54 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "2.2",
+              "model": "GPT-4o (Aug 2024)",
+              "modelReleaseDate": "2024-08",
+              "evalPubDate": "2025-05",
+              "value": 32.33,
+              "isFrontier": true,
+              "isRetrospective": true,
+              "setup": "Mean of 16 eval runs",
+              "source": "OpenAI HealthBench Paper, Tab. 7 (Mai 2025)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "OpenAI HealthBench Paper, Tab. 7 (Mai 2025)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-05",
+              "sources": [
+                {
+                  "label": "OpenAI HealthBench Paper, Tab. 7 (Mai 2025)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                "whatValueMeans": "32.33 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "2.3",
+              "model": "OpenAI o1",
+              "modelReleaseDate": "2024-12",
+              "evalPubDate": "2025-05",
+              "value": 42,
+              "isFrontier": true,
+              "isRetrospective": true,
+              "setup": "Mean of 16 eval runs",
+              "source": "OpenAI HealthBench Paper, Tab. 7 (Mai 2025)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "OpenAI HealthBench Paper, Tab. 7 (Mai 2025)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-05",
+              "sources": [
+                {
+                  "label": "OpenAI HealthBench Paper, Tab. 7 (Mai 2025)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                "whatValueMeans": "42.0 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "2.4",
+              "model": "GPT-4.1",
+              "modelReleaseDate": "2025-04",
+              "evalPubDate": "2025-05",
+              "value": 47.78,
+              "isFrontier": false,
+              "isRetrospective": false,
+              "setup": "Mean of 16 eval runs",
+              "source": "OpenAI HealthBench Paper, Tab. 7 (Mai 2025)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "OpenAI HealthBench Paper, Tab. 7 (Mai 2025)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-05",
+              "sources": [
+                {
+                  "label": "OpenAI HealthBench Paper, Tab. 7 (Mai 2025)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                "whatValueMeans": "47.78 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "2.5",
+              "model": "OpenAI o3",
+              "modelReleaseDate": "2025-04",
+              "evalPubDate": "2025-05",
+              "value": 59.9,
+              "isFrontier": true,
+              "isRetrospective": false,
+              "setup": "Mean of 16 eval runs",
+              "source": "OpenAI HealthBench Paper, Tab. 7 (Mai 2025)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "OpenAI HealthBench Paper, Tab. 7 (Mai 2025)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-05",
+              "sources": [
+                {
+                  "label": "OpenAI HealthBench Paper, Tab. 7 (Mai 2025)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                "whatValueMeans": "59.9 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            }
+          ],
+          "sourceReviewStatus": "requires_point_by_point_audit"
+        },
+        {
+          "seriesId": "healthbench_pro_2026",
+          "benchmarkName": "HealthBench Professional (525 klinische Fachaufgaben, Grader: GPT-5.4)",
+          "lineStyle": "solid-secondary",
+          "verified": false,
+          "warningNote": "Eigene Serie ab Aug 2025! Strengere Rubriken & Längen-Korrektur als HealthBench Core (nicht mit Punkt 2.5 verbinden).",
+          "data": [
+            {
+              "id": "2.6",
+              "model": "GPT-5",
+              "modelReleaseDate": "2025-08",
+              "evalPubDate": "2026-04",
+              "value": 46.2,
+              "isFrontier": true,
+              "isRetrospective": true,
+              "setup": "Base Model Eval",
+              "source": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-04",
+              "sources": [
+                {
+                  "label": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                "whatValueMeans": "46.2 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "2.7",
+              "model": "GPT-5.2",
+              "modelReleaseDate": "2025-12",
+              "evalPubDate": "2026-04",
+              "value": 45.9,
+              "isFrontier": false,
+              "isRetrospective": true,
+              "setup": "Base Model Eval",
+              "source": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-04",
+              "sources": [
+                {
+                  "label": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                "whatValueMeans": "45.9 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "2.8",
+              "model": "Gemini 3.1 Pro",
+              "modelReleaseDate": "2026-02",
+              "evalPubDate": "2026-04",
+              "value": 43.8,
+              "isFrontier": false,
+              "isRetrospective": true,
+              "setup": "Base Model Eval",
+              "source": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-04",
+              "sources": [
+                {
+                  "label": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                "whatValueMeans": "43.8 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "2.9",
+              "model": "Grok 4.2",
+              "modelReleaseDate": "2026-02",
+              "evalPubDate": "2026-04",
+              "value": 36.1,
+              "isFrontier": false,
+              "isRetrospective": true,
+              "setup": "Base Model Eval",
+              "source": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-04",
+              "sources": [
+                {
+                  "label": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                "whatValueMeans": "36.1 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "2.10",
+              "model": "GPT-5.4 (Base)",
+              "modelReleaseDate": "2026-03",
+              "evalPubDate": "2026-04",
+              "value": 48.1,
+              "isFrontier": true,
+              "isRetrospective": false,
+              "setup": "Extended High Reasoning (Base)",
+              "source": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-04",
+              "sources": [
+                {
+                  "label": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                "whatValueMeans": "48.1 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "2.11",
+              "model": "Claude Opus 4.7",
+              "modelReleaseDate": "2026-04",
+              "evalPubDate": "2026-04",
+              "value": 47,
+              "isFrontier": false,
+              "isRetrospective": false,
+              "setup": "Base Model Eval",
+              "source": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-04",
+              "sources": [
+                {
+                  "label": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                "whatValueMeans": "47.0 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "2.12",
+              "model": "ChatGPT for Clinicians (GPT-5.4)",
+              "modelReleaseDate": "2026-04",
+              "evalPubDate": "2026-04",
+              "value": 59,
+              "subMetrics": {
+                "careConsult": 51,
+                "writingAndDocumentation": 64.1,
+                "medicalResearch": 67,
+                "physicianBaseline": 43.7
+              },
+              "isFrontier": true,
+              "isRetrospective": false,
+              "setup": "Clinical Product Harness + Web Browsing",
+              "source": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-04",
+              "sources": [
+                {
+                  "label": "HealthBench Professional, arXiv:2604.27470 (Apr 2026)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                "whatValueMeans": "59.0 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "2.13",
+              "model": "Corti Symphony",
+              "modelReleaseDate": "2026-05",
+              "evalPubDate": "2026-05",
+              "value": 60.5,
+              "isFrontier": true,
+              "isRetrospective": false,
+              "setup": "Healthcare-Native Multi-Agent Harness",
+              "source": "Corti Labs Technical Report (13. Mai 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "Corti Labs Technical Report (13. Mai 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-05",
+              "sources": [
+                {
+                  "label": "Corti Labs Technical Report (13. Mai 2026)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                "whatValueMeans": "60.5 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "2.14",
+              "model": "Claude Opus 4.8",
+              "modelReleaseDate": "2026-05",
+              "evalPubDate": "2026-06",
+              "value": 56.9,
+              "isFrontier": false,
+              "isRetrospective": false,
+              "setup": "Base Model Eval",
+              "source": "Anthropic Benchmark Report (Juni 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "Anthropic Benchmark Report (Juni 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-06",
+              "sources": [
+                {
+                  "label": "Anthropic Benchmark Report (Juni 2026)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                "whatValueMeans": "56.9 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            },
+            {
+              "id": "2.15",
+              "model": "Claude Mythos 5",
+              "modelReleaseDate": "2026-06",
+              "evalPubDate": "2026-06",
+              "value": 66,
+              "isFrontier": true,
+              "isRetrospective": false,
+              "setup": "Frontier Model Eval (Unrouted)",
+              "source": "Anthropic Mythos 5 Release (Juni 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "Anthropic Mythos 5 Release (Juni 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-06",
+              "sources": [
+                {
+                  "label": "Anthropic Mythos 5 Release (Juni 2026)",
+                  "url": null,
+                  "locator": null,
+                  "type": "unverified_import"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                "whatValueMeans": "66.0 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                "whyItMatters": null,
+                "limitations": "Imported source and exact setup require primary-source audit."
+              },
+              "validation": {
+                "status": "needs_review",
+                "comparability": "unknown",
+                "reviewedAt": null,
+                "reviewedBy": null,
+                "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+              },
+              "eligibleForMainline": false
+            }
+          ],
+          "sourceReviewStatus": "requires_point_by_point_audit"
+        }
+      ],
+      "question": "How well can AI help clinicians?",
+      "caveat": "Rubric scores do not equal percent correct diagnoses."
+    },
+    {
+      "trackId": "autonomous_workflows",
+      "title": "3. Autonomous Workflows",
+      "subtitle": "Mehrstufige Agenten-Aufgaben in Patientenakten (EHR) & klinischen Terminals",
+      "yAxis": {
+        "label": "Task Success Rate (%)",
+        "min": 0,
+        "max": 100,
+        "unit": "%"
+      },
+      "emptyStateOverlay": {
+        "start": "2022-01",
+        "end": "2024-04",
+        "label": "Keine standardisierten medizinischen Agenten-Benchmarks vor Q2/2024 verfügbar"
+      },
+      "series": [
+        {
+          "seriesId": "medagentbench_stanford",
+          "benchmarkName": "Stanford MedAgentBench (300 virtuelle FHIR EHR Aufgaben)",
+          "lineStyle": "solid",
+          "verified": false,
+          "data": [
+            {
+              "id": "3.1",
+              "model": "Mistral 7B v0.3",
+              "modelReleaseDate": "2024-05",
+              "evalPubDate": "2025-01",
+              "value": 4,
+              "isFrontier": false,
+              "isRetrospective": true,
+              "setup": "FHIR Agent Loop (Open Weight Small)",
+              "source": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-01",
+              "sources": [
+                {
+                  "label": "Stanford ML Group - official benchmark",
+                  "url": "https://stanfordmlgroup.github.io/projects/medagentbench/",
+                  "locator": "Table 2: Overall SR",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "300 simulated patient-record tasks requiring searches or actions in a virtual electronic health-record system.",
+                "whatValueMeans": "The agent completed 4% of tasks successfully in this simulated test; this does not measure safety in real patients.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            },
+            {
+              "id": "3.6",
+              "model": "Gemini 1.5 Pro",
+              "modelReleaseDate": "2024-05",
+              "evalPubDate": "2025-01",
+              "value": 62,
+              "isFrontier": false,
+              "isRetrospective": true,
+              "setup": "FHIR Agent Loop",
+              "source": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-01",
+              "sources": [
+                {
+                  "label": "Stanford ML Group - official benchmark",
+                  "url": "https://stanfordmlgroup.github.io/projects/medagentbench/",
+                  "locator": "Table 2: Overall SR",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "300 simulated patient-record tasks requiring searches or actions in a virtual electronic health-record system.",
+                "whatValueMeans": "The agent completed 62% of tasks successfully in this simulated test; this does not measure safety in real patients.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            },
+            {
+              "id": "3.8",
+              "model": "GPT-4o",
+              "modelReleaseDate": "2024-05",
+              "evalPubDate": "2025-01",
+              "value": 64,
+              "isFrontier": true,
+              "isRetrospective": true,
+              "setup": "FHIR Agent Loop",
+              "source": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-01",
+              "sources": [
+                {
+                  "label": "Stanford ML Group - official benchmark",
+                  "url": "https://stanfordmlgroup.github.io/projects/medagentbench/",
+                  "locator": "Table 2: Overall SR",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "300 simulated patient-record tasks requiring searches or actions in a virtual electronic health-record system.",
+                "whatValueMeans": "The agent completed 64% of tasks successfully in this simulated test; this does not measure safety in real patients.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            },
+            {
+              "id": "3.5",
+              "model": "GPT-4o mini",
+              "modelReleaseDate": "2024-07",
+              "evalPubDate": "2025-01",
+              "value": 56.33,
+              "isFrontier": false,
+              "isRetrospective": true,
+              "setup": "FHIR Agent Loop (Small/Fast)",
+              "source": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-01",
+              "sources": [
+                {
+                  "label": "Stanford ML Group - official benchmark",
+                  "url": "https://stanfordmlgroup.github.io/projects/medagentbench/",
+                  "locator": "Table 2: Overall SR",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "300 simulated patient-record tasks requiring searches or actions in a virtual electronic health-record system.",
+                "whatValueMeans": "The agent completed 56.33% of tasks successfully in this simulated test; this does not measure safety in real patients.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            },
+            {
+              "id": "3.9",
+              "model": "Claude 3.5 Sonnet v2",
+              "modelReleaseDate": "2024-10",
+              "evalPubDate": "2025-01",
+              "value": 69.67,
+              "subMetrics": {
+                "querySuccessRate": 85.33,
+                "actionSuccessRate": 54,
+                "gapLabel": "Knowing vs. Doing Gap (-31.33 percentage points)"
+              },
+              "isFrontier": true,
+              "isRetrospective": true,
+              "setup": "FHIR Agent Loop",
+              "source": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-01",
+              "sources": [
+                {
+                  "label": "Stanford ML Group - official benchmark",
+                  "url": "https://stanfordmlgroup.github.io/projects/medagentbench/",
+                  "locator": "Table 2: Overall SR",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "300 simulated patient-record tasks requiring searches or actions in a virtual electronic health-record system.",
+                "whatValueMeans": "The agent completed 69.67% of tasks successfully in this simulated test; this does not measure safety in real patients.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            },
+            {
+              "id": "3.3",
+              "model": "Llama 3.3 70B",
+              "modelReleaseDate": "2024-12",
+              "evalPubDate": "2025-01",
+              "value": 46.33,
+              "isFrontier": false,
+              "isRetrospective": true,
+              "setup": "FHIR Agent Loop (Open Weight)",
+              "source": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-01",
+              "sources": [
+                {
+                  "label": "Stanford ML Group - official benchmark",
+                  "url": "https://stanfordmlgroup.github.io/projects/medagentbench/",
+                  "locator": "Table 2: Overall SR",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "300 simulated patient-record tasks requiring searches or actions in a virtual electronic health-record system.",
+                "whatValueMeans": "The agent completed 46.33% of tasks successfully in this simulated test; this does not measure safety in real patients.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            },
+            {
+              "id": "3.7",
+              "model": "DeepSeek V3",
+              "modelReleaseDate": "2024-12",
+              "evalPubDate": "2025-01",
+              "value": 62.67,
+              "isFrontier": false,
+              "isRetrospective": true,
+              "setup": "FHIR Agent Loop (Open Weight MoE)",
+              "source": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-01",
+              "sources": [
+                {
+                  "label": "Stanford ML Group - official benchmark",
+                  "url": "https://stanfordmlgroup.github.io/projects/medagentbench/",
+                  "locator": "Table 2: Overall SR",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "300 simulated patient-record tasks requiring searches or actions in a virtual electronic health-record system.",
+                "whatValueMeans": "The agent completed 62.67% of tasks successfully in this simulated test; this does not measure safety in real patients.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            },
+            {
+              "id": "3.2",
+              "model": "Gemini 2.0 Flash",
+              "modelReleaseDate": "2025-01",
+              "evalPubDate": "2025-01",
+              "value": 38.33,
+              "isFrontier": false,
+              "isRetrospective": false,
+              "setup": "FHIR Agent Loop (Fast Model)",
+              "source": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-01",
+              "sources": [
+                {
+                  "label": "Stanford ML Group - official benchmark",
+                  "url": "https://stanfordmlgroup.github.io/projects/medagentbench/",
+                  "locator": "Table 2: Overall SR",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "300 simulated patient-record tasks requiring searches or actions in a virtual electronic health-record system.",
+                "whatValueMeans": "The agent completed 38.33% of tasks successfully in this simulated test; this does not measure safety in real patients.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            },
+            {
+              "id": "3.4",
+              "model": "OpenAI o3-mini",
+              "modelReleaseDate": "2025-01",
+              "evalPubDate": "2025-01",
+              "value": 51.67,
+              "isFrontier": false,
+              "isRetrospective": false,
+              "setup": "FHIR Agent Loop (Small Reasoning)",
+              "source": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "Stanford MedAgentBench, arXiv:2501.14654 (Jan 2025)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2025-01",
+              "sources": [
+                {
+                  "label": "Stanford ML Group - official benchmark",
+                  "url": "https://stanfordmlgroup.github.io/projects/medagentbench/",
+                  "locator": "Table 2: Overall SR",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "300 simulated patient-record tasks requiring searches or actions in a virtual electronic health-record system.",
+                "whatValueMeans": "The agent completed 51.67% of tasks successfully in this simulated test; this does not measure safety in real patients.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            }
+          ],
+          "sourceReviewStatus": "requires_point_by_point_audit"
+        },
+        {
+          "seriesId": "healthagentbench_msft_2026",
+          "benchmarkName": "Microsoft HealthAgentBench (54 multimodale Klinik-Tasks in 7 Umgebungen)",
+          "lineStyle": "solid-secondary",
+          "verified": false,
+          "warningNote": "Neue Benchmark-Generation ab Feb 2026 (inkl. 3D-CT, Pathologie-WSI, EHR-Pipelines). Nicht mit MedAgentBench-Kurve verbinden!",
+          "data": [
+            {
+              "id": "3.10",
+              "model": "Claude Code / Opus 4.6",
+              "modelReleaseDate": "2026-02",
+              "evalPubDate": "2026-06",
+              "value": 19,
+              "isFrontier": false,
+              "isRetrospective": true,
+              "setup": "Terminal Agent Environment (162 trials)",
+              "source": "Microsoft HealthAgentBench, arXiv:2606.31179 (Jul 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "Microsoft HealthAgentBench, arXiv:2606.31179 (Jul 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-06",
+              "sources": [
+                {
+                  "label": "Microsoft Research - official benchmark",
+                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "locator": "Leaderboard: Success Rate",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "54 realistic medical workflow tasks across seven environments, each attempted three times with an AI agent.",
+                "whatValueMeans": "The agent system succeeded in 19% of attempts in this benchmark; it is not a real-world clinical success rate.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            },
+            {
+              "id": "3.11",
+              "model": "Codex / GPT-5.3",
+              "modelReleaseDate": "2026-02",
+              "evalPubDate": "2026-06",
+              "value": 22,
+              "isFrontier": true,
+              "isRetrospective": true,
+              "setup": "Terminal Agent Environment (162 trials)",
+              "source": "Microsoft HealthAgentBench, arXiv:2606.31179 (Jul 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "Microsoft HealthAgentBench, arXiv:2606.31179 (Jul 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-06",
+              "sources": [
+                {
+                  "label": "Microsoft Research - official benchmark",
+                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "locator": "Leaderboard: Success Rate",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "54 realistic medical workflow tasks across seven environments, each attempted three times with an AI agent.",
+                "whatValueMeans": "The agent system succeeded in 22% of attempts in this benchmark; it is not a real-world clinical success rate.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            },
+            {
+              "id": "3.13",
+              "model": "Codex / GPT-5.4",
+              "modelReleaseDate": "2026-03",
+              "evalPubDate": "2026-06",
+              "value": 28,
+              "isFrontier": true,
+              "isRetrospective": true,
+              "setup": "Terminal Agent Environment (162 trials)",
+              "source": "Microsoft HealthAgentBench, arXiv:2606.31179 (Jul 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "Microsoft HealthAgentBench, arXiv:2606.31179 (Jul 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-06",
+              "sources": [
+                {
+                  "label": "Microsoft Research - official benchmark",
+                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "locator": "Leaderboard: Success Rate",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "54 realistic medical workflow tasks across seven environments, each attempted three times with an AI agent.",
+                "whatValueMeans": "The agent system succeeded in 28% of attempts in this benchmark; it is not a real-world clinical success rate.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            },
+            {
+              "id": "3.12",
+              "model": "Claude Code / Opus 4.7",
+              "modelReleaseDate": "2026-04",
+              "evalPubDate": "2026-06",
+              "value": 27,
+              "isFrontier": false,
+              "isRetrospective": true,
+              "setup": "Terminal Agent Environment (162 trials)",
+              "source": "Microsoft HealthAgentBench, arXiv:2606.31179 (Jul 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "Microsoft HealthAgentBench, arXiv:2606.31179 (Jul 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-06",
+              "sources": [
+                {
+                  "label": "Microsoft Research - official benchmark",
+                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "locator": "Leaderboard: Success Rate",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "54 realistic medical workflow tasks across seven environments, each attempted three times with an AI agent.",
+                "whatValueMeans": "The agent system succeeded in 27% of attempts in this benchmark; it is not a real-world clinical success rate.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            },
+            {
+              "id": "3.15",
+              "model": "Codex / GPT-5.5",
+              "modelReleaseDate": "2026-04",
+              "evalPubDate": "2026-06",
+              "value": 42,
+              "isFrontier": true,
+              "isRetrospective": true,
+              "setup": "Terminal Agent Environment (Paper SOTA)",
+              "source": "Microsoft HealthAgentBench, arXiv:2606.31179 (Jun 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "Microsoft HealthAgentBench, arXiv:2606.31179 (Jun 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-06",
+              "sources": [
+                {
+                  "label": "Microsoft Research - official benchmark",
+                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "locator": "Leaderboard: Success Rate",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "54 realistic medical workflow tasks across seven environments, each attempted three times with an AI agent.",
+                "whatValueMeans": "The agent system succeeded in 42% of attempts in this benchmark; it is not a real-world clinical success rate.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            },
+            {
+              "id": "3.14",
+              "model": "Claude Code / Opus 4.8",
+              "modelReleaseDate": "2026-05",
+              "evalPubDate": "2026-06",
+              "value": 32,
+              "isFrontier": false,
+              "isRetrospective": true,
+              "setup": "Terminal Agent Environment (162 trials)",
+              "source": "Microsoft HealthAgentBench, arXiv:2606.31179 (Jul 2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": true,
+                "sourceCitationFromImport": "Microsoft HealthAgentBench, arXiv:2606.31179 (Jul 2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-06",
+              "sources": [
+                {
+                  "label": "Microsoft Research - official benchmark",
+                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "locator": "Leaderboard: Success Rate",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "54 realistic medical workflow tasks across seven environments, each attempted three times with an AI agent.",
+                "whatValueMeans": "The agent system succeeded in 32% of attempts in this benchmark; it is not a real-world clinical success rate.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            },
+            {
+              "id": "3.16",
+              "model": "Codex / GPT-5.6-sol",
+              "modelReleaseDate": "2026-07",
+              "evalPubDate": "2026-07",
+              "value": 45,
+              "isFrontier": false,
+              "isRetrospective": false,
+              "setup": "Terminal Agent Environment (Leaderboard Update)",
+              "source": "Microsoft HealthAgentBench Leaderboard (27.07.2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": false,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "Microsoft HealthAgentBench Leaderboard (27.07.2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-07",
+              "sources": [
+                {
+                  "label": "Microsoft Research - official benchmark",
+                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "locator": "Leaderboard: Success Rate",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "54 realistic medical workflow tasks across seven environments, each attempted three times with an AI agent.",
+                "whatValueMeans": "The agent system succeeded in 45% of attempts in this benchmark; it is not a real-world clinical success rate.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            },
+            {
+              "id": "3.17",
+              "model": "Claude Code / Opus 5",
+              "modelReleaseDate": "2026-07",
+              "evalPubDate": "2026-07",
+              "value": 55,
+              "isFrontier": true,
+              "isRetrospective": false,
+              "setup": "Terminal Agent Environment (Leaderboard SOTA)",
+              "source": "Microsoft HealthAgentBench Leaderboard (27.07.2026)",
+              "legacy": {
+                "verifiedFromImport": true,
+                "isFrontierFromImport": true,
+                "isRetrospectiveFromImport": false,
+                "sourceCitationFromImport": "Microsoft HealthAgentBench Leaderboard (27.07.2026)"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-07",
+              "sources": [
+                {
+                  "label": "Microsoft Research - official benchmark",
+                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "locator": "Leaderboard: Success Rate",
+                  "type": "official_primary"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "54 realistic medical workflow tasks across seven environments, each attempted three times with an AI agent.",
+                "whatValueMeans": "The agent system succeeded in 55% of attempts in this benchmark; it is not a real-world clinical success rate.",
+                "whyItMatters": null,
+                "limitations": "Model release month is a proxy for historical availability, not the date this test was run. Score verified against official benchmark source."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source cross-check",
+                "note": "Score and model configuration/name matched official first-party table. Imported model release month and evaluation date have NOT been independently source-audited; date shown as approximate release proxy."
+              },
+              "eligibleForMainline": true
+            }
+          ],
+          "sourceReviewStatus": "requires_point_by_point_audit"
+        }
+      ],
+      "question": "Can AI complete medical tasks on its own?",
+      "caveat": "Success on simulated tasks is not clinical authorization or patient outcomes."
+    }
+  ],
+  "extensions": {
+    "legacyDashboard": {
+      "editorialStatus": {
+        "updatedAt": "2026-10-18",
+        "checkedAt": "2026-10-18",
+        "coverageNote": "Historical starter dataset from three original papers: 13 measurements. Not a complete market overview or a claim about current leading performance. Each track currently contains one publication version, so it cannot establish a time trend.",
+        "updateNote": "Historical milestones added on 18 October 2026; benchmark values unchanged. No automatic updates or independent expert review yet. New values require source and methodology checks; missing data remain empty."
+      },
+      "measurements": [
+        {
+          "trackId": "knowledge",
+          "date": "2025-06-06",
+          "dateBasis": "publication",
+          "benchmark": "MedXpertQA",
+          "benchmarkVersion": "Paper v3 (2501.18362v3)",
+          "subset": "Text · full test · n=2,450",
+          "comparisonGroup": "medxpertqa-v3-text-full-authors-zero-shot-cot",
+          "sourceId": "medxpertqa-v3",
+          "sourceDetail": "Tables 4/5 · Text Avg · Sections 4.1/4.2",
+          "system": "Authors' evaluation protocol",
+          "setting": "Zero-shot CoT; greedy decoding where available.",
+          "limitations": "Historical exam benchmark. No evidence of clinical deployment; uncertainty intervals are not reproduced here. Publication date is used because the evaluation date is unknown.",
+          "environment": "benchmark",
+          "isHuman": false,
+          "id": "mq-gpt4o-20241120",
+          "model": "GPT-4o-2024-11-20",
+          "score": 30.37
+        },
+        {
+          "trackId": "knowledge",
+          "date": "2025-06-06",
+          "dateBasis": "publication",
+          "benchmark": "MedXpertQA",
+          "benchmarkVersion": "Paper v3 (2501.18362v3)",
+          "subset": "Text · full test · n=2,450",
+          "comparisonGroup": "medxpertqa-v3-text-full-authors-zero-shot-cot",
+          "sourceId": "medxpertqa-v3",
+          "sourceDetail": "Tables 4/5 · Text Avg · Sections 4.1/4.2",
+          "system": "Authors' evaluation protocol",
+          "setting": "Zero-shot CoT; greedy decoding where available.",
+          "limitations": "Historical exam benchmark. No evidence of clinical deployment; uncertainty intervals are not reproduced here. Publication date is used because the evaluation date is unknown.",
+          "environment": "benchmark",
+          "isHuman": false,
+          "id": "mq-claude35-20241022",
+          "model": "Claude-3.5-Sonnet-20241022",
+          "score": 21.31
+        },
+        {
+          "trackId": "knowledge",
+          "date": "2025-06-06",
+          "dateBasis": "publication",
+          "benchmark": "MedXpertQA",
+          "benchmarkVersion": "Paper v3 (2501.18362v3)",
+          "subset": "Text · full test · n=2,450",
+          "comparisonGroup": "medxpertqa-v3-text-full-authors-zero-shot-cot",
+          "sourceId": "medxpertqa-v3",
+          "sourceDetail": "Tables 4/5 · Text Avg · Sections 4.1/4.2",
+          "system": "Authors' evaluation protocol",
+          "setting": "Zero-shot CoT; greedy decoding where available.",
+          "limitations": "Historical exam benchmark. No evidence of clinical deployment; uncertainty intervals are not reproduced here. Publication date is used because the evaluation date is unknown.",
+          "environment": "benchmark",
+          "isHuman": false,
+          "id": "mq-gemini15pro002",
+          "model": "Gemini-1.5-Pro-002",
+          "score": 19.67
+        },
+        {
+          "trackId": "knowledge",
+          "date": "2025-06-06",
+          "dateBasis": "publication",
+          "benchmark": "MedXpertQA",
+          "benchmarkVersion": "Paper v3 (2501.18362v3)",
+          "subset": "Text · full test · n=2,450",
+          "comparisonGroup": "medxpertqa-v3-text-full-authors-zero-shot-cot",
+          "sourceId": "medxpertqa-v3",
+          "sourceDetail": "Tables 4/5 · Text Avg · Sections 4.1/4.2",
+          "system": "Authors' evaluation protocol",
+          "setting": "Zero-shot CoT; greedy decoding where available.",
+          "limitations": "Historical exam benchmark. No evidence of clinical deployment; uncertainty intervals are not reproduced here. Publication date is used because the evaluation date is unknown.",
+          "environment": "benchmark",
+          "isHuman": false,
+          "id": "mq-deepseekv3",
+          "model": "DeepSeek-V3",
+          "score": 24.16
+        },
+        {
+          "trackId": "knowledge",
+          "date": "2025-06-06",
+          "dateBasis": "publication",
+          "benchmark": "MedXpertQA",
+          "benchmarkVersion": "Paper v3 (2501.18362v3)",
+          "subset": "Text · full test · n=2,450",
+          "comparisonGroup": "medxpertqa-v3-text-full-authors-zero-shot-cot",
+          "sourceId": "medxpertqa-v3",
+          "sourceDetail": "Tables 4/5 · Text Avg · Sections 4.1/4.2",
+          "system": "Authors' evaluation protocol",
+          "setting": "Zero-shot CoT; greedy decoding where available.",
+          "limitations": "Historical exam benchmark. No evidence of clinical deployment; uncertainty intervals are not reproduced here. Publication date is used because the evaluation date is unknown.",
+          "environment": "benchmark",
+          "isHuman": false,
+          "id": "mq-llama33-70b",
+          "model": "LLaMA-3.3-70B",
+          "score": 24.49
+        },
+        {
+          "trackId": "assistance",
+          "date": "2026-04-30",
+          "dateBasis": "publication",
+          "benchmark": "HealthBench Professional",
+          "benchmarkVersion": "Paper v1 (2604.27470v1)",
+          "subset": "Overall · n=525",
+          "sourceId": "healthbench-pro-v1",
+          "sourceDetail": "Sections 5.1/5.3 · length-adjusted overall score",
+          "limitations": "Provider involvement; system configuration affects the score. Not percentage accuracy or a patient-benefit endpoint. The original reports 95% intervals, which are not reproduced numerically here; do not infer significant ranking differences. Evaluation date unknown.",
+          "environment": "benchmark",
+          "isHuman": false,
+          "id": "hbp-gpt54-base",
+          "model": "GPT-5.4",
+          "system": "GPT-5.4 · base API",
+          "score": 48.1,
+          "comparisonGroup": "hbp-v1-base-api-xhigh-default-verbosity",
+          "setting": "Default API prompt; xhigh reasoning; default verbosity."
+        },
+        {
+          "trackId": "assistance",
+          "date": "2026-04-30",
+          "dateBasis": "publication",
+          "benchmark": "HealthBench Professional",
+          "benchmarkVersion": "Paper v1 (2604.27470v1)",
+          "subset": "Overall · n=525",
+          "sourceId": "healthbench-pro-v1",
+          "sourceDetail": "Sections 5.1/5.3 · length-adjusted overall score",
+          "limitations": "Provider involvement; system configuration affects the score. Not percentage accuracy or a patient-benefit endpoint. The original reports 95% intervals, which are not reproduced numerically here; do not infer significant ranking differences. Evaluation date unknown.",
+          "environment": "benchmark",
+          "isHuman": false,
+          "id": "hbp-gpt54-browsing",
+          "model": "GPT-5.4",
+          "system": "GPT-5.4 · browsing harness",
+          "score": 45.8,
+          "comparisonGroup": "hbp-v1-gpt54-browsing-harness",
+          "setting": "Simple authors' harness with web search; a separate system configuration."
+        },
+        {
+          "trackId": "assistance",
+          "date": "2026-04-30",
+          "dateBasis": "publication",
+          "benchmark": "HealthBench Professional",
+          "benchmarkVersion": "Paper v1 (2604.27470v1)",
+          "subset": "Overall · n=525",
+          "sourceId": "healthbench-pro-v1",
+          "sourceDetail": "Sections 5.1/5.3 · length-adjusted overall score",
+          "limitations": "Provider involvement; system configuration affects the score. Not percentage accuracy or a patient-benefit endpoint. The original reports 95% intervals, which are not reproduced numerically here; do not infer significant ranking differences. Evaluation date unknown.",
+          "environment": "benchmark",
+          "isHuman": false,
+          "id": "hbp-chatgpt-clinicians",
+          "model": "GPT-5.4",
+          "system": "ChatGPT for Clinicians",
+          "score": 59,
+          "comparisonGroup": "hbp-v1-chatgpt-for-clinicians-harness",
+          "setting": "Product harness with its own tools and prompt configuration."
+        },
+        {
+          "trackId": "autonomy",
+          "date": "2025-02-12",
+          "dateBasis": "publication",
+          "benchmark": "MedAgentBench",
+          "benchmarkVersion": "Paper v2 (2501.14654v2)",
+          "subset": "Overall SR · n=300",
+          "comparisonGroup": "medagentbench-v2-overall-authors-pass1-8rounds",
+          "sourceId": "medagentbench-v2",
+          "sourceDetail": "Table 3 · Overall SR · Sections 2.4/2.5",
+          "system": "Authors' agent with FHIR tools",
+          "setting": "pass@1; maximum eight rounds; temperature 0.",
+          "limitations": "Virtual EHR test, not real autonomous care. POST actions are simulated. The paper does not specify every provider's model snapshot; uncertainty is not reported. Publication date is used because the evaluation date is unknown.",
+          "environment": "simulation",
+          "isHuman": false,
+          "id": "mab-claude35v2",
+          "model": "Claude 3.5 Sonnet v2",
+          "score": 69.67
+        },
+        {
+          "trackId": "autonomy",
+          "date": "2025-02-12",
+          "dateBasis": "publication",
+          "benchmark": "MedAgentBench",
+          "benchmarkVersion": "Paper v2 (2501.14654v2)",
+          "subset": "Overall SR · n=300",
+          "comparisonGroup": "medagentbench-v2-overall-authors-pass1-8rounds",
+          "sourceId": "medagentbench-v2",
+          "sourceDetail": "Table 3 · Overall SR · Sections 2.4/2.5",
+          "system": "Authors' agent with FHIR tools",
+          "setting": "pass@1; maximum eight rounds; temperature 0.",
+          "limitations": "Virtual EHR test, not real autonomous care. POST actions are simulated. The paper does not specify every provider's model snapshot; uncertainty is not reported. Publication date is used because the evaluation date is unknown.",
+          "environment": "simulation",
+          "isHuman": false,
+          "id": "mab-gpt4o",
+          "model": "GPT-4o",
+          "score": 64
+        },
+        {
+          "trackId": "autonomy",
+          "date": "2025-02-12",
+          "dateBasis": "publication",
+          "benchmark": "MedAgentBench",
+          "benchmarkVersion": "Paper v2 (2501.14654v2)",
+          "subset": "Overall SR · n=300",
+          "comparisonGroup": "medagentbench-v2-overall-authors-pass1-8rounds",
+          "sourceId": "medagentbench-v2",
+          "sourceDetail": "Table 3 · Overall SR · Sections 2.4/2.5",
+          "system": "Authors' agent with FHIR tools",
+          "setting": "pass@1; maximum eight rounds; temperature 0.",
+          "limitations": "Virtual EHR test, not real autonomous care. POST actions are simulated. The paper does not specify every provider's model snapshot; uncertainty is not reported. Publication date is used because the evaluation date is unknown.",
+          "environment": "simulation",
+          "isHuman": false,
+          "id": "mab-deepseekv3",
+          "model": "DeepSeek-V3",
+          "score": 62.67
+        },
+        {
+          "trackId": "autonomy",
+          "date": "2025-02-12",
+          "dateBasis": "publication",
+          "benchmark": "MedAgentBench",
+          "benchmarkVersion": "Paper v2 (2501.14654v2)",
+          "subset": "Overall SR · n=300",
+          "comparisonGroup": "medagentbench-v2-overall-authors-pass1-8rounds",
+          "sourceId": "medagentbench-v2",
+          "sourceDetail": "Table 3 · Overall SR · Sections 2.4/2.5",
+          "system": "Authors' agent with FHIR tools",
+          "setting": "pass@1; maximum eight rounds; temperature 0.",
+          "limitations": "Virtual EHR test, not real autonomous care. POST actions are simulated. The paper does not specify every provider's model snapshot; uncertainty is not reported. Publication date is used because the evaluation date is unknown.",
+          "environment": "simulation",
+          "isHuman": false,
+          "id": "mab-gemini15pro",
+          "model": "Gemini 1.5 Pro",
+          "score": 62
+        },
+        {
+          "trackId": "autonomy",
+          "date": "2025-02-12",
+          "dateBasis": "publication",
+          "benchmark": "MedAgentBench",
+          "benchmarkVersion": "Paper v2 (2501.14654v2)",
+          "subset": "Overall SR · n=300",
+          "comparisonGroup": "medagentbench-v2-overall-authors-pass1-8rounds",
+          "sourceId": "medagentbench-v2",
+          "sourceDetail": "Table 3 · Overall SR · Sections 2.4/2.5",
+          "system": "Authors' agent with FHIR tools",
+          "setting": "pass@1; maximum eight rounds; temperature 0.",
+          "limitations": "Virtual EHR test, not real autonomous care. POST actions are simulated. The paper does not specify every provider's model snapshot; uncertainty is not reported. Publication date is used because the evaluation date is unknown.",
+          "environment": "simulation",
+          "isHuman": false,
+          "id": "mab-gpt4omini",
+          "model": "GPT-4o mini",
+          "score": 56.33
+        }
+      ],
+      "milestones": [
+        {
+          "id": "milestone-medagentbench-v2",
+          "date": "2025-02-12",
+          "title": "Measuring autonomy in a virtual EHR",
+          "category": "research",
+          "summary": "MedAgentBench v2 publishes a system comparison in a virtual patient record.",
+          "sourceId": "medagentbench-v2",
+          "environment": "simulation",
+          "limitations": "Publication event. No evidence of safe routine deployment."
+        },
+        {
+          "id": "milestone-medxpertqa-v3",
+          "date": "2025-06-06",
+          "title": "Challenging medical tasks",
+          "category": "research",
+          "summary": "MedXpertQA v3 is the reference version for this historical text comparison.",
+          "sourceId": "medxpertqa-v3",
+          "environment": "benchmark",
+          "limitations": "Publication event. Task performance does not replace clinical validation."
+        },
+        {
+          "id": "milestone-healthbench-pro-v1",
+          "date": "2026-04-30",
+          "title": "Assistance as system performance",
+          "category": "research",
+          "summary": "HealthBench Professional compares answer quality across different GPT-5.4 system configurations.",
+          "sourceId": "healthbench-pro-v1",
+          "environment": "benchmark",
+          "limitations": "Publication event with provider involvement. Not a prospective clinical study."
+        },
+        {
+          "id": "milestone-alphafold2",
+          "date": "2021-07-15",
+          "title": "AlphaFold 2: Predicting protein structures",
+          "category": "pharma",
+          "summary": "Substantially more accurate protein structures in the CASP14 comparison.",
+          "sourceId": "alphafold2-nature",
+          "environment": "structure_research",
+          "limitations": "Measures structure accuracy, not drug efficacy. Experimental validation and clinical development remain necessary.",
+          "studyId": "alphafold2",
+          "type": "Peer-reviewed · structure benchmark"
+        },
+        {
+          "id": "milestone-alphafold3",
+          "date": "2024-05-08",
+          "title": "AlphaFold 3: Molecular interactions",
+          "category": "pharma",
+          "summary": "Extends prediction to complexes containing proteins, DNA, RNA and small molecules.",
+          "sourceId": "alphafold3-nature",
+          "environment": "structure_research",
+          "limitations": "Stereochemical errors, hallucinated structures and limited representation of dynamics. No clinically validated off-label treatment selection.",
+          "studyId": "alphafold3",
+          "type": "Peer-reviewed · structure benchmark"
+        },
+        {
+          "id": "milestone-nobel-chemistry-2024",
+          "date": "2024-10-09",
+          "title": "Nobel Prize for protein design and structure prediction",
+          "category": "pharma",
+          "summary": "David Baker receives half for computational protein design; Hassabis and Jumper share half for structure prediction.",
+          "sourceId": "nobel-chemistry-2024",
+          "environment": "award",
+          "limitations": "An award establishes neither drug approval nor safe automated care.",
+          "studyId": "nobel-chemistry-2024",
+          "type": "Award · not a study"
+        },
+        {
+          "id": "milestone-residencyrl",
+          "date": "2026-08-07",
+          "title": "ResidencyRL: Learning from simulated patient conversations",
+          "category": "simulation",
+          "summary": "After training, more conversations achieve a diagnostic rubric score of at least 4/5.",
+          "sourceId": "residencyrl-v1",
+          "environment": "simulation",
+          "limitations": "In-domain evaluation uses an automated rubric related to training. Simulation and evaluator bias; prospective real-world validation is missing.",
+          "studyId": "residencyrl",
+          "type": "Preprint · simulation"
+        },
+        {
+          "id": "milestone-learning-impact",
+          "date": "2026-10-04",
+          "title": "AI access and unaided learning tests",
+          "category": "learning",
+          "summary": "Higher immediate knowledge-test scores; the smaller effect after one week remains statistically uncertain.",
+          "sourceId": "learning-impact-v2",
+          "environment": "education_experiment",
+          "limitations": "Not a medical population or a long-term deskilling study. Protocol violations affect the immediate test; transfer to health professionals is unproven.",
+          "studyId": "learning-impact",
+          "type": "Preprint · randomized learning experiment"
+        },
+        {
+          "id": "milestone-mira",
+          "date": "2026-06-17",
+          "title": "MIRA: Diagnosis and actions in a virtual EHR",
+          "category": "simulation",
+          "summary": "An agent combines simulated history-taking, diagnosis and structured EHR actions.",
+          "sourceId": "mira-2026-source",
+          "environment": "simulation",
+          "limitations": "Simulated conversations based on retrospective records. No prospective patient care; generalizability and real-world safety require testing.",
+          "studyId": "mira",
+          "type": "Peer-reviewed · clinical simulation"
+        }
+      ],
+      "pharmaApplications": [
+        {
+          "title": "Structured patient records",
+          "text": "Combine medication, allergies and laboratory results in a structured format for a defined checking system to assess.",
+          "status": "Application concept",
+          "limit": "A connected record alone does not demonstrate fewer medication errors.",
+          "slides": "13–14"
+        },
+        {
+          "title": "Medication safety",
+          "text": "Flag interactions and duplicate prescriptions for professional review. Measure benefits and false alerts for the specific system.",
+          "status": "Application concept",
+          "limit": "Fully automated medication safety has not been established here.",
+          "slides": "16"
+        },
+        {
+          "title": "Demand and inventory planning",
+          "text": "Use data to assess orders and potential expiry. Compare time, costs and ordering errors before and after adoption.",
+          "status": "Economic benefit to be evaluated",
+          "limit": "No reliable savings estimates are available for this pharmacy setting.",
+          "slides": "14"
+        },
+        {
+          "title": "Personalized therapies",
+          "text": "Molecular models can suggest research questions. Proposed new professional roles remain future scenarios.",
+          "status": "Scenario",
+          "limit": "Routine local biologic production or automatic off-label selection is not established here.",
+          "slides": "20–21"
+        }
+      ],
+      "presentationSource": {
+        "title": "AI in pharmacy: source material",
+        "url": "https://docs.google.com/presentation/d/1ZmKxSpPPC5yRLxbTrwBxpkaXLGfPhZW_/edit",
+        "checkedAt": "2026-10-17"
+      },
+      "sourceCatalog": [
+        {
+          "id": "medxpertqa-v3",
+          "title": "MedXpertQA: Benchmarking Expert-Level Medical Reasoning and Understanding",
+          "url": "https://arxiv.org/html/2501.18362v3",
+          "publisher": "Zuo et al., Tsinghua University / Shanghai AI Laboratory",
+          "version": "arXiv 2501.18362v3 · 06.06.2025",
+          "checkedAt": "2026-10-17",
+          "kind": "Research publication",
+          "summary": "Tables 4 and 5, overall text score; 2,450 test items. Zero-shot CoT under the authors' protocol. Smaller o1/o3-mini samples are excluded here."
+        },
+        {
+          "id": "healthbench-pro-v1",
+          "title": "HealthBench Professional: Evaluating Large Language Models on Real Clinician Chats",
+          "url": "https://arxiv.org/html/2604.27470v1",
+          "publisher": "OpenAI et al.",
+          "version": "arXiv 2604.27470v1 · 30.04.2026",
+          "checkedAt": "2026-10-17",
+          "kind": "Preprint · provider involvement",
+          "summary": "Sections 4.1–4.3, 5.1 and 5.3; 525 tasks, eight answers per task. GPT-5.4 with low reasoning is the evaluator. Provider and system comparison with length adjustment."
+        },
+        {
+          "id": "medagentbench-v2",
+          "title": "MedAgentBench: A Realistic Virtual EHR Environment to Benchmark Medical LLM Agents",
+          "url": "https://arxiv.org/html/2501.14654v2",
+          "publisher": "Jiang et al., Stanford",
+          "version": "arXiv 2501.14654v2 · 12.02.2025",
+          "checkedAt": "2026-10-17",
+          "kind": "Preprint",
+          "summary": "Table 3, overall success rate; 300 tasks, pass@1, maximum eight rounds. Same authors' orchestration; GET executed, POST writes simulated and checked."
+        },
+        {
+          "id": "alphafold2-nature",
+          "title": "Highly accurate protein structure prediction with AlphaFold",
+          "url": "https://www.nature.com/articles/s41586-021-03819-2",
+          "publisher": "Jumper et al. · Nature",
+          "version": "15.07.2021 · DOI 10.1038/s41586-021-03819-2",
+          "kind": "Peer-reviewed · structural biology",
+          "summary": "Original AlphaFold 2 paper; structure benchmark, not a clinical intervention study.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "alphafold3-nature",
+          "title": "Accurate structure prediction of biomolecular interactions with AlphaFold 3",
+          "url": "https://www.nature.com/articles/s41586-024-07487-w",
+          "publisher": "Abramson et al. · Nature",
+          "version": "08.05.2024 · DOI 10.1038/s41586-024-07487-w",
+          "kind": "Peer-reviewed · structural biology",
+          "summary": "Original biomolecular-complex study including documented model limitations.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "nobel-chemistry-2024",
+          "title": "The Nobel Prize in Chemistry 2024",
+          "url": "https://www.kva.se/en/news/the-nobel-prize-in-chemistry-2024/",
+          "publisher": "Royal Swedish Academy of Sciences",
+          "version": "Announcement 09.10.2024",
+          "kind": "Official award announcement",
+          "summary": "Primary source for the award allocation and recognized contributions.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "residencyrl-v1",
+          "title": "ResidencyRL: Reinforcement Learning in Simulated Clinical Environments",
+          "url": "https://arxiv.org/html/2608.07418v1",
+          "publisher": "Liévin et al.",
+          "version": "arXiv 2608.07418v1 · 07.08.2026",
+          "kind": "Preprint · clinical simulation",
+          "summary": "Simulated clinical conversations and external evaluations; prospective real-world testing is pending.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "learning-impact-v2",
+          "title": "Experimental Evidence on the Learning Impact of Generative AI",
+          "url": "https://arxiv.org/html/2607.08849v2",
+          "publisher": "Zara Contractor & Germán Reyes",
+          "version": "arXiv 2607.08849v2 · 04.10.2026",
+          "kind": "Preprint · education research",
+          "summary": "Randomized learning experiment; not a clinical study or a long-term competence trajectory.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "dartmouth-history",
+          "title": "The Founding and Future of AI",
+          "url": "https://ai.dartmouth.edu/founding-and-future-ai",
+          "publisher": "Dartmouth",
+          "version": "Historical overview",
+          "kind": "Institutional primary source",
+          "summary": "Dartmouth Summer Research Project on Artificial Intelligence, summer 1956.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "deep-blue-history",
+          "title": "Deep Blue",
+          "url": "https://www.ibm.com/history/deep-blue",
+          "publisher": "IBM",
+          "version": "Historical overview",
+          "kind": "Institutional primary source",
+          "summary": "Defeat of Kasparov in the May 1997 chess match.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "alphafold-casp-history",
+          "title": "AlphaFold: a solution to a 50-year-old grand challenge in biology",
+          "url": "https://deepmind.google/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology/",
+          "publisher": "Google DeepMind",
+          "version": "CASP13 2018 and CASP14 2020",
+          "kind": "Authors' report",
+          "summary": "Historical competition events, separate from the 2021 AlphaFold 2 paper.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "turing-1950-source",
+          "title": "Computing Machinery and Intelligence",
+          "authors": "Alan M. Turing",
+          "url": "https://academic.oup.com/mind/article/LIX/236/433/986238",
+          "publisher": "Mind 59(236), 433–460",
+          "version": "1950-10-01 · DOI 10.1093/mind/LIX.236.433",
+          "kind": "Original conceptual paper",
+          "summary": "Introduces the imitation game as an approach to discussing machine intelligence.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "eliza-1966-source",
+          "title": "ELIZA—a computer program for the study of natural language communication between man and machine",
+          "authors": "Joseph Weizenbaum",
+          "url": "https://doi.org/10.1145/365153.365168",
+          "publisher": "Communications of the ACM 9(1), 36–45",
+          "version": "1966 · DOI 10.1145/365153.365168",
+          "kind": "Original paper",
+          "summary": "Describes rule-based conversation between people and a computer.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "mycin-1975-source",
+          "title": "Computer-based consultations in clinical therapeutics: Explanation and rule acquisition capabilities of the MYCIN system",
+          "authors": "Edward H. Shortliffe et al.",
+          "url": "https://www.sciencedirect.com/science/article/pii/0010480975900099",
+          "publisher": "Computers and Biomedical Research",
+          "version": "1975 · DOI 10.1016/0010-4809(75)90009-9",
+          "kind": "Original rule-based decision-support paper",
+          "summary": "Describes rule-based antibiotic advice, explanations and knowledge acquisition.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "backprop-1986-source",
+          "title": "Learning representations by back-propagating errors",
+          "authors": "David E. Rumelhart, Geoffrey E. Hinton, Ronald J. Williams",
+          "url": "https://www.nature.com/articles/323533a0",
+          "publisher": "Nature 323, 533–536",
+          "version": "1986-10-09 · DOI 10.1038/323533a0",
+          "kind": "Original methods paper",
+          "summary": "Describes learning hidden representations through back-propagated errors and weight updates.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "alexnet-2012-source",
+          "title": "ImageNet Classification with Deep Convolutional Neural Networks",
+          "authors": "Alex Krizhevsky, Ilya Sutskever, Geoffrey E. Hinton",
+          "url": "https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html",
+          "publisher": "Advances in Neural Information Processing Systems 25",
+          "version": "2012",
+          "kind": "Original conference paper",
+          "summary": "Deep CNN trained on 1.3 million ImageNet images; the abstract reports 39.7% top-1 and 18.9% top-5 error on the LSVRC-2010 test.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "alphago-2016-source",
+          "title": "Mastering the game of Go with deep neural networks and tree search",
+          "authors": "David Silver et al.",
+          "url": "https://www.nature.com/articles/nature16961",
+          "publisher": "Nature 529, 484–489",
+          "version": "2016-01-27 · DOI 10.1038/nature16961",
+          "kind": "Original paper",
+          "summary": "AlphaGo defeats European Go champion Fan Hui 5–0 and wins 99.8% of games against other Go programs in the reported comparison.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "skin-cancer-2017-source",
+          "title": "Dermatologist-level classification of skin cancer with deep neural networks",
+          "authors": "Andre Esteva et al.",
+          "url": "https://www.nature.com/articles/nature21056",
+          "publisher": "Nature 542, 115–118",
+          "version": "2017-01-25 · DOI 10.1038/nature21056",
+          "kind": "Retrospective image-classification benchmark",
+          "summary": "Trained on 129,450 clinical images; compared with 21 board-certified dermatologists on two binary skin-lesion tasks.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "gpt3-2020-source",
+          "title": "Language Models are Few-Shot Learners",
+          "authors": "Tom B. Brown et al.",
+          "url": "https://arxiv.org/abs/2005.14165v1",
+          "publisher": "arXiv 2005.14165v1; NeurIPS 2020",
+          "version": "2020-05-28",
+          "kind": "Original paper / first preprint version",
+          "summary": "GPT-3, with 175 billion parameters, demonstrates few-shot performance on several NLP tasks without task-specific weight updates.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "instructgpt-2022-source",
+          "title": "Training language models to follow instructions with human feedback",
+          "authors": "Long Ouyang et al.",
+          "url": "https://arxiv.org/abs/2203.02155v1",
+          "publisher": "arXiv 2203.02155v1",
+          "version": "2022-03-04",
+          "kind": "Original paper / preprint",
+          "summary": "On the tested prompt distribution, human evaluators prefer 1.3B InstructGPT responses over those from 175B GPT-3.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "medpalm-preprint-2022-source",
+          "title": "Large Language Models Encode Clinical Knowledge",
+          "authors": "Karan Singhal et al.",
+          "url": "https://arxiv.org/abs/2212.13138v1",
+          "publisher": "arXiv 2212.13138v1",
+          "version": "2022-12-26",
+          "kind": "First preprint release",
+          "summary": "Introduces MultiMedQA and medically adapted Med-PaLM; Flan-PaLM scores 67.6% on MedQA questions.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "gpt4-2023-source",
+          "title": "GPT-4 Technical Report",
+          "authors": "OpenAI et al.",
+          "url": "https://arxiv.org/abs/2303.08774v1",
+          "publisher": "arXiv 2303.08774v1",
+          "version": "2023-03-15",
+          "kind": "Technical authors' report",
+          "summary": "Describes a multimodal GPT-4 model and its evaluation.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "medpalm-2023-source",
+          "title": "Large language models encode clinical knowledge",
+          "authors": "Karan Singhal et al.",
+          "url": "https://www.nature.com/articles/s41586-023-06291-2",
+          "publisher": "Nature 620, 172–180",
+          "version": "2023-07-12 · DOI 10.1038/s41586-023-06291-2",
+          "kind": "Peer-reviewed benchmark and human answer evaluation",
+          "summary": "Flan-PaLM achieves 67.6% MedQA accuracy; Med-PaLM improves several human-rated answer characteristics.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "diagnostic-rct-2024-source",
+          "title": "Large Language Model Influence on Diagnostic Reasoning: A Randomized Clinical Trial",
+          "authors": "Ethan Goh et al.",
+          "url": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2825395",
+          "publisher": "JAMA Network Open 7(10):e2440969",
+          "version": "2024-10-28 · DOI 10.1001/jamanetworkopen.2024.40969",
+          "kind": "Randomized vignette experiment with 50 physicians",
+          "summary": "Median diagnostic rubric score: 76% with LLM access versus 74% without; adjusted difference +2 percentage points (95% CI −4 to 8; p=0.60). No significant assistance benefit in the primary comparison.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "metr-2025-source",
+          "title": "Measuring AI Ability to Complete Long Tasks",
+          "authors": "Thomas Kwa et al.",
+          "url": "https://arxiv.org/abs/2503.14499v1",
+          "publisher": "arXiv 2503.14499v1",
+          "version": "2025-03-18",
+          "kind": "Original software/reasoning task study",
+          "summary": "Defines the 50% task-completion horizon using human task duration; reports roughly seven-month doubling since 2019 and about 50 minutes for Claude 3.7 Sonnet.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "amie-2025-source",
+          "title": "Towards conversational diagnostic artificial intelligence",
+          "authors": "Tao Tu et al.",
+          "url": "https://www.nature.com/articles/s41586-025-08866-7",
+          "publisher": "Nature 642, 442–450",
+          "version": "2025-04-09 · DOI 10.1038/s41586-025-08866-7",
+          "kind": "Blinded, randomized simulation comparison",
+          "summary": "Randomized, double-blind crossover study: 159 scenarios, 20 primary care physicians and patient actors. AMIE achieves higher diagnostic accuracy and better ratings on 30/32 physician-rated and 25/26 patient-actor-rated dimensions.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "mira-2026-source",
+          "title": "Towards autonomous medical artificial intelligence agents",
+          "authors": "Dyke Ferber et al.",
+          "url": "https://www.nature.com/articles/s41586-026-10675-5",
+          "publisher": "Nature",
+          "version": "2026-06-17 · DOI 10.1038/s41586-026-10675-5",
+          "kind": "Retrospective case-based clinical simulation",
+          "summary": "Studies a medical agent in simulated emergency-department encounters based on patient records.",
+          "checkedAt": "2026-10-17"
+        },
+        {
+          "id": "lower-usmle-2023-source",
+          "title": "Performance of ChatGPT on USMLE: Potential for AI-assisted medical education using large language models",
+          "publisher": "Tiffany H. Kung et al.",
+          "url": "https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000198",
+          "version": "2023-02-09 · DOI 10.1371/journal.pdig.0000198",
+          "kind": "Peer-reviewed question benchmark",
+          "checkedAt": "2026-10-18",
+          "summary": "For open-ended questions with indeterminate answers included: Step 1 45.4%, Step 2CK 54.1%, Step 3 61.5%. Claims of passing the USMLE depend heavily on prompting and scoring choices."
+        },
+        {
+          "id": "lower-ayers-2023-source",
+          "title": "Comparing Physician and Artificial Intelligence Chatbot Responses to Patient Questions Posted to a Public Social Media Forum",
+          "publisher": "John W. Ayers et al.",
+          "url": "https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2804309",
+          "version": "2023-04-28 · DOI 10.1001/jamainternmed.2023.1838",
+          "kind": "Blinded cross-sectional comparison",
+          "checkedAt": "2026-10-18",
+          "summary": "Clinical evaluators prefer ChatGPT in 78.6% of ratings (95% CI 75.0–81.8). Empathetic/very empathetic ratings: 45.1% of chatbot versus 4.6% of physician responses."
+        },
+        {
+          "id": "lower-star-2022-source",
+          "title": "Autonomous robotic laparoscopic surgery for intestinal anastomosis",
+          "publisher": "Hamed Saeidi et al.",
+          "url": "https://www.science.org/doi/10.1126/scirobotics.abj2908",
+          "version": "2022-01-26 · DOI 10.1126/scirobotics.abj2908",
+          "kind": "Preclinical robotics · conditional autonomy",
+          "checkedAt": "2026-10-18",
+          "summary": "Enables supervised robotic laparoscopic bowel anastomoses. In phantom tests, 83.05% of 118 stitches were placed on the first attempt in autonomous mode."
+        },
+        {
+          "id": "nov-trust-2023-source",
+          "title": "Putting ChatGPT’s Medical Advice to the (Turing) Test: Survey Study",
+          "publisher": "Oded Nov, Nina Singh, Devin Mann · JMIR Medical Education",
+          "url": "https://mededu.jmir.org/2023/1/e46939/",
+          "version": "10.07.2023 · DOI 10.2196/46939",
+          "kind": "Peer-reviewed survey",
+          "checkedAt": "2026-10-18",
+          "summary": "Survey of source recognition and task-dependent trust."
+        }
+      ],
+      "studies": [
+        {
+          "id": "alphafold2",
+          "topic": "pharma",
+          "topicLabel": "Drug research",
+          "title": "AlphaFold 2: Predicting protein structures",
+          "date": "2021-07-15",
+          "sourceId": "alphafold2-nature",
+          "type": "Peer-reviewed · structure benchmark",
+          "environment": "structure_research",
+          "design": "Blinded CASP14 structure comparison, 87 protein domains.",
+          "summary": "Substantially more accurate protein structures in the CASP14 comparison.",
+          "findings": [
+            [
+              "Backbone deviation",
+              "Median 0.96 Å versus 2.8 Å for the next-best method. Lower is better."
+            ],
+            [
+              "Uncertainty",
+              "95% confidence intervals: 0.85–1.16 Å and 2.7–4.0 Å; r.m.s.d. at 95% residue coverage."
+            ]
+          ],
+          "relevance": "Structure models support hypotheses for drug research.",
+          "limitations": "Measures structure accuracy, not drug efficacy. Experimental validation and clinical development remain necessary.",
+          "sourceDetail": "Nature 596, 583–589; Fig. 1a and Results.",
+          "presentationSlides": [
+            4,
+            5,
+            6,
+            15
+          ]
+        },
+        {
+          "id": "alphafold3",
+          "topic": "pharma",
+          "topicLabel": "Drug research",
+          "title": "AlphaFold 3: Molecular interactions",
+          "date": "2024-05-08",
+          "sourceId": "alphafold3-nature",
+          "type": "Peer-reviewed · structure benchmark",
+          "environment": "structure_research",
+          "design": "Comparison of predicted biomolecular complexes with experimentally determined structures.",
+          "summary": "Extends prediction to complexes containing proteins, DNA, RNA and small molecules.",
+          "findings": [
+            [
+              "Finding",
+              "One model covers multiple interaction types, improving on the specialized methods tested."
+            ]
+          ],
+          "relevance": "May support investigation of potential drug binding.",
+          "limitations": "Stereochemical errors, hallucinated structures and limited representation of dynamics. No clinically validated off-label treatment selection.",
+          "sourceDetail": "Nature 630, 493–500; Abstract and Model limitations.",
+          "presentationSlides": [
+            4,
+            5,
+            6,
+            15,
+            20
+          ]
+        },
+        {
+          "id": "nobel-chemistry-2024",
+          "topic": "pharma",
+          "topicLabel": "Drug research",
+          "title": "Nobel Prize for protein design and structure prediction",
+          "date": "2024-10-09",
+          "sourceId": "nobel-chemistry-2024",
+          "type": "Award · not a study",
+          "environment": "award",
+          "design": "Official announcement by the Royal Swedish Academy of Sciences.",
+          "summary": "David Baker receives half for computational protein design; Hassabis and Jumper share half for structure prediction.",
+          "findings": [
+            [
+              "Context",
+              "Protein design and structure prediction are distinct recognized contributions."
+            ]
+          ],
+          "relevance": "Historical milestone in drug research.",
+          "limitations": "An award establishes neither drug approval nor safe automated care.",
+          "sourceDetail": "Award announcement of 9 October 2024.",
+          "presentationSlides": [
+            15,
+            17,
+            19
+          ]
+        },
+        {
+          "id": "residencyrl",
+          "topic": "simulation",
+          "topicLabel": "Clinical simulation",
+          "title": "ResidencyRL: Learning from simulated patient conversations",
+          "date": "2026-08-07",
+          "sourceId": "residencyrl-v1",
+          "type": "Preprint · simulation",
+          "environment": "simulation",
+          "design": "Reinforcement learning with simulated conversations; adversarial in-domain evaluation, n=200 per arm.",
+          "summary": "After training, more conversations achieve a diagnostic rubric score of at least 4/5.",
+          "findings": [
+            [
+              "Adversarial diagnostic rubric",
+              "88.0% after training versus 81.0% for the base model: +7.0 percentage points."
+            ],
+            [
+              "95% bootstrap intervals",
+              "Trained: 83.5–92.0%; base: 75.5–86.0%. Not a clinical patient-benefit endpoint."
+            ],
+            [
+              "Blinded comparison",
+              "Physician evaluators prefer the trained model in 85 of 97 paired cases (87.6%)."
+            ]
+          ],
+          "relevance": "Studies information gathering and decisions during a conversation.",
+          "limitations": "In-domain evaluation uses an automated rubric related to training. Simulation and evaluator bias; prospective real-world validation is missing.",
+          "sourceDetail": "arXiv v1; Table 4, Section 4.5 and Appendix C.7.",
+          "presentationSlides": [
+            7
+          ]
+        },
+        {
+          "id": "learning-impact",
+          "topic": "learning",
+          "topicLabel": "Learning and skills",
+          "title": "AI access and unaided learning tests",
+          "date": "2026-10-04",
+          "sourceId": "learning-impact-v2",
+          "type": "Preprint · randomized learning experiment",
+          "environment": "education_experiment",
+          "design": "211 students, 205 at one-week follow-up; GPT-4o access during learning.",
+          "summary": "Higher immediate knowledge-test scores; the smaller effect after one week remains statistically uncertain.",
+          "findings": [
+            [
+              "Immediate unaided knowledge test",
+              "+7.2 percentage points, p=0.021; intention-to-treat test analysis, n=210."
+            ],
+            [
+              "Knowledge test after one week",
+              "+3.9 percentage points, p=0.068; n=205. Not significant at the 5% level."
+            ],
+            [
+              "How AI was used",
+              "Tutoring and delegation were self-selected. Subgroups cannot establish causal differences between these approaches."
+            ]
+          ],
+          "relevance": "Informs the design of training for pharmacy teams.",
+          "limitations": "Not a medical population or a long-term deskilling study. Protocol violations affect the immediate test; transfer to health professionals is unproven.",
+          "sourceDetail": "Contractor & Reyes, arXiv v2; Tables 4, 7 and A3.",
+          "presentationSlides": [
+            22
+          ]
+        },
+        {
+          "id": "mira",
+          "topic": "simulation",
+          "topicLabel": "Clinical simulation",
+          "title": "MIRA: Diagnosis and actions in a virtual EHR",
+          "date": "2026-06-17",
+          "sourceId": "mira-2026-source",
+          "type": "Peer-reviewed · clinical simulation",
+          "environment": "simulation",
+          "design": "Retrospective MIMIC-IV cases in an EHR sandbox; 574 cases, eight diagnoses.",
+          "summary": "An agent combines simulated history-taking, diagnosis and structured EHR actions.",
+          "findings": [
+            [
+              "Head-to-head diagnosis comparison",
+              "87.8% versus 78.1% for four board-certified physicians, n=311 paired cases; exact McNemar p=0.000287."
+            ],
+            [
+              "Full dataset",
+              "88.9% diagnostic accuracy, n=574."
+            ]
+          ],
+          "relevance": "Studies reasoning and actions within a controlled clinical workflow.",
+          "limitations": "Simulated conversations based on retrospective records. No prospective patient care; generalizability and real-world safety require testing.",
+          "sourceDetail": "Ferber et al., Nature 655, 1282–1291; Fig. 3a, Methods and Discussion.",
+          "presentationSlides": []
+        }
+      ],
+      "tracks": [
+        {
+          "id": "knowledge",
+          "label": "Medical knowledge",
+          "subtitle": "Knowledge and case solving",
+          "unit": "%",
+          "color": "#1c9d90",
+          "metricDescription": "MedXpertQA Text: correct answers on the full text test. Does not measure patient benefit."
+        },
+        {
+          "id": "assistance",
+          "label": "Clinical assistance",
+          "subtitle": "Quality of clinical answers",
+          "unit": "points",
+          "color": "#d69b28",
+          "metricDescription": "HealthBench Professional: length-adjusted rubric score. Points on a 0–100 scale, not percentage accuracy."
+        },
+        {
+          "id": "autonomy",
+          "label": "Autonomous workflows",
+          "subtitle": "Virtual EHR test",
+          "unit": "%",
+          "color": "#4d7fbd",
+          "metricDescription": "MedAgentBench: first-attempt success rate in a simulated electronic health record."
+        }
+      ],
+      "pharmaMilestones": [
+        {
+          "id": "milestone-alphafold2",
+          "date": "2021-07-15",
+          "title": "AlphaFold 2: Predicting protein structures",
+          "category": "pharma",
+          "summary": "Substantially more accurate protein structures in the CASP14 comparison.",
+          "sourceId": "alphafold2-nature",
+          "environment": "structure_research",
+          "limitations": "Measures structure accuracy, not drug efficacy. Experimental validation and clinical development remain necessary.",
+          "studyId": "alphafold2",
+          "type": "Peer-reviewed · structure benchmark"
+        },
+        {
+          "id": "milestone-alphafold3",
+          "date": "2024-05-08",
+          "title": "AlphaFold 3: Molecular interactions",
+          "category": "pharma",
+          "summary": "Extends prediction to complexes containing proteins, DNA, RNA and small molecules.",
+          "sourceId": "alphafold3-nature",
+          "environment": "structure_research",
+          "limitations": "Stereochemical errors, hallucinated structures and limited representation of dynamics. No clinically validated off-label treatment selection.",
+          "studyId": "alphafold3",
+          "type": "Peer-reviewed · structure benchmark"
+        },
+        {
+          "id": "milestone-nobel-chemistry-2024",
+          "date": "2024-10-09",
+          "title": "Nobel Prize for protein design and structure prediction",
+          "category": "pharma",
+          "summary": "David Baker receives half for computational protein design; Hassabis and Jumper share half for structure prediction.",
+          "sourceId": "nobel-chemistry-2024",
+          "environment": "award",
+          "limitations": "An award establishes neither drug approval nor safe automated care.",
+          "studyId": "nobel-chemistry-2024",
+          "type": "Award · not a study"
+        },
+        {
+          "id": "milestone-residencyrl",
+          "date": "2026-08-07",
+          "title": "ResidencyRL: Learning from simulated patient conversations",
+          "category": "simulation",
+          "summary": "After training, more conversations achieve a diagnostic rubric score of at least 4/5.",
+          "sourceId": "residencyrl-v1",
+          "environment": "simulation",
+          "limitations": "In-domain evaluation uses an automated rubric related to training. Simulation and evaluator bias; prospective real-world validation is missing.",
+          "studyId": "residencyrl",
+          "type": "Preprint · simulation"
+        },
+        {
+          "id": "milestone-learning-impact",
+          "date": "2026-10-04",
+          "title": "AI access and unaided learning tests",
+          "category": "learning",
+          "summary": "Higher immediate knowledge-test scores; the smaller effect after one week remains statistically uncertain.",
+          "sourceId": "learning-impact-v2",
+          "environment": "education_experiment",
+          "limitations": "Not a medical population or a long-term deskilling study. Protocol violations affect the immediate test; transfer to health professionals is unproven.",
+          "studyId": "learning-impact",
+          "type": "Preprint · randomized learning experiment"
+        },
+        {
+          "id": "milestone-mira",
+          "date": "2026-06-17",
+          "title": "MIRA: Diagnosis and actions in a virtual EHR",
+          "category": "simulation",
+          "summary": "An agent combines simulated history-taking, diagnosis and structured EHR actions.",
+          "sourceId": "mira-2026-source",
+          "environment": "simulation",
+          "limitations": "Simulated conversations based on retrospective records. No prospective patient care; generalizability and real-world safety require testing.",
+          "studyId": "mira",
+          "type": "Peer-reviewed · clinical simulation"
+        }
+      ],
+      "historyEvents": [
+        {
+          "id": "dartmouth",
+          "year": 1956,
+          "label": "Dartmouth",
+          "sourceId": "dartmouth-history",
+          "summary": "The Dartmouth workshop helps establish artificial intelligence as a research field.",
+          "limit": "Historical event. Not evidence of medical performance."
+        },
+        {
+          "id": "deep-blue",
+          "year": 1997,
+          "label": "Deep Blue",
+          "sourceId": "deep-blue-history",
+          "summary": "Deep Blue defeats reigning world chess champion Kasparov in a match.",
+          "limit": "Specialized chess performance, not a general intelligence or medical test."
+        },
+        {
+          "id": "alphafold-2018",
+          "year": 2018,
+          "label": "AlphaFold",
+          "sourceId": "alphafold-casp-history",
+          "summary": "The first AlphaFold system achieves the highest accuracy in the CASP13 structure competition.",
+          "limit": "Protein structure prediction. Not drug approval."
+        },
+        {
+          "id": "alphafold2-2020",
+          "year": 2020,
+          "label": "AlphaFold 2",
+          "sourceId": "alphafold-casp-history",
+          "summary": "AlphaFold 2 achieves a breakthrough at CASP14. The detailed Nature paper follows in 2021.",
+          "limit": "The 2020 competition and 2021 publication are kept separate."
+        },
+        {
+          "id": "alphafold3-2024",
+          "year": 2024,
+          "date": "2024-05-08",
+          "label": "AlphaFold 3",
+          "sourceId": "alphafold3-nature",
+          "studyId": "alphafold3"
+        },
+        {
+          "id": "nobel-2024",
+          "year": 2024,
+          "date": "2024-10-09",
+          "label": "Protein Nobel Prize",
+          "sourceId": "nobel-chemistry-2024",
+          "studyId": "nobel-chemistry-2024"
+        },
+        {
+          "id": "residencyrl-2026",
+          "year": 2026,
+          "date": "2026-08-07",
+          "label": "ResidencyRL",
+          "sourceId": "residencyrl-v1",
+          "studyId": "residencyrl"
+        }
+      ],
+      "presentationScenarios": [
+        {
+          "year": 2030,
+          "label": "Supervised partial autonomy · illustrative scenario"
+        }
+      ],
+      "pointEvidence": [
+        {
+          "id": "turing-1950",
+          "seriesId": "general",
+          "year": 1950,
+          "date": "1950-10-01",
+          "label": "Turing: Imitation Game",
+          "sourceId": "turing-1950-source",
+          "kind": "Original conceptual paper",
+          "finding": "Introduces the imitation game as an approach to discussing machine intelligence.",
+          "limitations": "Not an empirical performance benchmark, IQ score or medical validation.",
+          "locator": "10.1093/mind/LIX.236.433",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "dartmouth-1956",
+          "seriesId": "general",
+          "year": 1956,
+          "label": "Dartmouth",
+          "sourceId": "dartmouth-history",
+          "kind": "Institutional primary source for a historical event",
+          "finding": "Dartmouth Summer Research Project on Artificial Intelligence in summer 1956.",
+          "limitations": "Research event, not a measurement of AI capability.",
+          "locator": "Institutional authors' report",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "eliza-1966",
+          "seriesId": "general",
+          "year": 1966,
+          "label": "ELIZA",
+          "sourceId": "eliza-1966-source",
+          "kind": "Original paper",
+          "finding": "Describes rule-based conversation between people and a computer.",
+          "limitations": "Pattern-based language processing; no evidence of understanding, psychotherapy or IQ. DOI 10.1145/357980.357991 is a later republication, not the 1966 original.",
+          "locator": "10.1145/365153.365168",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "mycin-1975",
+          "seriesId": "knowledge",
+          "year": 1975,
+          "label": "MYCIN",
+          "sourceId": "mycin-1975-source",
+          "kind": "Original rule-based decision-support paper",
+          "finding": "Describes rule-based antibiotic advice, explanations and knowledge acquisition.",
+          "limitations": "Establishes the system concept and specific application, not general clinical autonomy or an IQ level.",
+          "locator": "10.1016/0010-4809(75)90009-9",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "backprop-1986",
+          "seriesId": "general",
+          "year": 1986,
+          "date": "1986-10-09",
+          "label": "Backpropagation",
+          "sourceId": "backprop-1986-source",
+          "kind": "Original methods paper",
+          "finding": "Describes learning hidden representations through back-propagated errors and weight updates.",
+          "limitations": "Methods milestone without a comparable medical performance value or IQ scale.",
+          "locator": "10.1038/323533a0",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "deep-blue-1997",
+          "seriesId": "general",
+          "year": 1997,
+          "label": "Deep Blue",
+          "sourceId": "deep-blue-history",
+          "kind": "Institutional primary source for an event",
+          "finding": "Deep Blue wins the May 1997 six-game match against Kasparov 3.5–2.5.",
+          "limitations": "Specialized chess performance, not general intelligence or medical competence.",
+          "locator": "Institutional authors' report",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "alexnet-2012",
+          "seriesId": "general",
+          "year": 2012,
+          "label": "AlexNet",
+          "sourceId": "alexnet-2012-source",
+          "kind": "Original conference paper",
+          "finding": "Deep CNN trained on 1.3 million ImageNet images; the abstract reports 39.7% top-1 and 18.9% top-5 error on the LSVRC-2010 test.",
+          "limitations": "Image classification on a specific dataset, not a clinical or general IQ test. The often-cited 15.3% comes from a different competition setup; do not combine them.",
+          "locator": "Advances in Neural Information Processing Systems 25",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "alphago-2016",
+          "seriesId": "general",
+          "year": 2016,
+          "date": "2016-01-27",
+          "label": "AlphaGo",
+          "sourceId": "alphago-2016-source",
+          "kind": "Original paper",
+          "finding": "AlphaGo defeats European Go champion Fan Hui 5–0 and wins 99.8% of games against other Go programs in the reported comparison.",
+          "limitations": "Specialized Go benchmark. This January paper does not report the later Lee Sedol match.",
+          "locator": "10.1038/nature16961",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "skin-cancer-2017",
+          "seriesId": "knowledge",
+          "year": 2017,
+          "date": "2017-01-25",
+          "label": "Dermatology CNN",
+          "sourceId": "skin-cancer-2017-source",
+          "kind": "Retrospective image-classification benchmark",
+          "finding": "Trained on 129,450 clinical images; compared with 21 board-certified dermatologists on two binary skin-lesion tasks.",
+          "limitations": "Specialized image classification, not broad medical knowledge, prospective care or patient benefit. A topic milestone, not an IQ measurement.",
+          "locator": "10.1038/nature21056",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "gpt3-2020",
+          "seriesId": "general",
+          "year": 2020,
+          "date": "2020-05-28",
+          "label": "GPT-3",
+          "sourceId": "gpt3-2020-source",
+          "kind": "Original paper / first preprint version",
+          "finding": "GPT-3, with 175 billion parameters, demonstrates few-shot performance on several NLP tasks without task-specific weight updates.",
+          "limitations": "Authors' benchmark with task and contamination limitations; no general IQ calibration or clinical validation.",
+          "locator": "arXiv 2005.14165v1; NeurIPS 2020",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "instructgpt-2022",
+          "seriesId": "general",
+          "year": 2022,
+          "date": "2022-03-04",
+          "label": "InstructGPT / RLHF",
+          "sourceId": "instructgpt-2022-source",
+          "kind": "Original paper / preprint",
+          "finding": "On the tested prompt distribution, human evaluators prefer 1.3B InstructGPT responses over those from 175B GPT-3.",
+          "limitations": "Evaluator preference under this protocol; simple errors remain. Not equivalent to medical accuracy or IQ.",
+          "locator": "arXiv 2203.02155v1",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "medpalm-preprint-2022",
+          "seriesId": "knowledge",
+          "year": 2022,
+          "date": "2022-12-26",
+          "label": "MultiMedQA / Med-PaLM (Preprint)",
+          "sourceId": "medpalm-preprint-2022-source",
+          "kind": "First preprint release",
+          "finding": "Introduces MultiMedQA and medically adapted Med-PaLM; Flan-PaLM scores 67.6% on MedQA questions.",
+          "limitations": "Same study family as Nature 2023, not independent confirmation. A question benchmark does not replace clinical validation.",
+          "locator": "arXiv 2212.13138v1",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "gpt4-2023",
+          "seriesId": "general",
+          "year": 2023,
+          "date": "2023-03-15",
+          "label": "GPT-4 report",
+          "sourceId": "gpt4-2023-source",
+          "kind": "Technical authors' report",
+          "finding": "Describes a multimodal GPT-4 model and its evaluation.",
+          "limitations": "Provider report with incompletely disclosed training data. First published in 2023; the 2024 revision is not a new model milestone. No IQ level is established here.",
+          "locator": "arXiv 2303.08774v1",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "medpalm-2023",
+          "seriesId": "knowledge",
+          "year": 2023,
+          "date": "2023-07-12",
+          "label": "Med-PaLM (Nature)",
+          "sourceId": "medpalm-2023-source",
+          "kind": "Peer-reviewed benchmark and human answer evaluation",
+          "finding": "Flan-PaLM achieves 67.6% MedQA accuracy; Med-PaLM improves several human-rated answer characteristics.",
+          "limitations": "Med-PaLM remains below physician responses overall in this study; no patient-benefit endpoints. Do not count the 2022 preprint and 2023 Nature paper as independent studies.",
+          "locator": "10.1038/s41586-023-06291-2",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "diagnostic-rct-2024",
+          "seriesId": "reasoning",
+          "year": 2024,
+          "date": "2024-10-28",
+          "label": "GPT-4: Diagnostic reasoning trial",
+          "sourceId": "diagnostic-rct-2024-source",
+          "kind": "Randomized vignette experiment with 50 physicians",
+          "finding": "Median diagnostic rubric score: 76% with LLM access versus 74% without; adjusted difference +2 percentage points (95% CI −4 to 8; p=0.60). No significant assistance benefit in the primary comparison.",
+          "limitations": "50 physicians, up to six vignettes; no real patient endpoint. The exploratory LLM-only analysis must not displace the negative primary comparison. An evaluation milestone, not evidence of a steadily rising IQ curve.",
+          "locator": "10.1001/jamanetworkopen.2024.40969",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "metr-2025",
+          "seriesId": "autonomy",
+          "year": 2025,
+          "date": "2025-03-18",
+          "label": "METR: Software task horizon",
+          "sourceId": "metr-2025-source",
+          "kind": "Original software/reasoning task study",
+          "finding": "Defines the 50% task-completion horizon using human task duration; reports roughly seven-month doubling since 2019 and about 50 minutes for Claude 3.7 Sonnet.",
+          "limitations": "Not a medical task horizon. A 50% success probability is not reliable clinical autonomy. Illustrative yearly indices are not extracted METR measurements; model results and raw data require separate curation.",
+          "locator": "arXiv 2503.14499v1",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "amie-2025",
+          "seriesId": "reasoning",
+          "year": 2025,
+          "date": "2025-04-09",
+          "label": "AMIE: Diagnostic dialogue",
+          "sourceId": "amie-2025-source",
+          "kind": "Blinded, randomized simulation comparison",
+          "finding": "Randomized, double-blind crossover study: 159 scenarios, 20 primary care physicians and patient actors. AMIE achieves higher diagnostic accuracy and better ratings on 30/32 physician-rated and 25/26 patient-actor-rated dimensions.",
+          "limitations": "Simulated text consultations with patient actors. Synchronous text chat is unfamiliar to physicians; not real autonomous patient care.",
+          "locator": "10.1038/s41586-025-08866-7",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "mira-2026",
+          "seriesId": "reasoning",
+          "year": 2026,
+          "date": "2026-06-17",
+          "label": "MIRA",
+          "sourceId": "mira-2026-source",
+          "kind": "Retrospective case-based clinical simulation",
+          "finding": "Studies a medical agent in simulated emergency-department encounters based on patient records.",
+          "limitations": "No prospective clinical care or validated IQ scale. The same article can support two thematic cards but remains one study.",
+          "locator": "10.1038/s41586-026-10675-5",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "af2-paper-2021",
+          "seriesId": "knowledge",
+          "year": 2021,
+          "date": "2021-07-15",
+          "label": "AlphaFold 2 · original paper",
+          "sourceId": "alphafold2-nature",
+          "kind": "Structural biology",
+          "finding": "Protein structure prediction in the blinded CASP14 comparison.",
+          "limitations": "Basic research, not a clinical knowledge or patient-benefit endpoint.",
+          "locator": "Nature 596, Fig. 1a",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "af3-paper-2024",
+          "seriesId": "knowledge",
+          "year": 2024,
+          "date": "2024-05-08",
+          "label": "AlphaFold 3",
+          "sourceId": "alphafold3-nature",
+          "kind": "Structural biology",
+          "finding": "Prediction of biomolecular complexes, including small molecules.",
+          "limitations": "No evidence of drug approval or automatic treatment selection.",
+          "locator": "Nature 630, Abstract and Model limitations",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "medxpert-2025",
+          "seriesId": "knowledge",
+          "year": 2025,
+          "date": "2025-06-06",
+          "label": "MedXpertQA v3",
+          "sourceId": "medxpertqa-v3",
+          "kind": "Medical question benchmark",
+          "finding": "Challenging knowledge and case questions; original results appear in the measurement track.",
+          "limitations": "Not a real patient trajectory. Keep text and multimodal tasks separate.",
+          "locator": "arXiv v3, Tables 4/5, Text Avg",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "healthbench-2026",
+          "seriesId": "knowledge",
+          "year": 2026,
+          "date": "2026-04-30",
+          "label": "HealthBench Professional",
+          "sourceId": "healthbench-pro-v1",
+          "kind": "Answer evaluation",
+          "finding": "Rubric-rated quality of clinical assistance answers.",
+          "limitations": "Rubric points, not percentage accuracy or IQ calibration.",
+          "locator": "arXiv v1, Sections 5.1/5.3",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "medagent-2025",
+          "seriesId": "reasoning",
+          "year": 2025,
+          "date": "2025-02-12",
+          "label": "MedAgentBench",
+          "sourceId": "medagentbench-v2",
+          "kind": "Virtual EHR simulation",
+          "finding": "300 tasks, pass@1 with a maximum of eight interaction rounds.",
+          "limitations": "GET actions executed, POST writes simulated. No real autonomous care.",
+          "locator": "arXiv v2, Table 3 and Sections 2.4/2.5",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        },
+        {
+          "id": "residency-2026",
+          "seriesId": "reasoning",
+          "year": 2026,
+          "date": "2026-08-07",
+          "label": "ResidencyRL",
+          "sourceId": "residencyrl-v1",
+          "kind": "Preprint · simulation",
+          "finding": "Training on simulated patient conversations; diagnostic rubric and physician preference ratings.",
+          "limitations": "Automated rubric related to training. Prospective care evidence is missing.",
+          "locator": "arXiv v1, Table 4, Section 4.5, Appendix C.7",
+          "positionBasis": "Illustrative index; the source does not validate the vertical coordinate"
+        }
+      ],
+      "trackMilestones": [
+        {
+          "id": "lower-medpalm-2022",
+          "trackId": "knowledge",
+          "date": "2022-12-26",
+          "title": "Med-PaLM / MultiMedQA",
+          "sourceId": "medpalm-preprint-2022-source",
+          "kind": "Question benchmark / preprint",
+          "design": "MultiMedQA combines six existing medical question datasets and HealthSearchQA; Flan-PaLM is evaluated through prompting and Med-PaLM is adapted to medicine.",
+          "finding": "Flan-PaLM achieves 67.6% on MedQA with four answer options.",
+          "limitations": "Not comparable with MedXpertQA, USMLE sample questions or patient benefit. Med-PaLM and Flan-PaLM are different variants. The 12.07.2023 Nature publication belongs to the same study family, not independent confirmation.",
+          "locator": "Original paper: results and methods",
+          "shortTitle": "Flan-PaLM / Med-PaLM",
+          "result": "67.6% on MedQA",
+          "note": "Flan-PaLM with four answer options; early preprint version."
+        },
+        {
+          "id": "lower-usmle-2023",
+          "trackId": "knowledge",
+          "date": "2023-02-09",
+          "title": "ChatGPT: USMLE sample questions",
+          "sourceId": "lower-usmle-2023-source",
+          "kind": "Peer-reviewed question benchmark",
+          "design": "Public USMLE sample questions, excluding images; three prompt formats with explicit handling of indeterminate answers.",
+          "finding": "For open-ended questions with indeterminate answers included: Step 1 45.4%, Step 2CK 54.1%, Step 3 61.5%. Claims of passing the USMLE depend heavily on prompting and scoring choices.",
+          "limitations": "Not an actual licensing examination or clinical validation. The text reports 350 items, but its subtotals 119+102+122 equal 343; no new aggregate rates or sample sizes are calculated here. Earlier preprint results differ from the final version.",
+          "locator": "Methods: Input source; Results; Fig. 2A/B",
+          "shortTitle": "ChatGPT & USMLE",
+          "result": "61.5% on Step 3 questions",
+          "note": "Open-ended questions including indeterminate answers. Not an actual licensing exam."
+        },
+        {
+          "id": "lower-medxpert-2025",
+          "trackId": "knowledge",
+          "date": "2025-06-06",
+          "title": "MedXpertQA v3",
+          "sourceId": "medxpertqa-v3",
+          "kind": "Medical question benchmark",
+          "design": "Full text test, n=2,450; authors' protocol values already shown in the dashboard.",
+          "finding": "GPT-4o-2024-11-20 achieves 30.37% on the full text test.",
+          "limitations": "A different, harder benchmark. A lower percentage does not establish regression since 2022/2023; not a patient-benefit study.",
+          "locator": "Original paper: results and methods",
+          "shortTitle": "MedXpertQA",
+          "result": "30.37% for GPT-4o",
+          "note": "A different, harder test. The lower score does not establish regression."
+        },
+        {
+          "id": "lower-ayers-2023",
+          "trackId": "assistance",
+          "date": "2023-04-28",
+          "title": "ChatGPT answers: Quality and empathy",
+          "sourceId": "lower-ayers-2023-source",
+          "kind": "Blinded cross-sectional comparison",
+          "design": "195 Reddit questions; anonymized physician and ChatGPT answers rated by three licensed health professionals each, totaling 585 evaluations.",
+          "finding": "Clinical evaluators prefer ChatGPT in 78.6% of ratings (95% CI 75.0–81.8). Empathetic/very empathetic ratings: 45.1% of chatbot versus 4.6% of physician responses.",
+          "limitations": "Does not measure patient trust or diagnostic accuracy. Chatbot answers were much longer; evaluators were coauthors, scales were not validated in advance, and there were no clinical endpoints.",
+          "locator": "Abstract; Results; Limitations",
+          "shortTitle": "Quality and empathy",
+          "result": "AI answer preferred in 78.6% of evaluations",
+          "note": "Clinical evaluators, not a patient survey. 195 questions."
+        },
+        {
+          "id": "lower-goh-2024",
+          "trackId": "assistance",
+          "date": "2024-10-28",
+          "title": "GPT-4 access shows no significant physician benefit here",
+          "sourceId": "diagnostic-rct-2024-source",
+          "kind": "Randomized vignette experiment",
+          "design": "50 physicians, up to six vignettes; GPT-4 plus conventional resources versus conventional resources alone.",
+          "finding": "Median diagnostic rubric score: 76% versus 74%; adjusted difference +2 percentage points, 95% CI −4 to 8, p=0.60.",
+          "limitations": "No significant added benefit in the primary comparison and no patient endpoint. Exploratory LLM-only results are not the primary study outcome.",
+          "locator": "Original paper: results and methods",
+          "shortTitle": "Physicians with GPT-4",
+          "result": "No significant added benefit",
+          "note": "50 physicians; +2 percentage points, 95% CI −4 to 8, p=0.60."
+        },
+        {
+          "id": "lower-amie-2025",
+          "trackId": "assistance",
+          "date": "2025-04-09",
+          "title": "AMIE: Diagnostic conversations",
+          "sourceId": "amie-2025-source",
+          "kind": "Blinded simulation comparison",
+          "design": "159 simulated scenarios, 20 primary care physicians; randomized crossover comparison with patient actors.",
+          "finding": "AMIE achieves higher diagnostic accuracy and better ratings on many physician and patient-actor dimensions.",
+          "limitations": "Simulated text chat. Not real care or autonomous patient treatment.",
+          "locator": "Nature 642, 442–450; Abstract and Methods",
+          "shortTitle": "AMIE in dialogue",
+          "result": "159 simulated cases",
+          "note": "Blinded comparison with 20 primary care physicians. Not routine care."
+        },
+        {
+          "id": "lower-star-2022",
+          "trackId": "autonomy",
+          "date": "2022-01-26",
+          "title": "STAR: Robotic suturing in an animal model",
+          "sourceId": "lower-star-2022-source",
+          "kind": "Preclinical robotics · conditional autonomy",
+          "design": "Phantom tests and four STAR operations in living pigs with one-week follow-up; a human selects or approves the suture plan and corrects positioning errors.",
+          "finding": "Enables supervised robotic laparoscopic bowel anastomoses. In phantom tests, 83.05% of 118 stitches were placed on the first attempt in autonomous mode.",
+          "limitations": "Small preclinical study, requiring human supervision; not a human trial. Robotics differs from virtual EHR agents and is not the start of their time series or evidence of clinical LLM autonomy.",
+          "locator": "Abstract; Fig. 3; Phantom model enhanced autonomous anastomosis",
+          "shortTitle": "STAR in an animal model",
+          "result": "Four robotic procedures",
+          "note": "Supervised preclinical surgery, not a digital patient record."
+        },
+        {
+          "id": "lower-medagent-2025",
+          "trackId": "autonomy",
+          "date": "2025-02-12",
+          "title": "MedAgentBench: Virtual patient record",
+          "sourceId": "medagentbench-v2",
+          "kind": "Preprint · EHR simulation",
+          "design": "300 tasks, first attempt, maximum eight rounds; authors' agent with FHIR tools.",
+          "finding": "GPT-4o: 64.0% success; Claude 3.5 Sonnet v2: 69.67% under the same authors' protocol.",
+          "limitations": "Virtual environment; GET executed and POST simulated. No real autonomous patient care. Percentages are not comparable with surgical stitches.",
+          "locator": "Original paper: results and methods",
+          "shortTitle": "MedAgentBench",
+          "result": "64.0% for GPT-4o",
+          "note": "300 tasks in a virtual EHR. Write actions are simulated."
+        },
+        {
+          "id": "lower-mira-2026",
+          "trackId": "autonomy",
+          "date": "2026-06-17",
+          "title": "MIRA: Diagnosis and EHR actions",
+          "sourceId": "mira-2026-source",
+          "kind": "Peer-reviewed · retrospective clinical simulation",
+          "design": "574 MIMIC-IV cases, eight diagnoses; head-to-head comparison on 311 paired cases with four board-certified physicians.",
+          "finding": "Head-to-head diagnostic accuracy: 87.8% versus 78.1%; exact McNemar p=0.000287. Full dataset: 88.9%, n=574.",
+          "limitations": "This measures diagnosis, not the proportion of fully autonomous clinical workflows. Simulated conversations based on retrospective records, not prospective care.",
+          "locator": "Original paper: results and methods",
+          "shortTitle": "MIRA in the EHR",
+          "result": "87.8% diagnostic accuracy",
+          "note": "311 paired simulated cases. Not a measure of full clinical autonomy."
+        }
+      ],
+      "trustContext": {
+        "id": "nov-trust-2023",
+        "trackId": "assistance",
+        "date": "2023-07-10",
+        "title": "Early survey: Trust depends on the task",
+        "sourceId": "nov-trust-2023-source",
+        "kind": "Peer-reviewed survey",
+        "design": "January 2023, n=392 analyzed US participants, ten real patient-portal questions; physician and ChatGPT answers matched in length, source recognition and trust questions.",
+        "finding": "Mean trust: 3.4/5 overall; diagnosis: 2.90; treatment: 2.89. ChatGPT answers were correctly identified in 65.5% of cases.",
+        "limitations": "Only weakly positive overall trust, not strong trust in diagnosis or treatment. Ten questions; no accuracy assessment or actual treatment. Advice to consult a clinician was removed from chatbot text.",
+        "locator": "JMIR Medical Education 2023, e46939; Results and Table 1"
+      },
+      "presentationSeries": [
+        {
+          "id": "general",
+          "label": "General AI capability",
+          "color": "#60727c",
+          "shape": "ellipse",
+          "points": [
+            {
+              "year": 1950,
+              "index": 48
+            },
+            {
+              "year": 1956,
+              "index": 50
+            },
+            {
+              "year": 1965,
+              "index": 54
+            },
+            {
+              "year": 1975,
+              "index": 60
+            },
+            {
+              "year": 1985,
+              "index": 68
+            },
+            {
+              "year": 1997,
+              "index": 75
+            },
+            {
+              "year": 2012,
+              "index": 90
+            },
+            {
+              "year": 2016,
+              "index": 100
+            },
+            {
+              "year": 2020,
+              "index": 108
+            },
+            {
+              "year": 2022,
+              "index": 118
+            },
+            {
+              "year": 2024,
+              "index": 128
+            },
+            {
+              "year": 2025,
+              "index": 136
+            },
+            {
+              "year": 2026,
+              "index": 140
+            },
+            {
+              "year": 2030,
+              "index": 150
+            }
+          ]
+        },
+        {
+          "id": "knowledge",
+          "label": "Medical knowledge",
+          "color": "#1c9d90",
+          "shape": "rect",
+          "points": [
+            {
+              "year": 1970,
+              "index": 50
+            },
+            {
+              "year": 2000,
+              "index": 54
+            },
+            {
+              "year": 2012,
+              "index": 60
+            },
+            {
+              "year": 2017,
+              "index": 70
+            },
+            {
+              "year": 2022,
+              "index": 100
+            },
+            {
+              "year": 2023,
+              "index": 110
+            },
+            {
+              "year": 2024,
+              "index": 120
+            },
+            {
+              "year": 2025,
+              "index": 128
+            },
+            {
+              "year": 2026,
+              "index": 133
+            },
+            {
+              "year": 2030,
+              "index": 143
+            }
+          ]
+        },
+        {
+          "id": "reasoning",
+          "label": "Clinical assistance",
+          "color": "#d69b28",
+          "shape": "diamond",
+          "points": [
+            {
+              "year": 2000,
+              "index": 48
+            },
+            {
+              "year": 2012,
+              "index": 54
+            },
+            {
+              "year": 2017,
+              "index": 60
+            },
+            {
+              "year": 2022,
+              "index": 72
+            },
+            {
+              "year": 2023,
+              "index": 78
+            },
+            {
+              "year": 2024,
+              "index": 84
+            },
+            {
+              "year": 2025,
+              "index": 91
+            },
+            {
+              "year": 2026,
+              "index": 96
+            },
+            {
+              "year": 2030,
+              "index": 106
+            }
+          ]
+        },
+        {
+          "id": "autonomy",
+          "label": "Autonomy · METR context",
+          "color": "#4d7fbd",
+          "shape": "custom",
+          "points": [
+            {
+              "year": 2019,
+              "index": 60.81
+            },
+            {
+              "year": 2022,
+              "index": 81.16
+            },
+            {
+              "year": 2023,
+              "index": 93.26
+            },
+            {
+              "year": 2024,
+              "index": 103.68
+            },
+            {
+              "year": 2025,
+              "index": 111.94
+            },
+            {
+              "year": 2026,
+              "index": 120.2
+            }
+          ]
+        }
+      ],
+      "trendPoints": [
+        {
+          "id": "trend-qwen32",
+          "x": 32,
+          "xLabel": "32B",
+          "model": "Qwen2.5-32B-Instruct",
+          "score": 15.06,
+          "seriesId": "medxpert-qwen-size",
+          "trackId": "knowledge",
+          "date": "2025-06-06",
+          "dateBasis": "publication",
+          "sourceId": "medxpertqa-v3",
+          "sourceUrl": "https://arxiv.org/html/2501.18362v3",
+          "sourceDetail": "Table 5, Text Avg; Sections 4.1/4.2",
+          "comparisonGroup": "medxpertqa-v3-qwen25-instruct-text-full-zero-shot-cot",
+          "title": "Qwen2.5 · MedXpertQA Text · 32B",
+          "kind": "Published benchmark comparison",
+          "benchmark": "MedXpertQA Text",
+          "subset": "Full text test · n=2,450",
+          "unit": "%",
+          "environment": "benchmark",
+          "system": "Qwen2.5 Instruct models under the authors’ evaluation protocol",
+          "setting": "Zero-shot CoT; greedy decoding where available.",
+          "design": "Fixed study comparison. Two model sizes, one published protocol. Connecting segments guide the eye; intermediate sizes were not measured.",
+          "finding": "Qwen2.5-32B-Instruct: 15.06 % at 32B.",
+          "limitations": "Cross-sectional comparison, not a time trend or an isolated causal effect of parameter count. No patient-benefit endpoint. Uncertainty intervals are not reported here.",
+          "locator": "Table 5, Text Avg; Sections 4.1/4.2"
+        },
+        {
+          "id": "trend-qwen72",
+          "x": 72,
+          "xLabel": "72B",
+          "model": "Qwen2.5-72B-Instruct",
+          "score": 18.9,
+          "seriesId": "medxpert-qwen-size",
+          "trackId": "knowledge",
+          "date": "2025-06-06",
+          "dateBasis": "publication",
+          "sourceId": "medxpertqa-v3",
+          "sourceUrl": "https://arxiv.org/html/2501.18362v3",
+          "sourceDetail": "Table 5, Text Avg; Sections 4.1/4.2",
+          "comparisonGroup": "medxpertqa-v3-qwen25-instruct-text-full-zero-shot-cot",
+          "title": "Qwen2.5 · MedXpertQA Text · 72B",
+          "kind": "Published benchmark comparison",
+          "benchmark": "MedXpertQA Text",
+          "subset": "Full text test · n=2,450",
+          "unit": "%",
+          "environment": "benchmark",
+          "system": "Qwen2.5 Instruct models under the authors’ evaluation protocol",
+          "setting": "Zero-shot CoT; greedy decoding where available.",
+          "design": "Fixed study comparison. Two model sizes, one published protocol. Connecting segments guide the eye; intermediate sizes were not measured.",
+          "finding": "Qwen2.5-72B-Instruct: 18.9 % at 72B.",
+          "limitations": "Cross-sectional comparison, not a time trend or an isolated causal effect of parameter count. No patient-benefit endpoint. Uncertainty intervals are not reported here.",
+          "locator": "Table 5, Text Avg; Sections 4.1/4.2"
+        },
+        {
+          "id": "trend-hbp-gpt5",
+          "x": 0,
+          "xLabel": "GPT-5",
+          "model": "GPT-5",
+          "score": 46.2,
+          "seriesId": "healthbench-gpt5-sequence",
+          "trackId": "assistance",
+          "date": "2026-04-30",
+          "dateBasis": "publication",
+          "sourceId": "healthbench-pro-v1",
+          "sourceUrl": "https://arxiv.org/html/2604.27470v1",
+          "sourceDetail": "Figure 4, Overall panel; Sections 4.1–4.3 and 5.1",
+          "comparisonGroup": "healthbench-pro-v1-gpt5-family-base-api-highest-available-reasoning",
+          "title": "GPT-5 family · HealthBench Professional · GPT-5",
+          "kind": "Published benchmark comparison",
+          "benchmark": "HealthBench Professional",
+          "subset": "Overall · n=525",
+          "unit": "points",
+          "environment": "benchmark",
+          "system": "Base API models, without the ChatGPT for Clinicians or browsing harness",
+          "setting": "Highest available reasoning effort for each model; default verbosity and API system message; eight samples per task. GPT-5.4 low-reasoning grader; authors’ length adjustment.",
+          "design": "Fixed study comparison. Same benchmark; each model uses its highest available reasoning setting. These are model categories, not a historical evaluation series.",
+          "finding": "GPT-5: 46.2 points at GPT-5.",
+          "limitations": "Provider-led benchmark enriched for difficult tasks. Configurations follow the published comparison but reasoning budgets differ by model. Rubric points are not percentage accuracy or patient benefit. Original 95% intervals are not reproduced; do not infer significant differences from small score gaps.",
+          "locator": "Figure 4, Overall panel; Sections 4.1–4.3 and 5.1"
+        },
+        {
+          "id": "trend-hbp-gpt52",
+          "x": 1,
+          "xLabel": "GPT-5.2",
+          "model": "GPT-5.2",
+          "score": 45.9,
+          "seriesId": "healthbench-gpt5-sequence",
+          "trackId": "assistance",
+          "date": "2026-04-30",
+          "dateBasis": "publication",
+          "sourceId": "healthbench-pro-v1",
+          "sourceUrl": "https://arxiv.org/html/2604.27470v1",
+          "sourceDetail": "Figure 4, Overall panel; Sections 4.1–4.3 and 5.1",
+          "comparisonGroup": "healthbench-pro-v1-gpt5-family-base-api-highest-available-reasoning",
+          "title": "GPT-5 family · HealthBench Professional · GPT-5.2",
+          "kind": "Published benchmark comparison",
+          "benchmark": "HealthBench Professional",
+          "subset": "Overall · n=525",
+          "unit": "points",
+          "environment": "benchmark",
+          "system": "Base API models, without the ChatGPT for Clinicians or browsing harness",
+          "setting": "Highest available reasoning effort for each model; default verbosity and API system message; eight samples per task. GPT-5.4 low-reasoning grader; authors’ length adjustment.",
+          "design": "Fixed study comparison. Same benchmark; each model uses its highest available reasoning setting. These are model categories, not a historical evaluation series.",
+          "finding": "GPT-5.2: 45.9 points at GPT-5.2.",
+          "limitations": "Provider-led benchmark enriched for difficult tasks. Configurations follow the published comparison but reasoning budgets differ by model. Rubric points are not percentage accuracy or patient benefit. Original 95% intervals are not reproduced; do not infer significant differences from small score gaps.",
+          "locator": "Figure 4, Overall panel; Sections 4.1–4.3 and 5.1"
+        },
+        {
+          "id": "trend-hbp-gpt54",
+          "x": 2,
+          "xLabel": "GPT-5.4",
+          "model": "GPT-5.4",
+          "score": 48.1,
+          "seriesId": "healthbench-gpt5-sequence",
+          "trackId": "assistance",
+          "date": "2026-04-30",
+          "dateBasis": "publication",
+          "sourceId": "healthbench-pro-v1",
+          "sourceUrl": "https://arxiv.org/html/2604.27470v1",
+          "sourceDetail": "Figure 4, Overall panel; Sections 4.1–4.3 and 5.1",
+          "comparisonGroup": "healthbench-pro-v1-gpt5-family-base-api-highest-available-reasoning",
+          "title": "GPT-5 family · HealthBench Professional · GPT-5.4",
+          "kind": "Published benchmark comparison",
+          "benchmark": "HealthBench Professional",
+          "subset": "Overall · n=525",
+          "unit": "points",
+          "environment": "benchmark",
+          "system": "Base API models, without the ChatGPT for Clinicians or browsing harness",
+          "setting": "Highest available reasoning effort for each model; default verbosity and API system message; eight samples per task. GPT-5.4 low-reasoning grader; authors’ length adjustment.",
+          "design": "Fixed study comparison. Same benchmark; each model uses its highest available reasoning setting. These are model categories, not a historical evaluation series.",
+          "finding": "GPT-5.4: 48.1 points at GPT-5.4.",
+          "limitations": "Provider-led benchmark enriched for difficult tasks. Configurations follow the published comparison but reasoning budgets differ by model. Rubric points are not percentage accuracy or patient benefit. Original 95% intervals are not reproduced; do not infer significant differences from small score gaps.",
+          "locator": "Figure 4, Overall panel; Sections 4.1–4.3 and 5.1"
+        },
+        {
+          "id": "trend-mab-easy",
+          "x": 0,
+          "xLabel": "1 step",
+          "model": "GPT-4o",
+          "score": 86.67,
+          "seriesId": "medagent-gpt4o-difficulty",
+          "trackId": "autonomy",
+          "date": "2025-02-12",
+          "dateBasis": "publication",
+          "sourceId": "medagentbench-v2",
+          "sourceUrl": "https://arxiv.org/html/2501.14654v2",
+          "sourceDetail": "Appendix A.3, Table 4, GPT-4o row; Sections 2.4/2.5",
+          "comparisonGroup": "medagentbench-v2-gpt4o-pass1-8rounds-difficulty-profile",
+          "title": "GPT-4o · MedAgentBench virtual EHR · 1 step",
+          "kind": "Published benchmark comparison",
+          "benchmark": "MedAgentBench",
+          "subset": "Easy / medium / hard task groups; 300 tasks overall",
+          "unit": "%",
+          "environment": "simulation",
+          "system": "Authors’ GPT-4o agent with FHIR tools",
+          "setting": "pass@1; maximum eight interaction rounds; temperature 0. GET executed; POST writes simulated and checked.",
+          "design": "Fixed study comparison. One agent, three task groups: 1, 2 and at least 3 required steps. The declining curve shows task difficulty, not deterioration over time.",
+          "finding": "GPT-4o: 86.67 % at 1 step.",
+          "limitations": "Groups contain different tasks; step count is not a controlled intervention on identical cases. Last category is ≥3 steps, not exactly 3. Virtual EHR simulation, not real autonomous patient care. No uncertainty intervals are reported.",
+          "locator": "Appendix A.3, Table 4, GPT-4o row; Sections 2.4/2.5"
+        },
+        {
+          "id": "trend-mab-medium",
+          "x": 1,
+          "xLabel": "2 steps",
+          "model": "GPT-4o",
+          "score": 70,
+          "seriesId": "medagent-gpt4o-difficulty",
+          "trackId": "autonomy",
+          "date": "2025-02-12",
+          "dateBasis": "publication",
+          "sourceId": "medagentbench-v2",
+          "sourceUrl": "https://arxiv.org/html/2501.14654v2",
+          "sourceDetail": "Appendix A.3, Table 4, GPT-4o row; Sections 2.4/2.5",
+          "comparisonGroup": "medagentbench-v2-gpt4o-pass1-8rounds-difficulty-profile",
+          "title": "GPT-4o · MedAgentBench virtual EHR · 2 steps",
+          "kind": "Published benchmark comparison",
+          "benchmark": "MedAgentBench",
+          "subset": "Easy / medium / hard task groups; 300 tasks overall",
+          "unit": "%",
+          "environment": "simulation",
+          "system": "Authors’ GPT-4o agent with FHIR tools",
+          "setting": "pass@1; maximum eight interaction rounds; temperature 0. GET executed; POST writes simulated and checked.",
+          "design": "Fixed study comparison. One agent, three task groups: 1, 2 and at least 3 required steps. The declining curve shows task difficulty, not deterioration over time.",
+          "finding": "GPT-4o: 70 % at 2 steps.",
+          "limitations": "Groups contain different tasks; step count is not a controlled intervention on identical cases. Last category is ≥3 steps, not exactly 3. Virtual EHR simulation, not real autonomous patient care. No uncertainty intervals are reported.",
+          "locator": "Appendix A.3, Table 4, GPT-4o row; Sections 2.4/2.5"
+        },
+        {
+          "id": "trend-mab-hard",
+          "x": 2,
+          "xLabel": "≥3 steps",
+          "model": "GPT-4o",
+          "score": 33.33,
+          "seriesId": "medagent-gpt4o-difficulty",
+          "trackId": "autonomy",
+          "date": "2025-02-12",
+          "dateBasis": "publication",
+          "sourceId": "medagentbench-v2",
+          "sourceUrl": "https://arxiv.org/html/2501.14654v2",
+          "sourceDetail": "Appendix A.3, Table 4, GPT-4o row; Sections 2.4/2.5",
+          "comparisonGroup": "medagentbench-v2-gpt4o-pass1-8rounds-difficulty-profile",
+          "title": "GPT-4o · MedAgentBench virtual EHR · ≥3 steps",
+          "kind": "Published benchmark comparison",
+          "benchmark": "MedAgentBench",
+          "subset": "Easy / medium / hard task groups; 300 tasks overall",
+          "unit": "%",
+          "environment": "simulation",
+          "system": "Authors’ GPT-4o agent with FHIR tools",
+          "setting": "pass@1; maximum eight interaction rounds; temperature 0. GET executed; POST writes simulated and checked.",
+          "design": "Fixed study comparison. One agent, three task groups: 1, 2 and at least 3 required steps. The declining curve shows task difficulty, not deterioration over time.",
+          "finding": "GPT-4o: 33.33 % at ≥3 steps.",
+          "limitations": "Groups contain different tasks; step count is not a controlled intervention on identical cases. Last category is ≥3 steps, not exactly 3. Virtual EHR simulation, not real autonomous patient care. No uncertainty intervals are reported.",
+          "locator": "Appendix A.3, Table 4, GPT-4o row; Sections 2.4/2.5"
+        },
+        {
+          "id": "trend-hbp-physicians",
+          "x": 0,
+          "xLabel": "GPT-5",
+          "model": "Specialty-matched physicians",
+          "score": 43.7,
+          "seriesId": "healthbench-gpt5-sequence",
+          "trackId": "assistance",
+          "date": "2026-04-30",
+          "dateBasis": "publication",
+          "sourceId": "healthbench-pro-v1",
+          "sourceUrl": "https://arxiv.org/html/2604.27470v1",
+          "sourceDetail": "Figure 4, Overall panel; Sections 4.1–4.3 and 5.1",
+          "comparisonGroup": "healthbench-pro-v1-gpt5-family-base-api-highest-available-reasoning",
+          "title": "Physician-written responses",
+          "kind": "Published benchmark comparison",
+          "benchmark": "HealthBench Professional",
+          "subset": "Overall · n=525",
+          "unit": "points",
+          "environment": "benchmark",
+          "system": "Base API models, without the ChatGPT for Clinicians or browsing harness",
+          "setting": "Highest available reasoning effort for each model; default verbosity and API system message; eight samples per task. GPT-5.4 low-reasoning grader; authors’ length adjustment.",
+          "design": "Same 525 tasks and grading procedure as the model comparison. Physicians had specialty familiarity, web access and no time limit, without AI assistance.",
+          "finding": "43.7 length-adjusted rubric points on HealthBench Professional.",
+          "limitations": "A benchmark-specific response baseline, not a universal physician ability threshold. Provider-led, difficulty-enriched benchmark; automated rubric grading. Original confidence intervals are not reproduced here; small score gaps do not establish significant differences.",
+          "locator": "Figure 4 Overall; Sections 3.6, 4.2 and 4.3",
+          "isHuman": true
+        }
+      ],
+      "trendSeries": [
+        {
+          "id": "medxpert-qwen-size",
+          "trackId": "knowledge",
+          "date": "2025-06-06",
+          "title": "Knowledge vs model size",
+          "subtitle": "Qwen2.5 · MedXpertQA Text",
+          "xLabel": "Model size (billion parameters)",
+          "xType": "quantitative",
+          "yLabel": "Accuracy (%)",
+          "unit": "%",
+          "sourceId": "medxpertqa-v3",
+          "sourceUrl": "https://arxiv.org/html/2501.18362v3",
+          "sourceDetail": "Table 5, Text Avg; Sections 4.1/4.2",
+          "comparisonGroup": "medxpertqa-v3-qwen25-instruct-text-full-zero-shot-cot",
+          "benchmark": "MedXpertQA Text",
+          "subset": "Full text test · n=2,450",
+          "environment": "benchmark",
+          "system": "Qwen2.5 Instruct models under the authors’ evaluation protocol",
+          "setting": "Zero-shot CoT; greedy decoding where available.",
+          "note": "Fixed study comparison. Two model sizes, one published protocol. Connecting segments guide the eye; intermediate sizes were not measured.",
+          "limitations": "Cross-sectional comparison, not a time trend or an isolated causal effect of parameter count. No patient-benefit endpoint. Uncertainty intervals are not reported here.",
+          "points": [
+            {
+              "id": "trend-qwen32",
+              "x": 32,
+              "xLabel": "32B",
+              "model": "Qwen2.5-32B-Instruct",
+              "score": 15.06
+            },
+            {
+              "id": "trend-qwen72",
+              "x": 72,
+              "xLabel": "72B",
+              "model": "Qwen2.5-72B-Instruct",
+              "score": 18.9
+            }
+          ]
+        },
+        {
+          "id": "healthbench-gpt5-sequence",
+          "trackId": "assistance",
+          "date": "2026-04-30",
+          "humanReference": {
+            "id": "trend-hbp-physicians",
+            "label": "Physician responses",
+            "score": 43.7
+          },
+          "title": "Clinical answers across model versions",
+          "subtitle": "GPT-5 family · HealthBench Professional",
+          "xLabel": "Model version (not time)",
+          "xType": "ordinal",
+          "yLabel": "Length-adjusted rubric score",
+          "unit": "points",
+          "sourceId": "healthbench-pro-v1",
+          "sourceUrl": "https://arxiv.org/html/2604.27470v1",
+          "sourceDetail": "Figure 4, Overall panel; Sections 4.1–4.3 and 5.1",
+          "comparisonGroup": "healthbench-pro-v1-gpt5-family-base-api-highest-available-reasoning",
+          "benchmark": "HealthBench Professional",
+          "subset": "Overall · n=525",
+          "environment": "benchmark",
+          "system": "Base API models, without the ChatGPT for Clinicians or browsing harness",
+          "setting": "Highest available reasoning effort for each model; default verbosity and API system message; eight samples per task. GPT-5.4 low-reasoning grader; authors’ length adjustment.",
+          "note": "Fixed study comparison. Same benchmark; each model uses its highest available reasoning setting. These are model categories, not a historical evaluation series.",
+          "limitations": "Provider-led benchmark enriched for difficult tasks. Configurations follow the published comparison but reasoning budgets differ by model. Rubric points are not percentage accuracy or patient benefit. Original 95% intervals are not reproduced; do not infer significant differences from small score gaps.",
+          "points": [
+            {
+              "id": "trend-hbp-gpt5",
+              "x": 0,
+              "xLabel": "GPT-5",
+              "model": "GPT-5",
+              "score": 46.2
+            },
+            {
+              "id": "trend-hbp-gpt52",
+              "x": 1,
+              "xLabel": "GPT-5.2",
+              "model": "GPT-5.2",
+              "score": 45.9
+            },
+            {
+              "id": "trend-hbp-gpt54",
+              "x": 2,
+              "xLabel": "GPT-5.4",
+              "model": "GPT-5.4",
+              "score": 48.1
+            }
+          ]
+        },
+        {
+          "id": "medagent-gpt4o-difficulty",
+          "trackId": "autonomy",
+          "date": "2025-02-12",
+          "title": "Workflow success vs task difficulty",
+          "subtitle": "GPT-4o · MedAgentBench virtual EHR",
+          "xLabel": "Required task steps",
+          "xType": "ordinal",
+          "yLabel": "First-attempt success (%)",
+          "unit": "%",
+          "sourceId": "medagentbench-v2",
+          "sourceUrl": "https://arxiv.org/html/2501.14654v2",
+          "sourceDetail": "Appendix A.3, Table 4, GPT-4o row; Sections 2.4/2.5",
+          "comparisonGroup": "medagentbench-v2-gpt4o-pass1-8rounds-difficulty-profile",
+          "benchmark": "MedAgentBench",
+          "subset": "Easy / medium / hard task groups; 300 tasks overall",
+          "environment": "simulation",
+          "system": "Authors’ GPT-4o agent with FHIR tools",
+          "setting": "pass@1; maximum eight interaction rounds; temperature 0. GET executed; POST writes simulated and checked.",
+          "note": "Fixed study comparison. One agent, three task groups: 1, 2 and at least 3 required steps. The declining curve shows task difficulty, not deterioration over time.",
+          "limitations": "Groups contain different tasks; step count is not a controlled intervention on identical cases. Last category is ≥3 steps, not exactly 3. Virtual EHR simulation, not real autonomous patient care. No uncertainty intervals are reported.",
+          "points": [
+            {
+              "id": "trend-mab-easy",
+              "x": 0,
+              "xLabel": "1 step",
+              "model": "GPT-4o",
+              "score": 86.67
+            },
+            {
+              "id": "trend-mab-medium",
+              "x": 1,
+              "xLabel": "2 steps",
+              "model": "GPT-4o",
+              "score": 70
+            },
+            {
+              "id": "trend-mab-hard",
+              "x": 2,
+              "xLabel": "≥3 steps",
+              "model": "GPT-4o",
+              "score": 33.33
+            }
+          ]
+        }
+      ],
+      "sourceGroups": {
+        "pharma": [
+          "alphafold2-nature",
+          "alphafold3-nature",
+          "nobel-chemistry-2024",
+          "residencyrl-v1",
+          "learning-impact-v2"
+        ],
+        "history": [
+          "dartmouth-history",
+          "deep-blue-history",
+          "alphafold-casp-history"
+        ],
+        "points": [
+          "turing-1950-source",
+          "eliza-1966-source",
+          "mycin-1975-source",
+          "backprop-1986-source",
+          "alexnet-2012-source",
+          "alphago-2016-source",
+          "skin-cancer-2017-source",
+          "gpt3-2020-source",
+          "instructgpt-2022-source",
+          "medpalm-preprint-2022-source",
+          "gpt4-2023-source",
+          "medpalm-2023-source",
+          "diagnostic-rct-2024-source",
+          "metr-2025-source",
+          "amie-2025-source",
+          "mira-2026-source"
+        ],
+        "track": [
+          "lower-usmle-2023-source",
+          "lower-ayers-2023-source",
+          "lower-star-2022-source",
+          "nov-trust-2023-source"
+        ]
+      }
+    }
+  }
+}

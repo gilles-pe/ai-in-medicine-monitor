@@ -1,104 +1,42 @@
 # AI in Medicine Monitor
 
-Mobiles Dashboard von Gilles Penning für belegten KI-Fortschritt in der Medizin. Die erste Anwendung folgt [Variante A](docs/design/README.md): warmer heller Hintergrund, große Serifentitel und drei farbige Messspuren.
+A compact English dashboard with an illustrative historical overview and three benchmark-specific medical-AI timelines. The existing design, studies, milestone rails, presentation mode, model/date controls and chart exports remain available.
 
-## Hauptgrafik 1950–2030
+## Authoritative content
 
-Die Startansicht orientiert sich am Zeitdiagramm der PowerPoint: gemeinsame Achse ab 1950, getrennte farbige Kurven, AlphaFold-Meilensteine und gestrichelte Szenarien bis 2030. Die Kurvenpositionen wurden aus Folie 6 extrahiert. Sie sind ausdrücklich schematisch und keine IQ- oder medizinische Leistungszeitreihe. Die METR-Kontextspur bezieht sich auf Software-Aufgaben. Originale Benchmark-Messwerte bleiben darunter in eigenen Skalen.
+Read [AGENTS.md](AGENTS.md), [MONITOR_STANDARD.md](MONITOR_STANDARD.md), [DESIGN.md](DESIGN.md) and [VALIDATION_REPORT.md](VALIDATION_REPORT.md) first.
 
-## Implementierter Umfang
+`data/monitor-data.json` is the single portable content source. The v1.1 import contains 41 observations in five benchmark series: 18 score records confirmed, 23 under review. Only 17 confirmed same-protocol agent scores qualify for a line; release months and imported publication timing remain provisional. Knowledge and assistance show explicit provisional point previews rather than an invented confirmed trend. Unvalidated baselines and saturation claims are retained in the file but not rendered as established references.
 
-- Verlauf mit getrennten Skalen für Wissen, Assistenz und selbstständige Abläufe.
-- Zeitregler mit Abspielfunktion und exaktem Datumsfilter.
-- Modellfilter und Detaildialog mit Quelle, Testkonfiguration und Grenzen.
-- Forschungsereignisse, Anwendungsübersicht und Quellenregister.
-- Reduzierter Vortragsmodus; Escape beendet den Modus.
-- JSON-Export des gefilterten Stands einschließlich Quellen.
-- Responsive Ansicht, Tastaturnavigation, native Dialoge und Unterstützung reduzierter Bewegung.
+Frontiers are recalculated at render time, separately for each benchmark. Historical cutoffs also require the result publication to be available; retrospective testing is labelled. Release-month position is an availability proxy, not an evaluation date. A benchmark score does not establish safe clinical care.
 
-## Pharma & Studien
+Previous dashboard content is preserved in `extensions.legacyDashboard`. Compatibility modules in `data/*.js` read that central store; they no longer own factual copies. The imported 41 records, original values and legacy metadata are retained. The import correction and original JSON checksum are in `meta.changeLog`.
 
-Die zusätzliche Ansicht Studien enthält fünf geprüfte Einträge aus der Pharma-Präsentation: AlphaFold 2, AlphaFold 3, Chemie-Nobelpreis 2024, ResidencyRL und das Lernexperiment von Contractor & Reyes. Themen- und Datumsfilter sowie Detaildialoge zeigen Design, Befunde und Grenzen. Nobelpreis, Strukturbenchmark, Simulation und Lernexperiment sind getrennt gekennzeichnet. Der JSON-Export enthält die ausgewählten Studien samt Quellen.
+## Run and verify
 
-Unter Anwendungen ergänzen vier Pharma-Ansätze die Messspuren. Ideen ohne konkreten Nutzenbeleg bleiben als Anwendungsansatz oder Szenario markiert. Details und bewusste Ausschlüsse: [Quellenprüfung](docs/pharma-source-review-2026-10-17.md).
+Node.js 22 or later. No runtime packages or backend are required. Serve the checkout or built `dist/` over HTTP; the browser must support JSON ES-module imports.
 
-## Datenstand
-
-Die erste Ausgabe enthält 13 historische Messpunkte aus drei Originalarbeiten. Die Daten stehen in `data/evidence.js`, getrennt vom Darstellungs- und Filtercode.
-
-Die Datumswerte sind Veröffentlichungsdaten der jeweiligen Paper-Version. Pro Spur liegt bislang nur eine Ausgabe vor. Deshalb werden Punkte gezeigt, keine erfundenen Wachstumskurven. Unterschiedliche Systemkonfigurationen bleiben getrennte Vergleichsgruppen.
-
-Die Quellen wurden am 17. Oktober 2026 geprüft. Diese Auswahl ist kein aktuelles Gesamtranking und noch nicht unabhängig fachlich freigegeben. Es läuft keine automatische wöchentliche Quellenaktualisierung.
-
-## Starten
-
-Die Anwendung benötigt zur Laufzeit keine Pakete, Konten oder externen Dienste. ES-Module müssen über einen Webserver geladen werden:
-
-```bash
-git clone https://github.com/gilles-pe/ai-in-medicine-monitor.git
-cd ai-in-medicine-monitor
-python3 -m http.server 4173 --bind 127.0.0.1
-```
-
-Dann http://127.0.0.1:4173 öffnen.
-
-## Prüfen und paketieren
-
-Node.js 22 oder neuer:
-
-```bash
+```sh
 npm install
+node scripts/validate-monitor.mjs
+node scripts/sync-monitor-docs.mjs
 npm test
-npx playwright install chromium
-npm run test:ui
 npm run build
 ```
 
-`dist/` enthält danach ausschließlich die statische Anwendung. Die Node-Tests prüfen Datumssicherheit, Vergleichsgruppen, HTML-Escaping und Datenintegrität. Die Browserprüfungen decken die Hauptfunktionen auf Desktop und 390px Mobilbreite ab.
+After changing JSON, regenerate documentation with `node scripts/sync-monitor-docs.mjs`. The build and tests reject stale document hashes. For browser checks, install the existing Playwright dev dependency/browser and run `npm run test:ui`; CI runs desktop/mobile checks automatically. These are software and data-contract checks, not independent scientific review.
 
-Ein CI-Workflow führt Tests und Paketierung bei Codeänderungen aus. Der Workflow aktualisiert keine medizinischen Daten und veröffentlicht keine Website.
+## Portable exports
 
-## Struktur
+- Monitor data: complete central JSON.
+- Export selection: historical selection plus the complete portable monitor dataset.
+- Export package: central JSON, all four policy/audit Markdown files, generated data status and per-file checksums. The browser verifies document/data hashes before exporting.
+- Save image: chart PNG. Multi-benchmark tracks include each separate benchmark panel and provisional-status context.
 
-- `index.html`, `styles.css`, `app.js`: Oberfläche und Interaktionen.
-- `data/evidence.js`: kuratierte Messpunkte, Quellen und Ereignisse.
-- `lib/selectors.js`: pure Filter- und Vergleichslogik.
-- `tests/`: Daten-, Logik- und Browserprüfungen.
-- `scripts/build.mjs`: statisches Ausgabepaket.
-- `docs/`: Planung, Methode, Entscheidungen und visuelle Referenz.
-
-## Projektunterlagen
-
-- [Projektbrief](docs/project-brief.md)
-- [Datenquellen und Messgrößen](docs/data-sources.md)
-- [Evidenzregister-Entwurf](docs/evidence-register.md)
-- [Entscheidungen](docs/decisions.md)
-- [Umsetzungs- und Prüfstand](docs/implementation-status.md)
-- [Aktive Übergabe](docs/ai-in-medicine-monitor-handover.md)
-- [Roadmap](docs/roadmap.md)
-
-Der [gemeinsame Drive-Brief](https://docs.google.com/document/d/16gTQyCiOEIZr9XnZ7nV4oHsHxHlLLYbLWlL4ovtRvu4/edit) verbindet das Vorhaben mit Substack / TED. Eine automatische Projekt- oder Drive-Synchronisierung ist nicht eingerichtet.
+No weekly evidence-update automation is configured. Last review and last data change are separate metadata fields.
 
 ## Hosting
 
-Live: [AI in Medicine Monitor](https://ai-in-medicine-monitor.gillesp.chatgpt.site). Die Website wurde am 17. Oktober 2026 über Sites privat bereitgestellt; Zugriff hat zunächst nur der Eigentümer nach Anmeldung. Die erfolgreiche Bereitstellung wurde vom Hosting-Dienst bestätigt.
+https://ai-in-medicine-monitor.gillesp.chatgpt.site
 
-Die Projektidentität steht in `.openai/hosting.json`. Der Anwendungscode entspricht dem in GitHub CI geprüften Stand: 12 Node- und 16 Desktop-/Mobil-Browserprüfungen sowie die Paketierung bestanden. Die zusätzliche manuelle Vorschau war wegen einer Berechtigung der Ausführungsumgebung nicht möglich; siehe [Prüfstand](docs/implementation-status.md).
-
-GitHub bleibt das Entwicklungsrepository. Die Sites-Quellversion wird über den unterstützten Veröffentlichungsprozess synchronisiert; ein GitHub-Push veröffentlicht nicht automatisch.
-
-
-## Redaktionelle Ansicht und frühere Meilensteine (18.10.2026)
-
-Die obere Grafik und ihre Quellenanker bleiben erhalten. Der übrige Aufbau folgt stärker der Vorlage: offene Diagrammspuren, größere Typografie und weniger Kartenflächen. `editorial.css` enthält die Gestaltung dieser Ansicht.
-
-Die unteren Spuren haben eine gemeinsame Zeitachse ab 2022 und je drei datierte Studienmeilensteine. Ihre Ereignismarker haben keine Leistungsordinate. Die 13 ursprünglichen Benchmark-Messwerte bleiben als eigene Messungen erhalten; unterschiedliche Tests werden nicht zu einer Verlaufskurve verbunden. Eine zusätzliche Vertrauensbefragung von 2023 ist in der Assistenzspur verlinkt.
-
-Quellen und Grenzen: [Studien und Hintergrunddaten](docs/studies-and-background.md). Strukturierte Ereignisse: `data/track-milestones.js`.
-
-
-## Compact English interface (18 October 2026)
-
-The live interface is now a single English page. Tabs, application screens and the methodology control have been removed. Three visible mini charts link to full sections below, with return and next links. Details and original sources remain available on demand. No presentation provenance is shown in the interface.
-
-The overview retains its illustrative curves and evidence-linked milestones. Benchmark comparisons now use scaled horizontal lines with result markers, rather than implying a time trend from a single publication snapshot. Milestones remain connected chronological timelines. All 13 scores, 24 overview anchors, nine track milestones and six studies are preserved.
+The existing owner-only audience is preserved. GitHub CI validates source; publication uses the Sites workflow and its existing `.openai/hosting.json` project identity. Release evidence and remaining limitations are in [implementation status](docs/implementation-status.md).

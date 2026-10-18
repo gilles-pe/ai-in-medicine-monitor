@@ -1,5 +1,8 @@
-import { trendPoints, trendSeries } from './data/trend-series.js';
-import { renderTrackChart } from './lib/track-chart.js';
+import { monitorData } from './lib/monitor-data.js';
+import { buildTrackSeries } from './lib/monitor-series.js';
+import { renderMonitorChart } from './lib/monitor-chart.js';
+import { monitorCardData, monitorPoint, pointCardHtml, installPointHover } from './lib/point-card.js';
+import { downloadMonitorPackage } from './lib/monitor-export.js';
 import { exportChart, copyChartLink } from './lib/chart-export.js';
 import { tracks, measurements, sourceCatalog, editorialStatus, studies } from './data/evidence.js';
 import { trackMilestones, trustContext } from './data/track-milestones.js';
@@ -59,11 +62,16 @@ function showOverviewCluster(ids){
   stop();$('#detail-body').innerHTML='<h2 id="detail-title" class="dialog-title">'+points[0].year+' · Studies</h2><div class="point-index-list">'+points.map(item=>'<button type="button" data-overview-point="'+e(item.id)+'">'+e(item.label)+'</button>').join('')+'</div>';dialog.showModal();
 }
 function renderPreviews(allRows){
-  return '<section id="charts" class="benchmark-previews" aria-label="Charts"><div class="thumbnail-grid">'+tracks.map(track=>'<a class="chart-thumbnail" href="#chart-'+track.id+'" style="--track:'+track.color+'"><span class="thumbnail-title">'+e(track.label)+' <span aria-hidden="true">↘</span></span>'+renderTrackChart(track,allRows,state.cutoff,{preview:true})+'<span class="thumbnail-meta">Evidence & milestones</span></a>').join('')+'</div></section>';
+  return '<section id="charts" class="benchmark-previews" aria-label="Charts"><div class="thumbnail-grid">'+tracks.map(track=>'<a class="chart-thumbnail" href="#chart-'+track.id+'" style="--track:'+track.color+'"><span class="thumbnail-title">'+e(track.label)+' <span aria-hidden="true">↘</span></span>'+renderMonitorChart(track,state.cutoff,{preview:true,model:state.model})+'<span class="thumbnail-meta">Provisional timeline</span></a>').join('')+'</div></section>';
 }
-function showTrendPoint(id){
-  const item=trendPoints.find(item=>item.id===id&&item.date<=state.cutoff);if(!item)return;
-  showDetail(item.title,item.environment==='simulation'?'Simulation':'Benchmark',item.finding,item.limitations,item.sourceId,[['Published',date(item.date)],['Comparison',item.design],['Protocol',item.setting],['Sample',item.subset],['Location',item.locator]]);
+function showMonitorPoint(id){
+  const item=monitorPoint(id);if(!item)return;
+  const visible=buildTrackSeries(item.track.trackId,state.cutoff).series.some(series=>series.points.some(point=>point.id===id));if(!visible)return;
+  stop();hover?.hide();$('#detail-body').innerHTML=pointCardHtml(monitorCardData(id));if(!dialog.open)dialog.showModal();
+}
+function showMonitorCluster(ids){
+  const cards=ids.split(',').map(id=>({id,card:monitorCardData(id)})).filter(item=>item.card);if(!cards.length)return;
+  stop();hover?.hide();$('#detail-body').innerHTML='<h2 id="detail-title" class="dialog-title">Choose a result</h2><div class="point-cluster-list">'+cards.map(({id,card})=>'<button type="button" data-monitor-point="'+e(id)+'"><span>'+e(card.title)+'</span><span>'+e(card.value)+' · '+e(card.status==='confirmed'?'Score confirmed · dates provisional':'Under review')+'</span></button>').join('')+'</div>';if(!dialog.open)dialog.showModal();
 }
 function renderResults(track,selected){
   if(!selected.length)return '<p class="empty-state">No results for this selection.</p>';
@@ -72,9 +80,10 @@ function renderResults(track,selected){
 function chartTools(id){return '<div class="chart-tools"><button type="button" data-chart-copy="'+id+'">Copy link</button><button type="button" data-chart-export="'+id+'">Save image ↓</button></div>';}
 function renderTrack(track,index,allRows){
   const selected=allRows.filter(row=>row.trackId===track.id);
-  const subtitle='Published comparisons · '+(track.id==='autonomy'?'simulation':'benchmark')+' · not a time trend';
+  const imported=buildTrackSeries(track.id,state.cutoff);
+  const subtitle=imported.track.question;
   const next=tracks[index+1];
-  return '<section class="track" id="chart-'+track.id+'" data-track="'+track.id+'" tabindex="-1" aria-labelledby="track-'+track.id+'" style="--track:'+track.color+'"><div class="track-top"><h2 id="track-'+track.id+'">'+e(track.label)+'</h2><a href="#charts" class="back-link">↑ Charts</a></div><p class="track-subtitle">'+subtitle+'</p>'+chartTools('chart-'+track.id)+renderTrackChart(track,allRows,state.cutoff)+renderResults(track,selected)+renderTrackHistory(track.id,state.cutoff,today)+(track.id==='assistance'&&trustContext.date<=state.cutoff?'<button class="trust-link text-button" data-track-milestone="nov-trust-2023" type="button">Trust study · 2023 ↗</button>':'')+'<div class="track-navigation">'+(next?'<a href="#chart-'+next.id+'">'+e(next.label)+' ↓</a>':'<a href="#charts">↑ Charts</a>')+'</div></section>';
+  return '<section class="track" id="chart-'+track.id+'" data-track="'+track.id+'" tabindex="-1" aria-labelledby="track-'+track.id+'" style="--track:'+track.color+'"><div class="track-top"><h2 id="track-'+track.id+'">'+e(track.label)+'</h2><a href="#charts" class="back-link">↑ Charts</a></div>'+chartTools('chart-'+track.id)+renderMonitorChart(track,state.cutoff,{model:state.model})+renderResults(track,selected)+renderTrackHistory(track.id,state.cutoff,today)+(track.id==='assistance'&&trustContext.date<=state.cutoff?'<button class="trust-link text-button" data-track-milestone="nov-trust-2023" type="button">Trust study · 2023 ↗</button>':'')+'<div class="track-navigation">'+(next?'<a href="#chart-'+next.id+'">'+e(next.label)+' ↓</a>':'<a href="#charts">↑ Charts</a>')+'</div></section>';
 }
 function render(){
   const allRows=rows();
@@ -92,7 +101,6 @@ function sync(){
 function cutoff(value,user=true){
   if(!/^\d{4}-\d{2}-\d{2}$/.test(value)||!Number.isFinite(Date.parse(value+'T00:00:00Z'))||new Date(value+'T00:00:00Z').toISOString().slice(0,10)!==value){sync();return;}
   if(user)stop();state.cutoff=value<'1950-01-01'?'1950-01-01':value>'2030-12-31'?'2030-12-31':value;sync();render();
-if(location.hash)requestAnimationFrame(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView({block:'start'}));
 }
 function stop(){if(timer)clearInterval(timer);timer=null;state.playing=false;$('#play-button').textContent='▶';$('#play-button').setAttribute('aria-label','Play timeline');$('#play-button').setAttribute('aria-pressed','false');}
 function play(){
@@ -106,18 +114,17 @@ function exportData(){
   const results=rows(),overviewPoints=visibleAnchors(state.cutoff),historicalTrackMilestones=[...trackMilestones,trustContext].filter(item=>item.date<=state.cutoff);
   const selectedStudies=studies.filter(item=>item.date<=state.cutoff).map(({presentationSlides,...item})=>item);
   const historicalEvents=visibleHistory(state.cutoff);
-  const selectedTrends=trendSeries.filter(item=>item.date<=state.cutoff);
-  const ids=new Set([...selectedTrends,...results,...overviewPoints,...historicalTrackMilestones,...selectedStudies,...historicalEvents].map(item=>item.sourceId));
-  const payload={title:'AI in Medicine Monitor',cutoff:state.cutoff,model:state.model,exportedAt:new Date().toISOString(),measurements:results,scientificComparisons:selectedTrends,overviewPoints,historicalTrackMilestones,studies:selectedStudies,historicalEvents,scaleNote:'Illustrative overview. Benchmark comparisons are publication snapshots, not a measured time trend.',sourceCatalog:sourceCatalog.filter(item=>ids.has(item.id)),editorialStatus};
+  const ids=new Set([...results,...overviewPoints,...historicalTrackMilestones,...selectedStudies,...historicalEvents].map(item=>item.sourceId));
+  const payload={title:'AI in Medicine Monitor',cutoff:state.cutoff,model:state.model,exportedAt:new Date().toISOString(),measurements:results,monitorData,selection:{cutoff:state.cutoff,model:state.model},overviewPoints,historicalTrackMilestones,studies:selectedStudies,historicalEvents,scaleNote:'Illustrative overview. Lower charts show benchmark-specific frontiers by provisional model availability; publication cutoffs apply.',sourceCatalog:sourceCatalog.filter(item=>ids.has(item.id)),editorialStatus};
   const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='ai-in-medicine-monitor-'+state.cutoff+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('Data exported.');
 }
 async function action(event){
   const copy=event.target.closest('[data-chart-copy]');
   if(copy){try{announce(await copyChartLink(copy.dataset.chartCopy,state.cutoff));copy.textContent='Copied';setTimeout(()=>{if(copy.isConnected)copy.textContent='Copy link';},1800);}catch{announce('Could not copy link. Use the address bar.');}return;}
   const download=event.target.closest('[data-chart-export]');
-  if(download){const section=document.getElementById(download.dataset.chartExport),svg=section?.querySelector('svg');if(!svg)return;download.disabled=true;try{announce(await exportChart(svg,{title:section.querySelector('h2')?.textContent||'AI in Medicine',cutoff:state.cutoff,filename:download.dataset.chartExport+'.png',note:download.dataset.chartExport==='overview'?'Illustrative scale. Sources support milestones, not IQ scores. https://ai-in-medicine-monitor.gillesp.chatgpt.site':(()=>{const series=trendSeries.find(item=>'chart-'+item.trackId===download.dataset.chartExport);return series?series.note+' Source: '+series.sourceUrl:'Publication timeline. Marker height does not indicate performance.';})()}));}catch{announce('Image export failed. Please try again.');}finally{download.disabled=false;}return;}
+  if(download){const section=document.getElementById(download.dataset.chartExport),svg=section?.querySelectorAll('svg.monitor-chart-svg').length?[...section.querySelectorAll('svg.monitor-chart-svg')]:section?.querySelector('svg');if(!svg)return;download.disabled=true;try{announce(await exportChart(svg,{title:section.querySelector('h2')?.textContent||'AI in Medicine',cutoff:state.cutoff,filename:download.dataset.chartExport+'.png',note:download.dataset.chartExport==='overview'?'Illustrative scale. Sources support milestones, not IQ scores. https://ai-in-medicine-monitor.gillesp.chatgpt.site':'Best eligible score within each benchmark. Model release months are approximate availability proxies; older models were tested later. Unvalidated records do not form a confirmed line.'}));}catch{announce('Image export failed. Please try again.');}finally{download.disabled=false;}return;}
 
-  for(const [attribute,handler] of [['data-trend-point',showTrendPoint],['data-overview-cluster',showOverviewCluster],['data-overview-point',showOverviewPoint],['data-history-id',showHistory],['data-track-milestone',showTrackMilestone],['data-point-id',showMeasurement],['data-study-id',showStudy]]){
+  for(const [attribute,handler] of [['data-monitor-cluster',showMonitorCluster],['data-monitor-point',showMonitorPoint],['data-overview-cluster',showOverviewCluster],['data-overview-point',showOverviewPoint],['data-history-id',showHistory],['data-track-milestone',showTrackMilestone],['data-point-id',showMeasurement],['data-study-id',showStudy]]){
     const target=event.target.closest('['+attribute+']');if(target){handler(target.getAttribute(attribute));return;}
   }
 }
@@ -125,7 +132,7 @@ content.addEventListener('click',action);
 content.addEventListener('keydown',event=>{if(['Enter',' '].includes(event.key)&&event.target.closest('svg [role="button"]')){event.preventDefault();action(event);}});
 $('#detail-body').addEventListener('click',action);
 $('#close-dialog').addEventListener('click',()=>dialog.close());
-$('#model-filter').innerHTML='<option value="">All models</option>'+[...new Set(measurements.map(row=>row.model))].sort().map(model=>'<option>'+e(model)+'</option>').join('');
+$('#model-filter').innerHTML='<option value="">All models</option>'+[...new Set([...measurements.map(row=>row.model),...monitorData.tracks.flatMap(track=>track.series.flatMap(series=>series.data.map(point=>point.model)))])].sort().map(model=>'<option>'+e(model)+'</option>').join('');
 $('#model-filter').addEventListener('change',event=>{stop();state.model=event.target.value;render();});
 $('#cutoff-date').addEventListener('change',event=>cutoff(event.target.value));
 $('#time-slider').addEventListener('input',event=>cutoff((1950+Number(event.target.value))+'-12-31'));
@@ -133,10 +140,21 @@ $('#today-button').addEventListener('click',()=>cutoff(today));
 $('#play-button').addEventListener('click',play);
 $('#present-button').addEventListener('click',present);
 $('#export-button').addEventListener('click',exportData);
-$('#editorial-check').textContent='Updated '+date(editorialStatus.updatedAt);
+$('#editorial-check').textContent='Last reviewed '+date(monitorData.meta.lastReviewedAt);
+$('#package-export-button').addEventListener('click',async event=>{const button=event.currentTarget;button.disabled=true;try{announce(await downloadMonitorPackage());}catch(error){announce('Package export failed: '+error.message);}finally{button.disabled=false;}});
 // Old view hashes now lead to the single-page overview.
 if(['#verlauf','#anwendungen','#studien','#quellen'].includes(location.hash))history.replaceState(null,'','#top');
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!dialog.open){stop();if(state.presentation)present();}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
 sync();render();
 if(location.hash)requestAnimationFrame(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView({block:'start'}));
+
+function hoverCard(target){
+  if(target.dataset.monitorPoint)return monitorCardData(target.dataset.monitorPoint);
+  if(target.dataset.monitorCluster){const list=target.dataset.monitorCluster.split(',').map(monitorCardData).filter(Boolean);if(!list.length)return null;return {title:list.length+' nearby results',subtitle:'Select to compare',value:'',status:list.every(item=>item.status==='confirmed')?'confirmed':'needs_review',what:list.map(item=>item.title+': '+item.value).join('; '),meaning:'Each result uses the benchmark and setup in its own card.',how:'Select this cluster, then choose a model.',confidence:'Model release months are approximate availability proxies.',sources:[]};}
+  const legacy=target.dataset.pointId?measurements.find(item=>item.id===target.dataset.pointId):target.dataset.overviewPoint?visibleAnchors(state.cutoff).find(item=>item.id===target.dataset.overviewPoint):[...trackMilestones,trustContext].find(item=>item.id===target.dataset.trackMilestone);
+  if(!legacy)return null;const source=sourceCatalog.find(item=>item.id===legacy.sourceId);
+  return {title:legacy.model||legacy.label||legacy.title,subtitle:legacy.benchmark||legacy.kind||'Study milestone',value:Number.isFinite(legacy.score)?score(legacy):'',status:'reported',what:legacy.subset||legacy.design||legacy.finding||'Source-linked research milestone.',meaning:legacy.finding||legacy.metricDescription||legacy.limitations||'Historical benchmark result; not a clinical outcome.',how:legacy.setting||legacy.locator||'See the original source.',confidence:target.dataset.overviewPoint?'The source supports the milestone, not its illustrative IQ height.':'Historical source-backed record; see its limitations.',limit:legacy.limitations,sources:source?[{label:source.title,url:source.url,locator:legacy.sourceDetail||legacy.locator}]:[]};
+}
+const hover=installPointHover(content,hoverCard);
+let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{hover.hide();render();},150);});

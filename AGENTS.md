@@ -1,27 +1,74 @@
-# AI in Medicine Monitor
+# AGENTS.md - Instructions for AI collaborators
+Version: 1.0 | Date: 2026-10-18
 
-## Scope
+## Mission
+Maintain a popular-science 'AI in Medicine Monitor' showing medical AI progress in three tracks. Clear for physicians, healthcare industry and non-experts. Credible but not framed as a medical clinical validation study.
 
-On 2026-10-17 the user authorized implementing the dashboard and using smart subagents. The repository now contains the first dependency-free static application plus planning and source documents. Recurring medical-data updates remain unconfigured.
+## Read before work
+1. `MONITOR_STANDARD.md` - editorial/evidence rules, frontier definition and criteria.
+2. `DESIGN.md` - UI, chart and point-card requirements.
+3. `data/monitor-data.json` - portable data store.
+4. `VALIDATION_REPORT.md` - current evidence audit and unresolved blockers.
 
-## Project context
+## Universal operating constraints
+- Never program or redesign unless asked; a research task produces candidate data and sources.
+- Never overwrite or discard previous points without a change log.
+- Do not silently convert manufacturer assertions into independently verified findings.
+- Do not silently bridge benchmarks or project future results.
+- Do not infer evaluation dates from release dates.
+- A chart's x-axis uses released-model availability as a proxy and must state that fact.
+- The *published main line* is a running maximum of eligible confirmed, comparably evaluated points within each series - NOT a line connecting every model result.
+- Put concise plain-English explanations in each point card; explanations must match the test.
+- Never use an unverified URL or fabricate a missing date, source, score or test protocol.
 
-Read README.md, docs/project-brief.md, docs/decisions.md, docs/data-sources.md and docs/implementation-status.md before changes. The active handover is docs/ai-in-medicine-monitor-handover.md. Its original planning-only limitation was superseded by the user's explicit implementation request. Preserve the visual direction described in docs/design/README.md and the separate autonomy track. The original image at docs/design/reference-variant-a.jpg is schematic, never numeric evidence.
+## Research agent: task procedure
+1. Read current JSON; identify track, exact benchmark name/version and latest reviewed source.
+2. Search primary sources for new scores on existing benchmarks first; then propose any new benchmark separately.
+3. For each candidate capture exact benchmark, metric, score, model/system, release date, evaluation/publication dates, prompt/tool/harness configuration, exact primary URL and table/figure location.
+4. Write plain-language `explain.whatWasTested` and `explain.whatValueMeans` (one sentence each); optionally `whyItMatters`.
+5. Set validation status honestly: `confirmed`, `reported`, or `needs_review`; set comparability separately.
+6. Deliver a JSON patch proposal/change log. Flag conflicting sources and methodology changes for human review.
 
-## Data and evidence
+## Validation agent: task procedure
+- Independently open and check the stated primary source, number, units, date and condition.
+- Compare benchmark version/setup to other points in *same series*.
+- Mark a point eligible for main line only if `status=confirmed`, `comparability=same_protocol` (or carefully documented `qualified` with explicit approval), and working source URL.
+- Retrospective means benchmark evaluation performed after the model's first public availability; show as such.
+- Record reviewer, review date and short rationale. Do not infer confidence from source title.
 
-data/evidence.js owns curated results, sources and events. The initial 13 results are historical paper-publication snapshots, not current SOTA or a complete model comparison. Do not invent benchmark results, clinical claims or trend curves. The user explicitly requested the PPT-style 1950–2035 overview on 2026-10-17: its extracted schematic positions in data/presentation-chart.js may be displayed only as an illustration, with future scenarios and the METR software context labelled. Never mix that index with benchmark scores. Only connect methodologically comparable results from the same comparisonGroup. Keep model/system configuration, source, version, date basis and limitations attached to each result. Distinguish simulation, clinical study and routine deployment.
+## Dashboard agent: task procedure
+- Treat JSON as read-only content authority. Do not modify underlying score/source facts to improve the visual shape.
+- Render chart and details following `DESIGN.md`. Ensure mobile tap and keyboard interactions.
+- Recalculate frontier by benchmark series at render time from eligible points.
+- Display date/measurement and benchmarking limitations explicitly but concisely.
+- Test source URLs, gaps, ties and benchmark transitions.
 
-The interface must not imply that HealthBench points are percent accuracy or that MedAgentBench demonstrates safe autonomous care. The initial dataset has no independent clinical/editorial approval. The source review of 2026-10-17 is documented.
+## Public communication agent: task procedure
+- Use clear questions and concrete comparisons. Avoid exaggerated 'doctor replacement' claims.
+- Link directly to original sources when making quantified claims.
+- Explain measured metric rather than relying on generalizations about clinical competence.
 
-## Development
+## Portable data contract
+Location: `data/monitor-data.json` (UTF-8 JSON). Sections: `meta`, `tracks[]`, `tracks[].series[]`, `series[].data[]`. Point keys: `id`, `model`, `modelReleaseDate`, `evaluationDate`, `publicationDate`, `value`, `setup`, `explain`, `validation`, `sources`, `legacy`. Track and series definitions provide user-facing title, axis/metric description and methodological warnings. `sources` should be structured with `url` and `locator` when verified. All unknowns are null or needs_review.
 
-Vanilla browser ES modules and CSS. No runtime dependencies. npm test runs Node builtin tests; npm run test:ui runs Playwright; npm run build packages dist/. Code CI is not a medical-data update automation. Do not expose secrets, patient records or benchmark questions. Preserve privacy when selecting hosting.
+## Before declaring ready
+Check JSON parses, IDs unique, every published line point eligible, no joined incompatible series, source links valid, point cards complete, mobile behavior, and last-updated semantics. Produce a brief list of unresolved issues for the human owner.
 
-## Coordination
+<!-- monitor-data-contract:start -->
+## Generated data contract
 
-The shared Drive brief is linked in README.md. Read its current version before materially changing goals. No automatic synchronization of chats, Drive or repository data exists. New explicit user instructions override older planning snapshots.
+This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
-## Validation limits
+- Schema: 1.0
+- SHA-256 (parsed JSON): `464446fcd78931cd924955d793c2dfe363aae7c86c7b670677dfd85437b6a2df`
+- Tracks / benchmark series / measurements: 3 / 5 / 41
+- Score validation: 18 confirmed, 0 reported, 23 under review
+- Main-line eligible scores: 17; original-link gaps: 22
+- Chronology: 41 unknown evaluation dates; 41 month-precision release proxies
+- Last evidence review: 2026-10-18; last data change: 2026-10-18
+- Calendar positioning uses model availability proxies, not evaluation dates. Confirmed scores do not validate release-month chronology or source-publication dates and versions.
+- Frontier must be recalculated separately within each benchmark series. Pending and qualified-only records do not form a confirmed main line.
+- Source policy: MONITOR_STANDARD.md; interface: DESIGN.md; collaboration: AGENTS.md.
 
-The implementation was created through GitHub because the local environment was unavailable. Never infer successful browser QA, CI or publication from code being committed. Read the latest workflow result and implementation-status.md before claiming them.
+Run `node scripts/sync-monitor-docs.mjs` after a JSON change, and `node scripts/sync-monitor-docs.mjs --check` before release. Structural checks do not constitute independent scientific validation or live URL verification.
+<!-- monitor-data-contract:end -->

@@ -9,6 +9,7 @@
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./editorial.css">
+  <link rel="stylesheet" href="./monitor.css">
 </head>
 <body>
 <a class="skip-link" href="#content">Skip to content</a>
@@ -18,14 +19,14 @@
     <div class="intro-copy"><h1 id="page-title">AI in Medicine <em>Monitor</em></h1><p class="intro-purpose">Tracking AI’s potential to improve healthcare - through research, benchmarks and clinical evidence.</p>
     <details class="about-monitor"><summary>About this monitor</summary><p>I'm keenly interested in the impact of AI on healthcare, because I consider it a key technology to solve some of the biggest challenges in healthcare, like quality of care, costs, resources, staffing, and how to benefit as many people as possible. As I'm reading and paying a lot of attention to these topics, I get them all in this small monitor. Please feel free to send me inputs, comments, or additional studies on</p><nav class="contact-links" aria-label="Contact"><span title="Profile link to be added">Bluesky · link pending</span><a href="https://medtechsignal.substack.com/" target="_blank" rel="noopener noreferrer">Substack ↗</a><a href="https://de.linkedin.com/in/gillespenning" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></nav></details>
     <p class="monitor-status">Benchmarks · simulations · clinical evidence</p></div>
-    <aside class="changes" aria-label="Recent changes"><div class="changes-heading"><h2>Changes</h2><span class="editorial-check" id="editorial-check"></span></div><ol><li><time datetime="2026-10-18">18 Oct</time><span>Compact charts, timeline and image exports.<span class="new-label">New</span></span></li><li><time datetime="2026-10-18">18 Oct</time><a href="#chart-assistance">Early evidence on assistance and trust.</a></li><li><time datetime="2026-10-18">18 Oct</time><a href="#chart-autonomy">MIRA, MedAgentBench and supervised robotics.</a></li></ol></aside>
+    <aside class="changes" aria-label="Recent changes"><div class="changes-heading"><h2>Changes</h2><span class="editorial-check" id="editorial-check"></span></div><ol><li><time datetime="2026-10-18">18 Oct</time><span>v1.1 data and provisional timelines.<span class="new-label">New</span></span></li><li><time datetime="2026-10-18">18 Oct</time><a href="#chart-assistance">Hover and tap evidence cards.</a></li><li><time datetime="2026-10-18">18 Oct</time><a href="#chart-autonomy">Portable data and shared standards.</a></li></ol></aside>
   </section>
   <section id="time-controls" class="time-controls" aria-label="Timeline controls">
     <div class="time-heading"><label for="cutoff-date">Timeline</label><div class="date-controls"><input type="date" id="cutoff-date" min="1950-01-01" max="2030-12-31" aria-label="Date"><button id="today-button" class="small-button" type="button">Today</button></div></div>
     <div class="slider-row"><button id="play-button" class="play-button" type="button" aria-label="Play timeline" aria-pressed="false">▶</button><div class="slider-wrap"><label class="sr-only" for="time-slider">Year</label><input type="range" id="time-slider" min="0" max="80" value="76" step="1"><div class="slider-labels"><span>1950</span><span>2000</span><span>2030</span></div></div><label class="model-control" for="model-filter"><span>Benchmark model</span><select id="model-filter"><option value="">All models</option></select></label></div>
   </section>
   <main id="content"><p class="loading">Loading…</p></main>
-  <footer class="site-footer"><span>AI in Medicine Monitor</span><button class="text-button" id="export-button" type="button">Export data ↓</button></footer>
+  <footer class="site-footer"><span>AI in Medicine Monitor</span><div class="footer-exports"><button class="text-button" id="export-button" type="button">Export selection ↓</button><a href="./data/monitor-data.json" download="monitor-data.json">Monitor data ↓</a><button class="text-button" id="package-export-button" type="button">Export package ↓</button></div></footer>
 </div>
 <dialog id="detail-dialog" aria-labelledby="detail-title"><div class="dialog-top"><span class="eyebrow">Evidence</span><button id="close-dialog" class="icon-button" type="button" aria-label="Close">×</button></div><div id="detail-body"></div></dialog>
 <p id="live-status" class="sr-only" role="status" aria-live="polite"></p>
