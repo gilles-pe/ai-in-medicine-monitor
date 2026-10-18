@@ -121,7 +121,7 @@ content.addEventListener('click',action);
 content.addEventListener('keydown',event=>{if(['Enter',' '].includes(event.key)&&event.target.closest('svg [role="button"]')){event.preventDefault();action(event);}});
 $('#detail-body').addEventListener('click',action);
 dialog.addEventListener('click',event=>{if(event.target.closest('[data-card-close]'))dialog.close();});
-dialog.addEventListener('close',()=>highlightCard(null));
+dialog.addEventListener('close',()=>{hover.hide();highlightCard(null);});
 $('#model-filter').innerHTML='<option value="">All models</option>'+[...new Set([...measurements.map(row=>row.model),...monitorData.tracks.flatMap(track=>track.series.flatMap(series=>series.data.map(point=>point.model)))])].sort().map(model=>'<option>'+e(model)+'</option>').join('');
 $('#model-filter').addEventListener('change',event=>{stop();state.model=event.target.value;render();});
 $('#cutoff-date').addEventListener('change',event=>cutoff(event.target.value));

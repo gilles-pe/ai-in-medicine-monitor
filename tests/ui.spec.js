@@ -204,7 +204,8 @@ test('point tap and clusters expose editorial findings, setup, limitations and c
 
 test('desktop hover evidence remains reachable and keyboard opens a full card',async({page},testInfo)=>{
   test.skip(testInfo.project.name.includes('mobile'),'Hover is a desktop interaction.');
-  const hit=page.locator('.detail-charts [data-monitor-point="3.1"]');
+  await openBenchmark(page);
+  const hit=page.locator('#chart-knowledge .result-row').first();
   await hit.hover();
   const preview=page.locator('.point-hover');await expect(preview).toBeVisible();
   const source=preview.locator('.point-sources a');await expect(source).toHaveAttribute('href',/^https:/);
