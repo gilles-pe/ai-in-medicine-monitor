@@ -26,6 +26,7 @@ export const trendSeries = [
   },
   {
     id: 'healthbench-gpt5-sequence', trackId: 'assistance', date: '2026-04-30',
+    humanReference: { id:'trend-hbp-physicians', label:'Physician responses', score:43.7 },
     title: 'Clinical answers across model versions',
     subtitle: 'GPT-5 family · HealthBench Professional',
     xLabel: 'Model version (not time)', xType: 'ordinal',
@@ -82,3 +83,14 @@ export const trendPoints = trendSeries.flatMap(series => series.points.map(point
   limitations: series.limitations,
   locator: series.sourceDetail
 })));
+
+const humanSeries=trendSeries.find(series=>series.humanReference);
+trendPoints.push({
+  ...trendPoints.find(point=>point.seriesId===humanSeries.id),
+  id:humanSeries.humanReference.id, title:'Physician-written responses',
+  model:'Specialty-matched physicians', score:43.7, isHuman:true,
+  finding:'43.7 length-adjusted rubric points on HealthBench Professional.',
+  design:'Same 525 tasks and grading procedure as the model comparison. Physicians had specialty familiarity, web access and no time limit, without AI assistance.',
+  limitations:'A benchmark-specific response baseline, not a universal physician ability threshold. Provider-led, difficulty-enriched benchmark; automated rubric grading. Original confidence intervals are not reproduced here; small score gaps do not establish significant differences.',
+  locator:'Figure 4 Overall; Sections 3.6, 4.2 and 4.3'
+});

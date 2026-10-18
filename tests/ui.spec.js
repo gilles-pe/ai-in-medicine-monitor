@@ -184,3 +184,12 @@ test('scientific curves retain source-defined axes, solid lines and original-stu
   await page.locator('#cutoff-date').fill('2025-02-11');await page.locator('#cutoff-date').press('Tab');
   await expect(charts).toHaveCount(0);
 });
+
+
+test('human reference is benchmark-specific and opens its protocol',async({page})=>{
+  await page.locator('.scientific-chart [data-trend-point="trend-hbp-physicians"]').click();
+  await expect(page.getByRole('dialog')).toContainText('43.7');
+  await expect(page.getByRole('dialog')).toContainText('not a universal physician');
+  await page.getByRole('dialog').locator('summary').click();
+  await expect(page.getByRole('dialog')).toContainText('no time limit');
+});
