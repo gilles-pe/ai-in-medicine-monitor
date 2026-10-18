@@ -50,3 +50,15 @@ Aktuell öffnen Punkte per Klick/Enter ein Quellen-Dialogfenster. Ein natives Ti
 - [x] Replace verbose labels with short text; remove presentation references from the interface.
 - [x] Show benchmark values as actual scaled lines; retain connected milestone timelines.
 - [ ] Curate additional same-protocol publication dates before drawing benchmark time-trend lines. Current benchmark results are single publication snapshots.
+
+## Compact curves and Changes - 18 October 2026
+
+- [x] Place Changes beside the short introduction; preserve the full personal text in About.
+- [x] Remove visible author-name branding, including exported images.
+- [x] Fit the overview without internal scrolling and place the timeline immediately below it.
+- [x] Use consistent track colors, dotted medical context and long-dashed scenarios.
+- [x] Replace lower primary bar comparisons with source-native curves on explicitly non-time axes; retain historical result tables in disclosures.
+- [x] Add the same-benchmark physician-response reference in the assistance chart.
+- [x] Add chart-specific links with cutoff restoration and PNG image export.
+- [ ] Confirm the Bluesky profile URL before enabling that contact link.
+- [ ] Continue curating comparable longitudinal measurements; cross-sectional curves do not fill that evidence gap.
