@@ -3,7 +3,7 @@ import { applyLanguage, getLanguage, setLanguage, preferredLanguage, translateTe
 import { monitorData } from './lib/monitor-data.js';
 import { buildTrackSeries } from './lib/monitor-series.js';
 import { renderMonitorChart } from './lib/monitor-chart.js';
-import { monitorCardData, monitorPoint, pointCardHtml, installPointHover } from './lib/point-card.js';
+import { monitorCardData, monitorPoint, editorialCard, pointCardHtml, installPointHover } from './lib/point-card.js';
 import { downloadMonitorPackage } from './lib/monitor-export.js';
 import { exportChart, copyChartLink } from './lib/chart-export.js';
 import { tracks, measurements, sourceCatalog, editorialStatus, studies } from './data/evidence.js';
@@ -29,54 +29,38 @@ const system=row=>row.trackId==='assistance'?row.system:row.model;
 let timer;
 function rows(){return filterMeasurements(measurements,{cutoff:state.cutoff}).filter(row=>!state.model||row.model===state.model);}
 function announce(text){$('#live-status').textContent=text;}
-function sourceLink(id){
-  const source=sourceCatalog.find(item=>item.id===id);
-  if(!source)return '';
-  let url;try{url=new URL(source.url);}catch{return '';}
-  return url.protocol==='https:'?'<a class="detail-link" href="'+e(url.href)+'" target="_blank" rel="noopener noreferrer">Source ↗</a>':'';
+function highlightCard(id){
+  content.querySelectorAll('.is-selected').forEach(el=>{el.classList.remove('is-selected');el.removeAttribute('aria-current');});
+  if(!id)return;
+  const attrs=['data-monitor-point','data-monitor-cluster','data-point-id','data-overview-point','data-overview-cluster','data-track-milestone','data-study-id','data-history-id','data-observation-id'];
+  content.querySelectorAll(attrs.map(a=>'['+a+']').join(',')).forEach(el=>{
+    if(attrs.some(a=>(el.getAttribute(a)||'').split(',').includes(id))){el.classList.add('is-selected');if(el.matches('button,[role="button"]'))el.setAttribute('aria-current','true');if(el.closest('.milestone-reading'))el.closest('.milestone-reading').classList.add('is-selected');}
+  });
 }
-function detailRows(pairs){return '<dl class="detail-list">'+pairs.filter(([,value])=>value).map(([name,value])=>'<div><dt>'+e(name)+'</dt><dd>'+e(value)+'</dd></div>').join('')+'</dl>';}
-function showDetail(title,kind,finding,limit,sourceId,pairs=[]){
-  stop();
-  $('#detail-body').innerHTML='<h2 id="detail-title" class="dialog-title">'+e(title)+'</h2>'+(kind?'<p class="detail-kind">'+e(kind)+'</p>':'')+(finding?'<p>'+e(finding)+'</p>':'')+(limit?'<p class="detail-limit">'+e(limit)+'</p>':'')+(pairs.length?'<details class="technical-details"><summary>Details</summary>'+detailRows(pairs)+'</details>':'')+sourceLink(sourceId);
-  dialog.showModal();
+function showEditorialCard(id){
+  const card=editorialCard(id);if(!card)return;
+  stop();hover?.hide();$('#detail-body').innerHTML=pointCardHtml(card);if(!dialog.open)dialog.showModal();highlightCard(id);
 }
-function showMeasurement(id){
-  const row=rows().find(item=>item.id===id);if(!row)return;
-  showDetail(system(row),row.benchmark,score(row),row.limitations,row.sourceId,[['Published',date(row.date)],['System',row.system],['Protocol',row.setting],['Sample',row.subset],['Location',row.sourceDetail],['Comparison group',row.comparisonGroup]]);
-}
-function showTrackMilestone(id){
-  const item=[...trackMilestones,trustContext].find(item=>item.id===id&&item.date<=state.cutoff);if(!item)return;
-  showDetail(item.title,item.kind,item.finding,item.limitations,item.sourceId,[['Published',date(item.date)],['Design',item.design],['Location',item.locator]]);
-}
-function showStudy(id){
-  const item=studies.find(item=>item.id===id&&item.date<=state.cutoff);if(!item)return;
-  showDetail(item.title,item.type,item.summary,item.limitations,item.sourceId,[['Published',date(item.date)],['Design',item.design],...item.findings,['Location',item.sourceDetail]]);
-}
-function showHistory(id){
-  const item=visibleHistory(state.cutoff).find(item=>item.id===id);if(!item)return;
-  if(item.studyId){showStudy(item.studyId);return;}
-  showDetail(item.label,'Milestone · '+item.year,item.summary,item.limit,item.sourceId);
-}
-function showOverviewPoint(id){
-  const item=visibleAnchors(state.cutoff).find(item=>item.id===id);if(!item)return;
-  showDetail(item.label,item.kind,item.finding,item.limitations,item.sourceId,[['Published',item.date?date(item.date):String(item.year)],['Location',item.locator],['Scale','Illustrative IQ position; the source supports the milestone, not its height.']]);
-}
+function showMeasurement(id){if(rows().some(item=>item.id===id))showEditorialCard(id);}
+function showTrackMilestone(id){if([...trackMilestones,trustContext].some(item=>item.id===id&&item.date<=state.cutoff))showEditorialCard(id);}
+function showStudy(id){if(studies.some(item=>item.id===id&&item.date<=state.cutoff))showEditorialCard(id);}
+function showHistory(id){if(visibleHistory(state.cutoff).some(item=>item.id===id))showEditorialCard(id);}
+function showOverviewPoint(id){if(visibleAnchors(state.cutoff).some(item=>item.id===id))showEditorialCard(id);}
+function clusterHeading(title){return '<div class="card-topbar"><h2 id="detail-title" class="dialog-title">'+e(title)+'</h2><button id="close-dialog" class="card-close" data-card-close type="button" aria-label="Close card">×</button></div>';}
 function showOverviewCluster(ids){
   const points=visibleAnchors(state.cutoff).filter(item=>ids.split(',').includes(item.id));if(!points.length)return;
-  stop();$('#detail-body').innerHTML='<h2 id="detail-title" class="dialog-title">'+points[0].year+' · Studies</h2><div class="point-index-list">'+points.map(item=>'<button type="button" data-overview-point="'+e(item.id)+'">'+e(item.label)+'</button>').join('')+'</div>';dialog.showModal();
+  stop();$('#detail-body').innerHTML=clusterHeading(points[0].year+' · Studies')+'<div class="point-index-list">'+points.map(item=>'<button type="button" data-overview-point="'+e(item.id)+'">'+e(item.label)+'</button>').join('')+'</div>';dialog.showModal();
 }
 function renderPreviews(allRows){
   return '<section id="charts" class="benchmark-previews" aria-label="Charts"><div class="thumbnail-grid">'+tracks.map(track=>'<a class="chart-thumbnail" href="#chart-'+track.id+'" style="--track:'+track.color+'"><span class="thumbnail-title">'+e(track.label)+' <span aria-hidden="true">↘</span></span>'+renderMonitorChart(track,state.cutoff,{preview:true,model:state.model})+'<span class="thumbnail-meta">Provisional timeline</span></a>').join('')+'</div></section>';
 }
 function showMonitorPoint(id){
   const item=monitorPoint(id);if(!item)return;
-  const visible=buildTrackSeries(item.track.trackId,state.cutoff).series.some(series=>series.points.some(point=>point.id===id));if(!visible)return;
-  stop();hover?.hide();$('#detail-body').innerHTML=pointCardHtml(monitorCardData(id));if(!dialog.open)dialog.showModal();
+  const visible=buildTrackSeries(item.track.trackId,state.cutoff).series.some(series=>[...series.points,...series.undated].some(point=>point.id===id));if(visible)showEditorialCard(id);
 }
 function showMonitorCluster(ids){
   const cards=ids.split(',').map(id=>({id,card:monitorCardData(id)})).filter(item=>item.card);if(!cards.length)return;
-  stop();hover?.hide();$('#detail-body').innerHTML='<h2 id="detail-title" class="dialog-title">Choose a result</h2><div class="point-cluster-list">'+cards.map(({id,card})=>'<button type="button" data-monitor-point="'+e(id)+'"><span>'+e(card.title)+'</span><span>'+e(card.value)+' · '+e(card.status==='confirmed'?'Score confirmed · dates provisional':'Under review')+'</span></button>').join('')+'</div>';if(!dialog.open)dialog.showModal();
+  stop();hover?.hide();$('#detail-body').innerHTML=clusterHeading('Choose a result')+'<div class="point-cluster-list">'+cards.map(({id,card})=>'<button type="button" data-monitor-point="'+e(id)+'"><span>'+e(card.title)+'</span><span>'+e(card.finding.headline)+' · '+e(card.status==='confirmed'?'Score confirmed · dates provisional':card.status==='reported'?'Reported':'Under review')+'</span></button>').join('')+'</div>';if(!dialog.open)dialog.showModal();highlightCard(cards[0].id);
 }
 function renderResults(track,selected){
   if(!selected.length)return '<p class="empty-state">No results for this selection.</p>';
@@ -136,7 +120,8 @@ async function action(event){
 content.addEventListener('click',action);
 content.addEventListener('keydown',event=>{if(['Enter',' '].includes(event.key)&&event.target.closest('svg [role="button"]')){event.preventDefault();action(event);}});
 $('#detail-body').addEventListener('click',action);
-$('#close-dialog').addEventListener('click',()=>dialog.close());
+dialog.addEventListener('click',event=>{if(event.target.closest('[data-card-close]'))dialog.close();});
+dialog.addEventListener('close',()=>highlightCard(null));
 $('#model-filter').innerHTML='<option value="">All models</option>'+[...new Set([...measurements.map(row=>row.model),...monitorData.tracks.flatMap(track=>track.series.flatMap(series=>series.data.map(point=>point.model)))])].sort().map(model=>'<option>'+e(model)+'</option>').join('');
 $('#model-filter').addEventListener('change',event=>{stop();state.model=event.target.value;render();});
 $('#cutoff-date').addEventListener('change',event=>cutoff(event.target.value));
@@ -155,13 +140,10 @@ sync();render();
 if(location.hash)requestAnimationFrame(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView({block:'start'}));
 
 function hoverCard(target){
-  if(target.dataset.monitorPoint)return monitorCardData(target.dataset.monitorPoint);
-  if(target.dataset.monitorCluster){const list=target.dataset.monitorCluster.split(',').map(monitorCardData).filter(Boolean);if(!list.length)return null;return {title:list.length+' nearby results',subtitle:'Select to compare',value:'',status:list.every(item=>item.status==='confirmed')?'confirmed':'needs_review',what:list.map(item=>item.title+': '+item.value).join('; '),meaning:'Each result uses the benchmark and setup in its own card.',how:'Select this cluster, then choose a model.',confidence:'Model release months are approximate availability proxies.',sources:[]};}
-  const legacy=target.dataset.pointId?measurements.find(item=>item.id===target.dataset.pointId):target.dataset.overviewPoint?visibleAnchors(state.cutoff).find(item=>item.id===target.dataset.overviewPoint):[...trackMilestones,trustContext].find(item=>item.id===target.dataset.trackMilestone);
-  if(!legacy)return null;const source=sourceCatalog.find(item=>item.id===legacy.sourceId);
-  return {title:legacy.model||legacy.label||legacy.title,subtitle:legacy.benchmark||legacy.kind||'Study milestone',value:Number.isFinite(legacy.score)?score(legacy):'',status:'reported',what:legacy.subset||legacy.design||legacy.finding||'Source-linked research milestone.',meaning:legacy.finding||legacy.metricDescription||legacy.limitations||'Historical benchmark result; not a clinical outcome.',how:legacy.setting||legacy.locator||'See the original source.',confidence:target.dataset.overviewPoint?'The source supports the milestone, not its illustrative IQ height.':'Historical source-backed record; see its limitations.',limit:legacy.limitations,sources:source?[{label:source.title,url:source.url,locator:legacy.sourceDetail||legacy.locator}]:[]};
+  const id=target.dataset.monitorPoint||target.dataset.pointId||target.dataset.overviewPoint||target.dataset.trackMilestone||target.dataset.studyId||target.dataset.historyId;
+  return editorialCard(id);
 }
-const hover=installPointHover(content,hoverCard);
+const hover=installPointHover(content,hoverCard,{onOpen:(id)=>{if(!dialog.open)highlightCard(id);},onClose:()=>{if(!dialog.open)highlightCard(null);}});
 let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{hover.hide();render();},150);});
 
 // UI language changes preserve the active chart, cutoff, model and open details.

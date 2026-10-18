@@ -46,7 +46,7 @@ test('overview preserves four curves, differentiated lines, scenarios and AlphaF
   expect(histories.slice(1).every(value=>value!=='none')).toBe(true);
   await page.locator('[data-history-id="alphafold2-2020"]').click();
   await expect(page.getByRole('dialog')).toContainText('CASP14');
-  await expect(page.getByRole('dialog').getByRole('link',{name:/Source/})).toHaveAttribute('href',/deepmind.google/);
+  await expect(page.getByRole('dialog').locator('.point-sources a').first()).toHaveAttribute('href',/deepmind.google/);
   await page.keyboard.press('Escape');
   await page.locator('#cutoff-date').fill('2020-12-31');await page.locator('#cutoff-date').press('Tab');
   await expect(page.locator('[data-history-id="alphafold3-2024"]')).toHaveCount(0);
@@ -74,8 +74,8 @@ test('benchmark disclosure preserves scores, original sources and focus',async({
   const id=await trigger.getAttribute('data-point-id');
   await expect(trigger.locator('.result-score')).toContainText('30.37%');
   await trigger.click();await expect(page.getByRole('dialog')).toContainText('30.37%');
-  await expect(page.getByRole('dialog').getByRole('link',{name:/Source/})).toHaveAttribute('href',/^https:/);
-  await page.getByRole('button',{name:'Close',exact:true}).click();
+  await expect(page.getByRole('dialog').locator('.point-sources a').first()).toHaveAttribute('href',/^https:/);
+  await page.getByRole('button',{name:'Close card',exact:true}).click();
   await expect(page.locator('[data-point-id="'+id+'"]').first()).toBeFocused();
 });
 
@@ -92,7 +92,7 @@ test('date cutoff and model filter affect benchmark results, not unrelated miles
 test('grouped overview sources and milestone keyboard access stay source-backed in English',async({page})=>{
   await page.locator('.overview-point[data-overview-cluster="mira-2026,residency-2026"]').press('Enter');
   await page.getByRole('dialog').getByRole('button',{name:'MIRA',exact:true}).click();
-  await expect(page.getByRole('dialog').getByRole('link',{name:/Source/})).toHaveAttribute('href','https://www.nature.com/articles/s41586-026-10675-5');
+  await expect(page.getByRole('dialog').locator('.point-sources a').first()).toHaveAttribute('href','https://www.nature.com/articles/s41586-026-10675-5');
   await expect(page.getByRole('dialog')).not.toContainText(/PPT|PowerPoint|Präsentation|Veröffentlicht/);
   await page.keyboard.press('Escape');
   await page.locator('.milestone-anchor[data-track-milestone="lower-star-2022"]').press('Enter');
@@ -165,15 +165,15 @@ test('copied chart link restores date and destination',async({page})=>{
   await expect(page).toHaveURL(/#chart-knowledge$/);
 });
 
-test('portable monitor renders observations and only separate eligible autonomy frontiers',async({page})=>{
+test('portable monitor renders observations and separate source-checked clinical and autonomy frontiers',async({page})=>{
   await expect(page.locator('.monitor-chart')).toHaveCount(3);
-  await expect(page.locator('.detail-charts .monitor-observation')).toHaveCount(41);
+  await expect(page.locator('.detail-charts .monitor-observation')).toHaveCount(37);
   await expect(page.locator('#chart-knowledge .monitor-observation')).toHaveCount(9);
   await expect(page.locator('#chart-assistance .monitor-observation')).toHaveCount(15);
   await expect(page.locator('#chart-knowledge .monitor-frontier')).toHaveCount(0);
-  await expect(page.locator('#chart-assistance .monitor-frontier')).toHaveCount(0);
+  await expect(page.locator('#chart-assistance .monitor-frontier')).not.toHaveCount(0);
   const ids=await page.locator('.detail-charts .monitor-frontier').evaluateAll(elements=>[...new Set(elements.map(element=>element.dataset.seriesId))]);
-  expect(ids.sort()).toEqual(['healthagentbench_msft_2026','medagentbench_stanford']);
+  expect(ids.sort()).toEqual(['healthagentbench_msft_2026','healthbench_core_2025','healthbench_pro_2026','medagentbench_stanford']);
   for(const chart of await page.locator('.monitor-chart').all())await expect(chart.locator('.monitor-calendar-note')).toContainText('Provisional timeline');
   await page.locator('#cutoff-date').fill('2025-01-01');await page.locator('#cutoff-date').press('Tab');
   await expect(page.locator('[data-observation-id="3.9"]')).toHaveCount(0);
@@ -181,18 +181,19 @@ test('portable monitor renders observations and only separate eligible autonomy 
   await expect(page.locator('.monitor-observation')).toHaveCount(0);
 });
 
-test('point tap and clusters expose five explanations and honest source availability',async({page})=>{
+test('point tap and clusters expose editorial findings, setup, limitations and checked sources',async({page})=>{
   await openMonitor(page,'3.9');
   const card=page.getByRole('dialog');
   await expect(card).toContainText('69.67%');
-  await expect(card.locator('.point-card-sections dt')).toHaveText(['What was tested?','What does this value mean?','How was it tested?','How sure are we?','Source']);
+  await expect(card.locator('.point-card-sections dt')).toHaveText(['SETUP & COHORT','LIMITATIONS & VALIDITY']);
   await expect(card.locator('.point-sources a')).toHaveAttribute('href','https://stanfordmlgroup.github.io/projects/medagentbench/');
-  await expect(card).toContainText('dates provisional');
+  await expect(card).toContainText('provisional model-release month');
+  await expect(page.locator('[data-observation-id="3.9"]').last()).toHaveClass(/is-selected/);
   await page.keyboard.press('Escape');
   await openMonitor(page,'2.1');
-  await expect(card).toContainText('Under review');
-  await expect(card.locator('.point-sources')).toContainText('Original source link not yet checked.');
-  await expect(card.locator('.point-sources a')).toHaveCount(0);
+  await expect(card).toContainText('Confirmed');
+  await expect(card.locator('.card-key-finding')).toContainText('15.54');
+  await expect(card.locator('.point-sources a')).toHaveAttribute('href','https://arxiv.org/html/2505.08775v1');
   await page.keyboard.press('Escape');
   const cluster=page.locator('.detail-charts [data-monitor-cluster]').first();
   await cluster.click();await expect(card.getByRole('heading',{name:'Choose a result'})).toBeVisible();
@@ -252,7 +253,7 @@ test('language switch preserves selection and translates new point cards, then r
   await expect(page.locator('#editorial-check')).toHaveText('Zuletzt geprüft 18. Okt. 2026');
   await expect(page.locator('.monitor-calendar-note').first()).toContainText('Vorläufiger Zeitverlauf');
   await openMonitor(page,'3.9');
-  await expect(page.getByRole('dialog').locator('.point-card-sections dt')).toHaveText(['Was wurde getestet?','Was bedeutet dieser Wert?','Wie wurde getestet?','Wie sicher ist das Ergebnis?','Quelle']);
+  await expect(page.getByRole('dialog').locator('.point-card-sections dt')).toHaveText(['AUFBAU & STICHPROBE','GRENZEN & VALIDITÄT']);
   await expect(page.getByRole('dialog')).toContainText('69,67%');
   await page.keyboard.press('Escape');
   await page.reload();await expect(page.locator('html')).toHaveAttribute('lang','de');
@@ -285,4 +286,22 @@ test('German header and menu fit at 320px and close on outside click',async({pag
   await page.locator('#menu-button').click();await expect(page.locator('#site-menu')).toBeVisible();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
   await page.locator('#overview-title').click();await expect(page.locator('#site-menu')).not.toBeVisible();
+});
+
+
+test('unplaced claims stay accessible, unconnected and visibly provisional',async({page})=>{
+  const details=page.locator('#chart-assistance .monitor-undated');
+  await details.locator('summary').click();
+  await details.locator('[data-monitor-point="2.14"]').click();
+  await expect(page.getByRole('dialog')).toContainText('Under review');
+  await expect(page.getByRole('dialog')).toContainText('original system-card table');
+  await expect(page.getByRole('dialog').locator('.point-sources a')).toHaveCount(0);
+  await page.keyboard.press('Escape');
+  await page.locator('[data-track-milestone="lower-amie-2025"]').last().click();
+  const card=page.getByRole('dialog');
+  await expect(card).toContainText('30/32');await expect(card).toContainText('25/26');
+  await expect(card.locator('.semantic-badge')).toHaveText('Peer-reviewed · 2025');
+  await expect(card.locator('.card-tags')).not.toHaveText(/^\s*·/);
+  await expect(card.locator('.point-sources')).toContainText('Nature 642, 442');
+  expect(await card.locator('.editorial-evidence-card').innerText()).not.toMatch(/What was tested\?|How sure are we\?|Historical source-backed/);
 });

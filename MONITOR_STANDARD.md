@@ -65,7 +65,12 @@ Always show plain-language labels first, metric and source second. Say what is a
 ## 8. File structure and identifiers
 `data/monitor-data.json` is valid UTF-8 JSON without comments. Maintain stable unique point IDs and stable series IDs; don't repurpose them. Preserve original `legacy` payload for audit where imported. Dates are ISO `YYYY-MM-DD` when known or `YYYY-MM` when only a month is supported; date precision is explicit. Missing information is `null`, never invented. Source links are HTTPS strings or null pending verification. All percentage-like metrics carry their true scale and meaning.
 
-## 9. Release checklist
+## 9. Editorial card/data consistency
+`editorialCards` is the canonical detail-content registry in the portable JSON. Each active record has a stable `cardId`. A card contains a semantic badge, tags array, finding (headline/explanation/value/unit/kind), setup, concrete limitations, short teaser, timeline_year, evidence_date, date_basis, timeline_note, sources with separate journal_citation, and validation. Numerically measured findings must equal their chart observation. Historical concepts state documented categorical outcomes rather than fabricated numeric performance.
+
+Keep score truth, comparison protocol and chronology separate. Confirmed but qualified MedQA results stay unconnected. Clinical product harnesses cannot join the base-model line. A score without a verified publication or availability date is retained in an accessible unplaced-results list; an unknown publication date is shown only at/after the audit date in historical views. No invented dates or performance lines.
+
+## 10. Release checklist
 - [ ] Every chart says what was tested and what the score means.
 - [ ] Main-line points are confirmed and comparable.
 - [ ] Retrospective results are labeled and dated properly.
@@ -80,12 +85,12 @@ Always show plain-language labels first, metric and source second. Say what is a
 
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
-- Schema: 1.0
-- SHA-256 (parsed JSON): `e3c0f4d89f2ca6dcac5f058667bf5eac1c77e899721f11af4e791b867896f34e`
+- Schema: 1.1
+- SHA-256 (parsed JSON): `6ca974ba4acd6e1417fbbf0666384b16371d5e816e5884d04ce9d489eddc5e88`
 - Tracks / benchmark series / measurements: 3 / 5 / 41
-- Score validation: 18 confirmed, 0 reported, 23 under review
-- Main-line eligible scores: 17; original-link gaps: 22
-- Chronology: 41 unknown evaluation dates; 41 month-precision release proxies
+- Score validation: 38 confirmed, 1 reported, 2 under review
+- Main-line eligible scores: 28; original-link gaps: 2
+- Chronology: 41 unknown evaluation dates; 40 month-precision release proxies
 - Last evidence review: 2026-10-18; last data change: 2026-10-18
 - Calendar positioning uses model availability proxies, not evaluation dates. Confirmed scores do not validate release-month chronology or source-publication dates and versions.
 - Frontier must be recalculated separately within each benchmark series. Pending and qualified-only records do not form a confirmed main line.

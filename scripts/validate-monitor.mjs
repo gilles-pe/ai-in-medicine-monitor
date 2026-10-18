@@ -93,6 +93,27 @@ export function validateMonitor(data) {
       }
     }
   }
+  // The shared editorial card registry is the only active detail-card content.
+  if(data.meta?.cardSchemaVersion){
+    const cards=data.editorialCards||{};
+    const cardRefs=[...(data.tracks||[]).flatMap(t=>(t.series||[]).flatMap(s=>s.data||[])),...['measurements','trendPoints','pointEvidence','historyEvents','trackMilestones','studies'].flatMap(key=>data.extensions?.legacyDashboard?.[key]||[]),data.extensions?.legacyDashboard?.trustContext].filter(Boolean);
+    for(const record of cardRefs){if(!cards[record.cardId])fail('card['+record.id+']','missing canonical editorial card');}
+    for(const [id,card] of Object.entries(cards)){
+      for(const key of ['title','setup','limitations','teaser','date_basis','timeline_note'])if(!text(card[key]))fail('editorialCards.'+id+'.'+key,'required');
+      if(!text(card.finding?.headline)||!text(card.finding?.explanation))fail('editorialCards.'+id+'.finding','explicit outcome and meaning required');
+      if(!Array.isArray(card.tags)||!card.tags.every(tag=>typeof tag==='string'))fail('editorialCards.'+id+'.tags','array of strings required');
+      if(!STATUSES.has(card.validation?.status))fail('editorialCards.'+id+'.validation','explicit status required');
+      if(card.evidence_date!==null && !isMonitorDate(card.evidence_date))fail('editorialCards.'+id+'.evidence_date','supported evidence date or null required');
+      if(card.evidence_date && card.timeline_year!==Number(card.evidence_date.slice(0,4)))fail('editorialCards.'+id+'.timeline_year','must match cited evidence version');
+      if(/Historical source-backed record; see its limitations|What was tested\?|How was it tested\?/.test(JSON.stringify(card)))fail('editorialCards.'+id,'deprecated boilerplate or Q&A labels');
+      for(const source of card.sources||[])if(source.url!==null && !isSourceUrl(source.url))fail('editorialCards.'+id+'.sources','HTTPS or null required');
+    }
+    for(const track of data.tracks||[])for(const series of track.series||[])for(const point of series.data||[]){
+      const card=cards[point.cardId];if(!card)continue;
+      if(card.finding.value!==point.value)fail('editorialCards.'+point.cardId+'.finding','card and chart numeric value differ');
+      if(card.validation.status!==point.validation.status)fail('editorialCards.'+point.cardId+'.validation','card and chart status differ');
+    }
+  }
   if (summary.confirmed && /41 imported data points are unverified/.test(data.meta?.reviewNote || '')) warn('meta.reviewNote', 'historical import note predates the partial audit; display current validation counts instead');
   if (summary.monthPrecisionReleaseDates) warn('chronology', 'release-month proxies are provisional imported metadata; score confirmation does not validate release, evaluation or publication dates. Source publication dates and versions require separate audit.');
   return { errors, warnings, summary };

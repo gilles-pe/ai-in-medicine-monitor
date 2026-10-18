@@ -21,17 +21,16 @@ A glanceable medical AI progress radar for presentations, mobile screens, physic
 - Horizontal baseline only when test protocol supports it; benchmark context baselines use different styling with an explanation.
 - Highlight meaningful real milestones, not every press release.
 
-## Point detail card - exact content contract
-Compact top area: model/system + date; value + benchmark title; validation status.
-Then these five user-facing items in this order:
-1. **What was tested?** One sentence, e.g. '300 simulated tasks in an electronic patient record.'
-2. **What does this value mean?** One sentence, e.g. 'Succeeded on 69.7% of those tasks in this test.'
-3. **How was it tested?** Short indication of setup/tools and whether older model evaluated later.
-4. **How sure are we?** Confirmed / Reported / Under review, and brief comparability qualifier.
-5. **Source**: one or more tappable original links with readable labels, ideally specific table/page.
-Optional: distinct 'Why it matters' one-liner and benchmark-specific caveat.
+## Point detail card - editorial schema 2.0
+All benchmark, milestone, history and study cards resolve their stable `cardId` through `editorialCards` in the central JSON. No generated fallback prose.
 
-The card content comes from structured JSON (`explain`, `setup`, `validation`, `sources`), not invented or generated live on hover. When a field is absent, show 'Not yet checked', never invent.
+- Header: semantic evidence pill (publication type and version year), explicit 44px close control, serif title. Subtitle uses `tags.filter(Boolean).join(' · ')`.
+- Key finding: highlighted warm surface with a gold 2px accent; bold quantitative result or hard documented comparison plus one sentence of meaning. Conceptual historical events must state a documented outcome, never invented performance.
+- SETUP & COHORT: concise sample, design, prompting/tools and grading facts. No journal citation here.
+- LIMITATIONS & VALIDITY: actual methodological bottlenecks and visible per-claim status/comparability. A checked score does not establish real-world safety or calendar dates.
+- Footer: original paper title link, followed by its journal/report citation exactly once. Locators are attached to the source link. No redundant Source heading or Q&A headings.
+- `timeline_year` identifies the cited evidence version; `evidence_date` and `journal_citation` are distinct. Lower chart x-position remains a visibly provisional model-availability proxy, not the journal year. Never backdate an expanded final paper's findings into the preprint year.
+- Active points/milestones remain highlighted while the card is open. Desktop hover previews and mobile/keyboard dialogs use identical evidence content. Unknown timeline dates stay in a separate accessible list rather than being invented.
 
 ## Interaction & accessibility
 - Desktop: hover reveals card; click pins it for source clicking. Mouse leave does not instantly hide an interactive pinned card.
@@ -61,12 +60,12 @@ The compact header includes a language switch and hamburger navigation. The menu
 
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
-- Schema: 1.0
-- SHA-256 (parsed JSON): `e3c0f4d89f2ca6dcac5f058667bf5eac1c77e899721f11af4e791b867896f34e`
+- Schema: 1.1
+- SHA-256 (parsed JSON): `6ca974ba4acd6e1417fbbf0666384b16371d5e816e5884d04ce9d489eddc5e88`
 - Tracks / benchmark series / measurements: 3 / 5 / 41
-- Score validation: 18 confirmed, 0 reported, 23 under review
-- Main-line eligible scores: 17; original-link gaps: 22
-- Chronology: 41 unknown evaluation dates; 41 month-precision release proxies
+- Score validation: 38 confirmed, 1 reported, 2 under review
+- Main-line eligible scores: 28; original-link gaps: 2
+- Chronology: 41 unknown evaluation dates; 40 month-precision release proxies
 - Last evidence review: 2026-10-18; last data change: 2026-10-18
 - Calendar positioning uses model availability proxies, not evaluation dates. Confirmed scores do not validate release-month chronology or source-publication dates and versions.
 - Frontier must be recalculated separately within each benchmark series. Pending and qualified-only records do not form a confirmed main line.

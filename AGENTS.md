@@ -25,7 +25,7 @@ Maintain a popular-science 'Digital Health & AI in Medicine' showing medical AI 
 1. Read current JSON; identify track, exact benchmark name/version and latest reviewed source.
 2. Search primary sources for new scores on existing benchmarks first; then propose any new benchmark separately.
 3. For each candidate capture exact benchmark, metric, score, model/system, release date, evaluation/publication dates, prompt/tool/harness configuration, exact primary URL and table/figure location.
-4. Write plain-language `explain.whatWasTested` and `explain.whatValueMeans` (one sentence each); optionally `whyItMatters`.
+4. Update the canonical editorial card: quantitative/comparative finding, teaser, setup/cohort, actual limitations, source footer and evidence date/version. Keep legacy `explain` compatibility fields consistent. Never duplicate citations in setup text.
 5. Set validation status honestly: `confirmed`, `reported`, or `needs_review`; set comparability separately.
 6. Deliver a JSON patch proposal/change log. Flag conflicting sources and methodology changes for human review.
 
@@ -51,6 +51,9 @@ Maintain a popular-science 'Digital Health & AI in Medicine' showing medical AI 
 ## Portable data contract
 Location: `data/monitor-data.json` (UTF-8 JSON). Sections: `meta`, `tracks[]`, `tracks[].series[]`, `series[].data[]`. Point keys: `id`, `model`, `modelReleaseDate`, `evaluationDate`, `publicationDate`, `value`, `setup`, `explain`, `validation`, `sources`, `legacy`. Track and series definitions provide user-facing title, axis/metric description and methodological warnings. `sources` should be structured with `url` and `locator` when verified. All unknowns are null or needs_review.
 
+## Editorial card maintenance
+Every active point, study and milestone references the shared `editorialCards` registry by stable `cardId`. Card content must agree with chart values and validation status. Preserve old imported content in the change log/archive. Read the schema 2.0 card contract in DESIGN.md. Historical conceptual events use documented categorical outcomes, not invented IQ or accuracy values.
+
 ## Before declaring ready
 Check JSON parses, IDs unique, every published line point eligible, no joined incompatible series, source links valid, point cards complete, mobile behavior, and last-updated semantics. Produce a brief list of unresolved issues for the human owner.
 
@@ -59,12 +62,12 @@ Check JSON parses, IDs unique, every published line point eligible, no joined in
 
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
-- Schema: 1.0
-- SHA-256 (parsed JSON): `e3c0f4d89f2ca6dcac5f058667bf5eac1c77e899721f11af4e791b867896f34e`
+- Schema: 1.1
+- SHA-256 (parsed JSON): `6ca974ba4acd6e1417fbbf0666384b16371d5e816e5884d04ce9d489eddc5e88`
 - Tracks / benchmark series / measurements: 3 / 5 / 41
-- Score validation: 18 confirmed, 0 reported, 23 under review
-- Main-line eligible scores: 17; original-link gaps: 22
-- Chronology: 41 unknown evaluation dates; 41 month-precision release proxies
+- Score validation: 38 confirmed, 1 reported, 2 under review
+- Main-line eligible scores: 28; original-link gaps: 2
+- Chronology: 41 unknown evaluation dates; 40 month-precision release proxies
 - Last evidence review: 2026-10-18; last data change: 2026-10-18
 - Calendar positioning uses model availability proxies, not evaluation dates. Confirmed scores do not validate release-month chronology or source-publication dates and versions.
 - Frontier must be recalculated separately within each benchmark series. Pending and qualified-only records do not form a confirmed main line.

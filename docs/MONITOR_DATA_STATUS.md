@@ -5,12 +5,12 @@
 
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
-- Schema: 1.0
-- SHA-256 (parsed JSON): `e3c0f4d89f2ca6dcac5f058667bf5eac1c77e899721f11af4e791b867896f34e`
+- Schema: 1.1
+- SHA-256 (parsed JSON): `6ca974ba4acd6e1417fbbf0666384b16371d5e816e5884d04ce9d489eddc5e88`
 - Tracks / benchmark series / measurements: 3 / 5 / 41
-- Score validation: 18 confirmed, 0 reported, 23 under review
-- Main-line eligible scores: 17; original-link gaps: 22
-- Chronology: 41 unknown evaluation dates; 41 month-precision release proxies
+- Score validation: 38 confirmed, 1 reported, 2 under review
+- Main-line eligible scores: 28; original-link gaps: 2
+- Chronology: 41 unknown evaluation dates; 40 month-precision release proxies
 - Last evidence review: 2026-10-18; last data change: 2026-10-18
 - Calendar positioning uses model availability proxies, not evaluation dates. Confirmed scores do not validate release-month chronology or source-publication dates and versions.
 - Frontier must be recalculated separately within each benchmark series. Pending and qualified-only records do not form a confirmed main line.
