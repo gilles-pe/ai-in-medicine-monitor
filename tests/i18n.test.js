@@ -22,7 +22,7 @@ test('German UI covers source explanations without changing model IDs or primary
 });
 test('renamed SVG branding is XML escaped and German export retains the selected language',()=>{
   setLanguage('de');const svg=buildExportSvg('',{title:'Medical knowledge',cutoff:'2026-10-18'});
-  assert.match(svg,/AI in Medicine/);assert.doesNotMatch(svg,/Digital Health/);
+  assert.match(svg,/Digital Health &amp; AI in Medicine/);
   assert.match(svg,/Medizinisches Wissen/);assert.match(svg,/Stand 2026-10-18/);setLanguage('en');
 });
 test('feedback composes an encoded draft without sending a message',()=>{

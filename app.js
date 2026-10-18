@@ -2,13 +2,11 @@ import { feedbackUrl } from './lib/navigation.js';
 import { applyLanguage, getLanguage, setLanguage, preferredLanguage, translateText } from './lib/i18n.js';
 import { monitorData } from './lib/monitor-data.js';
 import { buildTrackSeries } from './lib/monitor-series.js';
-import { renderMonitorChart, renderMonitorDetails } from './lib/monitor-chart.js';
+import { renderMonitorChart } from './lib/monitor-chart.js';
 import { monitorCardData, monitorPoint, editorialCard, pointCardHtml, installPointHover } from './lib/point-card.js';
 import { downloadMonitorPackage } from './lib/monitor-export.js';
-import { exportChart, copyChartLink } from './lib/chart-export.js';
 import { tracks, measurements, sourceCatalog, editorialStatus, studies } from './data/evidence.js';
 import { trackMilestones, trustContext } from './data/track-milestones.js';
-import { renderTrackHistory, visibleTrackMilestones } from './lib/track-history.js';
 import { renderOverview, visibleHistory, visibleAnchors } from './lib/overview.js';
 import { filterMeasurements, latestByModel, escapeHtml as e } from './lib/selectors.js';
 
@@ -20,7 +18,7 @@ document.documentElement.lang=getLanguage();
 const today=new Date().toISOString().slice(0,10);
 const sharedCutoff=new URLSearchParams(location.search).get('cutoff');
 const initialCutoff=/^\d{4}-\d{2}-\d{2}$/.test(sharedCutoff||'')&&Number.isFinite(Date.parse(sharedCutoff+'T00:00:00Z'))&&new Date(sharedCutoff+'T00:00:00Z').toISOString().slice(0,10)===sharedCutoff&&sharedCutoff>='1950-01-01'&&sharedCutoff<='2030-12-31'?sharedCutoff:today;
-const state={cutoff:initialCutoff,model:'',playing:false,presentation:false};
+const state={cutoff:initialCutoff,model:'',playing:false,presentation:false,seriesView:{}};
 const dates=new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});
 const numbers=new Intl.NumberFormat('en-GB',{maximumFractionDigits:2});
 const date=value=>dates.format(new Date(value+'T00:00:00Z'));
@@ -47,40 +45,43 @@ function showStudy(id){if(studies.some(item=>item.id===id&&item.date<=state.cuto
 function showHistory(id){if(visibleHistory(state.cutoff).some(item=>item.id===id))showEditorialCard(id);}
 function showOverviewPoint(id){if(visibleAnchors(state.cutoff).some(item=>item.id===id))showEditorialCard(id);}
 function clusterHeading(title){return '<div class="card-topbar"><h2 id="detail-title" class="dialog-title">'+e(title)+'</h2><button id="close-dialog" class="card-close" data-card-close type="button" aria-label="Close card">×</button></div>';}
-function showOverviewCluster(ids){
-  const points=visibleAnchors(state.cutoff).filter(item=>ids.split(',').includes(item.id));if(!points.length)return;
-  stop();$('#detail-body').innerHTML=clusterHeading(points[0].year+' · Studies')+'<div class="point-index-list">'+points.map(item=>'<button type="button" data-overview-point="'+e(item.id)+'">'+e(item.label)+'</button>').join('')+'</div>';dialog.showModal();
+function showCardSelection(ids,index=0){
+  const cards=ids.map(editorialCard).filter(Boolean);if(!cards.length)return;
+  const selected=Math.max(0,Math.min(index,cards.length-1));
+  stop();hover?.hide();
+  const controls=cards.length>1?'<div class="card-selection" role="group" aria-label="Results">'+cards.map((card,i)=>'<button type="button" data-card-choice="'+i+'" aria-pressed="'+(i===selected)+'">'+e(card.title)+'</button>').join('')+'</div>':'';
+  dialog.dataset.cardIds=cards.map(c=>c.id).join(',');
+  $('#detail-body').innerHTML=controls+pointCardHtml(cards[selected]);if(!dialog.open)dialog.showModal();highlightCard(cards[selected].id);
 }
+function showOverviewCluster(ids){const visible=new Set(visibleAnchors(state.cutoff).map(p=>p.id));showCardSelection(ids.split(',').filter(id=>visible.has(id)));}
 function renderPreviews(allRows){
-  return '<section id="charts" class="benchmark-previews" aria-label="Charts"><div class="thumbnail-grid">'+tracks.map(track=>'<a class="chart-thumbnail" href="#chart-'+track.id+'" style="--track:'+track.color+'"><span class="thumbnail-title">'+e(track.label)+' <span aria-hidden="true">↘</span></span>'+renderMonitorChart(track,state.cutoff,{preview:true,model:state.model})+'<span class="thumbnail-meta">Provisional timeline</span></a>').join('')+'</div></section>';
+  return '<section id="charts" class="benchmark-previews" aria-label="Charts"><div class="thumbnail-grid">'+tracks.map(track=>'<a class="chart-thumbnail" href="#chart-'+track.id+'" style="--track:'+track.color+'"><span class="thumbnail-title">'+e(track.label)+' <span aria-hidden="true">↘</span></span>'+renderMonitorChart(track,state.cutoff,{preview:true,model:state.model})+'</a>').join('')+'</div></section>';
 }
 function showMonitorPoint(id){
-  const item=monitorPoint(id);if(!item)return;
+  const item=monitorPoint(id);if(!item||item.point.validation.status!=='confirmed')return;
   const visible=buildTrackSeries(item.track.trackId,state.cutoff).series.some(series=>[...series.points,...series.undated].some(point=>point.id===id));if(visible)showEditorialCard(id);
 }
-function showMonitorCluster(ids){
-  const cards=ids.split(',').map(id=>({id,card:monitorCardData(id)})).filter(item=>item.card);if(!cards.length)return;
-  stop();hover?.hide();$('#detail-body').innerHTML=clusterHeading('Choose a result')+'<div class="point-cluster-list">'+cards.map(({id,card})=>'<button type="button" data-monitor-point="'+e(id)+'"><span>'+e(card.title)+'</span><span>'+e(card.finding.headline)+' · '+e(card.status==='confirmed'?'Score confirmed · dates provisional':card.status==='reported'?'Reported':'Under review')+'</span></button>').join('')+'</div>';if(!dialog.open)dialog.showModal();highlightCard(cards[0].id);
+function showMonitorCluster(ids){showCardSelection(ids.split(',').filter(id=>monitorPoint(id)?.point.validation.status==='confirmed'));}
+function renderTrack(track,index){
+  const series=buildTrackSeries(track.id,state.cutoff).series;
+  const selected=state.seriesView[track.id]||'all';
+  const selector=series.length>1?'<select class="series-selector" data-series-view="'+track.id+'" aria-label="'+e(track.label+' benchmark view')+'"><option value="all"'+(selected==='all'?' selected':'')+'>Both</option>'+series.map(s=>'<option value="'+e(s.seriesId)+'"'+(selected===s.seriesId?' selected':'')+'>'+e(s.shortLabel||s.benchmarkName.split(' (')[0].split(' · ')[0])+'</option>').join('')+'</select>':'';
+  const marks=trackMilestones.filter(p=>p.trackId===track.id&&p.date<=state.cutoff);
+  const stories='<div class="chart-stories" aria-label="Milestones">'+marks.map(p=>'<button type="button" data-track-milestone="'+e(p.id)+'"><time>'+p.date.slice(0,4)+'</time><span>'+e(p.shortTitle)+'</span></button>').join('')+'</div>';
+  return '<section class="track" id="chart-'+track.id+'" data-track="'+track.id+'" tabindex="-1" aria-labelledby="track-'+track.id+'" style="--track:'+track.color+'"><div class="track-top"><h2 id="track-'+track.id+'">'+e(track.label)+'</h2>'+selector+'</div><div class="track-visual">'+stories+renderMonitorChart(track,state.cutoff,{model:state.model,seriesView:selected})+'</div></section>';
 }
-function renderResults(track,selected){
-  if(!selected.length)return '<p class="empty-state">No results for this selection.</p>';
-  return '<details class="benchmark-details"><summary>Benchmark results · '+selected.length+'</summary><div class="benchmark-table">'+latestByModel(selected).map(row=>'<button class="result-row" type="button" data-point-id="'+e(row.id)+'" aria-label="'+e(system(row)+', '+score(row)+', source')+'"><span class="result-name">'+e(system(row))+'</span><span class="result-score">'+e(score(row))+' ↗</span></button>').join('')+'</div></details>';
-}
-function chartTools(id){return '<div class="chart-tools"><button type="button" data-chart-copy="'+id+'">Copy link</button><button type="button" data-chart-export="'+id+'">Save image ↓</button></div>';}
-function renderTrack(track,index,allRows){
-  const selected=allRows.filter(row=>row.trackId===track.id);
-  const imported=buildTrackSeries(track.id,state.cutoff);
-  const subtitle=imported.track.question;
-  const next=tracks[index+1];
-  return '<section class="track" id="chart-'+track.id+'" data-track="'+track.id+'" tabindex="-1" aria-labelledby="track-'+track.id+'" style="--track:'+track.color+'"><div class="track-top"><h2 id="track-'+track.id+'">'+e(track.label)+'</h2><a href="#charts" class="back-link">↑ Charts</a></div>'+renderMonitorChart(track,state.cutoff,{model:state.model})+renderTrackHistory(track.id,state.cutoff,today,{timelineOnly:true})+'<details class="track-details"><summary>Details <span>Provisional timeline</span></summary>'+renderMonitorDetails(track,state.cutoff)+chartTools('chart-'+track.id)+renderResults(track,selected)+renderTrackHistory(track.id,state.cutoff,today,{readingsOnly:true})+(track.id==='assistance'&&trustContext.date<=state.cutoff?'<button class="trust-link text-button" data-track-milestone="nov-trust-2023" type="button">Trust study · 2023 ↗</button>':'')+'</details><div class="track-navigation">'+(next?'<a href="#chart-'+next.id+'">'+e(next.label)+' ↓</a>':'<a href="#charts">↑ Charts</a>')+'</div></section>';
-}
+let rendered=false;
 function render(){
-  const allRows=rows();
-  const available=studies.filter(item=>item.date<=state.cutoff);
-  timeControls.remove();
-  content.innerHTML=renderOverview(state.cutoff,today)+'<div id="timeline-slot"></div>'+renderPreviews(allRows)+'<div class="detail-charts">'+tracks.map((track,index)=>renderTrack(track,index,allRows)).join('')+'</div><details class="study-library"><summary>Studies</summary><div class="study-rows">'+available.map(item=>'<button type="button" data-study-id="'+item.id+'"><time>'+item.date.slice(0,4)+'</time><span>'+e(item.title)+'</span><span aria-hidden="true">↗</span></button>').join('')+'</div></details>';
-  $('#timeline-slot').append(timeControls);
-  content.querySelector('.overview .section-title').insertAdjacentHTML('beforeend',chartTools('overview'));
+  if(!rendered){
+    timeControls.remove();
+    content.innerHTML='<div id="overview-slot"></div><details id="milestones-panel" class="point-index"><summary>Milestones</summary><div id="timeline-slot"></div><div class="point-index-list" id="milestone-list"></div></details><div id="previews-slot"></div><div class="detail-charts" id="tracks-slot"></div><details class="study-library"><summary>Studies</summary><div class="study-rows" id="study-list"></div></details>';
+    $('#timeline-slot').append(timeControls);rendered=true;
+  }
+  $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false});
+  $('#milestone-list').innerHTML=visibleAnchors(state.cutoff).map(p=>'<button type="button" data-overview-point="'+e(p.id)+'">'+p.year+' · '+e(p.label)+'</button>').join('');
+  $('#previews-slot').innerHTML=renderPreviews(rows());
+  $('#tracks-slot').innerHTML=tracks.map(renderTrack).join('');
+  $('#study-list').innerHTML=studies.filter(p=>p.date<=state.cutoff).map(p=>'<button type="button" data-study-id="'+p.id+'"><time>'+p.date.slice(0,4)+'</time><span>'+e(p.title)+'</span><span aria-hidden="true">↗</span></button>').join('');
 }
 function sync(){
   $('#cutoff-date').value=state.cutoff;
@@ -108,27 +109,25 @@ function exportData(){
   const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='ai-in-medicine-'+state.cutoff+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('Data exported.');
 }
 async function action(event){
-  const copy=event.target.closest('[data-chart-copy]');
-  if(copy){try{announce(await copyChartLink(copy.dataset.chartCopy,state.cutoff));copy.textContent='Copied';setTimeout(()=>{if(copy.isConnected)copy.textContent='Copy link';},1800);}catch{announce('Could not copy link. Use the address bar.');}return;}
-  const download=event.target.closest('[data-chart-export]');
-  if(download){const section=document.getElementById(download.dataset.chartExport),svg=section?.querySelector('svg.monitor-chart-svg')||section?.querySelector('svg');if(!svg)return;download.disabled=true;try{announce(await exportChart(svg,{title:section.querySelector('h2')?.textContent||'AI in Medicine',cutoff:state.cutoff,filename:download.dataset.chartExport+'.png',note:download.dataset.chartExport==='overview'?'Illustrative scale. Sources support milestones, not IQ scores. https://ai-in-medicine-monitor.gillesp.chatgpt.site':'Best eligible score within each benchmark. Model release months are approximate availability proxies; older models were tested later. Unvalidated records do not form a confirmed line.'}));}catch{announce('Image export failed. Please try again.');}finally{download.disabled=false;}return;}
-
+  const choice=event.target.closest('[data-card-choice]');
+  if(choice){showCardSelection((dialog.dataset.cardIds||'').split(','),Number(choice.dataset.cardChoice));return;}
   for(const [attribute,handler] of [['data-monitor-cluster',showMonitorCluster],['data-monitor-point',showMonitorPoint],['data-overview-cluster',showOverviewCluster],['data-overview-point',showOverviewPoint],['data-history-id',showHistory],['data-track-milestone',showTrackMilestone],['data-point-id',showMeasurement],['data-study-id',showStudy]]){
     const target=event.target.closest('['+attribute+']');if(target){handler(target.getAttribute(attribute));return;}
   }
 }
 content.addEventListener('click',action);
+content.addEventListener('change',event=>{if(event.target.matches('[data-series-view]')){state.seriesView[event.target.dataset.seriesView]=event.target.value;render();}});
 content.addEventListener('keydown',event=>{if(['Enter',' '].includes(event.key)&&event.target.closest('svg [role="button"]')){event.preventDefault();action(event);}});
 $('#detail-body').addEventListener('click',action);
 dialog.addEventListener('click',event=>{if(event.target.closest('[data-card-close]'))dialog.close();});
 dialog.addEventListener('close',()=>{hover.hide();highlightCard(null);});
-$('#model-filter').innerHTML='<option value="">All models</option>'+[...new Set([...measurements.map(row=>row.model),...monitorData.tracks.flatMap(track=>track.series.flatMap(series=>series.data.map(point=>point.model)))])].sort().map(model=>'<option>'+e(model)+'</option>').join('');
+$('#model-filter').innerHTML='<option value="">All models</option>'+[...new Set([...monitorData.tracks.flatMap(track=>track.series.flatMap(series=>series.data.filter(p=>p.validation.status==='confirmed').map(point=>point.model)))])].sort().map(model=>'<option>'+e(model)+'</option>').join('');
 $('#model-filter').addEventListener('change',event=>{stop();state.model=event.target.value;render();});
 $('#cutoff-date').addEventListener('change',event=>cutoff(event.target.value));
 $('#time-slider').addEventListener('input',event=>cutoff((1950+Number(event.target.value))+'-12-31'));
 $('#today-button').addEventListener('click',()=>cutoff(today));
 $('#play-button').addEventListener('click',play);
-$('#present-button').addEventListener('click',present);
+$('#present-button').addEventListener('click',()=>{present();closeMenu();});
 $('#export-button').addEventListener('click',exportData);
 $('#editorial-check').textContent='Last reviewed '+date(monitorData.meta.lastReviewedAt);
 $('#package-export-button').addEventListener('click',async event=>{const button=event.currentTarget;button.disabled=true;try{announce(await downloadMonitorPackage());}catch(error){announce('Package export failed: '+error.message);}finally{button.disabled=false;}});

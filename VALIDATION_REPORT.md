@@ -1,8 +1,11 @@
 # Evidence validation report
 Updated: 2026-10-18
 
-## Current numeric audit
-All 41 original observations and their numeric values are retained. The second audit reviewed the 23 previously pending records plus Flan-PaLM.
+## 2026 addition
+Three published Nature Medicine results use the same 500-item MedQA subset with search: GPT-5.2 94.2%, Claude Opus 4.6 90.2%, Gemini 3.1 Pro Preview 97.4%. Publication: 12 June 2026, Fig. 2a. This is a distinct study-specific series, not comparable to historical full-test MedQA. Provider search and inference settings are not compute-matched; training overlap and these conditions are stated in each card. The documented methodological criticism is not grounds for concealing the source conditions or treating the score as clinical validation.
+
+## Original numeric audit
+All 41 original observations and their numeric values are retained; 3 separately sourced 2026 MedQA observations have been added. The second audit reviewed the 23 previously pending records plus Flan-PaLM.
 
 - 38 numerical claims are source-checked. At whole-record level: 35 confirmed, 1 supplier-reported, 5 under review (3 source-checked Meerkat values with unresolved test setup plus 2 unresolved numerical claims).
 - 28 scores qualify for their benchmark-specific frontier: 5 HealthBench Core, 6 HealthBench Professional base-model evaluations, and 17 agent-benchmark scores.
@@ -39,11 +42,11 @@ The detailed 24-record review is stored in `extensions.researchAudit` inside the
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `368c591465b8f3af202e2e32ae12d613416acbc363732eb1e8a3e32da97cf4c2`
-- Tracks / benchmark series / measurements: 3 / 5 / 41
-- Score validation: 35 confirmed, 1 reported, 5 under review
-- Main-line eligible scores: 28; original-link gaps: 2
-- Chronology: 41 unknown evaluation dates; 40 month-precision release proxies
+- SHA-256 (parsed JSON): `f823515984ad81144764fd7b5ce9eb9a0a5bf6e569e10b777812608711bb0bf2`
+- Tracks / benchmark series / measurements: 3 / 6 / 44
+- Score validation: 38 confirmed, 1 reported, 5 under review
+- Main-line eligible scores: 31; original-link gaps: 2
+- Chronology: 44 unknown evaluation dates; 40 month-precision release proxies
 - Last evidence review: 2026-10-18; last data change: 2026-10-18
 - Calendar positioning uses model availability proxies, not evaluation dates. Confirmed scores do not validate release-month chronology or source-publication dates and versions.
 - Frontier must be recalculated separately within each benchmark series. Pending and qualified-only records do not form a confirmed main line.

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "AI in Medicine",
+    "title": "Digital Health & AI in Medicine",
     "xAxisRange": {
       "start": "2022-01",
       "end": "2026-10"
@@ -44,6 +44,10 @@
       {
         "date": "2026-10-18",
         "action": "Renamed to AI in Medicine. Compacted three lower tracks to one canvas each, with independent benchmark lines, and moved supporting explanations/results/exports behind closed Details disclosures. Numeric scores, sources and validation states unchanged."
+      },
+      {
+        "date": "2026-10-18",
+        "action": "Simplified the reading view, persisted Milestones across slider/model updates, moved presentation/language into the menu, added same-card result switching and benchmark views. Published view excludes unconfirmed records. Added three 2026 Nature Medicine results in a distinct 500-item search-enabled MedQA series; does not bridge historical MedQA. Source limitations include non-matched inference/search settings and training overlap."
       }
     ],
     "previousTitles": [
@@ -726,6 +730,177 @@
             }
           ],
           "sourceReviewStatus": "Reviewed per-point; see validation and date qualifications."
+        },
+        {
+          "seriesId": "medqa_nyu_search_500_2026",
+          "benchmarkName": "MedQA · 500 questions · Search enabled",
+          "lineStyle": "dashed",
+          "verified": true,
+          "metricLabel": "Accuracy (%)",
+          "question": "Medical examination questions",
+          "caveat": "A 500-question, search-enabled subset. Separate protocol from the historical MedQA records.",
+          "data": [
+            {
+              "id": "knowledge-nyu-gpt52",
+              "model": "GPT-5.2",
+              "modelReleaseDate": "2025-12-11",
+              "evaluationDate": null,
+              "publicationDate": "2026-06-12",
+              "evalPubDate": "2026-06-12",
+              "value": 94.2,
+              "isRetrospective": true,
+              "isFrontier": false,
+              "setup": "500 MedQA items (seed 62); search enabled; temperature 0; answer extraction checked.",
+              "source": "Vishwanath et al., Nature Medicine (2026)",
+              "sources": [
+                {
+                  "label": "General-purpose large language models outperform specialized clinical AI tools on medical benchmarks",
+                  "url": "https://www.nature.com/articles/s41591-026-04431-5",
+                  "locator": "Fig. 2a; Methods: benchmark construction, generation parameters and MedQA scoring",
+                  "type": "peer_reviewed_primary",
+                  "journal_citation": "Nature Medicine 32, 2405–2409 (2026)"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "MedQA · 500 questions · Search enabled",
+                "whatValueMeans": "94.2% correct (471/500)",
+                "whyItMatters": null,
+                "limitations": "Public exam questions may overlap training data. Search-enabled systems; inference settings are incompletely controlled. Not patient-care outcomes."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source review",
+                "note": "Fig. 2a values and common 500-item study protocol checked. Separate from full MedQA and Vals subsets; compute and search implementations are not matched. The September Matters Arising criticizes inference control and generalization."
+              },
+              "eligibleForMainline": true,
+              "comparisonGroup": "nyu_medqa_500_search_seed62",
+              "cardId": "knowledge-nyu-gpt52",
+              "teaser": "GPT-5.2: 94.2% on 500 MedQA questions.",
+              "timeline_year": 2026,
+              "journal_citation": "Nature Medicine 32, 2405–2409 (2026)",
+              "legacy": {
+                "additionReason": "Source-checked published 2026 exam result. No existing record overwritten."
+              },
+              "confidenceInterval95": [
+                91.8,
+                95.9
+              ],
+              "modelReleaseSource": {
+                "url": "https://openai.com/index/gpt-5-system-card-update-gpt-5-2/",
+                "locator": "Official release date"
+              },
+              "evaluationAccessMonth": "2026-02"
+            },
+            {
+              "id": "knowledge-nyu-claude46",
+              "model": "Claude Opus 4.6",
+              "modelReleaseDate": "2026-02-05",
+              "evaluationDate": null,
+              "publicationDate": "2026-06-12",
+              "evalPubDate": "2026-06-12",
+              "value": 90.2,
+              "isRetrospective": true,
+              "isFrontier": false,
+              "setup": "500 MedQA items (seed 62); search enabled; temperature 0; answer extraction checked.",
+              "source": "Vishwanath et al., Nature Medicine (2026)",
+              "sources": [
+                {
+                  "label": "General-purpose large language models outperform specialized clinical AI tools on medical benchmarks",
+                  "url": "https://www.nature.com/articles/s41591-026-04431-5",
+                  "locator": "Fig. 2a; Methods: benchmark construction, generation parameters and MedQA scoring",
+                  "type": "peer_reviewed_primary",
+                  "journal_citation": "Nature Medicine 32, 2405–2409 (2026)"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "MedQA · 500 questions · Search enabled",
+                "whatValueMeans": "90.2% correct (451/500)",
+                "whyItMatters": null,
+                "limitations": "Public exam questions may overlap training data. Search-enabled systems; inference settings are incompletely controlled. Not patient-care outcomes."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source review",
+                "note": "Fig. 2a values and common 500-item study protocol checked. Separate from full MedQA and Vals subsets; compute and search implementations are not matched. The September Matters Arising criticizes inference control and generalization."
+              },
+              "eligibleForMainline": true,
+              "comparisonGroup": "nyu_medqa_500_search_seed62",
+              "cardId": "knowledge-nyu-claude46",
+              "teaser": "Claude Opus 4.6: 90.2% on 500 MedQA questions.",
+              "timeline_year": 2026,
+              "journal_citation": "Nature Medicine 32, 2405–2409 (2026)",
+              "legacy": {
+                "additionReason": "Source-checked published 2026 exam result. No existing record overwritten."
+              },
+              "confidenceInterval95": [
+                87.3,
+                92.5
+              ],
+              "modelReleaseSource": {
+                "url": "https://www.anthropic.com/news/claude-opus-4-6",
+                "locator": "Official release date"
+              },
+              "evaluationAccessMonth": "2026-02"
+            },
+            {
+              "id": "knowledge-nyu-gemini31",
+              "model": "Gemini 3.1 Pro Preview",
+              "modelReleaseDate": "2026-02-19",
+              "evaluationDate": null,
+              "publicationDate": "2026-06-12",
+              "evalPubDate": "2026-06-12",
+              "value": 97.4,
+              "isRetrospective": true,
+              "isFrontier": false,
+              "setup": "500 MedQA items (seed 62); search enabled; temperature 0; answer extraction checked.",
+              "source": "Vishwanath et al., Nature Medicine (2026)",
+              "sources": [
+                {
+                  "label": "General-purpose large language models outperform specialized clinical AI tools on medical benchmarks",
+                  "url": "https://www.nature.com/articles/s41591-026-04431-5",
+                  "locator": "Fig. 2a; Methods: benchmark construction, generation parameters and MedQA scoring",
+                  "type": "peer_reviewed_primary",
+                  "journal_citation": "Nature Medicine 32, 2405–2409 (2026)"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "MedQA · 500 questions · Search enabled",
+                "whatValueMeans": "97.4% correct (487/500)",
+                "whyItMatters": null,
+                "limitations": "Public exam questions may overlap training data. Search-enabled systems; inference settings are incompletely controlled. Not patient-care outcomes."
+              },
+              "validation": {
+                "status": "confirmed",
+                "comparability": "same_protocol",
+                "reviewedAt": "2026-10-18",
+                "reviewedBy": "AI-assisted primary-source review",
+                "note": "Fig. 2a values and common 500-item study protocol checked. Separate from full MedQA and Vals subsets; compute and search implementations are not matched. The September Matters Arising criticizes inference control and generalization."
+              },
+              "eligibleForMainline": true,
+              "comparisonGroup": "nyu_medqa_500_search_seed62",
+              "cardId": "knowledge-nyu-gemini31",
+              "teaser": "Gemini 3.1 Pro Preview: 97.4% on 500 MedQA questions.",
+              "timeline_year": 2026,
+              "journal_citation": "Nature Medicine 32, 2405–2409 (2026)",
+              "legacy": {
+                "additionReason": "Source-checked published 2026 exam result. No existing record overwritten."
+              },
+              "confidenceInterval95": [
+                95.6,
+                98.5
+              ],
+              "modelReleaseSource": {
+                "url": "https://cloud.google.com/blog/products/ai-machine-learning/gemini-3-1-pro-on-gemini-cli-gemini-enterprise-and-vertex-ai",
+                "locator": "Official release date"
+              },
+              "evaluationAccessMonth": "2026-02"
+            }
+          ],
+          "shortLabel": "MedQA · 2026 study"
         }
       ],
       "question": "How much does AI know about medicine?",
@@ -6384,7 +6559,24 @@
         "Model release ≈": "Modellfreigabe ≈",
         "Professional": "Professional",
         "Different benchmarks use different tasks. Their lines stay separate; heights are not a direct comparison across tests. Hollow marks indicate older models tested later; diamonds are not eligible for a trend.": "Verschiedene Benchmarks verwenden unterschiedliche Aufgaben. Ihre Linien bleiben getrennt; Höhen sind zwischen Tests nicht direkt vergleichbar. Hohle Punkte zeigen später getestete ältere Modelle; Rauten gehören nicht zur Fortschrittslinie.",
-        "Provisional timeline · release months approximate. Model availability is not the test date.": "Vorläufiger Zeitverlauf · Freigabemonate sind Näherungen. Modellverfügbarkeit ist nicht das Testdatum."
+        "Provisional timeline · release months approximate. Model availability is not the test date.": "Vorläufiger Zeitverlauf · Freigabemonate sind Näherungen. Modellverfügbarkeit ist nicht das Testdatum.",
+        "MedQA · 500 questions · Search enabled": "MedQA · 500 Fragen · Mit Websuche",
+        "500 MedQA items (seed 62); search enabled; temperature 0; answer extraction checked.": "500 MedQA-Fragen (Seed 62); Websuche; Temperatur 0; Antwortauslesung geprüft.",
+        "Public exam questions may overlap training data. Search-enabled systems; inference settings are incompletely controlled. Not patient-care outcomes.": "Öffentliche Prüfungsfragen können in Trainingsdaten enthalten sein. Systeme mit Websuche; Inferenzbedingungen nur teilweise kontrolliert. Keine Behandlungsergebnisse.",
+        "2026 study; model availability positions the point. API access was reported for February 2026; exact evaluation day is unknown.": "Studie von 2026; Position nach Modellverfügbarkeit. API-Zugriff im Februar 2026 berichtet; genauer Testtag unbekannt.",
+        "Correct answers on a medical exam subset, with search enabled.": "Richtige Antworten auf einer Teilmenge medizinischer Prüfungsfragen mit Websuche.",
+        "GPT-5.2: 94.2% on 500 MedQA questions.": "GPT-5.2: 94,2% bei 500 MedQA-Fragen.",
+        "94.2% correct (471/500)": "94,2% richtig (471/500)",
+        "Claude Opus 4.6: 90.2% on 500 MedQA questions.": "Claude Opus 4.6: 90,2% bei 500 MedQA-Fragen.",
+        "90.2% correct (451/500)": "90,2% richtig (451/500)",
+        "Gemini 3.1 Pro Preview: 97.4% on 500 MedQA questions.": "Gemini 3.1 Pro Preview: 97,4% bei 500 MedQA-Fragen.",
+        "97.4% correct (487/500)": "97,4% richtig (487/500)",
+        "500 questions": "500 Fragen",
+        "Search enabled": "Mit Suche",
+        "Both": "Beide",
+        "Results": "Ergebnisse",
+        "MedQA · 2026 study": "MedQA · Studie 2026",
+        "Source checked": "Quelle geprüft"
       }
     },
     "navigation": {
@@ -11080,6 +11272,138 @@
         "status": "confirmed",
         "note": "Card claim and conditions checked against the linked primary evidence on 18 October 2026."
       }
+    },
+    "knowledge-nyu-gpt52": {
+      "title": "GPT-5.2",
+      "badge": {
+        "kind": "peer_reviewed",
+        "year": 2026
+      },
+      "tags": [
+        "MedQA",
+        "500 questions",
+        "Search enabled"
+      ],
+      "finding": {
+        "headline": "94.2% correct (471/500)",
+        "explanation": "Correct answers on a medical exam subset, with search enabled.",
+        "value": 94.2,
+        "unit": "%",
+        "kind": "quantitative"
+      },
+      "setup": "500 MedQA items (seed 62); search enabled; temperature 0; answer extraction checked.",
+      "limitations": "Public exam questions may overlap training data. Search-enabled systems; inference settings are incompletely controlled. Not patient-care outcomes.",
+      "teaser": "GPT-5.2: 94.2% on 500 MedQA questions.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-06-12",
+      "date_basis": "verified_evidence_publication",
+      "timeline_note": "2026 study; model availability positions the point. API access was reported for February 2026; exact evaluation day is unknown.",
+      "sources": [
+        {
+          "title": "General-purpose large language models outperform specialized clinical AI tools on medical benchmarks",
+          "url": "https://www.nature.com/articles/s41591-026-04431-5",
+          "journal_citation": "Nature Medicine 32, 2405–2409 (2026)",
+          "locator": "Fig. 2a; Methods: benchmark construction, generation parameters and MedQA scoring"
+        }
+      ],
+      "validation": {
+        "status": "confirmed",
+        "comparability": "same_protocol",
+        "reviewedAt": "2026-10-18",
+        "reviewedBy": "AI-assisted primary-source review",
+        "note": "Fig. 2a values and common 500-item study protocol checked. Separate from full MedQA and Vals subsets; compute and search implementations are not matched. The September Matters Arising criticizes inference control and generalization."
+      },
+      "release": "2025-12-11",
+      "publication": "2026-06-12",
+      "evaluation": null
+    },
+    "knowledge-nyu-claude46": {
+      "title": "Claude Opus 4.6",
+      "badge": {
+        "kind": "peer_reviewed",
+        "year": 2026
+      },
+      "tags": [
+        "MedQA",
+        "500 questions",
+        "Search enabled"
+      ],
+      "finding": {
+        "headline": "90.2% correct (451/500)",
+        "explanation": "Correct answers on a medical exam subset, with search enabled.",
+        "value": 90.2,
+        "unit": "%",
+        "kind": "quantitative"
+      },
+      "setup": "500 MedQA items (seed 62); search enabled; temperature 0; answer extraction checked.",
+      "limitations": "Public exam questions may overlap training data. Search-enabled systems; inference settings are incompletely controlled. Not patient-care outcomes.",
+      "teaser": "Claude Opus 4.6: 90.2% on 500 MedQA questions.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-06-12",
+      "date_basis": "verified_evidence_publication",
+      "timeline_note": "2026 study; model availability positions the point. API access was reported for February 2026; exact evaluation day is unknown.",
+      "sources": [
+        {
+          "title": "General-purpose large language models outperform specialized clinical AI tools on medical benchmarks",
+          "url": "https://www.nature.com/articles/s41591-026-04431-5",
+          "journal_citation": "Nature Medicine 32, 2405–2409 (2026)",
+          "locator": "Fig. 2a; Methods: benchmark construction, generation parameters and MedQA scoring"
+        }
+      ],
+      "validation": {
+        "status": "confirmed",
+        "comparability": "same_protocol",
+        "reviewedAt": "2026-10-18",
+        "reviewedBy": "AI-assisted primary-source review",
+        "note": "Fig. 2a values and common 500-item study protocol checked. Separate from full MedQA and Vals subsets; compute and search implementations are not matched. The September Matters Arising criticizes inference control and generalization."
+      },
+      "release": "2026-02-05",
+      "publication": "2026-06-12",
+      "evaluation": null
+    },
+    "knowledge-nyu-gemini31": {
+      "title": "Gemini 3.1 Pro Preview",
+      "badge": {
+        "kind": "peer_reviewed",
+        "year": 2026
+      },
+      "tags": [
+        "MedQA",
+        "500 questions",
+        "Search enabled"
+      ],
+      "finding": {
+        "headline": "97.4% correct (487/500)",
+        "explanation": "Correct answers on a medical exam subset, with search enabled.",
+        "value": 97.4,
+        "unit": "%",
+        "kind": "quantitative"
+      },
+      "setup": "500 MedQA items (seed 62); search enabled; temperature 0; answer extraction checked.",
+      "limitations": "Public exam questions may overlap training data. Search-enabled systems; inference settings are incompletely controlled. Not patient-care outcomes.",
+      "teaser": "Gemini 3.1 Pro Preview: 97.4% on 500 MedQA questions.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-06-12",
+      "date_basis": "verified_evidence_publication",
+      "timeline_note": "2026 study; model availability positions the point. API access was reported for February 2026; exact evaluation day is unknown.",
+      "sources": [
+        {
+          "title": "General-purpose large language models outperform specialized clinical AI tools on medical benchmarks",
+          "url": "https://www.nature.com/articles/s41591-026-04431-5",
+          "journal_citation": "Nature Medicine 32, 2405–2409 (2026)",
+          "locator": "Fig. 2a; Methods: benchmark construction, generation parameters and MedQA scoring"
+        }
+      ],
+      "validation": {
+        "status": "confirmed",
+        "comparability": "same_protocol",
+        "reviewedAt": "2026-10-18",
+        "reviewedBy": "AI-assisted primary-source review",
+        "note": "Fig. 2a values and common 500-item study protocol checked. Separate from full MedQA and Vals subsets; compute and search implementations are not matched. The September Matters Arising criticizes inference control and generalization."
+      },
+      "release": "2026-02-19",
+      "publication": "2026-06-12",
+      "evaluation": null
     }
   }
 }
