@@ -94,3 +94,15 @@ Die Beschriftung lautet „IQ zur Verdeutlichung“. Die große Grafik enthält 
 Private Bereitstellung erfolgreich: https://ai-in-medicine-monitor.gillesp.chatgpt.site, Deployment appgdep_6ad3c04f43908191b472e565e36ba970, Quellcommit d9def5c9cd39b06354f2727f0c96536f0899a2b4. Live geprüft: Quellen-Auswahl → MIRA → korrekte Nature-Originalquelle, Vorschau → Messspur, 2030-Grenze und kein horizontaler Seitenüberlauf. Mobil bei 390 × 844: drei bedienbare Vorschauen, aktueller Grafikausschnitt und kein Seitenüberlauf. Desktop-Sichtprüfung einschließlich korrigierter Achsenbeschriftung abgeschlossen; Bildschirmgröße danach zurückgesetzt.
 
 ![Live-Stand mit Quellenankern und Vorschauen](design/current-dashboard-2030.png)
+
+## Redaktionelle Gestaltung und frühere Meilensteine - 18. Oktober 2026
+
+Die obere Grafik, ihre Liniengeometrie und die 24 Quellenanker bleiben unverändert. Die übrige Gestaltung wurde näher an Konzept A ausgerichtet: offene Diagrammspuren, größere Typografie, weniger Kartenflächen, flache Quellen- und Modellverweise. Die untere Datumsachse beginnt 2022. Je Spur sind drei eigenständige Publikationsmeilensteine mit Quelle und Grenzen ergänzt; ihre Ereignismarker haben keine Leistungsordinate und werden nicht zu einer vergleichbaren Wachstumskurve verbunden. Die 13 Benchmark-Messwerte sind unverändert.
+
+Wissen: Flan-PaLM/Med-PaLM (2022), ChatGPT/USMLE-Beispielfragen (2023), MedXpertQA (2025). Denken/Assistenz: Ayers' Antwortvergleich (2023), Gohs Vignetten-RCT (2024), AMIE (2025). Selbstständige Abläufe: STAR im präklinischen Tiermodell (2022), MedAgentBench (2025), MIRA (2026). Die frühe Vertrauensbefragung von Nov et al. (2023) ist separat verlinkt. Präferenz, Vertrauen, Diagnostik, Robotik und EHR-Aufgabenerledigung bleiben getrennte Endpunkte.
+
+[CI](https://github.com/gilles-pe/ai-in-medicine-monitor/actions/runs/39093824923), Commit 37ab63ef089d1b34dcc67c902226729d43a487df: erfolgreich. 21 Node-Tests, Build und 26 Browserprüfungen für Desktop und Mobilansicht. Die neue Prüfung deckt die historischen Quellen, Datumsgrenzen, getrennte Evidenztypen, Tastaturbedienung und den Export ab. Keine zusätzliche manuelle Sichtprüfung: der Browser-Connector ist in dieser Sitzung nicht verfügbar; kein alternativer Vorschau-Server wurde gestartet.
+
+Quellen und Hintergrund: [Studienregister](studies-and-background.md). Offene visuelle Abnahme: [TODO](TODO.md). Die Screenshots weiter oben dokumentieren den vorherigen Stand vom 17.10.2026.
+
+Private Bereitstellung am 18.10.2026 erfolgreich bestätigt: https://ai-in-medicine-monitor.gillesp.chatgpt.site. Deployment: `appgdep_6ad43db87b4c8191b9a4199ee409913d`; Sites-Quellcommit: `277e21e9c330eba2d98bbb6fe286d344c3f487e2`. Bestehender Eigentümerzugang bleibt erhalten. Der native Erfolgsstatus bestätigt die Bereitstellung, ersetzt die noch offene manuelle Sichtprüfung jedoch nicht.
