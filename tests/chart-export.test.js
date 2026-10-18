@@ -7,7 +7,7 @@ test('standalone export includes dated branding, source caveats and vector conte
     title: 'Clinical thinking', cutoff: '2026-10-18', note: 'A simulation, not clinical care.', viewBox: [0, 0, 1000, 400]
   });
   assert.match(svg, /^<svg xmlns="http:\/\/www.w3.org\/2000\/svg"/);
-  assert.match(svg, /Digital Health &amp; AI in Medicine/);
+  assert.match(svg, /AI in Medicine/);
   assert.doesNotMatch(svg, /Gilles|Penning/);
   assert.match(svg, /As of 2026-10-18/);
   assert.match(svg, /A simulation, not clinical care\./);

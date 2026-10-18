@@ -22,13 +22,13 @@ test('German UI covers source explanations without changing model IDs or primary
 });
 test('renamed SVG branding is XML escaped and German export retains the selected language',()=>{
   setLanguage('de');const svg=buildExportSvg('',{title:'Medical knowledge',cutoff:'2026-10-18'});
-  assert.match(svg,/Digital Health &amp; AI in Medicine/);assert.doesNotMatch(svg,/Digital Health & AI/);
+  assert.match(svg,/AI in Medicine/);assert.doesNotMatch(svg,/Digital Health/);
   assert.match(svg,/Medizinisches Wissen/);assert.match(svg,/Stand 2026-10-18/);setLanguage('en');
 });
 test('feedback composes an encoded draft without sending a message',()=>{
-  const url=feedbackUrl('Study & feedback\nSecond line','Digital Health & AI in Medicine','owner@example.com');
+  const url=feedbackUrl('Study & feedback\nSecond line','AI in Medicine','owner@example.com');
   assert.equal(new URL(url).protocol,'mailto:');const query=new URLSearchParams(url.split('?')[1]);
-  assert.equal(query.get('body'),'Study & feedback\nSecond line');assert.equal(query.get('subject'),'Digital Health & AI in Medicine - Feedback');
+  assert.equal(query.get('body'),'Study & feedback\nSecond line');assert.equal(query.get('subject'),'AI in Medicine - Feedback');
   assert.throws(()=>feedbackUrl('   ','Title','owner@example.com'),/empty/);
   assert.throws(()=>feedbackUrl('Text','Title','bad\r\n@example.com'),/invalid/);
 });

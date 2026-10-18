@@ -1,13 +1,13 @@
-# Digital Health & AI in Medicine - Design & Interaction
+# AI in Medicine - Design & Interaction
 Version: 1.0 | Date: 2026-10-18
 
 ## Product idea
 A glanceable medical AI progress radar for presentations, mobile screens, physicians, industry and a broad audience. First impression: progress over calendar time. Second glance: what does it actually mean? Third level: evidence.
 
 ## Information hierarchy
-1. Header: Digital Health & AI in Medicine, concise one-line explanation, visible 'Last reviewed' date.
+1. Header: AI in Medicine, concise one-line explanation, visible 'Last reviewed' date.
 2. Three aligned timeline charts (same x-axis: Jan 2022 through current reviewed month): Medical Knowledge; Clinical Assistance; Autonomous Workflows.
-3. Each chart has a **human question**, plain-language score definition, and small 'About this benchmark' affordance.
+3. Each lower track uses one compact canvas. Benchmark names/metrics remain visible; question, method, caveats, result tables and export controls are grouped in one initially closed Details disclosure.
 4. A point card on hover, tap or keyboard focus. Deeper source links available from the card.
 5. Optional 'Method & sources' panel, kept away from the first-glance view.
 
@@ -16,7 +16,7 @@ A glanceable medical AI progress radar for presentations, mobile screens, physic
 - For benchmark changes, present visibly distinct sub-series (different line style/label), no direct bridge.
 - Retrospective points: hollow marker and brief legend ('Older models evaluated later').
 - No invented intermediate observations, smoothed extrapolation or predictive line.
-- When several series have incompatible metrics, label them separately, preferably as small separate bands or toggle within the track rather than share a deceptive common y-axis.
+- Each lower track has one shared calendar plot. Series with the same metric unit have independent, labeled frontiers and distinct line/marker styling. Never bridge benchmarks or treat their vertical differences as direct performance comparisons; retain that explanation under Details. If future metrics use different units, use an explicit benchmark selector rather than a shared y-axis.
 - Y-axis label explicitly says Accuracy (%) or Rubric score (points) or Task success (%). Do not call every number 'percent'.
 - Horizontal baseline only when test protocol supports it; benchmark context baselines use different styling with an explanation.
 - Highlight meaningful real milestones, not every press release.
@@ -61,7 +61,7 @@ The compact header includes a language switch and hamburger navigation. The menu
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `003927f1b0b3d760c4b4039547123e8a079fb51cbf6514ebcecfa3ad380de522`
+- SHA-256 (parsed JSON): `368c591465b8f3af202e2e32ae12d613416acbc363732eb1e8a3e32da97cf4c2`
 - Tracks / benchmark series / measurements: 3 / 5 / 41
 - Score validation: 35 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 28; original-link gaps: 2

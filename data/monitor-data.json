@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Digital Health & AI in Medicine",
+    "title": "AI in Medicine",
     "xAxisRange": {
       "start": "2022-01",
       "end": "2026-10"
@@ -40,10 +40,15 @@
       {
         "date": "2026-10-18",
         "action": "Integrated 24-record missing-metrics audit and all 110 editorial cards. Preserved numeric observations and original payloads. Corrected PubMedGPT fine-tuning, Med-PaLM 2 variant, GPT-4-base date/non-production status, Meerkat attribution/date, Grok 4.20 label and AMIE final-paper facts. Added original HealthBench links and same-protocol review. Product harness and supplier claims cannot join base-model frontier. Unverified publication/availability dates are null; affected records remain accessible outside the dated curve."
+      },
+      {
+        "date": "2026-10-18",
+        "action": "Renamed to AI in Medicine. Compacted three lower tracks to one canvas each, with independent benchmark lines, and moved supporting explanations/results/exports behind closed Details disclosures. Numeric scores, sources and validation states unchanged."
       }
     ],
     "previousTitles": [
-      "AI in Medicine Monitor"
+      "AI in Medicine Monitor",
+      "Digital Health & AI in Medicine"
     ],
     "supportedLanguages": [
       "en",
@@ -6374,7 +6379,12 @@
         "Third-party locator claims 56.9; original PDF not retrieved.": "Eine Drittquelle nennt 56,9; das Original-PDF konnte nicht abgerufen werden.",
         "Third-party locator claims Mythos 66.0; primary numerical table not retrieved.": "Eine Drittquelle nennt Mythos 66,0; die Originaltabelle konnte nicht abgerufen werden.",
         "Comparison qualified": "Vergleich eingeschränkt",
-        "Score verified; setup pending": "Zahlenwert belegt; Testaufbau noch offen"
+        "Score verified; setup pending": "Zahlenwert belegt; Testaufbau noch offen",
+        "AI in Medicine": "AI in Medicine",
+        "Model release ≈": "Modellfreigabe ≈",
+        "Professional": "Professional",
+        "Different benchmarks use different tasks. Their lines stay separate; heights are not a direct comparison across tests. Hollow marks indicate older models tested later; diamonds are not eligible for a trend.": "Verschiedene Benchmarks verwenden unterschiedliche Aufgaben. Ihre Linien bleiben getrennt; Höhen sind zwischen Tests nicht direkt vergleichbar. Hohle Punkte zeigen später getestete ältere Modelle; Rauten gehören nicht zur Fortschrittslinie.",
+        "Provisional timeline · release months approximate. Model availability is not the test date.": "Vorläufiger Zeitverlauf · Freigabemonate sind Näherungen. Modellverfügbarkeit ist nicht das Testdatum."
       }
     },
     "navigation": {

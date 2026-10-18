@@ -4,7 +4,9 @@ async function downloadedBytes(pending){const download=await pending,stream=awai
 function zipFiles(bytes){const files={};let offset=0;while(bytes.readUInt32LE(offset)===0x04034b50){expect(bytes.readUInt16LE(offset+8)).toBe(0);const size=bytes.readUInt32LE(offset+18),names=bytes.readUInt16LE(offset+26),extra=bytes.readUInt16LE(offset+28),start=offset+30+names+extra;const name=bytes.subarray(offset+30,offset+30+names).toString();files[name]=bytes.subarray(start,start+size);offset=start+size;}return files;}
 async function openMonitor(page,id){const hit=page.locator('.detail-charts .monitor-point-hit[data-monitor-point="'+id+'"],.detail-charts .monitor-point-hit[data-monitor-cluster*="'+id+'"]');await hit.first().click();const choose=page.getByRole('dialog').locator('[data-monitor-point="'+id+'"]');if(await choose.count())await choose.click();}
 const results=page=>page.locator('.result-row');
+async function openTrackDetails(page,trackId){const details=page.locator('#chart-'+trackId+' > .track-details');if(!await details.evaluate(el=>el.open))await details.locator(':scope > summary').click();return details;}
 async function openBenchmark(page,trackId='knowledge'){
+  await openTrackDetails(page,trackId);
   const details=page.locator('#chart-'+trackId+' details.benchmark-details');
   if(await details.count()&&!await details.evaluate(element=>element.open))await details.locator('summary').click();
   return details;
@@ -13,7 +15,7 @@ async function openBenchmark(page,trackId='knowledge'){
 test.beforeEach(async({page})=>{
   await page.clock.install({time:new Date('2026-10-18T06:30:00Z')});
   await page.goto('/');
-  await expect(page.getByRole('heading',{level:1})).toHaveText(/Digital Health & AI in Medicine/);
+  await expect(page.getByRole('heading',{level:1})).toHaveText(/AI in Medicine/);
 });
 
 test('compact English single page has no tabs, methodology control or slide references',async({page})=>{
@@ -98,7 +100,7 @@ test('grouped overview sources and milestone keyboard access stay source-backed 
   await page.locator('.milestone-anchor[data-track-milestone="lower-star-2022"]').press('Enter');
   await expect(page.getByRole('dialog')).toContainText(/preclinical|supervis/i);
   await page.keyboard.press('Escape');
-  await page.locator('.trust-link').click();await expect(page.getByRole('dialog')).toContainText('3.4/5');
+  await openTrackDetails(page,'assistance');await page.locator('.trust-link').click();await expect(page.getByRole('dialog')).toContainText('3.4/5');
 });
 
 test('study disclosure opens research details without presentation provenance',async({page})=>{
@@ -149,13 +151,13 @@ test('chart image export downloads a real PNG',async({page})=>{
   const data=Buffer.concat(chunks);
   expect(download.suggestedFilename()).toMatch(/\.png$/);
   expect([...data.subarray(0,8)]).toEqual([137,80,78,71,13,10,26,10]);
-  expect(data.length).toBeGreaterThan(1000);
+  expect(data.length).toBeGreaterThan(400);
 });
 
 test('copied chart link restores date and destination',async({page})=>{
   await page.evaluate(()=>{window.__copiedText='';Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>{window.__copiedText=text;}}});});
   await page.locator('#cutoff-date').fill('2025-06-30');await page.locator('#cutoff-date').press('Tab');
-  await page.locator('[data-chart-copy="chart-knowledge"]').click();
+  await openTrackDetails(page,'knowledge');await page.locator('[data-chart-copy="chart-knowledge"]').click();
   await expect(page.locator('[data-chart-copy="chart-knowledge"]')).toHaveText('Copied');
   const link=await page.evaluate(()=>window.__copiedText);
   expect(new URL(link).searchParams.get('cutoff')).toBe('2025-06-30');
@@ -174,7 +176,7 @@ test('portable monitor renders observations and separate source-checked clinical
   await expect(page.locator('#chart-assistance .monitor-frontier')).not.toHaveCount(0);
   const ids=await page.locator('.detail-charts .monitor-frontier').evaluateAll(elements=>[...new Set(elements.map(element=>element.dataset.seriesId))]);
   expect(ids.sort()).toEqual(['healthagentbench_msft_2026','healthbench_core_2025','healthbench_pro_2026','medagentbench_stanford']);
-  for(const chart of await page.locator('.monitor-chart').all())await expect(chart.locator('.monitor-calendar-note')).toContainText('Provisional timeline');
+  for(const track of await page.locator('.detail-charts > .track').all())await expect(track.locator('.monitor-calendar-note')).toContainText('Provisional timeline');
   await page.locator('#cutoff-date').fill('2025-01-01');await page.locator('#cutoff-date').press('Tab');
   await expect(page.locator('[data-observation-id="3.9"]')).toHaveCount(0);
   await page.locator('#cutoff-date').fill('2022-11-30');await page.locator('#cutoff-date').press('Tab');
@@ -233,13 +235,15 @@ test('portable ZIP matches downloadable central data and document checksums',asy
   expect(Object.keys(files)).toEqual(expect.arrayContaining(['AGENTS.md','MONITOR_STANDARD.md','DESIGN.md','VALIDATION_REPORT.md','docs/MONITOR_DATA_STATUS.md']));
 });
 
-test('autonomy PNG preserves both separate benchmark bands',async({page})=>{
-  await expect(page.locator('#chart-autonomy svg.monitor-chart-svg')).toHaveCount(2);
+test('autonomy has one chart and exports both independent benchmark lines',async({page})=>{
+  await expect(page.locator('#chart-autonomy svg.monitor-chart-svg')).toHaveCount(1);
+  await expect(page.locator('#chart-autonomy svg [data-legend-series]')).toHaveCount(2);
+  await openTrackDetails(page,'autonomy');
   const pending=page.waitForEvent('download');await page.locator('[data-chart-export="chart-autonomy"]').click();
   const {bytes}=await downloadedBytes(pending);
   expect([...bytes.subarray(0,8)]).toEqual([137,80,78,71,13,10,26,10]);
   expect(bytes.readUInt32BE(16)).toBeGreaterThanOrEqual(1200);
-  expect(bytes.readUInt32BE(20)).toBeGreaterThan(1000);
+  expect(bytes.readUInt32BE(20)).toBeGreaterThan(400);
 });
 
 test('language switch preserves selection and translates new point cards, then restores English',async({page})=>{
@@ -290,6 +294,7 @@ test('German header and menu fit at 320px and close on outside click',async({pag
 
 
 test('unplaced claims stay accessible, unconnected and visibly provisional',async({page})=>{
+  await openTrackDetails(page,'assistance');
   const details=page.locator('#chart-assistance .monitor-undated');
   await details.locator('summary').click();
   await details.locator('[data-monitor-point="2.14"]').click();
@@ -297,11 +302,26 @@ test('unplaced claims stay accessible, unconnected and visibly provisional',asyn
   await expect(page.getByRole('dialog')).toContainText('original system-card table');
   await expect(page.getByRole('dialog').locator('.point-sources a')).toHaveCount(0);
   await page.keyboard.press('Escape');
-  await page.locator('[data-track-milestone="lower-amie-2025"]').last().click();
+  await page.locator('.milestone-anchor[data-track-milestone="lower-amie-2025"]').click();
   const card=page.getByRole('dialog');
   await expect(card).toContainText('30/32');await expect(card).toContainText('25/26');
   await expect(card.locator('.semantic-badge')).toHaveText('Peer-reviewed · 2025');
   await expect(card.locator('.card-tags')).not.toHaveText(/^\s*·/);
   await expect(card.locator('.point-sources')).toContainText('Nature 642, 442');
   expect(await card.locator('.editorial-evidence-card').innerText()).not.toMatch(/What was tested\?|How sure are we\?|Historical source-backed/);
+});
+
+
+test('three compact tracks show one chart each and keep explanations behind Details',async({page})=>{
+  const tracks=page.locator('.detail-charts > .track');await expect(tracks).toHaveCount(3);
+  for(const id of ['knowledge','assistance','autonomy']){
+    const track=page.locator('#chart-'+id);await expect(track.locator('svg.monitor-chart-svg')).toHaveCount(1);
+    await expect(track.locator(':scope > .track-details')).not.toHaveAttribute('open','');
+    await expect(track.locator('.monitor-calendar-note')).not.toBeVisible();
+    await expect(track.locator('.monitor-question')).not.toBeVisible();
+    expect(await track.evaluate(el=>el.getBoundingClientRect().height)).toBeLessThan(430);
+    await openTrackDetails(page,id);await expect(track.locator('.monitor-calendar-note')).toBeVisible();
+    await track.locator(':scope > .track-details > summary').click();
+  }
+  await expect(page).toHaveTitle('AI in Medicine');
 });
