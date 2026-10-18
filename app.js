@@ -1,4 +1,6 @@
 import { tracks, measurements, milestones, sourceCatalog, editorialStatus, studies, presentationSource, pharmaApplications } from './data/evidence.js';
+import { trackMilestones, trustContext } from './data/track-milestones.js';
+import { renderTrackHistory } from './lib/track-history.js';
 import { filterStudies } from './lib/studies.js';
 import { renderOverview, visibleHistory, visibleAnchors } from './lib/overview.js';
 import { filterMeasurements, latestByModel, groupComparable, frontierPoints, formatDate, escapeHtml } from './lib/selectors.js';
@@ -8,7 +10,7 @@ const e = escapeHtml;
 const today = new Date().toISOString().slice(0, 10);
 const startDate = '1950-01-01';
 const endDate = '2030-12-31';
-const startTime = Date.parse('2025-01-01T00:00:00Z');
+const startTime = Date.parse('2022-01-01T00:00:00Z');
 const endTime = Date.parse(today + 'T00:00:00Z');
 const yearCount = 80;
 const state = { cutoff: today, model: '', view: 'verlauf', studyTopic: '', playing: false, presentation: false };
@@ -84,12 +86,12 @@ function renderTrack(track, index, allRows) {
     body += '<div class="measurement-list">' + latest.map(row => '<button type="button" class="measurement-chip" data-point-id="' + e(row.id) + '" aria-label="' + e(systemLabel(row) + ', ' + score(row) + ', Details öffnen') + '"><span class="chip-label">' + e(systemLabel(row)) + '</span><span class="chip-score">' + e(score(row)) + '</span></button>').join('') + '</div>';
   }
   const foot = track.id === 'assistance' ? 'Verschiedene Systemaufbauten · eigene Vergleichsgruppen · Punkte, keine Trefferquote' : track.id === 'autonomy' ? 'pass@1 · virtuelle Patientenakte · Schreibaktionen im Test simuliert' : 'Text-Test · vollständiger Testsplit · keine Bildaufgaben in dieser ersten Auswahl';
-  return '<section class="track" data-track="' + e(track.id) + '" aria-labelledby="track-' + e(track.id) + '" style="--track:' + e(track.color) + '"><div class="track-top"><div><div class="track-heading"><span class="track-index">0' + (index + 1) + '</span><h3 id="track-' + e(track.id) + '">' + e(track.label) + '</h3></div><p class="track-subtitle">' + e(track.subtitle) + ' <span aria-hidden="true">·</span> ' + e(track.unit === '%' ? 'Treffer-/Erfolgsquote in %' : 'Rubrikscore in Punkten') + '</p></div><div class="track-counter"><strong>' + rows.length + '</strong><small>MESSPUNKTE</small></div></div>' + body + '<p class="track-footnote">' + e(foot) + (rows.length ? ' · veröffentlicht ' + e(formatDate(rows[0].date)) : '') + (dateCount === 1 ? ' · ein Publikationsstand, noch kein Zeittrend' : '') + '</p></section>';
+  return '<section class="track" data-track="' + e(track.id) + '" aria-labelledby="track-' + e(track.id) + '" style="--track:' + e(track.color) + '"><div class="track-top"><div><div class="track-heading"><span class="track-index">0' + (index + 1) + '</span><h3 id="track-' + e(track.id) + '">' + e(track.id==='assistance' ? 'Klinisches Denken & Assistenz' : track.label) + '</h3></div><p class="track-subtitle">' + e(track.subtitle) + ' <span aria-hidden="true">·</span> ' + e(track.unit === '%' ? 'Treffer-/Erfolgsquote in %' : 'Rubrikscore in Punkten') + '</p></div><div class="track-counter"><strong>' + rows.length + '</strong><small>MESSPUNKTE</small></div></div>' + body + '<div class="track-date-axis"><span>2022</span><span>2024</span><span>'+e(monthFormat.format(new Date(today+'T00:00:00Z')))+'</span></div>' + renderTrackHistory(track.id,state.cutoff,today) + (track.id==='assistance' && trustContext.date<=state.cutoff ? '<p class="trust-context">Und das Vertrauen? <button type="button" data-track-milestone="nov-trust-2023">Die frühe Befragung von 2023 ↗</button></p>' : '') + '<p class="track-footnote">' + e(foot) + (rows.length ? ' · veröffentlicht ' + e(formatDate(rows[0].date)) : '') + (dateCount === 1 ? ' · ein Publikationsstand, noch kein Zeittrend' : '') + '</p></section>';
 }
 
 function renderEvents() {
   const events = visibleMilestones();
-  return '<section class="milestones-section"><div class="section-title"><h2>Meilensteine mit Kontext</h2><p>Forschung, Lernexperiment und Auszeichnung · jeweils gekennzeichnet</p></div><p class="view-intro">Die Benchmark-Achse beginnt 2025. Frühere Pharma-Meilensteine stehen hier mit ihrem tatsächlichen Datum.</p><div class="events">' + (events.length ? events.map(item => '<article class="event"><time datetime="' + e(item.date) + '">' + e(formatDate(item.date)) + '</time><span class="event-kind">' + e(item.type || environmentNames[item.environment]) + '</span><h3>' + e(item.title) + '</h3><p>' + e(item.summary) + '</p><button type="button" data-event-id="' + e(item.id) + '">Einordnen & Quelle ↗</button></article>').join('') : '<p class="view-intro">Bis zu diesem Zeitpunkt sind noch keine Ereignisse hinterlegt.</p>') + '</div></section>';
+  return '<section class="milestones-section"><div class="section-title"><h2>Meilensteine mit Kontext</h2><p>Forschung, Lernexperiment und Auszeichnung · jeweils gekennzeichnet</p></div><p class="view-intro">Die Zeitachse beginnt 2022. Messwerte und Studienereignisse sind getrennt gekennzeichnet.</p><div class="events">' + (events.length ? events.map(item => '<article class="event"><time datetime="' + e(item.date) + '">' + e(formatDate(item.date)) + '</time><span class="event-kind">' + e(item.type || environmentNames[item.environment]) + '</span><h3>' + e(item.title) + '</h3><p>' + e(item.summary) + '</p><button type="button" data-event-id="' + e(item.id) + '">Einordnen & Quelle ↗</button></article>').join('') : '<p class="view-intro">Bis zu diesem Zeitpunkt sind noch keine Ereignisse hinterlegt.</p>') + '</div></section>';
 }
 function renderStudies() {
   const items = visibleStudies();
@@ -97,7 +99,7 @@ function renderStudies() {
   content.innerHTML = '<div class="section-title"><h2>Pharma & Studien</h2><p>' + items.length + ' Einträge bis ' + e(formatDate(state.cutoff)) + '</p></div><p class="view-intro">Aus dem Pharma-Vortrag: Originalarbeiten mit Befunden und Grenzen. Strukturbiologie, Simulation und Bildungsforschung beantworten unterschiedliche Fragen.</p><div class="study-filters" role="group" aria-label="Studienthema">' + topics.map(([id,label]) => '<button type="button" data-study-topic="' + id + '" aria-pressed="' + (state.studyTopic === id) + '">' + e(label) + '</button>').join('') + '</div><div class="study-grid">' + (items.length ? items.map(item => '<article class="study-card" data-study-card="' + e(item.id) + '"><div class="source-meta"><span>' + e(item.type) + '</span><time datetime="' + e(item.date) + '">' + e(formatDate(item.date)) + '</time></div><h3>' + e(item.title) + '</h3><p>' + e(item.summary) + '</p><p class="study-boundary">' + e(item.limitations) + '</p><button type="button" class="text-button" data-study-id="' + e(item.id) + '">Befunde & Studiendesign ↗</button></article>').join('') : '<p class="view-intro">Für Thema und Zeitpunkt sind keine Einträge hinterlegt.</p>') + '</div><p class="study-origin">Ausgangspunkt: <a href="' + e(safeUrl(presentationSource.url)) + '" target="_blank" rel="noopener noreferrer">Pharma-Präsentation auf Google Drive ↗</a>. Die verlinkten Originalarbeiten tragen die Evidenz.</p>';
 }
 function renderThumbnails(rows) {
-  return '<section class="benchmark-previews" aria-labelledby="preview-title"><div class="section-title"><h2 id="preview-title">Messwerte im Detail</h2></div><div class="thumbnail-grid">' + tracks.map(track => {
+  return '<section class="benchmark-previews" aria-labelledby="preview-title"><div class="section-title"><h2 id="preview-title">Fortschritt über die Zeit</h2></div><div class="thumbnail-grid">' + tracks.map(track => {
     const selected = rows.filter(row => row.trackId === track.id);
     const dots = selected.map(row => '<circle cx="' + (18 + (xPosition(row.date)-40)/930*244) + '" cy="' + (82-row.score*.64) + '" r="4"/>').join('');
     return '<button type="button" class="chart-thumbnail" data-track-link="' + track.id + '" style="--track:' + track.color + '"><span class="thumbnail-title">' + e(track.label) + '<span aria-hidden="true">↗</span></span><svg viewBox="0 0 280 100" aria-hidden="true"><path d="M18 18H262 M18 50H262 M18 82H262" class="thumbnail-gridline"/><g fill="currentColor">' + dots + '</g></svg><span class="thumbnail-meta">' + selected.length + ' Messpunkte · ' + e(track.unit === '%' ? 'Prozent' : 'Rubrikpunkte') + '</span></button>';
@@ -106,7 +108,7 @@ function renderThumbnails(rows) {
 
 function renderTimeline() {
   const rows = visibleRows();
-  content.innerHTML = renderOverview(state.cutoff, today) + renderThumbnails(rows) + '<details class="benchmark-details" open><summary>Messwerte & Benchmarks <span>' + rows.length + ' veröffentlichte Punkte</span></summary><div class="section-title"><h2>Die gemessenen Fähigkeiten</h2><p>Getrennte Skalen und Testbedingungen</p></div><p class="view-intro">Diese Ergebnisse sind Originalmesswerte. Die schematische Hauptgrafik verwendet einen eigenen illustrativen Index. Der Modellfilter gilt für die Messwerte.</p>' + tracks.map((track, index) => renderTrack(track, index, rows)).join('') + '<div class="chart-axis"><span>Jan 2025</span><span>2026</span><span>' + e(monthFormat.format(new Date(today + 'T00:00:00Z'))) + '</span></div></details><details class="milestone-details"><summary>Studien und Meilensteine im Detail</summary>' + renderEvents() + '</details>';
+  content.innerHTML = renderOverview(state.cutoff, today) + renderThumbnails(rows) + '<details class="benchmark-details" open><summary>Messwerte & Benchmarks <span>' + rows.length + ' veröffentlichte Punkte</span></summary><div class="section-title"><h2>Die gemessenen Fähigkeiten</h2><p>Getrennte Skalen und Testbedingungen</p></div><p class="view-intro">Drei Spuren seit 2022. Messwerte behalten ihre eigene Skala; die datierten Meilensteine darunter zeigen, was einzelne Arbeiten belegen. Der Modellfilter gilt für Messwerte.</p>' + tracks.map((track, index) => renderTrack(track, index, rows)).join('') + '<div class="chart-axis"><span>2022</span><span>2024</span><span>' + e(monthFormat.format(new Date(today + 'T00:00:00Z'))) + '</span></div></details><details class="milestone-details"><summary>Studien und Meilensteine im Detail</summary>' + renderEvents() + '</details>';
   const overviewScroll = content.querySelector('.overview-scroll');
   if (matchMedia('(max-width: 600px)').matches) {
     const cursor = (68 + (Number(state.cutoff.slice(0,4)) - 1950) / 80 * 1030) / 1200 * overviewScroll.scrollWidth;
@@ -223,6 +225,14 @@ function showOverviewPoint(id) {
   $('#detail-body').innerHTML = '<h2 class="dialog-title" id="detail-title">' + e(point.label) + '</h2><span class="environment-label">' + e(point.kind) + '</span><p>' + e(point.finding) + '</p>' + detailRows([['Zeitangabe',point.date ? formatDate(point.date) : 'Jahr ' + point.year],['Fundstelle',point.locator],['Darstellung','IQ zur Verdeutlichung. Die Quelle belegt den Meilenstein; die vertikale Position ist schematisch.']]) + '<p class="detail-limit">' + e(point.limitations) + '</p>' + sourceLink(source);
   dialog.showModal();
 }
+function showTrackMilestone(id) {
+  const item = [...trackMilestones,trustContext].find(point=>point.id===id && point.date<=state.cutoff);
+  if(!item) return;
+  stopPlaying();
+  const source = sourceCatalog.find(source=>source.id===item.sourceId);
+  $('#detail-body').innerHTML = '<h2 class="dialog-title" id="detail-title">'+e(item.title)+'</h2><span class="environment-label">'+e(item.kind)+'</span>'+detailRows([['Veröffentlicht',formatDate(item.date)],['Design',item.design],['Befund',item.finding],['Fundstelle',item.locator]])+'<p class="detail-limit">'+e(item.limitations)+'</p>'+sourceLink(source);
+  dialog.showModal();
+}
 function showMeasurement(id) {
   const row = visibleRows().find(item => item.id === id);
   if (!row) return;
@@ -263,8 +273,9 @@ function exportSnapshot() {
   const selectedStudies = visibleStudies();
   const historicalEvents = visibleHistory(state.cutoff);
   const overviewPoints = visibleAnchors(state.cutoff);
-  const sourceIds = new Set([...rows.map(row => row.sourceId), ...events.map(item => item.sourceId), ...selectedStudies.map(item => item.sourceId), ...historicalEvents.map(item => item.sourceId), ...overviewPoints.map(item => item.sourceId)]);
-  const payload = { title:'AI in Medicine Monitor',exportedAt:new Date().toISOString(),cutoff:state.cutoff,model:state.model,studyTopic:state.studyTopic,filterNote:'Modellfilter gilt nur für Benchmark-Messpunkte; Studien nach Thema und Publikationsdatum.',measurements:rows,milestones:events,studies:selectedStudies,historicalEvents,overviewPoints,presentationNote:'Hauptgrafik: schematische PPT-Illustration, keine gemessenen IQ-Werte oder medizinischen Autonomiezeiten.',sourceCatalog:sourceCatalog.filter(source => sourceIds.has(source.id)),editorialStatus };
+  const historicalTrackMilestones = [...trackMilestones,trustContext].filter(item=>item.date<=state.cutoff);
+  const sourceIds = new Set([...rows.map(row => row.sourceId), ...events.map(item => item.sourceId), ...selectedStudies.map(item => item.sourceId), ...historicalEvents.map(item => item.sourceId), ...overviewPoints.map(item => item.sourceId), ...historicalTrackMilestones.map(item => item.sourceId)]);
+  const payload = { title:'AI in Medicine Monitor',exportedAt:new Date().toISOString(),cutoff:state.cutoff,model:state.model,studyTopic:state.studyTopic,filterNote:'Modellfilter gilt nur für Benchmark-Messpunkte; Studien nach Thema und Publikationsdatum.',measurements:rows,milestones:events,studies:selectedStudies,historicalEvents,overviewPoints,historicalTrackMilestones,presentationNote:'Hauptgrafik: schematische PPT-Illustration, keine gemessenen IQ-Werte oder medizinischen Autonomiezeiten.',sourceCatalog:sourceCatalog.filter(source => sourceIds.has(source.id)),editorialStatus };
   const url = URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));
   const link = document.createElement('a');
   link.href = url; link.download = 'ai-in-medicine-monitor-' + state.cutoff + '.json';
@@ -300,6 +311,8 @@ document.querySelectorAll('[data-view]').forEach((button,index,buttons) => {
   });
 });
 content.addEventListener('keydown',event => {
+  const historical = event.target.closest('[data-track-milestone]');
+  if(historical && ['Enter',' '].includes(event.key)) {event.preventDefault();showTrackMilestone(historical.dataset.trackMilestone);return;}
   const cluster = event.target.closest('[data-overview-cluster]');
   if (cluster && ['Enter',' '].includes(event.key)) { event.preventDefault(); showOverviewCluster(cluster.dataset.overviewCluster); return; }
   const point = event.target.closest('[data-overview-point]');
@@ -310,6 +323,8 @@ $('#detail-body').addEventListener('click',event => {
   if (point) showOverviewPoint(point.dataset.overviewPoint);
 });
 content.addEventListener('click',event => {
+  const historical = event.target.closest('[data-track-milestone]');
+  if(historical) {showTrackMilestone(historical.dataset.trackMilestone);return;}
   const cluster = event.target.closest('[data-overview-cluster]');
   if (cluster) { showOverviewCluster(cluster.dataset.overviewCluster); return; }
   const overviewPoint = event.target.closest('[data-overview-point]');

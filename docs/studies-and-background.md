@@ -1,6 +1,6 @@
 # AI in Medicine Monitor – Studien und Hintergrunddaten
 
-Stand: 17.10.2026. Zeitfenster der Anwendung: 1950–2030. Redaktionell recherchierte Originalquellen; keine neu durchgeführten Evaluationen oder unabhängige fachliche Freigabe.
+Stand: 18.10.2026. Zeitfenster der Anwendung: 1950–2030. Redaktionell recherchierte Originalquellen; keine neu durchgeführten Evaluationen oder unabhängige fachliche Freigabe.
 
 ## Was die große Grafik zeigt
 
@@ -417,3 +417,155 @@ Unbelegte ursprüngliche Marker wurden nicht durch thematisch passende Quellen s
 ## Datenpflege
 
 Strukturierte Ausgangsdaten: `data/evidence.js`, `data/pharma.js`, `data/history.js`, `data/point-evidence.js`. Diese Datei dokumentiert den Stand vom 17.10.2026. Bei Änderungen an Befunden, Zeitpunkten oder Quellen muss sie mit aktualisiert werden. Automatische Quellenüberwachung ist noch nicht eingerichtet.
+
+## Ergänzung vom 18.10.2026: frühere Meilensteine der drei unteren Spuren
+
+Neun Publikationsereignisse und eine separate Vertrauensbefragung ergänzen die 13 unveränderten Benchmark-Messwerte. Die gemeinsame horizontale Achse beginnt 2022. Die kleinen Ereignismarker liegen auf einer eigenen Datumslinie ohne Leistungsordinate; aus heterogenen Endpunkten entsteht keine gemeinsame Wachstumskurve. Der obere Graph und seine 24 Quellenanker wurden nicht verändert.
+
+| Spur | Datum | Studie | Sichtbarer Befund |
+| --- | --- | --- | --- |
+| knowledge | 2022-12-26 | [Flan-PaLM / Med-PaLM](https://arxiv.org/abs/2212.13138v1) | 67,6 % im MedQA-Test |
+| knowledge | 2023-02-09 | [ChatGPT & USMLE](https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000198) | 61,5 % in Step-3-Fragen |
+| knowledge | 2025-06-06 | [MedXpertQA](https://arxiv.org/html/2501.18362v3) | 30,37 % für GPT-4o |
+| assistance | 2023-04-28 | [Qualität & Empathie](https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2804309) | KI-Antwort in 78,6 % der Bewertungen bevorzugt |
+| assistance | 2024-10-28 | [Ärzte mit GPT-4](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2825395) | Kein signifikanter Zusatznutzen |
+| assistance | 2025-04-09 | [AMIE im Dialog](https://www.nature.com/articles/s41586-025-08866-7) | 159 simulierte Fälle |
+| autonomy | 2022-01-26 | [STAR im Tiermodell](https://www.science.org/doi/10.1126/scirobotics.abj2908) | Vier robotische Eingriffe |
+| autonomy | 2025-02-12 | [MedAgentBench](https://arxiv.org/html/2501.14654v2) | 64,0 % für GPT-4o |
+| autonomy | 2026-06-17 | [MIRA im EHR](https://www.nature.com/articles/s41586-026-10675-5) | 87,8 % diagnostische Genauigkeit |
+
+### Med-PaLM / MultiMedQA
+
+`lower-medpalm-2022` · 2022-12-26 · Fragenbenchmark / Preprint · [Originalquelle](https://arxiv.org/abs/2212.13138v1)
+
+Design: MultiMedQA bündelt sechs bestehende medizinische Fragensätze und HealthSearchQA; Flan-PaLM wird durch Prompting evaluiert, Med-PaLM medizinisch angepasst.
+
+Befund: Flan-PaLM erreicht 67,6 % auf MedQA mit vier Antwortoptionen.
+
+Grenzen: Nicht mit MedXpertQA, USMLE-Beispielfragen oder Patientennutzen vergleichen. Med-PaLM und Flan-PaLM sind unterschiedliche Varianten. Nature-Veröffentlichung vom 12.07.2023 ist dieselbe Studienfamilie, keine unabhängige Bestätigung.
+
+Fundstelle: Originalarbeit: Ergebnisse und Methodik.
+
+### ChatGPT: USMLE-Beispielfragen
+
+`lower-usmle-2023` · 2023-02-09 · Peer-reviewed Fragenbenchmark · [Originalquelle](https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000198)
+
+Design: Öffentliche USMLE-Beispielfragen, bildhaltige Aufgaben ausgeschlossen; drei Promptformate und explizite Behandlung unbestimmter Antworten.
+
+Befund: Bei offenen Fragen und eingeschlossenen unbestimmten Antworten: Step1 45,4 %, Step2CK 54,1 %, Step3 61,5 %. Die oft verwendete Aussage 'USMLE bestanden' hängt stark vom Prompt- und Auswertungsaufbau ab.
+
+Grenzen: Keine tatsächlich absolvierte Zulassungsprüfung, keine klinische Validierung. Haupttext nennt350 Aufgaben, aber seine Teilzahlen119+102+122 ergeben343; daher keine selbst berechneten Gesamtquoten/n. Frühere Preprint-Werte unterscheiden sich von der finalen Fassung.
+
+Fundstelle: Methods Input source; Results; Fig2A/B.
+
+### MedXpertQA v3
+
+`lower-medxpert-2025` · 2025-06-06 · Medizinischer Fragenbenchmark · [Originalquelle](https://arxiv.org/html/2501.18362v3)
+
+Design: Vollständiger Texttest, n = 2450; im Dashboard vorhandene Autorenprotokoll-Werte.
+
+Befund: GPT-4o-2024-11-20 erreicht 30,37 % im Text-Gesamttest.
+
+Grenzen: Schwererer anderer Benchmark. Niedrigere Prozentzahl bedeutet keinen Rückschritt gegenüber 2022/2023; keine Patientennutzenstudie.
+
+Fundstelle: Originalarbeit: Ergebnisse und Methodik.
+
+### ChatGPT-Antworten: Qualität & Empathie
+
+`lower-ayers-2023` · 2023-04-28 · Verblindeter Querschnittsvergleich · [Originalquelle](https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2804309)
+
+Design: 195 Reddit-Fragen; anonymisierte ärztliche und ChatGPT-Antworten jeweils von drei zugelassenen Gesundheitsfachkräften bewertet, insgesamt 585 Bewertungen.
+
+Befund: Fachliche Bewerter bevorzugen die ChatGPT-Antwort in 78,6 % der Bewertungen (95 %-KI 75,0–81,8). Als empathisch/sehr empathisch gelten 45,1 % der Chatbot- gegenüber 4,6 % der ärztlichen Antworten.
+
+Grenzen: Keine Messung von Patientenvertrauen oder Diagnosegenauigkeit. Chatbot-Antworten wesentlich länger; Bewerter waren Mitautoren, Skalen nicht vorab validiert, keine klinischen Endpunkte.
+
+Fundstelle: Abstract; Results; Limitations.
+
+### GPT-4-Zugang verbessert Ärzte hier nicht signifikant
+
+`lower-goh-2024` · 2024-10-28 · Randomisiertes Vignettenexperiment · [Originalquelle](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2825395)
+
+Design: 50 Ärzte, bis zu sechs Fallvignetten; GPT-4 plus konventionelle Hilfsmittel gegenüber konventionellen Hilfsmitteln.
+
+Befund: Medianer diagnostischer Rubrikscore 76 % gegenüber 74 %; adjustierter Unterschied +2 Prozentpunkte, 95 %-KI −4 bis 8, p=0,60.
+
+Grenzen: Kein signifikanter Zusatznutzen im Hauptvergleich, kein Patienten-Endpunkt. Explorative KI-allein-Ergebnisse nicht als primäres Studienergebnis ausgeben.
+
+Fundstelle: Originalarbeit: Ergebnisse und Methodik.
+
+### AMIE: Diagnostische Gespräche
+
+`lower-amie-2025` · 2025-04-09 · Verblindeter Simulationsvergleich · [Originalquelle](https://www.nature.com/articles/s41586-025-08866-7)
+
+Design: 159 simulierte Fall-Szenarien, 20 Hausärzte; randomisierter Crossover-Vergleich mit Patientendarstellern.
+
+Befund: AMIE erzielt höhere diagnostische Genauigkeit und bessere Bewertungen auf vielen ärztlichen und Patientendarsteller-Achsen.
+
+Grenzen: Simulierter Textchat. Keine reale Versorgung oder autonome Patientenbehandlung.
+
+Fundstelle: Nature 642, 442–450; Abstract und Methods.
+
+### STAR: Robotische Naht im Tiermodell
+
+`lower-star-2022` · 2022-01-26 · Präklinische Robotik · bedingte Autonomie · [Originalquelle](https://www.science.org/doi/10.1126/scirobotics.abj2908)
+
+Design: Phantomversuche sowie vier STAR-Operationen an lebenden Schweinen mit einer Woche Nachbeobachtung; Mensch wählt/bestätigt Nahtplan und korrigiert Fehlpositionen.
+
+Befund: Ermöglicht robotische laparoskopische Dünndarmanastomosen unter Aufsicht. Im Phantomvergleich wurden 83,05 % von 118 Stichen beim ersten Versuch im autonomen Modus platziert.
+
+Grenzen: Kleine präklinische Studie, keine Operation ohne menschliche Aufsicht und kein Menschenversuch. Robotik ist ein anderer Bereich als virtuelle EHR-Agenten; nicht als deren Zeitreihenbeginn oder klinische LLM-Autonomie ausgeben.
+
+Fundstelle: Abstract; Fig3; Phantom model enhanced autonomous anastomosis.
+
+### MedAgentBench: Virtuelle Patientenakte
+
+`lower-medagent-2025` · 2025-02-12 · Preprint · EHR-Simulation · [Originalquelle](https://arxiv.org/html/2501.14654v2)
+
+Design: 300 Aufgaben, erster Versuch, höchstens acht Runden, Autoren-Agent mit FHIR-Werkzeugen.
+
+Befund: GPT-4o 64,0 % Erfolgsquote; Claude3.5 Sonnet v2 69,67 % im identischen Autorenprotokoll.
+
+Grenzen: Virtuelle Umgebung, GET ausgeführt und POST nur simuliert. Keine reale autonome Patientenversorgung. Prozentwerte nicht mit chirurgischen Nähten vergleichen.
+
+Fundstelle: Originalarbeit: Ergebnisse und Methodik.
+
+### MIRA: Diagnostik und EHR-Aktionen
+
+`lower-mira-2026` · 2026-06-17 · Peer-reviewed · retrospektive klinische Simulation · [Originalquelle](https://www.nature.com/articles/s41586-026-10675-5)
+
+Design: 574 MIMIC-IV-Fälle, acht Diagnosen; direkter Vergleich auf 311 gepaarten Fällen mit vier Fachärzten.
+
+Befund: Diagnostische Genauigkeit im direkten Vergleich 87,8 % gegenüber 78,1 %; exakter McNemar-p=0,000287. Gesamtdatensatz 88,9 % bei n = 574.
+
+Grenzen: Dieser Wert misst Diagnostik, nicht den Anteil vollständig autonom erledigter klinischer Abläufe. Simulierte Gespräche aus retrospektiven Akten, kein prospektiver Versorgungsnachweis.
+
+Fundstelle: Originalarbeit: Ergebnisse und Methodik.
+
+### Frühe Befragung: Vertrauen hängt von der Aufgabe ab
+
+`nov-trust-2023` · 2023-07-10 · Peer-reviewed Befragung · [Originalquelle](https://mededu.jmir.org/2023/1/e46939/)
+
+Design: Januar 2023, n = 392 ausgewertete US-Teilnehmer, zehn reale Patientenportal-Fragen; gleichlange ärztliche/ChatGPT-Antworten, Herkunftserkennung plus Vertrauensfragen.
+
+Befund: Mittleres Vertrauen 3,4/5 insgesamt; Diagnostik 2,90 und Therapie 2,89. ChatGPT-Antworten wurden in 65,5 % korrekt erkannt.
+
+Grenzen: Nur schwach positives Gesamtvertrauen, kein Beleg starkem Vertrauen in Diagnosen/Therapie. Zehn Fragen; keine Genauigkeitsbewertung oder reale Behandlung, Empfehlung zur Arztkonsultation wurde aus Chatbot-Text entfernt.
+
+Fundstelle: JMIR Medical Education 2023, e46939; Results und Tabelle 1.
+
+### Welcher New-York-Times-Artikel könnte gemeint sein?
+
+Die Erinnerung lässt sich nicht eindeutig zuordnen. Zwei zeitlich passende Kandidaten sind identifiziert; die wissenschaftlichen Aussagen stammen aus den jeweiligen Originalarbeiten, nicht aus der Presse. Der direkte NYT-Abruf war nicht möglich.
+
+- 2023-06-12: [Doctors Are Using ChatGPT to Improve How They Talk to Patients](https://www.nytimes.com/2023/06/12/health/doctors-chatgpt-artificial-intelligence.html). Zeitlich früher und inhaltlich Empathie/Kommunikation passend; Ayers misst Bewerterpräferenz, nicht Patientenvertrauen.
+- 2024-11-17: [A.I. Chatbots Defeated Doctors at Diagnosing Illness](https://www.nytimes.com/2024/11/17/health/chatgpt-ai-doctors-diagnosis.html). Diagnostikvergleich, in Berichterstattung auch Vertrauen/Umgang der Ärzte mit KI. Kein Beleg für starkes Patientenvertrauen.
+
+Ayers 2023 misst fachliche Bewerterpräferenz/Empathie und nicht Patientenvertrauen. Nov 2023 misst tatsächlich Vertrauen, findet jedoch nur schwach positives Gesamtvertrauen. Die Formulierung „Menschen vertrauen der KI stark“ ist durch diese beiden Studien nicht pauschal gedeckt.
+
+Neue Originalquellen:
+
+- `lower-usmle-2023-source`: Tiffany H. Kung et al.. [Performance of ChatGPT on USMLE: Potential for AI-assisted medical education using large language models](https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000198). 2023-02-09 · DOI 10.1371/journal.pdig.0000198. Geprüft am 2026-10-18.
+- `lower-ayers-2023-source`: John W. Ayers et al.. [Comparing Physician and Artificial Intelligence Chatbot Responses to Patient Questions Posted to a Public Social Media Forum](https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2804309). 2023-04-28 · DOI 10.1001/jamainternmed.2023.1838. Geprüft am 2026-10-18.
+- `lower-star-2022-source`: Hamed Saeidi et al.. [Autonomous robotic laparoscopic surgery for intestinal anastomosis](https://www.science.org/doi/10.1126/scirobotics.abj2908). 2022-01-26 · DOI 10.1126/scirobotics.abj2908. Geprüft am 2026-10-18.
+- `nov-trust-2023-source`: Oded Nov, Nina Singh, Devin Mann · JMIR Medical Education. [Putting ChatGPT’s Medical Advice to the (Turing) Test: Survey Study](https://mededu.jmir.org/2023/1/e46939/). 10.07.2023 · DOI 10.2196/46939. Geprüft am 2026-10-18.

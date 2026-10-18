@@ -1,6 +1,6 @@
 # AI in Medicine Monitor – TODO
 
-Stand: 17.10.2026. Sichtbarer Horizont maximal 2030.
+Stand: 18.10.2026. Sichtbarer Horizont maximal 2030.
 
 ## Nächster Gestaltungsschritt
 
@@ -31,3 +31,12 @@ Aktuell öffnen Punkte per Klick/Enter ein Quellen-Dialogfenster. Ein natives Ti
 - [x] MIRA-Nature-Arbeit als Quellenanker und Studienkarte ergänzt.
 - [x] Drei anklickbare Vorschauen der darunterliegenden Benchmark-Grafiken ergänzt.
 - [x] Studien und Hintergrunddaten in `studies-and-background.md` dokumentiert.
+
+
+## Überarbeitung am 18.10.2026
+
+- [x] Kartenflächen und Umrandungen reduziert, Typografie und offene Spuren näher an Konzept A ausgerichtet.
+- [x] Je unterer Gruppe drei historische Studienereignisse ab 2022/2023 mit Quelle und Grenzen ergänzt.
+- [x] Frühe Vertrauensbefragung 2023 getrennt von Ayers' Antwortpräferenz verlinkt.
+- [x] Untere Datumsachse auf 2022 erweitert; keine Prozentwerte unterschiedlicher Tests verbunden.
+- [ ] Neue Gestaltung im verbundenen Browser visuell abnehmen, sobald dieser wieder verfügbar ist. Die aktuelle Sitzung bietet keine Browser-Steuerung; keine manuelle Sichtprüfung behaupten.

@@ -25,7 +25,7 @@ test('opens a working overview with three evidence tracks', async ({ page }) => 
 test('PPT-style overview starts in 1950, exposes AlphaFold and uses the requested header', async ({ page }) => {
   await expect(page.locator('.brand-mark')).toHaveCount(0);
   await expect(page.getByText('FORTSCHRITT MIT QUELLEN', {exact:true})).toHaveCount(0);
-  await expect(page.locator('#editorial-check')).toHaveText('Letztes Update: 17.10.2026');
+  await expect(page.locator('#editorial-check')).toHaveText('Letztes Update: 18.10.2026');
   await expect(page.locator('#cutoff-date')).toHaveAttribute('min','1950-01-01');
   await expect(page.locator('#cutoff-date')).toHaveAttribute('max','2030-12-31');
   await expect(page.locator('.overview-scroll svg')).toBeVisible();
@@ -228,4 +228,42 @@ test('overview sources and benchmark thumbnails work with keyboard and date filt
   await page.locator('#cutoff-date').fill('2026-06-16');
   await page.locator('#cutoff-date').press('Tab');
   await expect(page.locator('.overview-point[data-overview-point="mira-2026"]')).toHaveCount(0);
+});
+
+
+test('lower tracks show early milestones with correct evidence types, trust context and export', async ({page})=>{
+  for(const id of ['knowledge','assistance','autonomy']) {
+    await expect(page.locator(`[data-track="${id}"] .milestone-reading`)).toHaveCount(3);
+  }
+  await expect(page.locator('[data-track="autonomy"]')).toContainText('Präklinische Chirurgie');
+  const ayers=page.locator('.milestone-reading [data-track-milestone="lower-ayers-2023"]');
+  await ayers.click();
+  await expect(page.locator('#detail-dialog')).toContainText('Keine Messung von Patientenvertrauen');
+  await expect(page.locator('#detail-dialog a')).toHaveAttribute('href','https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2804309');
+  await page.keyboard.press('Escape');
+  await expect(ayers).toBeFocused();
+  await page.locator('[data-track-milestone="nov-trust-2023"]').click();
+  await expect(page.locator('#detail-dialog')).toContainText('3,4/5');
+  await expect(page.locator('#detail-dialog a')).toHaveAttribute('href','https://mededu.jmir.org/2023/1/e46939/');
+  await page.keyboard.press('Escape');
+  await page.locator('.milestone-anchor[data-track-milestone="lower-star-2022"]').press('Enter');
+  await expect(page.locator('#detail-dialog')).toContainText('keine Operation ohne menschliche Aufsicht');
+  await page.keyboard.press('Escape');
+  await page.locator('#cutoff-date').fill('2023-04-27');
+  await page.locator('#cutoff-date').press('Tab');
+  await expect(page.locator('[data-track-milestone="lower-ayers-2023"]')).toHaveCount(0);
+  await expect(page.locator('[data-track="knowledge"] .milestone-reading')).toHaveCount(2);
+  await page.locator('#cutoff-date').fill('2022-01-26');
+  await page.locator('#cutoff-date').press('Tab');
+  await expect(page.locator('.milestone-reading')).toHaveCount(1);
+  await page.getByRole('button',{name:'Heute',exact:true}).click();
+  await page.locator('#model-filter').selectOption('GPT-5.4');
+  await expect(page.locator('.milestone-reading')).toHaveCount(9);
+  const downloadPromise=page.waitForEvent('download');
+  await page.getByRole('button',{name:'Daten exportieren',exact:true}).click();
+  const stream=await (await downloadPromise).createReadStream();
+  let text='';for await(const chunk of stream)text+=chunk.toString();
+  const snapshot=JSON.parse(text);
+  expect(snapshot.historicalTrackMilestones).toHaveLength(10);
+  expect(snapshot.historicalTrackMilestones.every(item=>snapshot.sourceCatalog.some(source=>source.id===item.sourceId))).toBe(true);
 });

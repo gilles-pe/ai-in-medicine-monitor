@@ -2,9 +2,9 @@
 
 Mobiles Dashboard von Gilles Penning für belegten KI-Fortschritt in der Medizin. Die erste Anwendung folgt [Variante A](docs/design/README.md): warmer heller Hintergrund, große Serifentitel und drei farbige Messspuren.
 
-## Hauptgrafik 1950–2035
+## Hauptgrafik 1950–2030
 
-Die Startansicht orientiert sich am Zeitdiagramm der PowerPoint: gemeinsame Achse ab 1950, getrennte farbige Kurven, AlphaFold-Meilensteine und gestrichelte Szenarien bis 2035. Die Kurvenpositionen wurden aus Folie 6 extrahiert. Sie sind ausdrücklich schematisch und keine IQ- oder medizinische Leistungszeitreihe. Die METR-Kontextspur bezieht sich auf Software-Aufgaben. Originale Benchmark-Messwerte bleiben darunter in eigenen Skalen.
+Die Startansicht orientiert sich am Zeitdiagramm der PowerPoint: gemeinsame Achse ab 1950, getrennte farbige Kurven, AlphaFold-Meilensteine und gestrichelte Szenarien bis 2030. Die Kurvenpositionen wurden aus Folie 6 extrahiert. Sie sind ausdrücklich schematisch und keine IQ- oder medizinische Leistungszeitreihe. Die METR-Kontextspur bezieht sich auf Software-Aufgaben. Originale Benchmark-Messwerte bleiben darunter in eigenen Skalen.
 
 ## Implementierter Umfang
 
@@ -86,3 +86,12 @@ Live: [AI in Medicine Monitor](https://ai-in-medicine-monitor.gillesp.chatgpt.si
 Die Projektidentität steht in `.openai/hosting.json`. Der Anwendungscode entspricht dem in GitHub CI geprüften Stand: 12 Node- und 16 Desktop-/Mobil-Browserprüfungen sowie die Paketierung bestanden. Die zusätzliche manuelle Vorschau war wegen einer Berechtigung der Ausführungsumgebung nicht möglich; siehe [Prüfstand](docs/implementation-status.md).
 
 GitHub bleibt das Entwicklungsrepository. Die Sites-Quellversion wird über den unterstützten Veröffentlichungsprozess synchronisiert; ein GitHub-Push veröffentlicht nicht automatisch.
+
+
+## Redaktionelle Ansicht und frühere Meilensteine (18.10.2026)
+
+Die obere Grafik und ihre Quellenanker bleiben erhalten. Der übrige Aufbau folgt stärker der Vorlage: offene Diagrammspuren, größere Typografie und weniger Kartenflächen. `editorial.css` enthält die Gestaltung dieser Ansicht.
+
+Die unteren Spuren haben eine gemeinsame Zeitachse ab 2022 und je drei datierte Studienmeilensteine. Ihre Ereignismarker haben keine Leistungsordinate. Die 13 ursprünglichen Benchmark-Messwerte bleiben als eigene Messungen erhalten; unterschiedliche Tests werden nicht zu einer Verlaufskurve verbunden. Eine zusätzliche Vertrauensbefragung von 2023 ist in der Assistenzspur verlinkt.
+
+Quellen und Grenzen: [Studien und Hintergrunddaten](docs/studies-and-background.md). Strukturierte Ereignisse: `data/track-milestones.js`.

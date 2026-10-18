@@ -23,3 +23,8 @@ Der Datenquellenplan empfiehlt weiterhin drei getrennte Spuren. Die Originalquel
 ## Technische Umsetzung vom 17. Oktober 2026
 
 Implementierungswahl: buildlose Browser-ES-Module mit CSS, getrennten kuratierten Daten und purer Filterlogik. Keine Laufzeitdienste oder Datenbank für die erste Ausgabe. Die Programmierung ist damit begonnen; Hosting und periodische Datenaktualisierung bleiben getrennte Arbeitsschritte. Die ersten 13 historischen Messpunkte sind quellenbasiert übernommen, aber noch nicht unabhängig fachlich freigegeben.
+
+
+## Überarbeitung vom 18. Oktober 2026
+
+Auf Nutzerwunsch bleibt der obere Graph weitgehend erhalten. Die übrige Gestaltung orientiert sich erneut an Konzept A: weniger Karten und Umrandungen, größere Typografie und drei offene Diagrammspuren. Je unterer Gruppe werden drei belegte Publikationsmeilensteine ab 2022/2023 ergänzt. Ihre Ereignispositionen sind keine gemeinsame Leistungsmessung. Patientenvertrauen und fachliche Antwortpräferenz werden getrennt dargestellt. Die Grenze 2030 bleibt bestehen.
