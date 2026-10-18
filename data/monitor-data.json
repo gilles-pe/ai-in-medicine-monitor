@@ -22,8 +22,8 @@
     "lastReviewedAt": "2026-10-18",
     "lastDataChangeAt": "2026-10-18",
     "importedFrom": "gemini-code-1792312905225.json",
-    "reviewNote": "38 numeric claims checked against original sources; 1 supplier-reported claim; 2 imported claims unresolved. MedQA protocols differ and do not form a confirmed frontier. Clinical base-model and product-harness comparisons remain distinct. Release-month positioning is provisional; all evaluation dates remain unknown.",
-    "auditSummary": "38 numeric claims checked against original sources; 1 supplier-reported claim; 2 imported claims unresolved. MedQA protocols differ and do not form a confirmed frontier. Clinical base-model and product-harness comparisons remain distinct. Release-month positioning is provisional; all evaluation dates remain unknown.",
+    "reviewNote": "38 numerical claims checked against original sources; 35 complete numeric records confirmed, 1 supplier-reported, 5 under review (including 3 source-checked values with unresolved commercial-model setup). MedQA protocols differ and do not form a confirmed frontier. Clinical base-model and product-harness comparisons remain distinct. Release-month positioning is provisional; evaluation dates remain unknown.",
+    "auditSummary": "38 numerical claims checked against original sources; 35 complete numeric records confirmed, 1 supplier-reported, 5 under review (including 3 source-checked values with unresolved commercial-model setup). MedQA protocols differ and do not form a confirmed frontier. Clinical base-model and product-harness comparisons remain distinct. Release-month positioning is provisional; evaluation dates remain unknown.",
     "timelineQualification": "Model release months are approximate availability proxies, not dates of the benchmark evaluations. Tests on older models are retrospective.",
     "packageVersion": "1.1",
     "importedReviewNote": "41 imported data points are unverified in this migrated dataset; original flags retained in legacy. Do not publish as verified frontier until primary-source audit.",
@@ -563,11 +563,12 @@
                 "limitations": "Exam questions, not patient outcomes. Training, prompting, retrieval and model versions differ across studies; results are not a common-protocol time trend. Exact commercial-model prompting and dated snapshots remain unverified; no comparable trend is inferred."
               },
               "validation": {
-                "status": "confirmed",
+                "status": "needs_review",
                 "comparability": "unknown",
                 "reviewedAt": "2026-10-18",
                 "reviewedBy": "AI-assisted original-source research audit",
-                "note": "Score supported; attribution to ReMedQA and March publication are unsupported. Score verification does not establish the model release month or clinical safety."
+                "note": "Score supported; attribution to ReMedQA and March publication are unsupported. Score verification does not establish the model release month or clinical safety. The numerical claim is source-checked, but the complete record remains under review until commercial-model test conditions are established.",
+                "scoreStatus": "confirmed"
               },
               "eligibleForMainline": false,
               "timeline_year": 2025,
@@ -633,11 +634,12 @@
                 "limitations": "Exam questions, not patient outcomes. Training, prompting, retrieval and model versions differ across studies; results are not a common-protocol time trend. Exact commercial-model prompting and dated snapshots remain unverified; no comparable trend is inferred."
               },
               "validation": {
-                "status": "confirmed",
+                "status": "needs_review",
                 "comparability": "unknown",
                 "reviewedAt": "2026-10-18",
                 "reviewedBy": "AI-assisted original-source research audit",
-                "note": "Score supported; attribution to ReMedQA and March publication are unsupported. Score verification does not establish the model release month or clinical safety."
+                "note": "Score supported; attribution to ReMedQA and March publication are unsupported. Score verification does not establish the model release month or clinical safety. The numerical claim is source-checked, but the complete record remains under review until commercial-model test conditions are established.",
+                "scoreStatus": "confirmed"
               },
               "eligibleForMainline": false,
               "timeline_year": 2025,
@@ -703,11 +705,12 @@
                 "limitations": "Exam questions, not patient outcomes. Training, prompting, retrieval and model versions differ across studies; results are not a common-protocol time trend. Exact commercial-model prompting and dated snapshots remain unverified; no comparable trend is inferred."
               },
               "validation": {
-                "status": "confirmed",
+                "status": "needs_review",
                 "comparability": "unknown",
                 "reviewedAt": "2026-10-18",
                 "reviewedBy": "AI-assisted original-source research audit",
-                "note": "Score supported; attribution to ReMedQA and March publication are unsupported. Score verification does not establish the model release month or clinical safety."
+                "note": "Score supported; attribution to ReMedQA and March publication are unsupported. Score verification does not establish the model release month or clinical safety. The numerical claim is source-checked, but the complete record remains under review until commercial-model test conditions are established.",
+                "scoreStatus": "confirmed"
               },
               "eligibleForMainline": false,
               "timeline_year": 2025,
@@ -4255,8 +4258,8 @@
           "label": "AlphaFold 3",
           "sourceId": "alphafold3-nature",
           "kind": "Structural biology",
-          "finding": "One model predicts multiple biomolecular interaction types. The authors report improvements over tested specialized methods for several interaction classes.",
-          "limitations": "Stereochemical errors, hallucinated structures and limited dynamics; no drug-approval or treatment-selection endpoint.",
+          "finding": "Protein–ligand docking: better than Vina. On PoseBusters V1, AF3 predicted binding poses more accurately than Vina (p=2.27×10⁻¹³), without taking solved protein structures as input.",
+          "limitations": "Static predictions can contain stereochemical errors and hallucinated structures; dynamics and therapeutic efficacy are not established.",
           "locator": "Nature 630, Abstract and Model limitations",
           "positionBasis": "Illustrative index; the source does not validate the vertical coordinate",
           "cardId": "af3-paper-2024",
@@ -6366,7 +6369,12 @@
         "Evidence published 2025-05-13. Chart position uses a provisional model-availability proxy; evaluation date is unknown.": "Evidenz veröffentlicht am 2025-05-13. Die Chartposition nutzt eine vorläufige Modellverfügbarkeit; das Evaluationsdatum ist unbekannt.",
         "Evidence published 2026-04-30. Chart position uses a provisional model-availability proxy; evaluation date is unknown.": "Evidenz veröffentlicht am 2026-04-30. Die Chartposition nutzt eine vorläufige Modellverfügbarkeit; das Evaluationsdatum ist unbekannt.",
         "Difficulty-enriched sample; model grading; product harness differs from base models. ChatGPT for Clinicians includes a product harness; it is not connected to the base-model frontier.": "Auswahl schwieriger Aufgaben; Bewertung durch ein Modell; das Produkt nutzt einen anderen Systemaufbau als Basismodelle. ChatGPT for Clinicians nutzt einen Produkt-Systemaufbau; keine Verbindung zur Fortschrittslinie der Basismodelle.",
-        "Unverified record": "Ungeprüfter Eintrag"
+        "Unverified record": "Ungeprüfter Eintrag",
+        "Vendor-reported Symphony system; grader, repeat count and length-adjustment audit incomplete.": "Symphony-System laut Hersteller; Bewertung, Wiederholungen und Längenbereinigung sind nicht vollständig geprüft.",
+        "Third-party locator claims 56.9; original PDF not retrieved.": "Eine Drittquelle nennt 56,9; das Original-PDF konnte nicht abgerufen werden.",
+        "Third-party locator claims Mythos 66.0; primary numerical table not retrieved.": "Eine Drittquelle nennt Mythos 66,0; die Originaltabelle konnte nicht abgerufen werden.",
+        "Comparison qualified": "Vergleich eingeschränkt",
+        "Score verified; setup pending": "Zahlenwert belegt; Testaufbau noch offen"
       }
     },
     "navigation": {
@@ -7009,11 +7017,12 @@
         }
       ],
       "validation": {
-        "status": "confirmed",
+        "status": "needs_review",
         "comparability": "unknown",
         "reviewedAt": "2026-10-18",
         "reviewedBy": "AI-assisted original-source research audit",
-        "note": "Score supported; attribution to ReMedQA and March publication are unsupported. Score verification does not establish the model release month or clinical safety."
+        "note": "Score supported; attribution to ReMedQA and March publication are unsupported. Score verification does not establish the model release month or clinical safety. The numerical claim is source-checked, but the complete record remains under review until commercial-model test conditions are established.",
+        "scoreStatus": "confirmed"
       },
       "release": "2024-05",
       "publication": "2025-05-02",
@@ -7052,11 +7061,12 @@
         }
       ],
       "validation": {
-        "status": "confirmed",
+        "status": "needs_review",
         "comparability": "unknown",
         "reviewedAt": "2026-10-18",
         "reviewedBy": "AI-assisted original-source research audit",
-        "note": "Score supported; attribution to ReMedQA and March publication are unsupported. Score verification does not establish the model release month or clinical safety."
+        "note": "Score supported; attribution to ReMedQA and March publication are unsupported. Score verification does not establish the model release month or clinical safety. The numerical claim is source-checked, but the complete record remains under review until commercial-model test conditions are established.",
+        "scoreStatus": "confirmed"
       },
       "release": "2024-12",
       "publication": "2025-05-02",
@@ -7095,11 +7105,12 @@
         }
       ],
       "validation": {
-        "status": "confirmed",
+        "status": "needs_review",
         "comparability": "unknown",
         "reviewedAt": "2026-10-18",
         "reviewedBy": "AI-assisted original-source research audit",
-        "note": "Score supported; attribution to ReMedQA and March publication are unsupported. Score verification does not establish the model release month or clinical safety."
+        "note": "Score supported; attribution to ReMedQA and March publication are unsupported. Score verification does not establish the model release month or clinical safety. The numerical claim is source-checked, but the complete record remains under review until commercial-model test conditions are established.",
+        "scoreStatus": "confirmed"
       },
       "release": "2025-01",
       "publication": "2025-05-02",
@@ -10025,15 +10036,15 @@
         "Structure comparison"
       ],
       "finding": {
-        "headline": "One model predicts multiple biomolecular interaction types",
-        "explanation": "The authors report improvements over tested specialized methods for several interaction classes.",
+        "headline": "Protein–ligand docking: better than Vina",
+        "explanation": "On PoseBusters V1, AF3 predicted binding poses more accurately than Vina (p=2.27×10⁻¹³), without taking solved protein structures as input.",
         "value": null,
         "unit": null,
         "kind": "comparison"
       },
-      "setup": "Predicted protein, DNA, RNA and small-molecule complexes compared with experimentally determined structures.",
-      "limitations": "Stereochemical errors, hallucinated structures and limited dynamics; no drug-approval or treatment-selection endpoint.",
-      "teaser": "One model predicts multiple biomolecular interaction types",
+      "setup": "PoseBusters V1: 428 protein–ligand targets for AF3 and most comparators; success means a predicted ligand pose within 2 Å of the measured position. The AF3 training cutoff was September 2019.",
+      "limitations": "Static predictions can contain stereochemical errors and hallucinated structures; dynamics and therapeutic efficacy are not established.",
+      "teaser": "AF3 outperforms Vina on docking (p=2.27×10⁻¹³)",
       "timeline_year": 2024,
       "evidence_date": "2024-05-08",
       "date_basis": "publication",
@@ -10281,15 +10292,15 @@
         "Structure comparison"
       ],
       "finding": {
-        "headline": "One model predicts multiple biomolecular interaction types",
-        "explanation": "The authors report improvements over tested specialized methods for several interaction classes.",
+        "headline": "Protein–ligand docking: better than Vina",
+        "explanation": "On PoseBusters V1, AF3 predicted binding poses more accurately than Vina (p=2.27×10⁻¹³), without taking solved protein structures as input.",
         "value": null,
         "unit": null,
         "kind": "comparison"
       },
-      "setup": "Predicted protein, DNA, RNA and small-molecule complexes compared with experimentally determined structures.",
-      "limitations": "Stereochemical errors, hallucinated structures and limited dynamics; no drug-approval or treatment-selection endpoint.",
-      "teaser": "One model predicts multiple biomolecular interaction types",
+      "setup": "PoseBusters V1: 428 protein–ligand targets for AF3 and most comparators; success means a predicted ligand pose within 2 Å of the measured position. The AF3 training cutoff was September 2019.",
+      "limitations": "Static predictions can contain stereochemical errors and hallucinated structures; dynamics and therapeutic efficacy are not established.",
+      "teaser": "AF3 outperforms Vina on docking (p=2.27×10⁻¹³)",
       "timeline_year": 2024,
       "evidence_date": "2024-05-08",
       "date_basis": "publication",

@@ -32,3 +32,5 @@ test('feedback composes an encoded draft without sending a message',()=>{
   assert.throws(()=>feedbackUrl('   ','Title','owner@example.com'),/empty/);
   assert.throws(()=>feedbackUrl('Text','Title','bad\r\n@example.com'),/invalid/);
 });
+
+test('German editorial metrics localize decimals with a space before percent',()=>{assert.match(translateText('Task success: 69.67%','de'),/69,67\s*%/);});

@@ -4,7 +4,7 @@ Updated: 2026-10-18
 ## Current numeric audit
 All 41 original observations and their numeric values are retained. The second audit reviewed the 23 previously pending records plus Flan-PaLM.
 
-- 38 numerical claims are source-checked; 1 is supplier-reported; 2 remain unresolved.
+- 38 numerical claims are source-checked. At whole-record level: 35 confirmed, 1 supplier-reported, 5 under review (3 source-checked Meerkat values with unresolved test setup plus 2 unresolved numerical claims).
 - 28 scores qualify for their benchmark-specific frontier: 5 HealthBench Core, 6 HealthBench Professional base-model evaluations, and 17 agent-benchmark scores.
 - The 9 MedQA results use different training/prompting/retrieval configurations or unresolved commercial-model setup. They do not form a confirmed comparable time trend.
 - ChatGPT for Clinicians uses a product harness and remains separate from the base-model frontier, despite its supported 59.0 score.
@@ -16,7 +16,7 @@ All 41 original observations and their numeric values are retained. The second a
 - PubMedGPT/BioMedLM 50.3% used full MedQA fine-tuning (10 epochs, batch 8, learning rate 2e-6), not zero-shot.
 - GPT-4-base 86.1% belongs to non-production base-model results added on 12 April 2023. The public GPT-4 launch is not its availability date.
 - Med-PaLM 2 86.5% is the MedQA-only tuned variant; unified ensemble refinement scored 85.4%.
-- GPT-4o 83.6%, o1 95.7%, o3-mini 91.8% are supported by the Meerkat paper (npj Digital Medicine 8, 240, 2 May 2025), not the imported ReMedQA/March attribution. Commercial-model prompting and snapshots remain unresolved.
+- GPT-4o 83.6%, o1 95.7%, o3-mini 91.8% are supported by the Meerkat paper (npj Digital Medicine 8, 240, 2 May 2025), not the imported ReMedQA/March attribution. Commercial-model prompting and snapshots remain unresolved; these three complete records stay under review despite verified numeric claims.
 - HealthBench Core's 15.54/32.33/42.00/47.78/59.90 are original Table 7 means across 16 runs, displayed as rubric points rather than diagnostic accuracy.
 - Seven HealthBench Professional claims are supported by original Figure 4. The Grok label is 4.20. Product and base-model setups are distinguished.
 - AMIE's final Nature paper appeared 9 April 2025 (Nature 642, 442–450). Its final study uses 159 scenarios, 20 PCPs, 30/32 specialist axes and 25/26 patient-actor axes. The 2024 preprint had different counts; no unsupported ~59% versus ~34% top-1 claim is used.
@@ -39,9 +39,9 @@ The detailed 24-record review is stored in `extensions.researchAudit` inside the
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `6ca974ba4acd6e1417fbbf0666384b16371d5e816e5884d04ce9d489eddc5e88`
+- SHA-256 (parsed JSON): `003927f1b0b3d760c4b4039547123e8a079fb51cbf6514ebcecfa3ad380de522`
 - Tracks / benchmark series / measurements: 3 / 5 / 41
-- Score validation: 38 confirmed, 1 reported, 2 under review
+- Score validation: 35 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 28; original-link gaps: 2
 - Chronology: 41 unknown evaluation dates; 40 month-precision release proxies
 - Last evidence review: 2026-10-18; last data change: 2026-10-18

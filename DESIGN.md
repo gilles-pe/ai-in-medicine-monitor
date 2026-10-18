@@ -61,9 +61,9 @@ The compact header includes a language switch and hamburger navigation. The menu
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `6ca974ba4acd6e1417fbbf0666384b16371d5e816e5884d04ce9d489eddc5e88`
+- SHA-256 (parsed JSON): `003927f1b0b3d760c4b4039547123e8a079fb51cbf6514ebcecfa3ad380de522`
 - Tracks / benchmark series / measurements: 3 / 5 / 41
-- Score validation: 38 confirmed, 1 reported, 2 under review
+- Score validation: 35 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 28; original-link gaps: 2
 - Chronology: 41 unknown evaluation dates; 40 month-precision release proxies
 - Last evidence review: 2026-10-18; last data change: 2026-10-18

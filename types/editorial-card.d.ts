@@ -14,5 +14,5 @@ export interface EditorialCard {
   date_basis: string;
   timeline_note: string;
   sources: Array<{ title: string; label?: string; url: string | null; journal_citation: string | null; locator?: string | null }>;
-  validation: { status: EvidenceStatus; note: string; comparability?: Comparability; reviewedAt?: string | null; reviewedBy?: string | null };
+  validation: { status: EvidenceStatus; scoreStatus?: EvidenceStatus; note: string; comparability?: Comparability; reviewedAt?: string | null; reviewedBy?: string | null };
 }

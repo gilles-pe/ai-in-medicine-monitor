@@ -168,8 +168,8 @@ test('copied chart link restores date and destination',async({page})=>{
 test('portable monitor renders observations and separate source-checked clinical and autonomy frontiers',async({page})=>{
   await expect(page.locator('.monitor-chart')).toHaveCount(3);
   await expect(page.locator('.detail-charts .monitor-observation')).toHaveCount(37);
-  await expect(page.locator('#chart-knowledge .monitor-observation')).toHaveCount(9);
-  await expect(page.locator('#chart-assistance .monitor-observation')).toHaveCount(15);
+  await expect(page.locator('#chart-knowledge .monitor-observation')).toHaveCount(8);
+  await expect(page.locator('#chart-assistance .monitor-observation')).toHaveCount(12);
   await expect(page.locator('#chart-knowledge .monitor-frontier')).toHaveCount(0);
   await expect(page.locator('#chart-assistance .monitor-frontier')).not.toHaveCount(0);
   const ids=await page.locator('.detail-charts .monitor-frontier').evaluateAll(elements=>[...new Set(elements.map(element=>element.dataset.seriesId))]);
@@ -254,7 +254,7 @@ test('language switch preserves selection and translates new point cards, then r
   await expect(page.locator('.monitor-calendar-note').first()).toContainText('Vorläufiger Zeitverlauf');
   await openMonitor(page,'3.9');
   await expect(page.getByRole('dialog').locator('.point-card-sections dt')).toHaveText(['AUFBAU & STICHPROBE','GRENZEN & VALIDITÄT']);
-  await expect(page.getByRole('dialog')).toContainText('69,67%');
+  await expect(page.getByRole('dialog')).toContainText(/69,67\s*%/);
   await page.keyboard.press('Escape');
   await page.reload();await expect(page.locator('html')).toHaveAttribute('lang','de');
   await page.locator('[data-language="en"]').click();
