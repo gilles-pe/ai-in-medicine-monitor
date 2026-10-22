@@ -61,7 +61,7 @@ The compact header includes a language switch and hamburger navigation. The menu
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `75d74d1ea2e1aab0ca2d6a8e904d9a651856b2bb01b9ab4ef8fc4fcc2ca4acd8`
+- SHA-256 (parsed JSON): `c1aeff1b6ae6d6e2e10165e736224af65d098695e655a1ca42fb40cb1e307bb9`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2
@@ -88,3 +88,6 @@ AlphaFold has no separate highlight buttons beneath the overview heading. CASP a
 Each lower chart shows its plain-language measurement question, active benchmark descriptions and metric, one selected source-linked result, a compact line/dot legend and its main limitation. The portable track/series readingGuide fields supply this copy. Result and comparator derive from the same selected series, publication cutoff and model selection; only eligible same-protocol points may be compared. In the Both view, highlight one result from the most recent nonempty benchmark series without comparing across benchmarks. Confirmed qualified scores can be shown as selected observations, with no implied trend or comparator. Different-test warnings and unknown comparability remain visible. No new accordions or second plot. Keep mobile text readable and the per-track layout compact.
 
 Every visible lower-chart marker supports a mouse hover card and pinning by click, including markers near grouped touch targets. Nearby touch targets keep a result switcher; hover resolves the closest member. Desktop groups use the actual chart coordinate scale rather than forcing mobile-sized clustering. Marker keyboard activation and touch cards remain available.
+
+## Related resources - 22 October 2026
+Place a quiet, unboxed Related row directly below the three chart thumbnails. Links use descriptive titles, publisher credit and an external arrow, open in a new tab with noopener noreferrer, and wrap on narrow screens. Maintain a 44px link target. Related URLs and translated labels live in the portable JSON under extensions.navigation.relatedLinks and extensions.locales. These are external reading resources, not benchmark observations.

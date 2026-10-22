@@ -56,7 +56,9 @@ function showCardSelection(ids,index=0){
 }
 function showOverviewCluster(ids){const visible=new Set(visibleAnchors(state.cutoff).map(p=>p.id));showCardSelection(ids.split(',').filter(id=>visible.has(id)));}
 function renderPreviews(allRows){
-  return '<section id="charts" class="benchmark-previews" aria-label="Charts"><div class="thumbnail-grid">'+tracks.map(track=>'<a class="chart-thumbnail" href="#chart-'+track.id+'" style="--track:'+track.color+'"><span class="thumbnail-title">'+e(track.label)+' <span aria-hidden="true">↘</span></span>'+renderMonitorChart(track,state.cutoff,{preview:true,model:state.model})+'</a>').join('')+'</div></section>';
+  const links=(monitorData.extensions.navigation.relatedLinks||[]).map(link=>'<a href="'+e(link.url)+'" target="_blank" rel="noopener noreferrer">'+e(link.title)+' <span data-i18n-ignore>· '+e(link.publisher)+'</span> <span aria-hidden="true">↗</span></a>').join('');
+  const related=links?'<nav class="related-resources" aria-label="Related"><span>Related</span><span aria-hidden="true">·</span>'+links+'</nav>':'';
+  return '<section id="charts" class="benchmark-previews" aria-label="Charts"><div class="thumbnail-grid">'+tracks.map(track=>'<a class="chart-thumbnail" href="#chart-'+track.id+'" style="--track:'+track.color+'"><span class="thumbnail-title">'+e(track.label)+' <span aria-hidden="true">↘</span></span>'+renderMonitorChart(track,state.cutoff,{preview:true,model:state.model})+'</a>').join('')+'</div>'+related+'</section>';
 }
 function showMonitorPoint(id){
   const item=monitorPoint(id);if(!item||item.point.validation.status!=='confirmed')return;

@@ -6638,14 +6638,23 @@
         "No published result for this selection.": "Für diese Auswahl liegt kein veröffentlichtes Ergebnis vor.",
         "Selected result": "Ausgewähltes Ergebnis",
         "vs.": "gegenüber",
-        "Illustrative scale. Sources support milestones, not real IQ scores.": "Illustrative Skala. Die Quellen belegen Meilensteine, keine echten IQ-Werte."
+        "Illustrative scale. Sources support milestones, not real IQ scores.": "Illustrative Skala. Die Quellen belegen Meilensteine, keine echten IQ-Werte.",
+        "Related": "Weiterführend",
+        "AI capabilities vs. human performance": "KI-Fähigkeiten im Vergleich zur menschlichen Leistung"
       }
     },
     "navigation": {
       "feedbackEmail": "gillespenning@gmail.com",
       "substackUrl": "https://medtechsignal.substack.com/",
       "linkedinUrl": "https://de.linkedin.com/in/gillespenning",
-      "blueskyUrl": "https://bsky.app/profile/gillespe.bsky.social"
+      "blueskyUrl": "https://bsky.app/profile/gillespe.bsky.social",
+      "relatedLinks": [
+        {
+          "title": "AI capabilities vs. human performance",
+          "publisher": "Our World in Data",
+          "url": "https://ourworldindata.org/grapher/test-scores-ai-capabilities-relative-human-performance"
+        }
+      ]
     },
     "researchAudit": {
       "reviewedAt": "2026-10-18",
