@@ -5,7 +5,7 @@
       "start": "2022-01",
       "end": "2026-10"
     },
-    "lastUpdated": "2026-10-18",
+    "lastUpdated": "2026-10-22",
     "rules": {
       "xAxisMapping": "modelReleaseDate",
       "connectOnlyFrontier": true,
@@ -19,8 +19,8 @@
     "editorialStandard": "MONITOR_STANDARD.md",
     "designSpec": "DESIGN.md",
     "agentInstructions": "AGENTS.md",
-    "lastReviewedAt": "2026-10-18",
-    "lastDataChangeAt": "2026-10-18",
+    "lastReviewedAt": "2026-10-22",
+    "lastDataChangeAt": "2026-10-22",
     "importedFrom": "gemini-code-1792312905225.json",
     "reviewNote": "38 numerical claims checked against original sources; 35 complete numeric records confirmed, 1 supplier-reported, 5 under review (including 3 source-checked values with unresolved commercial-model setup). MedQA protocols differ and do not form a confirmed frontier. Clinical base-model and product-harness comparisons remain distinct. Release-month positioning is provisional; evaluation dates remain unknown.",
     "auditSummary": "38 numerical claims checked against original sources; 35 complete numeric records confirmed, 1 supplier-reported, 5 under review (including 3 source-checked values with unresolved commercial-model setup). MedQA protocols differ and do not form a confirmed frontier. Clinical base-model and product-harness comparisons remain distinct. Release-month positioning is provisional; evaluation dates remain unknown.",
@@ -48,6 +48,10 @@
       {
         "date": "2026-10-18",
         "action": "Simplified the reading view, persisted Milestones across slider/model updates, moved presentation/language into the menu, added same-card result switching and benchmark views. Published view excludes unconfirmed records. Added three 2026 Nature Medicine results in a distinct 500-item search-enabled MedQA series; does not bridge historical MedQA. Source limitations include non-matched inference/search settings and training overlap."
+      },
+      {
+        "date": "2026-10-22",
+        "action": "Updated visual design, editorial typography, frontier shading, future-scenario hatching, collapsed introduction layout and four-item news preview; updated lastReviewedAt to 2026-10-22."
       }
     ],
     "previousTitles": [

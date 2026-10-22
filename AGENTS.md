@@ -55,10 +55,10 @@ Location: `data/monitor-data.json` (UTF-8 JSON). Sections: `meta`, `tracks[]`, `
 Every active point, study and milestone references the shared `editorialCards` registry by stable `cardId`. Card content must agree with chart values and validation status. Preserve old imported content in the change log/archive. Read the schema 2.0 card contract in DESIGN.md. Historical conceptual events use documented categorical outcomes, not invented IQ or accuracy values.
 
 ## Before declaring ready
-Check JSON parses, IDs unique, every published line point eligible, no joined incompatible series, source links valid, point cards complete, mobile behavior, and last-updated semantics. Produce a brief list of unresolved issues for the human owner.
+Check JSON parses, IDs unique, every published line point eligible, no joined incompatible series, source links valid, point cards complete, mobile behavior, and last-updated semantics. Update `meta.lastReviewedAt` / `meta.lastDataChangeAt` (and run `node scripts/sync-monitor-docs.mjs`) whenever monitor content or reviewed evidence changes so the visible 'Last reviewed' indicator stays current. Produce a brief list of unresolved issues for the human owner.
 
 ## Interesting news
-`data/news.json` contains the separate editorial feed. Ask the user to approve each proposed story before adding it. Retain original publication dates and sort newest first; group cross-posts as source links beneath the original story. Mark every Substack item with a star. The dashboard shows the newest three items and All opens the complete `/news/` archive. Do not automatically import or publish unapproved posts. News additions do not imply a benchmark evidence review.
+`data/news.json` contains the separate editorial feed. Ask the user to approve each proposed story before adding it. Retain original publication dates and sort newest first; group cross-posts as source links beneath the original story. Mark every Substack item with a star. The dashboard shows the newest four items and All opens the complete `/news/` archive. Do not automatically import or publish unapproved posts. News additions do not imply a benchmark evidence review.
 
 ## Hosting and publication
 The primary publication target is GitHub Pages at `https://gilles-pe.github.io/ai-in-medicine-monitor/`, from the public `gilles-pe/ai-in-medicine-monitor` repository. Publish changes through `main` and the `Publish GitHub Pages` workflow; verify its deployment result before reporting them live. Keep asset and navigation paths relative so the project subdirectory works. `.openai/hosting.json` and the former Sites deployment are retained as a fallback; they are not the primary publication target.
@@ -69,12 +69,12 @@ The primary publication target is GitHub Pages at `https://gilles-pe.github.io/a
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `0325c086a28aedeb4458b9cd918f13a9056a87795c1e0aae1e835c67722b3231`
+- SHA-256 (parsed JSON): `bc4eabb353990b8775ef8e127d6dc1ec63558798e143d4e0b22920a546c57a4c`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2
 - Chronology: 44 unknown evaluation dates; 40 month-precision release proxies
-- Last evidence review: 2026-10-18; last data change: 2026-10-18
+- Last evidence review: 2026-10-22; last data change: 2026-10-22
 - Calendar positioning uses model availability proxies, not evaluation dates. Confirmed scores do not validate release-month chronology or source-publication dates and versions.
 - Frontier must be recalculated separately within each benchmark series. Pending and qualified-only records do not form a confirmed main line.
 - Source policy: MONITOR_STANDARD.md; interface: DESIGN.md; collaboration: AGENTS.md.

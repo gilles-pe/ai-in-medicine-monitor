@@ -18,10 +18,10 @@ test('unapproved posts, invalid calendar dates and unsafe source links stay unpu
   assert.deepEqual(orderedNews(input).map(item => item.id), [approved.id]);
 });
 
-test('dashboard has three recent stories and All opens the full translated archive', () => {
+test('dashboard has four recent stories and All opens the full translated archive', () => {
   const en = renderNewsSidebar('en');
   const de = renderNewsSidebar('de');
-  assert.equal((en.match(/<li>/g) || []).length, 3);
+  assert.equal((en.match(/<li>/g) || []).length, 4);
   assert.match(en, /href="\.\/news\/\?lang=en"/);
   assert.match(de, /href="\.\/news\/\?lang=de"/);
   assert.match(de, /Interessante Neuigkeiten/);

@@ -86,12 +86,12 @@ Keep score truth, comparison protocol and chronology separate. Confirmed but qua
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `0325c086a28aedeb4458b9cd918f13a9056a87795c1e0aae1e835c67722b3231`
+- SHA-256 (parsed JSON): `bc4eabb353990b8775ef8e127d6dc1ec63558798e143d4e0b22920a546c57a4c`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2
 - Chronology: 44 unknown evaluation dates; 40 month-precision release proxies
-- Last evidence review: 2026-10-18; last data change: 2026-10-18
+- Last evidence review: 2026-10-22; last data change: 2026-10-22
 - Calendar positioning uses model availability proxies, not evaluation dates. Confirmed scores do not validate release-month chronology or source-publication dates and versions.
 - Frontier must be recalculated separately within each benchmark series. Pending and qualified-only records do not form a confirmed main line.
 - Source policy: MONITOR_STANDARD.md; interface: DESIGN.md; collaboration: AGENTS.md.

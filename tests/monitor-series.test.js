@@ -10,7 +10,7 @@ const point = (id, month, value, changes = {}) => ({
   sources: [{ url: 'https://example.org/original-paper', locator: 'Table 2', type: 'official_primary' }],
   ...changes,
 });
-const derive = data => deriveSeries({ seriesId: 'same-test', data }, '2026-10-18');
+const derive = data => deriveSeries({ seriesId: 'same-test', data }, monitorData.meta.lastReviewedAt);
 
 test('date precision is preserved, invalid calendar dates rejected', () => {
   assert.equal(dateInfo('2024-05').label, 'May 2024');

@@ -14,7 +14,7 @@ test('clean header keeps preferences in the menu and three thumbnails',async({pa
   await expect(page.getByRole('tab')).toHaveCount(0);await expect(page.locator('#present-button')).not.toBeVisible();await expect(page.locator('[data-language="de"]')).not.toBeVisible();
   await expect(page.locator('.chart-thumbnail')).toHaveCount(3);await expect(page.locator('#content')).not.toContainText(/Timeline data|Under review|Benchmark results|About this benchmark|PPT|PowerPoint/);
   await expect(page.locator('.masthead')).not.toContainText('Gilles Penning');await expect(page.locator('.site-footer')).not.toContainText('Gilles Penning');
-  await expect(page.locator('#editorial-check')).toHaveText('Last reviewed 18 Oct 2026');
+  await expect(page.locator('#editorial-check')).toHaveText('Last reviewed 22 Oct 2026');
   await page.locator('#menu-button').click();await expect(page.locator('#present-button')).toBeVisible();await expect(page.locator('[data-language="de"]')).toBeVisible();
 });
 
