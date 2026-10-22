@@ -9,7 +9,7 @@ import { monitorCardData, monitorPoint, editorialCard, pointCardHtml, installPoi
 import { downloadMonitorPackage } from './lib/monitor-export.js';
 import { tracks, measurements, sourceCatalog, editorialStatus, studies } from './data/evidence.js';
 import { trackMilestones, trustContext } from './data/track-milestones.js';
-import { renderOverview, renderMilestoneLinks, visibleHistory, visibleAnchors } from './lib/overview.js';
+import { renderOverview, renderMilestoneLinks, renderOverviewMilestoneStrip, visibleHistory, visibleAnchors } from './lib/overview.js';
 import { filterMeasurements, latestByModel, escapeHtml as e } from './lib/selectors.js';
 
 const $=selector=>document.querySelector(selector);
@@ -150,6 +150,48 @@ async function action(event){
 shell.addEventListener('click',action);
 content.addEventListener('change',event=>{if(event.target.matches('[data-series-view]')){state.seriesView[event.target.dataset.seriesView]=event.target.value;render();}});
 shell.addEventListener('keydown',event=>{if(['Enter',' '].includes(event.key)&&event.target.closest('svg [role="button"]')){event.preventDefault();action(event);}});
+let lastScrubYear=null;
+function updateOverviewCursor(svgX,yearText,statusText){
+  const line=$('#overview-cursor-line'),box=$('#overview-cursor-box'),yr=$('#overview-cursor-year'),st=$('#overview-cursor-status');
+  if(!line||!box||!yr||!st)return;
+  line.setAttribute('x1',svgX);line.setAttribute('x2',svgX);
+  box.setAttribute('x',svgX-31);
+  yr.setAttribute('x',svgX);yr.textContent=yearText;
+  st.setAttribute('x',svgX);st.textContent=statusText;
+}
+shell.addEventListener('pointermove',event=>{
+  const svg=event.target.closest('#overview .overview-scroll svg');
+  if(!svg)return;
+  const rect=svg.getBoundingClientRect();
+  if(!rect.width)return;
+  const rawX=(event.clientX-rect.left)/rect.width*1200;
+  const clampedX=Math.max(68,Math.min(1098,rawX));
+  const hoverYear=Math.round(1950+(clampedX-68)/1030*80);
+  const currentYear=Number(today.slice(0,4));
+  updateOverviewCursor(clampedX,String(hoverYear),hoverYear===currentYear?'TODAY':hoverYear>currentYear?'SCENARIO':'YEAR');
+  if(hoverYear!==lastScrubYear){
+    lastScrubYear=hoverYear;
+    const strip=$('#overview-milestone-strip');
+    if(strip){
+      const tmp=document.createElement('div');
+      tmp.innerHTML=renderOverviewMilestoneStrip(state.cutoff,hoverYear);
+      if(tmp.firstElementChild)strip.replaceWith(tmp.firstElementChild);
+    }
+  }
+});
+shell.addEventListener('pointerleave',event=>{
+  if(event.target.matches?.('#overview .overview-scroll')){
+    lastScrubYear=null;
+    const grp=$('#overview-cursor-group');
+    if(grp)updateOverviewCursor(Number(grp.dataset.defaultX),grp.dataset.defaultYear,grp.dataset.defaultStatus);
+    const strip=$('#overview-milestone-strip');
+    if(strip){
+      const tmp=document.createElement('div');
+      tmp.innerHTML=renderOverviewMilestoneStrip(state.cutoff,Number(state.cutoff.slice(0,4)));
+      if(tmp.firstElementChild)strip.replaceWith(tmp.firstElementChild);
+    }
+  }
+},true);
 $('#detail-body').addEventListener('click',action);
 dialog.addEventListener('click',event=>{if(event.target.closest('[data-card-close]'))dialog.close();});
 dialog.addEventListener('close',()=>{hover.hide();highlightCard(null);});
