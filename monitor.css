@@ -41,6 +41,7 @@
 .hero-overview .overview .section-title h2{font-size:24px;margin:0}
 .hero-overview .overview-legend{padding:4px 0 8px}
 .hero-overview .overview-caption{margin:6px 0 0}
+#overview .overview-scroll,#overview .overview-scroll svg{touch-action:pan-y;user-select:none;-webkit-user-select:none}
 .overview-milestone-strip{border-top:1px solid var(--line);margin-top:8px;padding:8px 0 2px}
 .overview-milestone-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
 .overview-milestone-title{font:600 9px/1.2 var(--sans);letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
@@ -50,6 +51,10 @@
 .overview-milestone-pill b{font-weight:600;color:var(--pill-color,#60727c)}
 .overview-milestone-pill.is-active-year{border-color:var(--pill-color,#60727c);background:#fff;box-shadow:var(--shadow-sm)}
 .overview-milestone-pill:hover{border-color:var(--pill-color,#60727c);background:#fff;transform:translateY(-1px)}
+@media(max-width:600px){
+ .overview-milestone-pills{gap:6px;min-height:36px}
+ .overview-milestone-pill{min-height:36px;padding:5px 10px;font-size:11px}
+}
 .track-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .chart-zoom-button{width:34px;height:34px;min-width:34px;min-height:34px;display:inline-grid;place-items:center;padding:0;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--muted);cursor:pointer;flex-shrink:0;transition:border-color .15s,background-color .15s,color .15s}
 .chart-zoom-button:hover{border-color:var(--line-strong);color:var(--ink);background:#fff}

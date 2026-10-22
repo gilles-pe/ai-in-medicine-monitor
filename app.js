@@ -137,6 +137,7 @@ function exportData(){
   const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='ai-in-medicine-'+state.cutoff+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('Data exported.');
 }
 async function action(event){
+  if(event.type==='click'&&Date.now()<suppressOverviewClickUntil&&event.target.closest('#overview .overview-scroll svg'))return;
   const zoom=event.target.closest('[data-chart-zoom]');
   if(zoom){toggleChartZoom(zoom.dataset.chartZoom);return;}
   const hit=event.target.closest('.monitor-point-hit');
@@ -150,7 +151,7 @@ async function action(event){
 shell.addEventListener('click',action);
 content.addEventListener('change',event=>{if(event.target.matches('[data-series-view]')){state.seriesView[event.target.dataset.seriesView]=event.target.value;render();}});
 shell.addEventListener('keydown',event=>{if(['Enter',' '].includes(event.key)&&event.target.closest('svg [role="button"]')){event.preventDefault();action(event);}});
-let lastScrubYear=null;
+let lastScrubYear=null,touchScrub=null,suppressOverviewClickUntil=0;
 function updateOverviewCursor(svgX,yearText,statusText){
   const line=$('#overview-cursor-line'),box=$('#overview-cursor-box'),yr=$('#overview-cursor-year'),st=$('#overview-cursor-status');
   if(!line||!box||!yr||!st)return;
@@ -159,12 +160,10 @@ function updateOverviewCursor(svgX,yearText,statusText){
   yr.setAttribute('x',svgX);yr.textContent=yearText;
   st.setAttribute('x',svgX);st.textContent=statusText;
 }
-shell.addEventListener('pointermove',event=>{
-  const svg=event.target.closest('#overview .overview-scroll svg');
-  if(!svg)return;
+function scrubOverviewAtClientX(svg,clientX){
   const rect=svg.getBoundingClientRect();
   if(!rect.width)return;
-  const rawX=(event.clientX-rect.left)/rect.width*1200;
+  const rawX=(clientX-rect.left)/rect.width*1200;
   const clampedX=Math.max(68,Math.min(1098,rawX));
   const hoverYear=Math.round(1950+(clampedX-68)/1030*80);
   const currentYear=Number(today.slice(0,4));
@@ -178,18 +177,50 @@ shell.addEventListener('pointermove',event=>{
       if(tmp.firstElementChild)strip.replaceWith(tmp.firstElementChild);
     }
   }
+}
+function resetOverviewScrub(){
+  lastScrubYear=null;
+  const grp=$('#overview-cursor-group');
+  if(grp)updateOverviewCursor(Number(grp.dataset.defaultX),grp.dataset.defaultYear,grp.dataset.defaultStatus);
+  const strip=$('#overview-milestone-strip');
+  if(strip){
+    const tmp=document.createElement('div');
+    tmp.innerHTML=renderOverviewMilestoneStrip(state.cutoff,Number(state.cutoff.slice(0,4)));
+    if(tmp.firstElementChild)strip.replaceWith(tmp.firstElementChild);
+  }
+}
+shell.addEventListener('pointerdown',event=>{
+  if(event.pointerType==='mouse')return;
+  const svg=event.target.closest('#overview .overview-scroll svg');
+  if(!svg)return;
+  touchScrub={pointerId:event.pointerId,startX:event.clientX,startY:event.clientY,moved:false,svg};
+  scrubOverviewAtClientX(svg,event.clientX);
 });
+shell.addEventListener('pointermove',event=>{
+  if(event.pointerType==='mouse'){
+    const svg=event.target.closest('#overview .overview-scroll svg');
+    if(svg)scrubOverviewAtClientX(svg,event.clientX);
+    return;
+  }
+  if(!touchScrub||event.pointerId!==touchScrub.pointerId)return;
+  const dx=Math.abs(event.clientX-touchScrub.startX),dy=Math.abs(event.clientY-touchScrub.startY);
+  if(dx>6&&dx>=dy){
+    touchScrub.moved=true;
+    scrubOverviewAtClientX(touchScrub.svg,event.clientX);
+  }else if(!touchScrub.moved&&dy>10){
+    touchScrub=null;
+  }
+});
+shell.addEventListener('pointerup',event=>{
+  if(touchScrub&&event.pointerId===touchScrub.pointerId){
+    if(touchScrub.moved)suppressOverviewClickUntil=Date.now()+400;
+    touchScrub=null;
+  }
+});
+shell.addEventListener('pointercancel',()=>{touchScrub=null;});
 shell.addEventListener('pointerleave',event=>{
-  if(event.target.matches?.('#overview .overview-scroll')){
-    lastScrubYear=null;
-    const grp=$('#overview-cursor-group');
-    if(grp)updateOverviewCursor(Number(grp.dataset.defaultX),grp.dataset.defaultYear,grp.dataset.defaultStatus);
-    const strip=$('#overview-milestone-strip');
-    if(strip){
-      const tmp=document.createElement('div');
-      tmp.innerHTML=renderOverviewMilestoneStrip(state.cutoff,Number(state.cutoff.slice(0,4)));
-      if(tmp.firstElementChild)strip.replaceWith(tmp.firstElementChild);
-    }
+  if(event.pointerType==='mouse'&&event.target.matches?.('#overview')){
+    resetOverviewScrub();
   }
 },true);
 $('#detail-body').addEventListener('click',action);
