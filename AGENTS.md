@@ -60,6 +60,9 @@ Check JSON parses, IDs unique, every published line point eligible, no joined in
 ## Interesting news
 `data/news.json` contains the separate editorial feed. Ask the user to approve each proposed story before adding it. Retain original publication dates and sort newest first; group cross-posts as source links beneath the original story. Mark every Substack item with a star. The dashboard shows the newest three items and All opens the complete `/news/` archive. Do not automatically import or publish unapproved posts. News additions do not imply a benchmark evidence review.
 
+## Hosting and publication
+The primary publication target is GitHub Pages at `https://gilles-pe.github.io/ai-in-medicine-monitor/`, from the public `gilles-pe/ai-in-medicine-monitor` repository. Publish changes through `main` and the `Publish GitHub Pages` workflow; verify its deployment result before reporting them live. Keep asset and navigation paths relative so the project subdirectory works. `.openai/hosting.json` and the former Sites deployment are retained as a fallback; they are not the primary publication target.
+
 <!-- monitor-data-contract:start -->
 ## Generated data contract
 
