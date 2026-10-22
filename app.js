@@ -13,7 +13,7 @@ import { renderOverview, renderMilestoneLinks, visibleHistory, visibleAnchors } 
 import { filterMeasurements, latestByModel, escapeHtml as e } from './lib/selectors.js';
 
 const $=selector=>document.querySelector(selector);
-const content=$('#content'),dialog=$('#detail-dialog'),timeControls=$('#time-controls');
+const shell=$('#top'),content=$('#content'),dialog=$('#detail-dialog'),timeControls=$('#time-controls');
 let preferenceStorage;try{preferenceStorage=window.localStorage;}catch{}
 setLanguage(preferredLanguage(location.search,preferenceStorage));
 document.documentElement.lang=getLanguage();
@@ -30,10 +30,10 @@ let timer;
 function rows(){return filterMeasurements(measurements,{cutoff:state.cutoff}).filter(row=>!state.model||row.model===state.model);}
 function announce(text){$('#live-status').textContent=text;}
 function highlightCard(id){
-  content.querySelectorAll('.is-selected').forEach(el=>{el.classList.remove('is-selected');el.removeAttribute('aria-current');});
+  shell.querySelectorAll('.is-selected').forEach(el=>{el.classList.remove('is-selected');el.removeAttribute('aria-current');});
   if(!id)return;
   const attrs=['data-monitor-point','data-monitor-cluster','data-point-id','data-overview-point','data-overview-cluster','data-track-milestone','data-study-id','data-history-id','data-observation-id'];
-  content.querySelectorAll(attrs.map(a=>'['+a+']').join(',')).forEach(el=>{
+  shell.querySelectorAll(attrs.map(a=>'['+a+']').join(',')).forEach(el=>{
     if(attrs.some(a=>(el.getAttribute(a)||'').split(',').includes(id))){el.classList.add('is-selected');if(el.matches('button,[role="button"]'))el.setAttribute('aria-current','true');if(el.closest('.milestone-reading'))el.closest('.milestone-reading').classList.add('is-selected');}
   });
 }
@@ -79,7 +79,7 @@ let rendered=false;
 function render(){
   if(!rendered){
     timeControls.remove();
-    content.innerHTML='<div id="overview-slot"></div><details id="milestones-panel" class="point-index"><summary>Milestones</summary><div id="timeline-slot"></div><div class="point-index-list" id="milestone-list"></div></details><div id="previews-slot"></div><div class="detail-charts" id="tracks-slot"></div><details class="study-library"><summary>Studies</summary><div class="study-rows" id="study-list"></div></details>';
+    content.innerHTML='<details id="milestones-panel" class="point-index"><summary>Milestones</summary><div id="timeline-slot"></div><div class="point-index-list" id="milestone-list"></div></details><div id="previews-slot"></div><div class="detail-charts" id="tracks-slot"></div><details class="study-library"><summary>Studies</summary><div class="study-rows" id="study-list"></div></details>';
     $('#timeline-slot').append(timeControls);rendered=true;
   }
   $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false});
@@ -122,9 +122,9 @@ async function action(event){
     const target=event.target.closest('['+attribute+']');if(target){handler(target.getAttribute(attribute));return;}
   }
 }
-content.addEventListener('click',action);
+shell.addEventListener('click',action);
 content.addEventListener('change',event=>{if(event.target.matches('[data-series-view]')){state.seriesView[event.target.dataset.seriesView]=event.target.value;render();}});
-content.addEventListener('keydown',event=>{if(['Enter',' '].includes(event.key)&&event.target.closest('svg [role="button"]')){event.preventDefault();action(event);}});
+shell.addEventListener('keydown',event=>{if(['Enter',' '].includes(event.key)&&event.target.closest('svg [role="button"]')){event.preventDefault();action(event);}});
 $('#detail-body').addEventListener('click',action);
 dialog.addEventListener('click',event=>{if(event.target.closest('[data-card-close]'))dialog.close();});
 dialog.addEventListener('close',()=>{hover.hide();highlightCard(null);});
@@ -158,7 +158,7 @@ function hoverCard(target,event){
   }
   return editorialCard(id);
 }
-const hover=installPointHover(content,hoverCard,{onOpen:(id)=>{if(!dialog.open)highlightCard(id);},onClose:()=>{if(!dialog.open)highlightCard(null);}});
+const hover=installPointHover(shell,hoverCard,{onOpen:(id)=>{if(!dialog.open)highlightCard(id);},onClose:()=>{if(!dialog.open)highlightCard(null);}});
 let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{hover.hide();render();},150);});
 
 // UI language changes preserve the active chart, cutoff, model and open details.
