@@ -13,14 +13,14 @@ import { renderOverview, renderMilestoneLinks, visibleHistory, visibleAnchors } 
 import { filterMeasurements, latestByModel, escapeHtml as e } from './lib/selectors.js';
 
 const $=selector=>document.querySelector(selector);
-const shell=$('#top'),content=$('#content'),dialog=$('#detail-dialog'),timeControls=$('#time-controls');
+const shell=$('#top'),content=$('#content'),dialog=$('#detail-dialog');
 let preferenceStorage;try{preferenceStorage=window.localStorage;}catch{}
 setLanguage(preferredLanguage(location.search,preferenceStorage));
 document.documentElement.lang=getLanguage();
 const today=new Date().toISOString().slice(0,10);
 const sharedCutoff=new URLSearchParams(location.search).get('cutoff');
 const initialCutoff=/^\d{4}-\d{2}-\d{2}$/.test(sharedCutoff||'')&&Number.isFinite(Date.parse(sharedCutoff+'T00:00:00Z'))&&new Date(sharedCutoff+'T00:00:00Z').toISOString().slice(0,10)===sharedCutoff&&sharedCutoff>='1950-01-01'&&sharedCutoff<='2030-12-31'?sharedCutoff:today;
-const state={cutoff:initialCutoff,model:'',playing:false,presentation:false,seriesView:{}};
+const state={cutoff:initialCutoff,model:'',playing:false,presentation:false,zoomedChart:null,seriesView:{}};
 const dates=new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});
 const numbers=new Intl.NumberFormat('en-GB',{maximumFractionDigits:2});
 const date=value=>dates.format(new Date(value+'T00:00:00Z'));
@@ -66,6 +66,34 @@ function showMonitorPoint(id){
   const visible=buildTrackSeries(item.track.trackId,state.cutoff).series.some(series=>[...series.points,...series.undated].some(point=>point.id===id));if(visible)showEditorialCard(id);
 }
 function showMonitorCluster(ids){showCardSelection(ids.split(',').filter(id=>monitorPoint(id)?.point.validation.status==='confirmed'));}
+function zoomButtonHtml(target,label){
+  const active=state.zoomedChart===target;
+  const icon=active?'<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/>':'<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>';
+  return '<button type="button" class="chart-zoom-button" data-chart-zoom="'+e(target)+'" aria-label="'+(active?'Exit full view':'Expand '+e(label+' chart'))+'" aria-pressed="'+active+'" title="'+(active?'Close full view':'Expand chart')+'"><svg viewBox="0 0 24 24" aria-hidden="true">'+icon+'</svg></button>';
+}
+function syncZoomState(){
+  document.querySelectorAll('.is-zoomed').forEach(el=>el.classList.remove('is-zoomed'));
+  document.body.classList.toggle('has-zoomed-chart',Boolean(state.zoomedChart));
+  let backdrop=$('#chart-zoom-backdrop');
+  if(state.zoomedChart){
+    if(!backdrop){backdrop=document.createElement('div');backdrop.id='chart-zoom-backdrop';backdrop.className='chart-zoom-backdrop';backdrop.addEventListener('click',()=>toggleChartZoom(null));document.body.append(backdrop);}
+    const targetEl=state.zoomedChart==='overview'?$('#overview'):$('#chart-'+state.zoomedChart);
+    targetEl?.classList.add('is-zoomed');
+  }else if(backdrop){
+    backdrop.remove();
+  }
+  shell.querySelectorAll('[data-chart-zoom]').forEach(btn=>{
+    const active=btn.dataset.chartZoom===state.zoomedChart;
+    btn.setAttribute('aria-pressed',String(active));
+    btn.setAttribute('title',active?'Close full view':'Expand chart');
+    btn.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+(active?'<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/>':'<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>')+'</svg>';
+  });
+}
+function toggleChartZoom(target){
+  hover?.hide();
+  state.zoomedChart=state.zoomedChart===target?null:target;
+  syncZoomState();
+}
 function renderTrack(track,index){
   const trackData=buildTrackSeries(track.id,state.cutoff);
   const series=trackData.series;
@@ -73,20 +101,15 @@ function renderTrack(track,index){
   const selector=series.length>1?'<select class="series-selector" data-series-view="'+track.id+'" aria-label="'+e(track.label+' benchmark view')+'"><option value="all"'+(selected==='all'?' selected':'')+'>Both</option>'+series.map(s=>'<option value="'+e(s.seriesId)+'"'+(selected===s.seriesId?' selected':'')+'>'+e(s.shortLabel||s.benchmarkName.split(' (')[0].split(' · ')[0])+'</option>').join('')+'</select>':'';
   const marks=trackMilestones.filter(p=>p.trackId===track.id&&p.date<=state.cutoff);
   const stories='<div class="chart-stories" aria-label="Milestones">'+marks.map(p=>'<button type="button" data-track-milestone="'+e(p.id)+'"><time>'+p.date.slice(0,4)+'</time><span>'+e(p.shortTitle)+'</span></button>').join('')+'</div>';
-  return '<section class="track" id="chart-'+track.id+'" data-track="'+track.id+'" tabindex="-1" aria-labelledby="track-'+track.id+'" style="--track:'+track.color+'"><div class="track-top"><h2 id="track-'+track.id+'">'+e(track.label)+'</h2>'+selector+'</div><p class="track-description">'+e(trackData.track.readingGuide.description)+'</p><div class="track-visual">'+stories+renderMonitorChart(track,state.cutoff,{model:state.model,seriesView:selected})+'</div>'+renderTrackContext(track.id,state.cutoff,{model:state.model,seriesView:selected})+'</section>';
+  return '<section class="track" id="chart-'+track.id+'" data-track="'+track.id+'" tabindex="-1" aria-labelledby="track-'+track.id+'" style="--track:'+track.color+'"><div class="track-top"><h2 id="track-'+track.id+'">'+e(track.label)+'</h2><div class="track-actions">'+selector+zoomButtonHtml(track.id,track.label)+'</div></div><p class="track-description">'+e(trackData.track.readingGuide.description)+'</p><div class="track-visual">'+stories+renderMonitorChart(track,state.cutoff,{model:state.model,seriesView:selected})+'</div>'+renderTrackContext(track.id,state.cutoff,{model:state.model,seriesView:selected})+'</section>';
 }
-let rendered=false;
 function render(){
-  if(!rendered){
-    timeControls.remove();
-    content.innerHTML='<details id="milestones-panel" class="point-index"><summary>Milestones</summary><div id="timeline-slot"></div><div class="point-index-list" id="milestone-list"></div></details><div id="previews-slot"></div><div class="detail-charts" id="tracks-slot"></div><details class="study-library"><summary>Studies</summary><div class="study-rows" id="study-list"></div></details>';
-    $('#timeline-slot').append(timeControls);rendered=true;
-  }
   $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false});
   $('#milestone-list').innerHTML=renderMilestoneLinks(state.cutoff);
   $('#previews-slot').innerHTML=renderPreviews(rows());
   $('#tracks-slot').innerHTML=tracks.map(renderTrack).join('');
   $('#study-list').innerHTML=studies.filter(p=>p.date<=state.cutoff).map(p=>'<button type="button" data-study-id="'+p.id+'"><time>'+p.date.slice(0,4)+'</time><span>'+e(p.title)+'</span><span aria-hidden="true">↗</span></button>').join('');
+  syncZoomState();
 }
 function sync(){
   $('#cutoff-date').value=state.cutoff;
@@ -114,6 +137,8 @@ function exportData(){
   const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='ai-in-medicine-'+state.cutoff+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('Data exported.');
 }
 async function action(event){
+  const zoom=event.target.closest('[data-chart-zoom]');
+  if(zoom){toggleChartZoom(zoom.dataset.chartZoom);return;}
   const hit=event.target.closest('.monitor-point-hit');
   if(hit&&event.type==='click'&&event.pointerType==='mouse'){const card=hoverCard(hit,event);if(card){if(hit.dataset.monitorCluster){const ids=hit.dataset.monitorCluster.split(',');showCardSelection(ids,Math.max(0,ids.indexOf(card.id)));}else showMonitorPoint(card.id);return;}}
   const choice=event.target.closest('[data-card-choice]');
@@ -135,12 +160,12 @@ $('#time-slider').addEventListener('input',event=>cutoff((1950+Number(event.targ
 $('#today-button').addEventListener('click',()=>cutoff(today));
 $('#play-button').addEventListener('click',play);
 $('#present-button').addEventListener('click',()=>{present();closeMenu();});
-$('#export-button').addEventListener('click',exportData);
+$('#export-button')?.addEventListener('click',exportData);
 $('#editorial-check').textContent='Last reviewed '+date(monitorData.meta.lastReviewedAt);
-$('#package-export-button').addEventListener('click',async event=>{const button=event.currentTarget;button.disabled=true;try{announce(await downloadMonitorPackage());}catch(error){announce('Package export failed: '+error.message);}finally{button.disabled=false;}});
+$('#package-export-button')?.addEventListener('click',async event=>{const button=event.currentTarget;button.disabled=true;try{announce(await downloadMonitorPackage());}catch(error){announce('Package export failed: '+error.message);}finally{button.disabled=false;}});
 // Old view hashes now lead to the single-page overview.
 if(['#verlauf','#anwendungen','#studien','#quellen'].includes(location.hash))history.replaceState(null,'','#top');
-document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!dialog.open){stop();if(state.presentation)present();}});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!dialog.open){stop();if(state.zoomedChart){toggleChartZoom(null);return;}if(state.presentation)present();}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
 sync();render();
 if(location.hash)requestAnimationFrame(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView({block:'start'}));

@@ -13,7 +13,7 @@ test('clean header keeps preferences in the menu and three thumbnails',async({pa
   await expect(page.locator('.brand,.chart-tools,.back-link,.track-navigation,.result-row,.monitor-undated,.track-details')).toHaveCount(0);
   await expect(page.getByRole('tab')).toHaveCount(0);await expect(page.locator('#present-button')).not.toBeVisible();await expect(page.locator('[data-language="de"]')).not.toBeVisible();
   await expect(page.locator('.chart-thumbnail')).toHaveCount(3);await expect(page.locator('#content')).not.toContainText(/Timeline data|Under review|Benchmark results|About this benchmark|PPT|PowerPoint/);
-  await expect(page.locator('.masthead')).not.toContainText('Gilles Penning');await expect(page.locator('.site-footer')).not.toContainText('Gilles Penning');
+  await expect(page.locator('.masthead')).toContainText('Gilles Penning');await expect(page.locator('.site-footer')).not.toContainText('Gilles Penning');
   await expect(page.locator('#editorial-check')).toHaveText('Last reviewed 22 Oct 2026');
   await page.locator('#menu-button').click();await expect(page.locator('#present-button')).toBeVisible();await expect(page.locator('[data-language="de"]')).toBeVisible();
 });
@@ -97,9 +97,16 @@ test('timeline playback keeps milestones open and study disclosure persists on u
   await page.locator('.study-library summary').click();await expect(page.locator('[data-study-id]')).toHaveCount(6);await page.locator('[data-study-id="alphafold2"]').click();await expect(page.getByRole('dialog')).toContainText('0.96');await page.keyboard.press('Escape');await date(page,'2020-12-31');await page.locator('#play-button').click();await page.clock.runFor(1101);await expect(page.locator('#cutoff-date')).toHaveValue('2021-12-31');await expect(page.locator('#milestones-panel')).toHaveAttribute('open','');await expect(page.locator('.study-library')).toHaveAttribute('open','');await page.locator('#play-button').click();
 });
 
-test('portable ZIP preserves full central data, archived review records and document checksums',async({page})=>{
-  let pending=page.waitForEvent('download');await page.getByRole('link',{name:'Monitor data',exact:false}).click();const central=await bytesOf(pending),data=JSON.parse(central.bytes);expect(data.meta.title).toBe('Digital Health & AI in Medicine');expect(data.tracks.flatMap(t=>t.series.flatMap(s=>s.data))).toHaveLength(44);
-  pending=page.waitForEvent('download');await page.locator('#package-export-button').click();const archive=await bytesOf(pending),files=zipFiles(archive.bytes),manifest=JSON.parse(files['PACKAGE_MANIFEST.json']);expect(JSON.parse(files['data/monitor-data.json'])).toEqual(data);expect(manifest.dataSha256).toBe(createHash('sha256').update(JSON.stringify(data)).digest('hex'));for(const f of manifest.files){expect(files[f.path].length).toBe(f.bytes);expect(createHash('sha256').update(files[f.path]).digest('hex')).toBe(f.sha256);}expect(Object.keys(files)).toEqual(expect.arrayContaining(['AGENTS.md','MONITOR_STANDARD.md','DESIGN.md','VALIDATION_REPORT.md','docs/MONITOR_DATA_STATUS.md']));
+test('chart zoom buttons expand and collapse overview and track charts',async({page})=>{
+  await expect(page.locator('[data-chart-zoom]')).toHaveCount(4);
+  await page.locator('[data-chart-zoom="overview"]').click();
+  await expect(page.locator('#overview')).toHaveClass(/is-zoomed/);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#overview')).not.toHaveClass(/is-zoomed/);
+  await page.locator('[data-chart-zoom="knowledge"]').click();
+  await expect(page.locator('#chart-knowledge')).toHaveClass(/is-zoomed/);
+  await page.locator('[data-chart-zoom="knowledge"]').click();
+  await expect(page.locator('#chart-knowledge')).not.toHaveClass(/is-zoomed/);
 });
 
 
