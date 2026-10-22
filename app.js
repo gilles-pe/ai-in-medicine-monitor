@@ -1,4 +1,5 @@
 import { feedbackUrl } from './lib/navigation.js';
+import { renderNewsSidebar } from './lib/news.js';
 import { applyLanguage, getLanguage, setLanguage, preferredLanguage, translateText } from './lib/i18n.js';
 import { monitorData } from './lib/monitor-data.js';
 import { buildTrackSeries } from './lib/monitor-series.js';
@@ -163,6 +164,7 @@ let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);
 // UI language changes preserve the active chart, cutoff, model and open details.
 function chooseLanguage(value,persist=true){
   setLanguage(value);document.documentElement.lang=getLanguage();
+  $('#interesting-news').innerHTML=renderNewsSidebar(getLanguage());
   document.querySelectorAll('[data-language]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.language===getLanguage())));
   if(persist){try{preferenceStorage?.setItem('digital-health-language',getLanguage());}catch{}const url=new URL(location.href);url.searchParams.set('lang',getLanguage());history.replaceState(null,'',url);}
   applyLanguage(document);

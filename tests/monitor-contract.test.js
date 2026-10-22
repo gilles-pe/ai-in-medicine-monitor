@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile, writeFile, mkdtemp, mkdir, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { isMonitorDate, validateMonitor } from '../scripts/validate-monitor.mjs';
 import { monitorContract, syncMonitorDocs } from '../scripts/sync-monitor-docs.mjs';
 
@@ -36,7 +37,7 @@ test('false eligibility, duplicate ids, missing cards and insecure sources fail 
 });
 
 test('all policy documents and audit snapshot carry the current central-data contract', async () => {
-  const root = new URL('../', import.meta.url).pathname;
+  const root = fileURLToPath(new URL('../', import.meta.url));
   await syncMonitorDocs(root, { check: true });
 });
 

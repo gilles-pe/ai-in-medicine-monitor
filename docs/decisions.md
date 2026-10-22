@@ -36,3 +36,11 @@ The user approved implementing the discussed design and placed Changes at the to
 The overview keeps its angular illustrative geometry, uses one solid general-AI line and three dotted medical-context lines, and fits without internal scrolling. Future scenarios use long dashes. The timeline controls follow the overview. Lower performance curves must come from a comparable source protocol and explicitly named axes. A publication date is not a model evaluation date; incompatible benchmarks cannot become a temporal performance curve. Dated milestone rails remain separate.
 
 Chart-specific links retain the selected cutoff; image exports include title, date and evidence context. Changes records actual editorial work, not automatic source freshness. No automatic research schedule is enabled.
+
+## Introduction copy - 22 October 2026
+
+The user approved replacing the personal-interest introduction with the proposed opening question and explanation of the visitor benefit, followed by a separate invitation to share a study, question or perspective. The English wording is preserved verbatim and has an equivalent German translation. This copy edit does not constitute an evidence review or change benchmark observations.
+
+## Interesting news and archive - 22 October 2026
+
+The user requested replacing Changes with Interesting news and an All page that grows over time. Subsequent instructions require individual approval for every story, original chronological order, small original-platform links with icons, and a star for every Substack article. The user individually approved the 22 October Bluesky physics thread, the 13 October Substack article Die langweilige AI-Revolution (including links to the LinkedIn and Bluesky cross-posts), the 8 October Bluesky watch thread, and the 6 July Substack article The heart has a blue screen of death. AI learns to predict it. Publication dates and original URLs were read from the author's public Substack/Bluesky pages; the LinkedIn cross-post URL and content were verified through public search. The story is dated by its original Substack publication, not an inferred LinkedIn date. Other proposed articles remain unpublished unless individually approved.

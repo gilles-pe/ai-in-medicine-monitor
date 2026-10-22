@@ -61,7 +61,7 @@ The compact header includes a language switch and hamburger navigation. The menu
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `c1aeff1b6ae6d6e2e10165e736224af65d098695e655a1ca42fb40cb1e307bb9`
+- SHA-256 (parsed JSON): `0325c086a28aedeb4458b9cd918f13a9056a87795c1e0aae1e835c67722b3231`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2
@@ -79,8 +79,8 @@ The top row contains the title and menu only; presentation/language live inside 
 
 The Milestones details element and its first-child timeline controls remain stable DOM nodes during cutoff/model/view changes; the slider must not lose focus or close the disclosure. The other open study disclosure also remains open. Published point values and benchmark eligibility remain data driven; sparse or incomparable data do not gain fabricated lines.
 
-## Introduction - 18 October 2026
-The owner-approved introduction is expanded on initial load. Its native disclosure shows only the triangle, with an accessible Introduction label; no visible About this monitor heading. The supplied English paragraph is preserved verbatim, with an equivalent German translation. The triangle remains keyboard operable and has a 44px touch target.
+## Introduction - updated 22 October 2026
+The owner-approved introduction is expanded on initial load. Its native disclosure shows only the triangle, with an accessible Introduction label; no visible About this monitor heading. Preserve the approved visitor-focused English copy verbatim: a bold opening question, a paragraph explaining the three tracks and their practical value, then a separate invitation to share studies, questions or perspectives. Each has an equivalent German translation. The triangle remains keyboard operable and has a 44px touch target.
 
 AlphaFold has no separate highlight buttons beneath the overview heading. CASP announcements and paper milestones remain accessible in the shared Milestones disclosure and existing timeline anchors. Do not duplicate the same source as an additional milestone.
 
@@ -91,3 +91,6 @@ Every visible lower-chart marker supports a mouse hover card and pinning by clic
 
 ## Related resources - 22 October 2026
 Place a quiet, unboxed Related row directly below the three chart thumbnails. Links use descriptive titles, publisher credit and an external arrow, open in a new tab with noopener noreferrer, and wrap on narrow screens. Maintain a 44px link target. Related URLs and translated labels live in the portable JSON under extensions.navigation.relatedLinks and extensions.locales. These are external reading resources, not benchmark observations.
+
+## Interesting news - 22 October 2026
+The introduction's right column shows Interesting news in place of Changes: the three newest individually approved stories and an All link to `/news/`. The archive uses the same `data/news.json` store and retains every approved story. Sort by the original publication date, newest first, and keep cross-posts together under the original story's date. Put small named platform links with icons beneath each story; the compact preview shows its primary source, while the archive shows all linked platforms. Every Substack story carries a visible gold star with an accessible label. Language selection works in the dashboard and archive and is preserved by All and the back link. Never add a story without the user's individual approval. Adding approved records updates both views on the next publication; no automatic import or publication is enabled. The evidence review date remains beneath the introduction and is unrelated to news dates.

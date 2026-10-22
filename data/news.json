@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "id": "ai-physics-2026",
+      "date": "2026-10-22",
+      "approved": true,
+      "title": { "en": "AI takes on research-level physics", "de": "KI stellt sich Forschungsfragen der Physik" },
+      "summary": { "en": "My take on what research-level physics results could mean for the pace of discovery.", "de": "Meine Gedanken dazu, was KI-Ergebnisse bei Forschungsfragen der Physik für das Tempo neuer Entdeckungen bedeuten könnten." },
+      "sources": [{ "platform": "bluesky", "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mygyvefons2o" }]
+    },
+    {
+      "id": "langweilige-ai-revolution",
+      "date": "2026-10-13",
+      "approved": true,
+      "title": { "en": "Die langweilige AI-Revolution", "de": "Die langweilige AI-Revolution" },
+      "summary": { "en": "The biggest early gains may come from less documentation, better coordination and more time for patients.", "de": "Die größten frühen Fortschritte könnten durch weniger Dokumentation, bessere Abstimmung und mehr Zeit für Patienten entstehen." },
+      "sources": [
+        { "platform": "substack", "url": "https://medtechsignal.substack.com/p/die-langweilige-ai-revolution" },
+        { "platform": "linkedin", "url": "https://de.linkedin.com/posts/gillespenning_wir-warten-bei-ai-in-der-medizin-auf-die-activity-7515793158216019968-IiL7" },
+        { "platform": "bluesky", "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mxrd2p2epc2x" }
+      ]
+    },
+    {
+      "id": "watch-medical-capabilities",
+      "date": "2026-10-08",
+      "approved": true,
+      "title": { "en": "When a watch gets new medical capabilities", "de": "Wenn eine Uhr neue medizinische Fähigkeiten bekommt" },
+      "summary": { "en": "What a Pixel Watch update suggests about the speed, scale and business models of digital health.", "de": "Was ein Update der Pixel Watch über Tempo, Skalierung und Geschäftsmodelle im Bereich Digital Health zeigt." },
+      "sources": [{ "platform": "bluesky", "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mxfbhk2zjs2w" }]
+    },
+    {
+      "id": "heart-blue-screen",
+      "date": "2026-07-06",
+      "approved": true,
+      "title": { "en": "The heart has a blue screen of death. AI learns to predict it.", "de": "The heart has a blue screen of death. AI learns to predict it." },
+      "summary": { "en": "A look at AI, sudden cardiac arrest and the questions this raises for MedTech.", "de": "Ein Blick auf KI, plötzlichen Herzstillstand und die Fragen, die sich daraus für MedTech ergeben." },
+      "sources": [{ "platform": "substack", "url": "https://medtechsignal.substack.com/p/the-heart-has-a-blue-screen-of-death-4d8" }]
+    }
+  ]
+}

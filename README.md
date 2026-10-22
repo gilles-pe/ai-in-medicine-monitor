@@ -37,6 +37,12 @@ No weekly evidence-update automation is configured. Last review and last data ch
 
 ## Hosting
 
-https://ai-in-medicine-monitor.gillesp.chatgpt.site
+Target GitHub Pages URL: https://gilles-pe.github.io/ai-in-medicine-monitor/
 
-The existing owner-only audience is preserved. GitHub CI validates source; publication uses the Sites workflow and its existing `.openai/hosting.json` project identity. Release evidence and remaining limitations are in [implementation status](docs/implementation-status.md).
+The `Publish GitHub Pages` workflow checks the data/application logic, builds only the static website into `dist/`, verifies that all local paths work beneath `/ai-in-medicine-monitor/`, and deploys it with GitHub's official Pages actions. Pushes to `main` publish automatically after Pages is enabled; the workflow can also be run manually. No extra deployment token is needed.
+
+One-time repository setup: **Settings → Pages → Build and deployment → Source → GitHub Actions**. A private source repository requires a GitHub plan that supports Pages for private repositories. The resulting website is public.
+
+The archive is available at `news/`. To add news, follow [the editorial workflow](docs/news-editorial.md); individual approval, original publication dates and Substack stars remain required.
+
+The previous Sites deployment and `.openai/hosting.json` are retained during migration. The old URL remains https://ai-in-medicine-monitor.gillesp.chatgpt.site. Treat the migration as complete only after the Pages deployment succeeds and its dashboard, news archive and exports have been checked.

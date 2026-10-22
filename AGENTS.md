@@ -57,13 +57,16 @@ Every active point, study and milestone references the shared `editorialCards` r
 ## Before declaring ready
 Check JSON parses, IDs unique, every published line point eligible, no joined incompatible series, source links valid, point cards complete, mobile behavior, and last-updated semantics. Produce a brief list of unresolved issues for the human owner.
 
+## Interesting news
+`data/news.json` contains the separate editorial feed. Ask the user to approve each proposed story before adding it. Retain original publication dates and sort newest first; group cross-posts as source links beneath the original story. Mark every Substack item with a star. The dashboard shows the newest three items and All opens the complete `/news/` archive. Do not automatically import or publish unapproved posts. News additions do not imply a benchmark evidence review.
+
 <!-- monitor-data-contract:start -->
 ## Generated data contract
 
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `c1aeff1b6ae6d6e2e10165e736224af65d098695e655a1ca42fb40cb1e307bb9`
+- SHA-256 (parsed JSON): `0325c086a28aedeb4458b9cd918f13a9056a87795c1e0aae1e835c67722b3231`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2
