@@ -14,7 +14,7 @@ test('clean header keeps preferences in the menu and three thumbnails',async({pa
   await expect(page.getByRole('tab')).toHaveCount(0);await expect(page.locator('#present-button')).not.toBeVisible();await expect(page.locator('[data-language="de"]')).not.toBeVisible();
   await expect(page.locator('.chart-thumbnail')).toHaveCount(3);await expect(page.locator('#content')).not.toContainText(/Timeline data|Under review|Benchmark results|About this benchmark|PPT|PowerPoint/);
   await expect(page.locator('.masthead')).toContainText('Gilles Penning');await expect(page.locator('.site-footer')).not.toContainText('Gilles Penning');
-  await expect(page.locator('#editorial-check')).toHaveText('Last reviewed 22 Oct 2026');
+  await expect(page.locator('#editorial-check')).toHaveText('Last reviewed 23 Oct 2026');
   await page.locator('#menu-button').click();await expect(page.locator('#present-button')).toBeVisible();await expect(page.locator('[data-language="de"]')).toBeVisible();
 });
 
@@ -88,8 +88,8 @@ test('language preserves date, model, open milestones and translated cards',asyn
   await openMonitor(page,'3.9');await expect(page.getByRole('dialog').locator('.point-card-sections dt')).toHaveText(['AUFBAU & STICHPROBE','GRENZEN & VALIDITÄT']);await page.keyboard.press('Escape');await page.reload();await expect(page.locator('html')).toHaveAttribute('lang','de');await page.locator('#menu-button').click();await page.locator('[data-language="en"]').click();await expect(page.locator('#track-knowledge')).toHaveText('Medical knowledge');await expect(page.getByRole('heading',{level:1})).toHaveText('Digital Health & AI in Medicine');
 });
 
-test('menu retains social links, feedback draft and presentation mode',async({page})=>{
-  await page.locator('#menu-button').click();await expect(page.locator('#site-menu a[aria-label="LinkedIn"]')).toHaveAttribute('href','https://de.linkedin.com/in/gillespenning');await expect(page.locator('#site-menu').getByRole('link',{name:'articles on substack',exact:false})).toHaveAttribute('href','https://medtechsignal.substack.com/');await page.locator('#feedback-button').click();await expect(page.locator('#feedback-dialog')).toBeVisible();await expect(page.locator('#site-menu')).not.toBeVisible();await page.locator('#feedback-text').fill('Please add this study.');await expect(page.locator('#feedback-dialog')).toContainText('Nothing is sent automatically.');await page.locator('#feedback-close').click();await expect(page.locator('#menu-button')).toBeFocused();
+test('menu retains social links, direct message feedback dialog and presentation mode',async({page})=>{
+  await page.locator('#menu-button').click();await expect(page.locator('#site-menu a[aria-label="LinkedIn"]')).toHaveAttribute('href','https://de.linkedin.com/in/gillespenning');await expect(page.locator('#site-menu').getByRole('link',{name:'articles on substack',exact:false})).toHaveAttribute('href','https://medtechsignal.substack.com/');await page.locator('#feedback-button').click();await expect(page.locator('#feedback-dialog')).toBeVisible();await expect(page.locator('#site-menu')).not.toBeVisible();await expect(page.locator('#feedback-dialog')).toContainText('direct message on LinkedIn or Bluesky');await expect(page.locator('#feedback-dialog a[href*="linkedin.com"]')).toBeVisible();await expect(page.locator('#feedback-dialog a[href*="bsky.app"]')).toBeVisible();await page.locator('#feedback-close').click();await expect(page.locator('#menu-button')).toBeFocused();
   await page.locator('#menu-button').click();await page.locator('#present-button').click();await expect(page.locator('body')).toHaveClass(/presentation-mode/);await expect(page.locator('#site-menu')).not.toBeVisible();await expect(page.locator('#menu-button')).toBeVisible();await page.keyboard.press('Escape');await expect(page.locator('body')).not.toHaveClass(/presentation-mode/);
 });
 

@@ -5,7 +5,7 @@
       "start": "2022-01",
       "end": "2026-10"
     },
-    "lastUpdated": "2026-10-22",
+    "lastUpdated": "2026-10-23",
     "rules": {
       "xAxisMapping": "modelReleaseDate",
       "connectOnlyFrontier": true,
@@ -19,8 +19,8 @@
     "editorialStandard": "MONITOR_STANDARD.md",
     "designSpec": "DESIGN.md",
     "agentInstructions": "AGENTS.md",
-    "lastReviewedAt": "2026-10-22",
-    "lastDataChangeAt": "2026-10-22",
+    "lastReviewedAt": "2026-10-23",
+    "lastDataChangeAt": "2026-10-23",
     "importedFrom": "gemini-code-1792312905225.json",
     "reviewNote": "38 numerical claims checked against original sources; 35 complete numeric records confirmed, 1 supplier-reported, 5 under review (including 3 source-checked values with unresolved commercial-model setup). MedQA protocols differ and do not form a confirmed frontier. Clinical base-model and product-harness comparisons remain distinct. Release-month positioning is provisional; evaluation dates remain unknown.",
     "auditSummary": "38 numerical claims checked against original sources; 35 complete numeric records confirmed, 1 supplier-reported, 5 under review (including 3 source-checked values with unresolved commercial-model setup). MedQA protocols differ and do not form a confirmed frontier. Clinical base-model and product-harness comparisons remain distinct. Release-month positioning is provisional; evaluation dates remain unknown.",
@@ -6827,7 +6827,7 @@
         {
           "pointId": "2.3",
           "claimedValue": 42,
-          "verifiedValue": 42.0,
+          "verifiedValue": 42,
           "status": "supported",
           "sourceUrl": "https://arxiv.org/html/2505.08775v1",
           "locator": "Table 7 mean column",
@@ -6931,7 +6931,7 @@
         {
           "pointId": "2.11",
           "claimedValue": 47,
-          "verifiedValue": 47.0,
+          "verifiedValue": 47,
           "status": "supported",
           "sourceUrl": "https://arxiv.org/html/2604.27470v1",
           "locator": "Figure 4 overall panel, printed bar labels; sections 4.1-4.3",
@@ -6944,7 +6944,7 @@
         {
           "pointId": "2.12",
           "claimedValue": 59,
-          "verifiedValue": 59.0,
+          "verifiedValue": 59,
           "status": "supported",
           "sourceUrl": "https://arxiv.org/html/2604.27470v1",
           "locator": "Figure 4 overall panel, printed bar labels; sections 4.1-4.3",
@@ -10391,7 +10391,7 @@
       "finding": {
         "headline": "59.0 rubric points for ChatGPT for Clinicians",
         "explanation": "The reported score is answer quality under this evaluation, not 59% correct diagnoses.",
-        "value": 59.0,
+        "value": 59,
         "unit": "rubric points",
         "kind": "quantitative"
       },

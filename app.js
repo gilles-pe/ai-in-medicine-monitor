@@ -277,8 +277,8 @@ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!siteMenu.h
 const feedbackDialog=$('#feedback-dialog');
 $('#feedback-button').addEventListener('click',()=>{stop();hover.hide();closeMenu();feedbackDialog.showModal();});
 $('#feedback-close').addEventListener('click',()=>feedbackDialog.close());
+feedbackDialog.addEventListener('click',event=>{if(event.target.closest('a'))feedbackDialog.close();});
 feedbackDialog.addEventListener('close',()=>menuButton.focus());
-$('#feedback-form').addEventListener('submit',event=>{event.preventDefault();const body=$('#feedback-text').value.trim();if(!body)return;window.location.href=feedbackUrl(body,monitorData.meta.title,monitorData.extensions.navigation.feedbackEmail);});
 chooseLanguage(getLanguage(),false);
 // All freshly rendered chart labels, cards, hover previews and announcements use
 // the selected dictionary. Original research titles and model names stay intact.
