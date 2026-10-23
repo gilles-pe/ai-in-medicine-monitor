@@ -134,3 +134,44 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
  #milestones-panel,.study-library{padding:0 10px}
 }
 .related-resources{display:flex;align-items:center;flex-wrap:wrap;gap:0 8px;margin:6px 0 0;font:11px/1.45 var(--sans);color:var(--muted)}.related-resources>a{display:block;min-width:0;max-width:100%;min-height:44px;padding:12px 0;overflow-wrap:anywhere;color:var(--ink);text-decoration:underline;text-decoration-color:#c5cec3;text-underline-offset:3px}.related-resources>a:hover{text-decoration-color:var(--ink)}.related-resources>a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+/* Mobile typography & chart legibility boost. */
+@media(max-width:600px){
+ .masthead-author{font-size:13px}
+ .intro-copy h1{font-size:35px;line-height:1.06}
+ .about-monitor{font-size:14px;line-height:1.55}
+ .contact-links{font-size:12px;gap:10px}
+ .contact-links a{padding:5px 11px}
+ .evidence-reviewed{font-size:11.5px;margin-top:11px}
+ .hero-overview .overview .section-title h2{font-size:23px}
+ .hero-overview .overview .section-title h2 span{font-size:13.5px}
+ .overview-legend{font-size:11.5px;gap:6px 14px;padding:6px 0 8px}
+ .overview-caption{font-size:11.5px;line-height:1.45;margin:6px 0 2px}
+ .overview-milestone-title{font-size:10.5px}
+ .overview-milestone-year{font-size:11.5px;padding:2px 8px}
+ .overview-milestone-pill{font-size:12.5px;min-height:36px;padding:5px 10px}
+ .overview-scroll svg .overview-axis-title{font-size:27px;font-weight:600}
+ .overview-scroll svg .overview-tick{font-size:26px}
+ .overview-scroll svg .overview-right-tick{font-size:24px}
+ .overview-scroll svg .cursor-label{font-size:15px}
+ .overview-scroll svg .cursor-small{font-size:10px}
+ .news-panel h2{font-size:23px}
+ .news-all{font-size:12.5px}
+ .news-panel .news-preview-list li{padding:9px 11px}
+ .news-panel .news-preview-list time{font-size:11px}
+ .news-panel .news-preview-list h3{font-size:13.5px;line-height:1.4}
+ .news-sources{font-size:11.5px}
+ #milestones-panel>summary,.study-library>summary{font-size:14px}
+ .point-index-list button,.study-rows button{font-size:12.5px}
+ .thumbnail-title{font-size:11.5px;line-height:1.25}
+ .related-resources{font-size:12px}
+ .detail-charts .track h2{font-size:24px}
+ .series-selector{font-size:12px;max-width:140px;padding:4px 7px}
+ .track-description{font-size:13.5px;line-height:1.45;margin:4px 0 8px}
+ .chart-stories button{font-size:11px;padding:5px 6px}
+ .chart-stories time{font-size:10px}
+ .detail-charts .monitor-chart-svg text{font-size:11.5px}
+ .track-context{font-size:11.5px;line-height:1.45}
+ .track-result-link{font-size:12.5px;padding:6px 9px}
+ .track-reading-key,.track-reality{font-size:11px;line-height:1.4}
+ .site-footer,.site-footer>span{font-size:11.5px}
+}
