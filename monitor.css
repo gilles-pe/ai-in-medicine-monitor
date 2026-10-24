@@ -241,3 +241,7 @@ html{scroll-padding-top:64px}
 /* Approved disclosure defaults and touch-sized chart controls, 25 October 2026. */
 .intro-question{margin:0 0 10px;font:600 14px/1.4 var(--sans);color:var(--ink)}.author-card-role{margin:2px 0 6px;color:var(--muted);font:500 12px/1.4 var(--sans)}
 .disclosure-section>summary,.section-sources>summary{min-height:44px;padding:11px 0;cursor:pointer;list-style-position:inside}.disclosure-section>summary{font:400 22px/1.25 var(--serif)}.disclosure-section>summary h2,.section-sources>summary h3{display:inline;margin:0;font:inherit}.section-sources>summary{font:600 11px/1.5 var(--sans);color:var(--muted)}.disclosure-section>summary:focus-visible,.section-sources>summary:focus-visible{outline:2px solid var(--ink);outline-offset:2px}.chart-zoom-button{width:44px;height:44px;min-width:44px;min-height:44px}
+/* Four milestones remain a compact row; full study names live in their cards. */
+.chart-stories:has(>button:nth-child(4)){grid-template-columns:repeat(4,minmax(0,1fr))}
+/* Full-bleed masthead surface must not paint over the page when the menu opens. */
+.masthead{box-shadow:none;clip-path:none;isolation:isolate}.masthead::before{content:"";position:absolute;inset-block:0;left:50%;width:100vw;transform:translateX(-50%);background:var(--surface-muted);z-index:-1;pointer-events:none}

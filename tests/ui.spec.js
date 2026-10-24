@@ -100,7 +100,7 @@ test('menu retains social links, direct message feedback dialog and presentation
 });
 
 test('timeline playback keeps milestones open and study disclosure persists on updates',async({page})=>{
-  await page.locator('.study-library summary').click();await expect(page.locator('[data-study-id]')).toHaveCount(6);await page.locator('[data-study-id="alphafold2"]').click();await expect(page.getByRole('dialog')).toContainText('0.96');await page.keyboard.press('Escape');await date(page,'2020-12-31');await page.locator('#play-button').click();await page.clock.runFor(1101);await expect(page.locator('#cutoff-date')).toHaveValue('2021-12-31');await expect(page.locator('#milestones-panel')).toHaveAttribute('open','');await expect(page.locator('.study-library')).toHaveAttribute('open','');await page.locator('#play-button').click();
+  await page.locator('.study-library summary').click();await expect(page.locator('[data-study-id]')).toHaveCount(7);await page.locator('[data-study-id="alphafold2"]').click();await expect(page.getByRole('dialog')).toContainText('0.96');await page.keyboard.press('Escape');await date(page,'2020-12-31');await page.locator('#play-button').click();await page.clock.runFor(1101);await expect(page.locator('#cutoff-date')).toHaveValue('2021-12-31');await expect(page.locator('#milestones-panel')).toHaveAttribute('open','');await expect(page.locator('.study-library')).toHaveAttribute('open','');await page.locator('#play-button').click();
 });
 
 test('chart zoom buttons expand and collapse overview and track charts',async({page})=>{
