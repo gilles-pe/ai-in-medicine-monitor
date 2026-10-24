@@ -83,10 +83,10 @@ test('desktop hover sources remain reachable and keyboard pins the same card',as
 });
 
 test('320px fits the header, charts, menu and touch controls',async({page})=>{
-  await page.setViewportSize({width:320,height:844});await page.clock.runFor(200);expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
+  await page.setViewportSize({width:320,height:844});await page.clock.runFor(200);expect(await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
   const chart=await page.locator('.overview-scroll').evaluate(e=>({w:e.clientWidth,s:e.scrollWidth}));expect(chart.s-chart.w).toBeLessThanOrEqual(1);
   const targets=await page.locator('.detail-charts .monitor-point-hit').evaluateAll(els=>els.map(e=>{const r=e.getBoundingClientRect();return {w:r.width,h:r.height,l:r.left,r:r.right};}));expect(targets.length).toBeGreaterThan(0);for(const t of targets){expect(t.w).toBeGreaterThanOrEqual(44);expect(t.h).toBeGreaterThanOrEqual(44);expect(t.l).toBeGreaterThanOrEqual(0);expect(t.r).toBeLessThanOrEqual(320);}
-  await page.locator('#menu-button').click();await page.locator('[data-language="de"]').click();await expect(page.locator('#site-menu')).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);for(const b of await page.locator('[data-language]').all()){const box=await b.boundingBox();expect(box.width).toBeGreaterThanOrEqual(44);expect(box.height).toBeGreaterThanOrEqual(44);}
+  await page.locator('#menu-button').click();await page.locator('[data-language="de"]').click();await expect(page.locator('#site-menu')).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth)).toBeLessThanOrEqual(1);for(const b of await page.locator('[data-language]').all()){const box=await b.boundingBox();expect(box.width).toBeGreaterThanOrEqual(44);expect(box.height).toBeGreaterThanOrEqual(44);}
 });
 
 test('language preserves date, model, open milestones and translated cards',async({page})=>{
@@ -168,7 +168,7 @@ test('phone-sized overview taps resolve source cards and grouped sample selectio
 });
 
 test('responsive production layout fits 375, 768 and 1280px',async({page})=>{
-  for(const width of [375,768,1280]){await page.setViewportSize({width,height:900});await page.clock.runFor(200);expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);}
+  for(const width of [375,768,1280]){await page.setViewportSize({width,height:900});await page.clock.runFor(200);expect(await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth)).toBeLessThanOrEqual(1);}
 });
 
 test('menu and chart keyboard focus stay inside their active controls',async({page})=>{

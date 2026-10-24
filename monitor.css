@@ -244,5 +244,5 @@ html{scroll-padding-top:64px}
 /* Four milestones remain a compact row; full study names live in their cards. */
 .chart-stories:has(>button:nth-child(4)){grid-template-columns:repeat(4,minmax(0,1fr))}
 /* Full-bleed masthead surface must not paint over the page when the menu opens. */
-.masthead{box-shadow:none;clip-path:none;isolation:isolate}.masthead::before{content:"";position:absolute;inset-block:0;left:50%;width:100vw;transform:translateX(-50%);background:var(--surface-muted);z-index:-1;pointer-events:none}
+.masthead{box-shadow:none;clip-path:none;isolation:isolate}.masthead::before{content:"";position:absolute;inset:0;background:var(--surface-muted);box-shadow:0 0 0 100vmax var(--surface-muted);clip-path:inset(0 -100vmax);z-index:-1;pointer-events:none}
 .masthead{z-index:50}
