@@ -8,7 +8,7 @@ The original phase 3 acceptance remains partly open. Current feature behavior is
 - [x] Verify touch-sized overview source taps, desktop hover, source-card links, keyboard and gesture separation.
 - [x] Verify all four full-view controls, exit routes, 44px targets and focus restoration.
 - [x] Glossary and all Sources initially closed; triangle disclosures retain user-opened state during updates.
-- [x] Practical question always visible; introduction beneath initially open; Still pending masthead/tagline; roles in portrait area.
+- [x] Practical question always visible; introduction beneath initially open; Gilles Penning masthead with Tracking what AI can do in medicine. tagline; roles in portrait area.
 - [x] Link current feature/design/data-entry/change-log docs from AGENTS; include both JSON stores and docs in portable export.
 - [x] Replace GP monogram with the owner-supplied portrait in the profile and About page; accurate alt text and cache-busted asset URL.
 - [x] Add the authorized AMIE previsit study, source, milestone, card and news with the verified Bluesky thread. Correct denominators: 33/44 and 25/44; 98 completed visits. Keep outside benchmark frontiers.

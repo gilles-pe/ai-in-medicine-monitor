@@ -24,7 +24,7 @@ Current specification: 25 October 2026. Read alongside DESIGN.md and MONITOR_STA
 
 ## Disclosure defaults and layout
 
-- The masthead reads Still pending, followed by Tracking what I can really do in medicine. These owner-approved words are intentional.
+- The masthead reads Gilles Penning, followed by Tracking what AI can do in medicine. These owner-approved words are intentional.
 - What can I do in medicine today? is always visible outside the introduction disclosure. The triangle and explanatory content sit beneath it, initially open.
 - Medtech executive. Founder. belongs in the author/profile area beside the reserved image, not the masthead tagline. Use the owner-supplied portrait, with an accurate alt description and the image beside this profile wording.
 - Glossary and every Sources section start closed and use native triangle disclosures. Studies remains a native disclosure. A user-opened Sources panel survives chart updates.

@@ -58,3 +58,5 @@ FUNCTIONALITY.md is the current behavioral contract. Root TODO.md is the active 
 AMIE previsit is a clinical feasibility milestone, not a benchmark-frontier measurement: the 75% finding uses 44 reviewed cases, not 98 completed visits. Use final-publication counts; keep first-evidence and journal-publication dates separate. Only verified cross-post URLs are linked. Dynamic translated takeaways preserve the complete original sentence before abbreviation markup is restored.
 
 Owner-supplied portrait replaces the GP monogram in the profile and About page. Preserve the original square image; use truthful portrait alt text and a versioned URL to avoid stale placeholder caches.
+
+Latest owner correction, 25 October 2026: masthead is Gilles Penning, with Gilles in the existing dark ink and Penning in the existing teal accent. Tagline: Tracking what AI can do in medicine. This replaces the earlier Still pending / first-person wording in the current interface. Keep these exact English words in the English interface, with the matching German tagline in DE.
