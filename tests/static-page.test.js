@@ -13,8 +13,8 @@ test('public description stays within the search snippet limit', () => {
 
 test('takeaways use confirmed scores from the monitor data', () => {
   const knowledge = knowledgeTakeaway(cutoff);
-  assert.match(knowledge, /Gemini 3\.1 Pro Preview at 97\.4%/);
-  assert.match(knowledge, /above 97%/);
+  assert.match(knowledge, /Gemini 3\.1 Pro Preview at 97\.4% \(model release 2026-02-19\)/);
+  assert.doesNotMatch(knowledge, /above 97%/);
   assert.match(knowledge, /GPT-5\.2 at 94\.2%/);
   assert.match(knowledge, /Claude Opus 4\.6 at 90\.2%/);
   assert.match(knowledge, /MedQA · 500 questions · Search enabled/);
