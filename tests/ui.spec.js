@@ -9,7 +9,7 @@ async function openMonitor(page,id){const hit=page.locator('.detail-charts .moni
 test.beforeEach(async({page})=>{await page.clock.install({time:new Date('2026-10-18T06:30:00Z')});await page.goto('/');await expect(page.getByRole('heading',{level:1})).toHaveText('Digital Health & AI in Medicine');});
 
 test('clean header keeps preferences in the menu and three thumbnails',async({page})=>{
-  await expect(page).toHaveTitle('Digital Health & AI in Medicine');
+  await expect(page).toHaveTitle('Digital Health & AI in Medicine | Gilles Penning');
   await expect(page.locator('.brand,.chart-tools,.back-link,.track-navigation,.result-row,.monitor-undated,.track-details')).toHaveCount(0);
   await expect(page.getByRole('tab')).toHaveCount(0);await expect(page.locator('#present-button')).not.toBeVisible();await expect(page.locator('[data-language="de"]')).not.toBeVisible();
   await expect(page.locator('.chart-thumbnail')).toHaveCount(3);await expect(page.locator('#content')).not.toContainText(/Timeline data|Under review|Benchmark results|About this benchmark|PPT|PowerPoint/);

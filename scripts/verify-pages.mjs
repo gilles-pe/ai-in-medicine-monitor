@@ -5,7 +5,12 @@ import { fileURLToPath } from 'node:url';
 import { MONITOR_PACKAGE_FILES } from '../lib/monitor-export.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../dist');
+// Relative links are checked against the project-site path so they keep working
+// both at https://gilles-pe.github.io/ai-in-medicine-monitor/ and at the custom
+// domain root https://gillespenning.com/ (GitHub Pages serves this project there).
+// Canonical, Open Graph, sitemap and JSON-LD use the custom-domain origin.
 const base = new URL('https://gilles-pe.github.io/ai-in-medicine-monitor/');
+const CANONICAL = 'https://gillespenning.com/';
 let checked = 0;
 
 async function localTarget(reference, source) {
@@ -25,6 +30,10 @@ async function walk(folder) {
     const relative = path.relative(root, filename).split(path.sep).join('/');
     if (entry.name.endsWith('.html')) {
       const text = await readFile(filename, 'utf8');
+      for (const match of text.matchAll(/<link rel="canonical" href="([^"]+)"/g)) {
+        assert.ok(match[1].startsWith(CANONICAL), `${relative}: canonical must use ${CANONICAL}`);
+      }
+      assert.ok(!text.includes('fonts.googleapis.com'), `${relative}: external font host`);
       for (const match of text.matchAll(/(?:href|src)="([^"]+)"/g)) await localTarget(match[1], relative);
     } else if (entry.name.endsWith('.js')) {
       const text = await readFile(filename, 'utf8');
@@ -38,4 +47,11 @@ for (const filename of MONITOR_PACKAGE_FILES) await localTarget('./' + filename,
 await localTarget('./news/?lang=en', 'index.html');
 await localTarget('../?lang=de', 'news/index.html');
 await stat(path.join(root, '.nojekyll'));
-console.log(`GitHub Pages: ${checked} local paths checked; dashboard, news, module imports and portable exports stay within /ai-in-medicine-monitor/.`);
+await stat(path.join(root, 'robots.txt'));
+await stat(path.join(root, 'sitemap.xml'));
+await stat(path.join(root, 'og-image.png'));
+const robots = await readFile(path.join(root, 'robots.txt'), 'utf8');
+const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8');
+assert.match(robots, new RegExp('Sitemap: ' + CANONICAL.replace(/[.]/g, '\\.') + 'sitemap\\.xml'));
+assert.match(sitemap, new RegExp('<loc>' + CANONICAL.replace(/[.]/g, '\\.')));
+console.log(`GitHub Pages: ${checked} local paths checked. Relative assets stay inside /ai-in-medicine-monitor/; public URLs use ${CANONICAL}.`);

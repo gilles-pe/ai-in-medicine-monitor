@@ -3,13 +3,13 @@ import { renderNewsSidebar } from './lib/news.js';
 import { applyLanguage, getLanguage, setLanguage, preferredLanguage, translateText } from './lib/i18n.js';
 import { monitorData } from './lib/monitor-data.js';
 import { buildTrackSeries } from './lib/monitor-series.js';
-import { renderTrackContext } from './lib/track-context.js';
-import { renderMonitorChart } from './lib/monitor-chart.js';
 import { monitorCardData, monitorPoint, editorialCard, pointCardHtml, installPointHover } from './lib/point-card.js';
 import { downloadMonitorPackage } from './lib/monitor-export.js';
 import { tracks, measurements, sourceCatalog, editorialStatus, studies } from './data/evidence.js';
 import { trackMilestones, trustContext } from './data/track-milestones.js';
 import { renderOverview, renderMilestoneLinks, renderOverviewMilestoneStrip, visibleHistory, visibleAnchors } from './lib/overview.js';
+import { renderPreviewSection, renderStudyButtons, renderTrackSection, resetAbbreviations } from './lib/published-page.js';
+import { reviewedMarkup } from './lib/site-meta.js';
 import { filterMeasurements, latestByModel, escapeHtml as e } from './lib/selectors.js';
 
 const $=selector=>document.querySelector(selector);
@@ -56,21 +56,14 @@ function showCardSelection(ids,index=0){
   $('#detail-body').innerHTML=controls+pointCardHtml(cards[selected]);if(!dialog.open)dialog.showModal();highlightCard(cards[selected].id);
 }
 function showOverviewCluster(ids){const visible=new Set(visibleAnchors(state.cutoff).map(p=>p.id));showCardSelection(ids.split(',').filter(id=>visible.has(id)));}
-function renderPreviews(allRows){
-  const links=(monitorData.extensions.navigation.relatedLinks||[]).map(link=>'<a href="'+e(link.url)+'" target="_blank" rel="noopener noreferrer">'+e(link.title)+' <span data-i18n-ignore>· '+e(link.publisher)+'</span> <span aria-hidden="true">↗</span></a>').join('');
-  const related=links?'<nav class="related-resources" aria-label="Related"><span>Related</span><span aria-hidden="true">·</span>'+links+'</nav>':'';
-  return '<section id="charts" class="benchmark-previews" aria-label="Charts"><div class="thumbnail-grid">'+tracks.map(track=>'<a class="chart-thumbnail" href="#chart-'+track.id+'" style="--track:'+track.color+'"><span class="thumbnail-title">'+e(track.label)+' <span aria-hidden="true">↘</span></span>'+renderMonitorChart(track,state.cutoff,{preview:true,model:state.model})+'</a>').join('')+'</div>'+related+'</section>';
+function renderPreviews(){
+  return renderPreviewSection(state.cutoff, state.model);
 }
 function showMonitorPoint(id){
   const item=monitorPoint(id);if(!item||item.point.validation.status!=='confirmed')return;
   const visible=buildTrackSeries(item.track.trackId,state.cutoff).series.some(series=>[...series.points,...series.undated].some(point=>point.id===id));if(visible)showEditorialCard(id);
 }
 function showMonitorCluster(ids){showCardSelection(ids.split(',').filter(id=>monitorPoint(id)?.point.validation.status==='confirmed'));}
-function zoomButtonHtml(target,label){
-  const active=state.zoomedChart===target;
-  const icon=active?'<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/>':'<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>';
-  return '<button type="button" class="chart-zoom-button" data-chart-zoom="'+e(target)+'" aria-label="'+(active?'Exit full view':'Expand '+e(label+' chart'))+'" aria-pressed="'+active+'" title="'+(active?'Close full view':'Expand chart')+'"><svg viewBox="0 0 24 24" aria-hidden="true">'+icon+'</svg></button>';
-}
 function syncZoomState(){
   document.querySelectorAll('.is-zoomed').forEach(el=>el.classList.remove('is-zoomed'));
   document.body.classList.toggle('has-zoomed-chart',Boolean(state.zoomedChart));
@@ -94,21 +87,16 @@ function toggleChartZoom(target){
   state.zoomedChart=state.zoomedChart===target?null:target;
   syncZoomState();
 }
-function renderTrack(track,index){
-  const trackData=buildTrackSeries(track.id,state.cutoff);
-  const series=trackData.series;
-  const selected=state.seriesView[track.id]||'all';
-  const selector=series.length>1?'<select class="series-selector" data-series-view="'+track.id+'" aria-label="'+e(track.label+' benchmark view')+'"><option value="all"'+(selected==='all'?' selected':'')+'>Both</option>'+series.map(s=>'<option value="'+e(s.seriesId)+'"'+(selected===s.seriesId?' selected':'')+'>'+e(s.shortLabel||s.benchmarkName.split(' (')[0].split(' · ')[0])+'</option>').join('')+'</select>':'';
-  const marks=trackMilestones.filter(p=>p.trackId===track.id&&p.date<=state.cutoff);
-  const stories='<div class="chart-stories" aria-label="Milestones">'+marks.map(p=>'<button type="button" data-track-milestone="'+e(p.id)+'"><time>'+p.date.slice(0,4)+'</time><span>'+e(p.shortTitle)+'</span></button>').join('')+'</div>';
-  return '<section class="track" id="chart-'+track.id+'" data-track="'+track.id+'" tabindex="-1" aria-labelledby="track-'+track.id+'" style="--track:'+track.color+'"><div class="track-top"><h2 id="track-'+track.id+'">'+e(track.label)+'</h2><div class="track-actions">'+selector+zoomButtonHtml(track.id,track.label)+'</div></div><p class="track-description">'+e(trackData.track.readingGuide.description)+'</p><div class="track-visual">'+stories+renderMonitorChart(track,state.cutoff,{model:state.model,seriesView:selected})+'</div>'+renderTrackContext(track.id,state.cutoff,{model:state.model,seriesView:selected})+'</section>';
+function renderTrack(track){
+  return renderTrackSection(track, state.cutoff, {model:state.model, seriesView:state.seriesView[track.id]||'all', zoomed:state.zoomedChart===track.id});
 }
 function render(){
+  resetAbbreviations();
   $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false});
   $('#milestone-list').innerHTML=renderMilestoneLinks(state.cutoff);
-  $('#previews-slot').innerHTML=renderPreviews(rows());
+  $('#previews-slot').innerHTML=renderPreviews();
   $('#tracks-slot').innerHTML=tracks.map(renderTrack).join('');
-  $('#study-list').innerHTML=studies.filter(p=>p.date<=state.cutoff).map(p=>'<button type="button" data-study-id="'+p.id+'"><time>'+p.date.slice(0,4)+'</time><span>'+e(p.title)+'</span><span aria-hidden="true">↗</span></button>').join('');
+  $('#study-list').innerHTML=renderStudyButtons(state.cutoff);
   syncZoomState();
 }
 function sync(){
@@ -234,7 +222,7 @@ $('#today-button').addEventListener('click',()=>cutoff(today));
 $('#play-button').addEventListener('click',play);
 $('#present-button').addEventListener('click',()=>{present();closeMenu();});
 $('#export-button')?.addEventListener('click',exportData);
-$('#editorial-check').textContent='Last reviewed '+date(monitorData.meta.lastReviewedAt);
+$('#editorial-check').innerHTML=reviewedMarkup();
 $('#package-export-button')?.addEventListener('click',async event=>{const button=event.currentTarget;button.disabled=true;try{announce(await downloadMonitorPackage());}catch(error){announce('Package export failed: '+error.message);}finally{button.disabled=false;}});
 // Old view hashes now lead to the single-page overview.
 if(['#verlauf','#anwendungen','#studien','#quellen'].includes(location.hash))history.replaceState(null,'','#top');

@@ -176,3 +176,24 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
  .track-reading-key,.track-reality{font-size:11px;line-height:1.4}
  .site-footer,.site-footer>span{font-size:11.5px}
 }
+/* News cards stay full width. The legacy 47px date column applied to the article wrapper and crushed titles. */
+.news-card-item{display:block;min-width:0;width:100%}
+.news-panel .news-preview-list h3,.news-panel .news-preview-list h3 a{overflow-wrap:break-word;word-break:normal}
+@media(max-width:480px){
+ .news-panel .news-preview-list li{display:block;grid-template-columns:none}
+ .news-panel .news-card-item{display:flex;flex-direction:column;align-items:stretch;width:100%;min-width:0}
+ .news-panel .news-preview-list time,.news-panel .news-preview-list h3,.news-panel .news-preview-list .news-sources{grid-column:auto;width:100%;max-width:100%}
+}
+.chart-figure{margin:0;min-width:0}
+.chart-takeaway{margin:0 0 6px;font:13px/1.45 var(--sans);color:var(--ink)}
+.chart-takeaway abbr{text-decoration:underline dotted;text-underline-offset:2px}
+.chart-data-table{margin:2px 0 0;font-size:12px}
+.chart-data-table>summary{display:flex;align-items:center;min-height:44px;cursor:pointer;color:var(--ink)}
+.chart-data-table>summary:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.data-table-scroll{overflow-x:auto;max-width:100%}
+.chart-data-table table{width:100%;border-collapse:collapse;font-size:12px;line-height:1.4}
+.chart-data-table caption{text-align:left;font-size:11px;color:var(--muted);margin:0 0 6px}
+.chart-data-table th,.chart-data-table td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.chart-data-table th{font-weight:600}
+.detail-charts .chart-takeaway{font-size:12px;line-height:1.4;margin:0 0 4px}
+.detail-charts .chart-data-table>summary{min-height:44px;padding:0}
