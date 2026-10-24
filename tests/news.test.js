@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { orderedNews, renderNewsSidebar, renderNewsArchive } from '../lib/news.js';
+import { orderedNews, renderNewsSidebar, renderNewsArchive, newsCategory, newsLanguage } from '../lib/news.js';
 
 test('news retains original publication dates and orders approved stories newest first', () => {
   const items = orderedNews();
@@ -46,4 +46,10 @@ test('every Substack story has a star and original links carry named platform ic
   assert.match(html, /aria-label="Original on LinkedIn"/);
   assert.match(html, /aria-hidden="true"><path/);
   assert.match(html, /target="_blank" rel="noopener noreferrer"/);
+});
+
+test('verified original metadata overrides translated-headline heuristics',()=>{
+  const amie=orderedNews().find(item=>item.id==='amie-before-the-appointment');
+  assert.equal(newsLanguage(amie),'de');assert.equal(newsCategory(amie),'post');
+  assert.equal(newsLanguage({...amie,title:{en:'English translation',de:'Deutsches Original'}}),'de');
 });

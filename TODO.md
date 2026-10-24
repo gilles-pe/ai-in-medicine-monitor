@@ -32,7 +32,7 @@ The original phase 3 acceptance remains partly open. Current feature behavior is
 - Mobile Lighthouse performance is not yet >= 90, and mobile LCP is not yet < 2.5s. Do not treat the Phase 1–2 scores as meeting the original target.
 - [x] Owner portrait supplied and installed at `assets/img/gilles-penning.jpg`; original square JPEG preserved.
 - `/datenschutz/` is a placeholder (“Content follows”) with `noindex` and is excluded from the sitemap. Legal text is not written.
-- News categories are not in `data/news.json`. Cards use Article when a story has a Substack source, otherwise Post. Original language is DE when the English and German titles are the same German headline, otherwise EN.
+- [ ] Backfill explicit category/originalLanguage for the four older news entries after checking their originals. New AMIE entry has verified post/de metadata; older records keep the documented compatibility fallback.
 - [x] Translate dynamic takeaways as complete sentences before restoring abbreviation markup; preserve values, model names, dates and EN/DE round trips.
 - [x] Retain the assistance key number from the eligible same-protocol result (GPT-5.4 (Base), 48.1 points); other protocols remain separate.
 

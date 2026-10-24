@@ -31,7 +31,7 @@ Add a sourceCatalog record with id, title, url, publisher, version, checkedAt, k
 
 ## New news item
 
-Use data/news.json's items array and read docs/news-editorial.md. An approved item has a stable id, original YYYY-MM-DD date, approved true, English/German title and summary, and named sources for the original and cross-posts. Keep cross-posts together; do not duplicate one story across platforms. Use the owner's existing explicit approval when present; otherwise obtain it before publishing. Four items appear on the home page; the archive retains all approved items. News additions do not change evidence-review dates.
+Use data/news.json's items array and read docs/news-editorial.md. An approved item has a stable id, original YYYY-MM-DD date, approved true, English/German title and summary, and named sources for the original and cross-posts. Set category (article/post) and verified originalLanguage (en/de); this is the language of the original post, not its translated headline. Keep cross-posts together; do not duplicate one story across platforms. Use the owner's existing explicit approval when present; otherwise obtain it before publishing. Four items appear on the home page; the archive retains all approved items. News additions do not change evidence-review dates.
 
 ## Validate and publish
 
