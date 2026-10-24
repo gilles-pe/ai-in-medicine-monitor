@@ -24,8 +24,16 @@ test('dashboard has four recent stories and All opens the full translated archiv
   assert.equal((en.match(/<li>/g) || []).length, 4);
   assert.match(en, /href="\.\/news\/\?lang=en"/);
   assert.match(de, /href="\.\/news\/\?lang=de"/);
-  assert.match(de, /Interessante Neuigkeiten/);
-  assert.match(renderNewsArchive('en'), /id="heart-blue-screen"/);
+  assert.match(en, />Latest</);
+  assert.match(de, />Aktuelles</);
+  assert.match(en, /class="news-teaser"/);
+  assert.match(en, />EN</);
+  assert.match(en, />DE</);
+  assert.match(en, />Article</);
+  assert.match(en, />Post</);
+  const archive = renderNewsArchive('en');
+  assert.match(archive, /id="heart-blue-screen"/);
+  assert.match(archive, /id="news-year-2026"/);
 });
 
 test('every Substack story has a star and original links carry named platform icons', () => {

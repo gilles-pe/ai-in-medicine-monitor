@@ -9,7 +9,7 @@ await syncMonitorDocs(root,{check:true});
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 await writeFile(path.join(output, '.nojekyll'), '');
-for (const name of ['index.html', 'styles.css', 'editorial.css', 'monitor.css', 'AGENTS.md', 'MONITOR_STANDARD.md', 'DESIGN.md', 'VALIDATION_REPORT.md', 'app.js', 'favicon.svg', 'data', 'lib', 'news', 'fonts', 'og-image.png']) {
+for (const name of ['index.html', 'styles.css', 'editorial.css', 'monitor.css', 'AGENTS.md', 'MONITOR_STANDARD.md', 'DESIGN.md', 'VALIDATION_REPORT.md', 'app.js', 'favicon.svg', 'data', 'lib', 'news', 'fonts', 'og-image.png', 'about', 'impressum', 'datenschutz', 'assets']) {
   await cp(path.join(root, name), path.join(output, name), { recursive: true });
 }
 await mkdir(path.join(output,'docs'),{recursive:true});

@@ -8,7 +8,7 @@ import { downloadMonitorPackage } from './lib/monitor-export.js';
 import { tracks, measurements, sourceCatalog, editorialStatus, studies } from './data/evidence.js';
 import { trackMilestones, trustContext } from './data/track-milestones.js';
 import { renderOverview, renderMilestoneLinks, renderOverviewMilestoneStrip, visibleHistory, visibleAnchors } from './lib/overview.js';
-import { renderPreviewSection, renderStudyButtons, renderTrackSection, resetAbbreviations } from './lib/published-page.js';
+import { renderPreviewSection, renderStudyButtons, renderTrackSection, renderSourceIndex, resetAbbreviations } from './lib/published-page.js';
 import { reviewedMarkup } from './lib/site-meta.js';
 import { filterMeasurements, latestByModel, escapeHtml as e } from './lib/selectors.js';
 
@@ -97,7 +97,10 @@ function render(){
   $('#previews-slot').innerHTML=renderPreviews();
   $('#tracks-slot').innerHTML=tracks.map(renderTrack).join('');
   $('#study-list').innerHTML=renderStudyButtons(state.cutoff);
+  const sourceIndex=$('#source-index');
+  if(sourceIndex) sourceIndex.innerHTML=renderSourceIndex(state.cutoff);
   syncZoomState();
+  markSection();
 }
 function sync(){
   $('#cutoff-date').value=state.cutoff;
@@ -262,6 +265,21 @@ menuButton.addEventListener('click',()=>{siteMenu.hidden=!siteMenu.hidden;menuBu
 document.addEventListener('click',event=>{if(!siteMenu.hidden&&!event.target.closest('#site-menu,#menu-button'))closeMenu();});
 siteMenu.addEventListener('click',event=>{if(event.target.closest('a'))closeMenu();});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!siteMenu.hidden){event.preventDefault();closeMenu(true);}});
+function markSection(){
+  const links=[...document.querySelectorAll('#section-nav a[href^="#"]')];
+  if(!links.length) return;
+  const line=window.scrollY+80;
+  let active=links[0];
+  for(const link of links){
+    const el=document.getElementById(link.getAttribute('href').slice(1));
+    if(el&&el.offsetTop<=line) active=link;
+  }
+  for(const link of links){
+    if(link===active) link.setAttribute('aria-current','true');
+    else link.removeAttribute('aria-current');
+  }
+}
+document.addEventListener('scroll',()=>markSection(),{passive:true});
 const feedbackDialog=$('#feedback-dialog');
 $('#feedback-button').addEventListener('click',()=>{stop();hover.hide();closeMenu();feedbackDialog.showModal();});
 $('#feedback-close').addEventListener('click',()=>feedbackDialog.close());

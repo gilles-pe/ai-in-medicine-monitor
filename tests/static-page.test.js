@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { knowledgeTakeaway, assistanceTakeaway, autonomyTakeaway } from '../lib/takeaways.js';
+import { knowledgeTakeaway, assistanceTakeaway, autonomyTakeaway, keyResult } from '../lib/takeaways.js';
 import { SITE_DESCRIPTION, jsonLd, REVIEWED_AT, reviewedMarkup } from '../lib/site-meta.js';
 
 const cutoff = REVIEWED_AT;
@@ -24,6 +24,20 @@ test('takeaways use confirmed scores from the monitor data', () => {
   const autonomy = autonomyTakeaway(cutoff);
   assert.match(autonomy, /Claude Code \/ Opus 5 at 55%/);
   assert.match(autonomy, /Claude 3\.5 Sonnet v2 reaches 69\.67%/);
+});
+
+test('key numbers use the newest eligible series', () => {
+  const knowledge = keyResult('knowledge', cutoff);
+  assert.equal(knowledge.model, 'Gemini 3.1 Pro Preview');
+  assert.equal(knowledge.value, '97.4');
+  assert.equal(knowledge.date, '2026-02-19');
+  assert.equal(knowledge.url, 'https://www.nature.com/articles/s41591-026-04431-5');
+  const assistance = keyResult('assistance', cutoff);
+  assert.equal(assistance.model, 'GPT-5.4 (Base)');
+  assert.equal(assistance.value, '48.1');
+  const autonomy = keyResult('autonomy', cutoff);
+  assert.equal(autonomy.model, 'Claude Code / Opus 5');
+  assert.equal(autonomy.value, '55');
 });
 
 test('structured data names the person without an employer', () => {

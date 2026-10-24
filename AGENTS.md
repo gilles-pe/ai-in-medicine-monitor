@@ -9,6 +9,7 @@ Maintain a popular-science 'AI in Medicine' showing medical AI progress in three
 2. `DESIGN.md` - UI, chart and point-card requirements.
 3. `data/monitor-data.json` - portable data store.
 4. `VALIDATION_REPORT.md` - current evidence audit and unresolved blockers.
+5. `TODO.md` - open site work, including the unfinished accessibility and responsive pass.
 
 ## Universal operating constraints
 - Never program or redesign unless asked; a research task produces candidate data and sources.
