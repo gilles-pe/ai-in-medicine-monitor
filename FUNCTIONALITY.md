@@ -7,6 +7,7 @@ Current specification: 25 October 2026. Read alongside DESIGN.md and MONITOR_STA
 - Static HTML remains readable without JavaScript. The built home page retains a real native module entry point for app.js; a build must never turn the closing script tag into literal escaped text.
 - After event handlers, data rendering and translation initialize successfully, html[data-app-state] becomes ready. Tests must wait for this state and fail on uncaught page errors.
 - Browser tests run against the actual dist artifact under /ai-in-medicine-monitor/, including JSON imports and all relative assets. The Pages publication must pass these tests before deployment.
+- Built stylesheets use a content-fingerprinted filename. Returning browsers receive the current layout after publication even when the previous CSS remains cached.
 
 ## Evidence cards and sample selection
 

@@ -3,6 +3,7 @@ import { prerenderTree } from './prerender.mjs';
 import { mkdir, rm, cp, readFile, writeFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'dist');
 await syncMonitorDocs(root,{check:true});
@@ -20,6 +21,9 @@ for (const name of ['data-entry-guide.md', 'decisions.md', 'implementation-statu
 await prerenderTree(output);
 const css = (await Promise.all(['styles.css', 'editorial.css', 'monitor.css'].map(name => readFile(path.join(output, name), 'utf8')))).join('\n');
 await writeFile(path.join(output, 'site.css'), css);
+// Returning visitors must not reuse a previous release's cached layout.
+const stylesheet = 'site.' + createHash('sha256').update(css).digest('hex').slice(0,12) + '.css';
+await writeFile(path.join(output, stylesheet), css);
 // Above-the-fold rules so the introduction can paint without waiting for site.css.
 // The full sheet then applies without blocking first paint. Keep the native
 // module entry point: interactive behavior must also run in the published build.
@@ -30,7 +34,7 @@ for (const file of ['index.html', 'news/index.html']) {
   const block = ['styles.css', 'editorial.css', 'monitor.css'].map(name => '<link rel="stylesheet" href="' + prefix + name + '">').join('\n  ');
   let html = await readFile(filename, 'utf8');
   if (!html.includes(block)) throw new Error('Stylesheet block missing in ' + file);
-  const asyncCss = '<style>' + criticalCss + '</style>\n  <link rel="stylesheet" href="' + prefix + 'site.css" media="print" onload="this.media=\'all\'">\n  <noscript><link rel="stylesheet" href="' + prefix + 'site.css"></noscript>';
+  const asyncCss = '<style>' + criticalCss + '</style>\n  <link rel="stylesheet" href="' + prefix + stylesheet + '" media="print" onload="this.media=\'all\'">\n  <noscript><link rel="stylesheet" href="' + prefix + stylesheet + '"></noscript>';
   html = html.replace(block, asyncCss);
   if (file === 'index.html') {
     if (!html.includes('<script type="module" src="./app.js"></script>')) throw new Error('Home module missing');
