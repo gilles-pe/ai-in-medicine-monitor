@@ -44,3 +44,13 @@ The user approved replacing the personal-interest introduction with the proposed
 ## Interesting news and archive - 22 October 2026
 
 The user requested replacing Changes with Interesting news and an All page that grows over time. Subsequent instructions require individual approval for every story, original chronological order, small original-platform links with icons, and a star for every Substack article. The user individually approved the 22 October Bluesky physics thread, the 13 October Substack article Die langweilige AI-Revolution (including links to the LinkedIn and Bluesky cross-posts), the 8 October Bluesky watch thread, and the 6 July Substack article The heart has a blue screen of death. AI learns to predict it. Publication dates and original URLs were read from the author's public Substack/Bluesky pages; the LinkedIn cross-post URL and content were verified through public search. The story is dated by its original Substack publication, not an inferred LinkedIn date. Other proposed articles remain unpublished unless individually approved.
+
+## 25 October 2026 - restore production interactions and disclosure hierarchy
+
+The current GitHub redesign is retained. The published build must keep the native module script: the previous escaped closing tag prevented all application event handlers from loading. Browser tests now target the built project-path artifact, and Pages publication is gated on them.
+
+Phone evidence access means tapping a touch-sized source target, not hover. Overview source targeting is calculated in CSS pixels so a responsive SVG does not shrink the effective target. Full chart view is a CSS viewport overlay with button/Escape/backdrop exit and correct focus/labels.
+
+Owner-approved copy: Still pending; Tracking what I can really do in medicine.; What can I do in medicine today? The question is always visible above an initially open triangle introduction. Medtech executive. Founder. moves into the reserved author/image area. Glossary and all Sources disclosures start closed. The GP monogram remains explicitly labelled as a placeholder until a real portrait is supplied.
+
+FUNCTIONALITY.md is the current behavioral contract. Root TODO.md is the active backlog; docs/TODO.md is historical. Both JSON content stores remain authoritative and are exported with the feature/design/history documentation. A UI repair does not change the date of scientific evidence review.

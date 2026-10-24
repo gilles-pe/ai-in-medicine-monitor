@@ -1,3 +1,7 @@
+# Historical backlog - superseded
+
+This is the dated 17–18 October development record. Root [TODO.md](../TODO.md) is the only active backlog. Checked/unchecked items below are historical and must not be used as current status.
+
 # AI in Medicine Monitor – TODO
 
 Stand: 18.10.2026. Sichtbarer Horizont maximal 2030.

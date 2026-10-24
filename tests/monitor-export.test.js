@@ -53,6 +53,7 @@ function packageFixture() {
   const contract = '<!-- monitor-data-contract:start -->\n- SHA-256 (parsed JSON): `' + hash + '`\n<!-- monitor-data-contract:end -->';
   const files = Object.fromEntries(MONITOR_PACKAGE_FILES.map(path => [path, '# Document\n\n' + contract]));
   files['data/monitor-data.json'] = JSON.stringify(data, null, 2);
+  files['data/news.json'] = JSON.stringify({items:[]});
   return { files, hash };
 }
 

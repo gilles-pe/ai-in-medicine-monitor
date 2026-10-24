@@ -9,7 +9,10 @@ Maintain a popular-science 'AI in Medicine' showing medical AI progress in three
 2. `DESIGN.md` - UI, chart and point-card requirements.
 3. `data/monitor-data.json` - portable data store.
 4. `VALIDATION_REPORT.md` - current evidence audit and unresolved blockers.
-5. `TODO.md` - open site work, including the unfinished accessibility and responsive pass.
+5. `FUNCTIONALITY.md` - current features, interaction requirements and release acceptance.
+6. `TODO.md` - canonical active backlog; `docs/TODO.md` is historical.
+7. `docs/decisions.md` and `docs/implementation-status.md` - approved decisions and per-run change/test history.
+8. `docs/data-entry-guide.md`, `data/news.json`, `docs/news-editorial.md` - portable content entry and approved news.
 
 ## Universal operating constraints
 - Never program or redesign unless asked; a research task produces candidate data and sources.
@@ -56,7 +59,7 @@ Location: `data/monitor-data.json` (UTF-8 JSON). Sections: `meta`, `tracks[]`, `
 Every active point, study and milestone references the shared `editorialCards` registry by stable `cardId`. Card content must agree with chart values and validation status. Preserve old imported content in the change log/archive. Read the schema 2.0 card contract in DESIGN.md. Historical conceptual events use documented categorical outcomes, not invented IQ or accuracy values.
 
 ## Before declaring ready
-Check JSON parses, IDs unique, every published line point eligible, no joined incompatible series, source links valid, point cards complete, mobile behavior, and last-updated semantics. Update `meta.lastReviewedAt` / `meta.lastDataChangeAt` (and run `node scripts/sync-monitor-docs.mjs`) whenever monitor content or reviewed evidence changes so the visible 'Last reviewed' indicator stays current. Produce a brief list of unresolved issues for the human owner.
+Check JSON parses, IDs unique, every published line point eligible, no joined incompatible series, source links valid, point cards complete, mobile behavior, and last-updated semantics. Update `meta.lastReviewedAt` only after actual evidence review and `meta.lastDataChangeAt` for factual data changes. UI/news changes do not imply scientific review. Run `node scripts/sync-monitor-docs.mjs` after central JSON changes. Test the built dist artifact under the GitHub project subdirectory, including phone taps, source cards, grouped selection and full-view controls. Append this run's changes, actual checks, source and publication result to `docs/implementation-status.md`; update root `TODO.md`. Produce a brief list of unresolved issues for the human owner.
 
 ## Interesting news
 `data/news.json` contains the separate editorial feed. Ask the user to approve each proposed story before adding it. Retain original publication dates and sort newest first; group cross-posts as source links beneath the original story. Mark every Substack item with a star. The dashboard shows the newest four items and All opens the complete `/news/` archive. Do not automatically import or publish unapproved posts. News additions do not imply a benchmark evidence review.
@@ -70,7 +73,7 @@ The primary publication target is GitHub Pages at `https://gilles-pe.github.io/a
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `9e847f60b924532b5e90cbd6229563a06af413d22a4774d885eea407e73d2f7d`
+- SHA-256 (parsed JSON): `3582ef8bc25942f0ee540bc5ba06dd7fe14be7132c0a336e9a99c5544fc34455`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2

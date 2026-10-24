@@ -8,4 +8,4 @@ Both the dashboard preview and `/news/` archive read `data/news.json` through `l
 4. Group cross-posts beneath the original story instead of duplicating it. A Substack source automatically adds a star. The original story date determines its chronological position.
 5. Run the existing checks and build, then commit the approved update to the GitHub repository. The Publish GitHub Pages workflow deploys `main` after Pages is enabled. During migration, the existing Sites deployment remains available.
 
-The newest three stories appear on the dashboard. The archive retains all approved stories, newest first. Older entries stay available when newer items are added. There is no scheduled import or automatic publication.
+The newest four stories appear on the dashboard. The archive retains all approved stories, newest first. Older entries stay available when newer items are added. There is no scheduled import or automatic publication.

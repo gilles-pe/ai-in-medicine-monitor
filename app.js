@@ -1,4 +1,5 @@
 import { feedbackUrl } from './lib/navigation.js';
+import { nearbyEvidenceIds } from './lib/chart-interactions.js';
 import { renderNewsSidebar } from './lib/news.js';
 import { applyLanguage, getLanguage, setLanguage, preferredLanguage, translateText } from './lib/i18n.js';
 import { monitorData } from './lib/monitor-data.js';
@@ -78,24 +79,29 @@ function syncZoomState(){
   shell.querySelectorAll('[data-chart-zoom]').forEach(btn=>{
     const active=btn.dataset.chartZoom===state.zoomedChart;
     btn.setAttribute('aria-pressed',String(active));
+    btn.setAttribute('aria-label',active?'Exit full view':'Expand '+(btn.dataset.chartZoom==='overview'?'AI in Medicine 1950–2030':tracks.find(track=>track.id===btn.dataset.chartZoom)?.label||'')+' chart');
     btn.setAttribute('title',active?'Close full view':'Expand chart');
     btn.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+(active?'<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/>':'<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>')+'</svg>';
   });
 }
 function toggleChartZoom(target){
   hover?.hide();
+  const previous=state.zoomedChart;
   state.zoomedChart=state.zoomedChart===target?null:target;
   syncZoomState();
+  shell.querySelector('[data-chart-zoom="'+(state.zoomedChart||previous)+'"]')?.focus({preventScroll:true});
 }
 function renderTrack(track){
   return renderTrackSection(track, state.cutoff, {model:state.model, seriesView:state.seriesView[track.id]||'all', zoomed:state.zoomedChart===track.id});
 }
 function render(){
   resetAbbreviations();
+  const openSources=[...shell.querySelectorAll('.section-sources[open]')].map(el=>el.id);
   $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false});
   $('#milestone-list').innerHTML=renderMilestoneLinks(state.cutoff);
   $('#previews-slot').innerHTML=renderPreviews();
   $('#tracks-slot').innerHTML=tracks.map(renderTrack).join('');
+  openSources.forEach(id=>{const panel=document.getElementById(id);if(panel)panel.open=true;});
   $('#study-list').innerHTML=renderStudyButtons(state.cutoff);
   const sourceIndex=$('#source-index');
   if(sourceIndex) sourceIndex.innerHTML=renderSourceIndex(state.cutoff);
@@ -205,6 +211,14 @@ shell.addEventListener('pointermove',event=>{
 shell.addEventListener('pointerup',event=>{
   if(touchScrub&&event.pointerId===touchScrub.pointerId){
     if(touchScrub.moved)suppressOverviewClickUntil=Date.now()+400;
+    else{
+      const points=[...touchScrub.svg.querySelectorAll('.overview-point')].map(point=>{
+        const rect=point.querySelector('.anchor-dot').getBoundingClientRect();
+        return {x:rect.left+rect.width/2,y:rect.top+rect.height/2,ids:(point.dataset.overviewCluster||point.dataset.overviewPoint||'').split(',').filter(Boolean)};
+      });
+      const ids=nearbyEvidenceIds(points,event.clientX,event.clientY);
+      if(ids.length){suppressOverviewClickUntil=Date.now()+400;showOverviewCluster(ids.join(','));}
+    }
     touchScrub=null;
   }
 });
@@ -230,6 +244,16 @@ $('#package-export-button')?.addEventListener('click',async event=>{const button
 // Old view hashes now lead to the single-page overview.
 if(['#verlauf','#anwendungen','#studien','#quellen'].includes(location.hash))history.replaceState(null,'','#top');
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!dialog.open){stop();if(state.zoomedChart){toggleChartZoom(null);return;}if(state.presentation)present();}});
+document.addEventListener('keydown',event=>{
+  if(event.key!=='Tab'||dialog.open)return;
+  const scope=!siteMenu.hidden?siteMenu:state.zoomedChart?(state.zoomedChart==='overview'?$('#overview'):$('#chart-'+state.zoomedChart)):null;
+  if(!scope)return;
+  const elements=[...scope.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),summary,[tabindex="0"]')].filter(el=>el.getClientRects().length);
+  if(scope===siteMenu)elements.unshift(menuButton);
+  const first=elements[0],last=elements.at(-1);
+  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}
+  else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus();}
+});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
 sync();render();
 if(location.hash)requestAnimationFrame(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView({block:'start'}));
@@ -290,3 +314,4 @@ chooseLanguage(getLanguage(),false);
 // the selected dictionary. Original research titles and model names stay intact.
 const languageObserver=new MutationObserver(()=>applyLanguage(document));
 languageObserver.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','title','placeholder','aria-valuetext']});
+document.documentElement.dataset.appState='ready';

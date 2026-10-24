@@ -184,3 +184,15 @@ Added three primary-source-checked scores from the June 2026 Nature Medicine stu
 Validation: typecheck, 54 unit tests, synchronized documentation and production build passed. GitHub CI run 39165316058 passed 27 desktop/mobile browser cases, with one desktop-only hover case skipped on mobile; covers 320px layout, stable disclosure/slider, benchmark switching, cards, navigation, translation, playback and portable ZIP checksums. A subsequent isolated update corrected the Changes link to medical knowledge and passed the production build. The published page was also inspected in the connected browser, including the menu, smaller overview markers and persistent Milestones during slider interaction; viewport screenshot captured. The stale user tab was reloaded.
 
 Final Sites source f67d3e5b5395e0f7bfbdcf5de45a0f2ea6df5bd5; deployment appgdep_6ad532ba5a008191881dc5da05257b88 succeeded, preserving owner-only access. Original unresolved evidence and chronology limitations remain in VALIDATION_REPORT.md and the portable JSON; no incompatible benchmark lines are joined.
+
+## Production interaction repair - 25 October 2026
+
+Baseline: public GitHub redesign 9dd624f5855b7af9bc6cf775fa12b7dea8130094. The older Sites checkout was not used to overwrite the redesign. Independent read-only agents audited the current functionality/data documentation and the production interaction failure.
+
+Root cause: the production build emitted a literal escaped closing script tag for its deferred app loader. The source-root browser tests passed while the published page never initialized its event handlers. The build now keeps the native module entry point. Browser acceptance waits for an explicit initialized state, fails on uncaught page errors, and serves the exact built artifact under the GitHub project subdirectory. The Pages workflow is gated on desktop/touch tests.
+
+Implemented this run: CSS-pixel overview touch hit testing and grouped selection; source-card click/tap/keyboard behavior; full-view accessible exit labels, 44px controls, focus restoration and keyboard containment; initially closed Glossary/all Sources; persistent user-opened source panels; always-visible practical question with its initially open body below; Still pending masthead and requested tagline; executive/founder wording moved into the profile/image area with truthful monogram alt text. Existing design, charts, news and facts are retained.
+
+Added FUNCTIONALITY.md and docs/data-entry-guide.md. AGENTS links current functionality, design/decisions, root TODO and per-run history. The historical docs/TODO is labelled as such. Portable exports include both authoritative JSON stores and the functionality/backlog/design/history documents. News preview documentation consistently says four items. UI repairs do not claim a new scientific evidence review. The owner portrait and independently verified missing AMIE content remain tracked explicitly.
+
+Verification and deployment results will be appended after the production checks finish; do not infer release completion from this implementation entry.

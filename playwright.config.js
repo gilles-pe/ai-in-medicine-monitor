@@ -13,7 +13,7 @@ export default defineConfig({
     ? [['github'], ['html', { open: 'never' }]]
     : [['list']],
   use: {
-    baseURL: 'http://127.0.0.1:4173',
+    baseURL: 'http://127.0.0.1:4173/ai-in-medicine-monitor/',
     locale: 'de-DE',
     timezoneId: 'Europe/Berlin',
     trace: 'retain-on-failure',
@@ -36,8 +36,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'python3 -m http.server 4173 --bind 127.0.0.1',
-    url: 'http://127.0.0.1:4173',
+    command: 'node scripts/serve-built.mjs',
+    url: 'http://127.0.0.1:4173/ai-in-medicine-monitor/',
     reuseExistingServer: !process.env.CI,
     timeout: 15_000,
   },

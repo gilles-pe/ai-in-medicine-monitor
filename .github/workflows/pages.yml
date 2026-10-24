@@ -15,19 +15,34 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v7
         with:
           node-version: 24
           package-manager-cache: false
+      - name: Install test dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Check application types
+        run: npm run typecheck
       - name: Check data and application logic
         run: node --test tests/*.test.js
       - name: Build static website
         run: node scripts/build.mjs
       - name: Verify project-site paths and downloadable files
         run: node scripts/verify-pages.mjs
+      - name: Install browser for release acceptance
+        run: npx playwright install --with-deps chromium
+      - name: Test the production artifact on desktop and touch
+        run: npm run test:ui
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: production-browser-report
+          path: |
+            playwright-report/
+            test-results/
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist

@@ -6,14 +6,20 @@ async function milestones(page){const p=page.locator('#milestones-panel');if(!aw
 async function date(page,value){await milestones(page);await page.locator('#cutoff-date').fill(value);await page.locator('#cutoff-date').press('Tab');}
 async function openMonitor(page,id){const hit=page.locator('.detail-charts .monitor-point-hit[data-monitor-point="'+id+'"],.detail-charts .monitor-point-hit[data-monitor-cluster*="'+id+'"]');await hit.first().click();const card=page.locator('#detail-dialog'),ids=(await card.getAttribute('data-card-ids')||'').split(','),i=ids.indexOf(id);if(i>=0&&ids.length>1)await card.locator('[data-card-choice="'+i+'"]').click();}
 
-test.beforeEach(async({page})=>{await page.clock.install({time:new Date('2026-10-18T06:30:00Z')});await page.goto('/');await expect(page.getByRole('heading',{level:1})).toHaveText('Digital Health & AI in Medicine');});
+test.beforeEach(async({page})=>{
+  page.__runtimeErrors=[];page.on('pageerror',error=>page.__runtimeErrors.push(error.message));
+  await page.clock.install({time:new Date('2026-10-18T06:30:00Z')});await page.goto('./');
+  await expect(page.locator('html')).toHaveAttribute('data-app-state','ready');
+  await expect(page.getByRole('heading',{level:1})).toHaveText('Digital Health & AI in Medicine');
+});
+test.afterEach(async({page})=>{expect(page.__runtimeErrors).toEqual([]);});
 
 test('clean header keeps preferences in the menu and three thumbnails',async({page})=>{
   await expect(page).toHaveTitle('Digital Health & AI in Medicine | Gilles Penning');
   await expect(page.locator('.brand,.chart-tools,.back-link,.track-navigation,.result-row,.monitor-undated,.track-details')).toHaveCount(0);
   await expect(page.getByRole('tab')).toHaveCount(0);await expect(page.locator('#present-button')).not.toBeVisible();await expect(page.locator('[data-language="de"]')).not.toBeVisible();
   await expect(page.locator('.chart-thumbnail')).toHaveCount(3);await expect(page.locator('#content')).not.toContainText(/Timeline data|Under review|Benchmark results|About this benchmark|PPT|PowerPoint/);
-  await expect(page.locator('.masthead')).toContainText('Gilles Penning');await expect(page.locator('.site-footer')).not.toContainText('Gilles Penning');
+  await expect(page.locator('.masthead-author')).toHaveText('Still pending');await expect(page.locator('.author-byline')).toHaveText('Tracking what I can really do in medicine.');await expect(page.locator('.site-footer')).not.toContainText('Gilles Penning');
   await expect(page.locator('#editorial-check')).toHaveText('Last reviewed 23 Oct 2026');
   await page.locator('#menu-button').click();await expect(page.locator('#present-button')).toBeVisible();await expect(page.locator('[data-language="de"]')).toBeVisible();
 });
@@ -124,4 +130,43 @@ test('nearby lower-chart markers support source-backed hover and keyboard pinnin
     await page.keyboard.press('Escape');
     await dot.press('Enter');await expect(page.getByRole('dialog').locator('.editorial-evidence-card')).toHaveAttribute('data-card-id',id);await page.keyboard.press('Escape');
   }
+});
+
+
+test('approved disclosure hierarchy preserves the practical question and profile placement',async({page})=>{
+  await expect(page.locator('#intro-question')).toHaveText('What can I do in medicine today?');
+  await expect(page.locator('.about-monitor')).toHaveAttribute('open','');
+  await page.locator('.about-monitor > summary').click();
+  await expect(page.locator('.about-monitor')).not.toHaveAttribute('open','');await expect(page.locator('#intro-question')).toBeVisible();
+  for(const selector of ['#glossary','#source-index','#track-sources-knowledge','#track-sources-assistance','#track-sources-autonomy']){
+    const panel=page.locator(selector);await expect(panel).not.toHaveAttribute('open','');await panel.locator(':scope > summary').click();await expect(panel).toHaveAttribute('open','');
+  }
+  await page.locator('#chart-knowledge [data-series-view]').selectOption('medqa_main');
+  await expect(page.locator('#track-sources-knowledge')).toHaveAttribute('open','');
+  await page.locator('#menu-button').click();await expect(page.locator('.author-card-role')).toHaveText('Medtech executive. Founder.');await expect(page.locator('.author-card img')).toHaveAttribute('alt','GP monogram; portrait pending');
+});
+
+test('all four full views support correct labels, source cards and focus restoration',async({page})=>{
+  for(const id of ['overview','knowledge','assistance','autonomy']){
+    const target=page.locator(id==='overview'?'#overview':'#chart-'+id),button=page.locator('[data-chart-zoom="'+id+'"]');
+    await button.click();await expect(target).toHaveClass(/is-zoomed/);await expect(button).toHaveAccessibleName('Exit full view');await expect(button).toHaveAttribute('aria-pressed','true');
+    const size=await button.boundingBox();expect(size.width).toBeGreaterThanOrEqual(44);expect(size.height).toBeGreaterThanOrEqual(44);
+    if(id==='overview'){await target.locator('[data-overview-cluster="mira-2026,residency-2026"]').press('Enter');const card=page.getByRole('dialog');await expect(card.locator('[data-card-choice]')).toHaveCount(2);await card.locator('[data-card-choice="1"]').click();await expect(card.locator('[data-card-choice="1"]')).toHaveAttribute('aria-pressed','true');await page.keyboard.press('Escape');await expect(target).toHaveClass(/is-zoomed/);}
+    await page.keyboard.press('Escape');await expect(target).not.toHaveClass(/is-zoomed/);await expect(button).toBeFocused();
+  }
+  await page.locator('[data-chart-zoom="knowledge"]').click();await page.locator('#chart-zoom-backdrop').click({position:{x:1,y:1}});await expect(page.locator('#chart-knowledge')).not.toHaveClass(/is-zoomed/);
+});
+
+test('phone-sized overview taps resolve source cards and grouped sample selection',async({page},info)=>{
+  test.skip(!info.project.name.includes('mobile'),'Real touchscreen case.');
+  await page.setViewportSize({width:375,height:844});await page.clock.runFor(200);
+  const dot=page.locator('.overview-point[data-overview-cluster="mira-2026,residency-2026"] .anchor-dot');await dot.scrollIntoViewIfNeeded();const r=await dot.boundingBox();
+  await page.touchscreen.tap(r.x+r.width/2+8,r.y+r.height/2);
+  const card=page.getByRole('dialog');await expect(card).toBeVisible();await expect(card.locator('.point-sources a').first()).toHaveAttribute('href',/^https:/);
+  await expect(card.locator('[data-card-choice]')).not.toHaveCount(0);await card.locator('[data-card-choice]').last().click();await expect(card.locator('[data-card-choice]').last()).toHaveAttribute('aria-pressed','true');await page.locator('#close-dialog').click();await expect(card).not.toBeVisible();
+  await openMonitor(page,'knowledge-nyu-gemini31');await expect(card).toContainText('97.4%');await page.locator('#close-dialog').click();
+});
+
+test('responsive production layout fits 375, 768 and 1280px',async({page})=>{
+  for(const width of [375,768,1280]){await page.setViewportSize({width,height:900});await page.clock.runFor(200);expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);}
 });

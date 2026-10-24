@@ -42,7 +42,7 @@ The detailed 24-record review is stored in `extensions.researchAudit` inside the
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `9e847f60b924532b5e90cbd6229563a06af413d22a4774d885eea407e73d2f7d`
+- SHA-256 (parsed JSON): `3582ef8bc25942f0ee540bc5ba06dd7fe14be7132c0a336e9a99c5544fc34455`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2
