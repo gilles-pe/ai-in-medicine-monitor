@@ -5,7 +5,7 @@
       "start": "2022-01",
       "end": "2026-10"
     },
-    "lastUpdated": "2026-10-23",
+    "lastUpdated": "2026-10-25",
     "rules": {
       "xAxisMapping": "modelReleaseDate",
       "connectOnlyFrontier": true,
@@ -20,7 +20,7 @@
     "designSpec": "DESIGN.md",
     "agentInstructions": "AGENTS.md",
     "lastReviewedAt": "2026-10-23",
-    "lastDataChangeAt": "2026-10-23",
+    "lastDataChangeAt": "2026-10-25",
     "importedFrom": "gemini-code-1792312905225.json",
     "reviewNote": "38 numerical claims checked against original sources; 35 complete numeric records confirmed, 1 supplier-reported, 5 under review (including 3 source-checked values with unresolved commercial-model setup). MedQA protocols differ and do not form a confirmed frontier. Clinical base-model and product-harness comparisons remain distinct. Release-month positioning is provisional; evaluation dates remain unknown.",
     "auditSummary": "38 numerical claims checked against original sources; 35 complete numeric records confirmed, 1 supplier-reported, 5 under review (including 3 source-checked values with unresolved commercial-model setup). MedQA protocols differ and do not form a confirmed frontier. Clinical base-model and product-harness comparisons remain distinct. Release-month positioning is provisional; evaluation dates remain unknown.",
@@ -52,6 +52,10 @@
       {
         "date": "2026-10-22",
         "action": "Updated visual design, editorial typography, frontier shading, future-scenario hatching, collapsed introduction layout and four-item news preview; updated lastReviewedAt to 2026-10-22."
+      },
+      {
+        "date": "2026-10-25",
+        "action": "Added AMIE previsit clinical feasibility milestone, study, source and shared card. Final Lancet abstract verified on authors’ publication record: 33/44 helpful preparation, 25/44 possible approach change; 98 completed visits. Preprint timeline date kept separate from final publication. Excluded from quantitative benchmark series; 44 benchmark scores and their 23 October review date unchanged."
       }
     ],
     "previousTitles": [
@@ -2867,10 +2871,10 @@
   "extensions": {
     "legacyDashboard": {
       "editorialStatus": {
-        "updatedAt": "2026-10-18",
-        "checkedAt": "2026-10-18",
+        "updatedAt": "2026-10-25",
+        "checkedAt": "2026-10-25",
         "coverageNote": "Historical starter dataset from three original papers: 13 measurements. Not a complete market overview or a claim about current leading performance. Each track currently contains one publication version, so it cannot establish a time trend.",
-        "updateNote": "Historical milestones added on 18 October 2026; benchmark values unchanged. No automatic updates or independent expert review yet. New values require source and methodology checks; missing data remain empty."
+        "updateNote": "AMIE previsit final abstract checked on 25 October 2026; benchmark scores and their 23 October review unchanged. No automated or independent expert review."
       },
       "measurements": [
         {
@@ -3664,6 +3668,16 @@
           "kind": "Peer-reviewed survey",
           "checkedAt": "2026-10-18",
           "summary": "Survey of source recognition and task-dependent trust."
+        },
+        {
+          "id": "amie-previsit-lancet-2026",
+          "title": "Conversational diagnostic artificial intelligence in ambulatory primary care: a prospective feasibility study",
+          "url": "https://research.google/pubs/a-prospective-clinical-feasibility-study-of-a-conversational-diagnostic-ai-in-an-ambulatory-primary-care-clinic/",
+          "publisher": "Brodeur et al. / The Lancet; authors’ publication record",
+          "version": "Final publication, 8 October 2026; DOI 10.1016/S0140-6736(26)01535-7",
+          "checkedAt": "2026-10-25",
+          "kind": "Peer-reviewed clinical feasibility study",
+          "summary": "Final abstract: 98 completed visits; helpful preparation 33/44 reviewed questionnaire cases; possible behaviour change 25/44. Single-arm with live physician oversight."
         }
       ],
       "studies": [
@@ -3895,6 +3909,35 @@
           },
           "timeline_year": 2026,
           "journal_citation": "Nature 655, 1282–1291 (2026)"
+        },
+        {
+          "id": "amie-previsit-2026",
+          "topic": "assistance",
+          "topicLabel": "Clinical assistance",
+          "title": "AMIE before the appointment",
+          "date": "2026-03-09",
+          "sourceId": "amie-previsit-lancet-2026",
+          "type": "Peer-reviewed clinical feasibility study",
+          "environment": "prospective_clinical",
+          "design": "Prospective, single-centre, single-arm study: 114 enrolled; 98 completed both AI chat and a primary-care appointment. English-speaking adults used text chat up to five days before a single-complaint urgent visit; physicians supervised live.",
+          "summary": "Helpful preparation in 33/44 reviewed cases (75%). Clinicians said AMIE might have changed their approach in 25/44 cases (57%).",
+          "findings": [
+            [
+              "Helpful preparation",
+              "33/44 reviewed cases (75%)"
+            ],
+            [
+              "Possible approach change",
+              "25/44 reviewed cases (57%)"
+            ]
+          ],
+          "relevance": "Patient preparation before a supervised primary-care visit.",
+          "limitations": "No control group or evidence of improved patient outcomes. Survey denominator: 44 reviewed cases, not all 98 visits. Continuous physician oversight; English-only text. Supervisors recorded one hallucination and added clinical information in five interactions despite zero safety stops.",
+          "sourceDetail": "Final abstract: Methods and Findings",
+          "cardId": "amie-previsit-2026",
+          "timeline_year": 2026,
+          "journal_citation": "The Lancet (2026), published online 8 October",
+          "presentationSlides": []
         }
       ],
       "tracks": [
@@ -4799,6 +4842,24 @@
           },
           "timeline_year": 2026,
           "journal_citation": "Nature 655, 1282–1291 (2026)"
+        },
+        {
+          "id": "lower-amie-previsit-2026",
+          "trackId": "assistance",
+          "date": "2026-03-09",
+          "title": "AMIE before the appointment",
+          "sourceId": "amie-previsit-lancet-2026",
+          "kind": "Prospective clinical feasibility study",
+          "design": "Prospective, single-centre, single-arm study: 114 enrolled; 98 completed both AI chat and a primary-care appointment. English-speaking adults used text chat up to five days before a single-complaint urgent visit; physicians supervised live.",
+          "finding": "Helpful preparation in 33/44 reviewed cases (75%). Clinicians said AMIE might have changed their approach in 25/44 cases (57%).",
+          "limitations": "No control group or evidence of improved patient outcomes. Survey denominator: 44 reviewed cases, not all 98 visits. Continuous physician oversight; English-only text. Supervisors recorded one hallucination and added clinical information in five interactions despite zero safety stops.",
+          "locator": "Final abstract: Methods and Findings",
+          "shortTitle": "AMIE before a visit",
+          "result": "Helpful preparation in 33/44 reviewed cases (75%)",
+          "note": "98 completed visits; 44 reviewed questionnaire cases. Live physician supervision.",
+          "cardId": "amie-previsit-2026",
+          "timeline_year": 2026,
+          "journal_citation": "The Lancet (2026), published online 8 October"
         }
       ],
       "trustContext": {
@@ -6652,7 +6713,21 @@
         "What can I do in medicine today?": "Was kann ich heute in der Medizin tun?",
         "Medtech executive. Founder.": "Medtech-Führungskraft. Gründer.",
         "GP monogram; portrait pending": "GP-Monogramm; Porträt folgt",
-        "Exit full view": "Vollansicht schließen"
+        "Exit full view": "Vollansicht schließen",
+        "AMIE before the appointment": "AMIE vor dem Arzttermin",
+        "Prospective feasibility study": "Prospektive Machbarkeitsstudie",
+        "98 completed visits": "98 abgeschlossene Arztbesuche",
+        "Live physician supervision": "Ärztliche Aufsicht in Echtzeit",
+        "Helpful preparation in 33/44 reviewed cases (75%)": "Hilfreiche Vorbereitung in 33/44 beurteilten Fällen (75%)",
+        "Clinicians said AMIE might have changed their approach in 25/44 cases (57%).": "In 25/44 Fällen (57%) hätte AMIE nach ärztlicher Einschätzung das Vorgehen möglicherweise verändert.",
+        "Prospective, single-centre, single-arm study: 114 enrolled; 98 completed both AI chat and a primary-care appointment. English-speaking adults used text chat up to five days before a single-complaint urgent visit; physicians supervised live.": "Prospektive Studie an einem Zentrum ohne Kontrollgruppe: 114 Teilnehmende; 98 schlossen KI-Chat und Arzttermin ab. Englischsprachige Erwachsene nutzten bis zu fünf Tage vor einem dringlichen Hausarzttermin wegen einer einzelnen Beschwerde einen Textchat unter ärztlicher Aufsicht in Echtzeit.",
+        "No control group or evidence of improved patient outcomes. Survey denominator: 44 reviewed cases, not all 98 visits. Continuous physician oversight; English-only text. Supervisors recorded one hallucination and added clinical information in five interactions despite zero safety stops.": "Keine Kontrollgruppe und kein Nachweis besserer Behandlungsergebnisse. Die Befragung bezieht sich auf 44 vorab gesichtete Fälle, nicht alle 98 Arztbesuche. Durchgehende ärztliche Aufsicht; Textchat nur auf Englisch. Trotz null Sicherheitsabbrüchen wurden eine Halluzination und ergänzende klinische Informationen in fünf Gesprächen dokumentiert.",
+        "75% (33/44): helpful preparation before the appointment.": "75% (33/44): hilfreiche Vorbereitung vor dem Arzttermin.",
+        "Preprint: 9 March 2026. Peer-reviewed publication: 8 October 2026. Encounters: April-November 2025.": "Preprint: 9. März 2026. Begutachtete Veröffentlichung: 8. Oktober 2026. Arztbesuche: April-November 2025.",
+        "AMIE before a visit": "AMIE vor dem Arzttermin",
+        "98 completed visits; 44 reviewed questionnaire cases. Live physician supervision.": "98 abgeschlossene Arztbesuche; 44 vorab gesichtete Fälle in der Befragung. Ärztliche Aufsicht in Echtzeit.",
+        "The 1950–2030 timeline shows 24 documented milestones. Positions on this chart are illustrative; the sources support the milestones, not real IQ scores.": "Die Zeitleiste von 1950 bis 2030 zeigt 24 dokumentierte Meilensteine. Die Positionen veranschaulichen die Entwicklung; die Quellen belegen die Meilensteine, keine echten IQ-Werte.",
+        "Portrait of Gilles Penning": "Porträt von Gilles Penning"
       }
     },
     "navigation": {
@@ -11487,6 +11562,47 @@
       "release": "2026-02-19",
       "publication": "2026-06-12",
       "evaluation": null
+    },
+    "amie-previsit-2026": {
+      "title": "AMIE before the appointment",
+      "badge": {
+        "kind": "peer_reviewed",
+        "year": 2026
+      },
+      "tags": [
+        "Prospective feasibility study",
+        "98 completed visits",
+        "Live physician supervision"
+      ],
+      "finding": {
+        "headline": "Helpful preparation in 33/44 reviewed cases (75%)",
+        "explanation": "Clinicians said AMIE might have changed their approach in 25/44 cases (57%).",
+        "value": 75,
+        "unit": "% of 44 reviewed cases",
+        "kind": "quantitative"
+      },
+      "setup": "Prospective, single-centre, single-arm study: 114 enrolled; 98 completed both AI chat and a primary-care appointment. English-speaking adults used text chat up to five days before a single-complaint urgent visit; physicians supervised live.",
+      "limitations": "No control group or evidence of improved patient outcomes. Survey denominator: 44 reviewed cases, not all 98 visits. Continuous physician oversight; English-only text. Supervisors recorded one hallucination and added clinical information in five interactions despite zero safety stops.",
+      "teaser": "75% (33/44): helpful preparation before the appointment.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-03-09",
+      "date_basis": "first_preprint",
+      "timeline_note": "Preprint: 9 March 2026. Peer-reviewed publication: 8 October 2026. Encounters: April-November 2025.",
+      "sources": [
+        {
+          "title": "Conversational diagnostic artificial intelligence in ambulatory primary care: a prospective feasibility study",
+          "url": "https://research.google/pubs/a-prospective-clinical-feasibility-study-of-a-conversational-diagnostic-ai-in-an-ambulatory-primary-care-clinic/",
+          "journal_citation": "The Lancet (2026), published online 8 October",
+          "locator": "Final abstract: Methods, Findings; DOI 10.1016/S0140-6736(26)01535-7"
+        }
+      ],
+      "validation": {
+        "status": "confirmed",
+        "comparability": "different_protocol",
+        "reviewedAt": "2026-10-25",
+        "reviewedBy": "AI-assisted primary-source review",
+        "note": "Final Lancet abstract checked on the authors’ publication record; survey counts differ from total completed visits. Clinical feasibility milestone, excluded from benchmark frontiers. Publication DOI 10.1016/S0140-6736(26)01535-7; volume/pages not verified."
+      }
     }
   }
 }

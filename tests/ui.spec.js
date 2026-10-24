@@ -143,7 +143,7 @@ test('approved disclosure hierarchy preserves the practical question and profile
   }
   await page.locator('#chart-knowledge [data-series-view]').selectOption('medqa_main');
   await expect(page.locator('#track-sources-knowledge')).toHaveAttribute('open','');
-  await page.locator('#menu-button').click();await expect(page.locator('.author-card-role')).toHaveText('Medtech executive. Founder.');await expect(page.locator('.author-card img')).toHaveAttribute('alt','GP monogram; portrait pending');
+  await page.locator('#menu-button').click();await expect(page.locator('.author-card-role')).toHaveText('Medtech executive. Founder.');await expect(page.locator('.author-card img')).toHaveAttribute('alt','Portrait of Gilles Penning');
 });
 
 test('all four full views support correct labels, source cards and focus restoration',async({page})=>{
@@ -169,4 +169,30 @@ test('phone-sized overview taps resolve source cards and grouped sample selectio
 
 test('responsive production layout fits 375, 768 and 1280px',async({page})=>{
   for(const width of [375,768,1280]){await page.setViewportSize({width,height:900});await page.clock.runFor(200);expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);}
+});
+
+test('menu and chart keyboard focus stay inside their active controls',async({page})=>{
+  await page.locator('#menu-button').click();
+  const last=page.locator('#site-menu a[href],#site-menu button:not([disabled]),#site-menu summary').filter({visible:true}).last();
+  await last.focus();await last.press('Tab');await expect(page.locator('#menu-button')).toBeFocused();
+  await page.locator('#menu-button').press('Shift+Tab');await expect(last).toBeFocused();
+  await page.keyboard.press('Escape');await expect(page.locator('#site-menu')).not.toBeVisible();await expect(page.locator('#menu-button')).toBeFocused();
+  await page.locator('[data-chart-zoom="knowledge"]').click();
+  const select=page.locator('#chart-knowledge [data-series-view]');await select.focus();await select.press('Shift+Tab');
+  expect(await page.evaluate(()=>document.activeElement.closest('#chart-knowledge')!==null)).toBe(true);
+  await page.keyboard.press('Escape');await expect(page.locator('[data-chart-zoom="knowledge"]')).toBeFocused();
+});
+
+test('German dynamic summaries and AMIE clinical card retain exact evidence',async({page})=>{
+  await page.locator('#menu-button').click();await page.locator('[data-language="de"]').click();await page.keyboard.press('Escape');
+  await expect(page.locator('#chart-knowledge .chart-takeaway')).toContainText('97,4 %');
+  await expect(page.locator('#chart-assistance .chart-takeaway')).toContainText('48,1 Punkten');
+  await expect(page.locator('#chart-autonomy .chart-takeaway')).toContainText('erfolgreich abgeschlossenen Aufgaben');
+  for(const text of await page.locator('.chart-takeaway').allTextContents())expect(text).not.toMatch(/best confirmed|model release|reaches|task success/);
+  await page.locator('#menu-button').click();await page.locator('[data-language="en"]').click();await page.keyboard.press('Escape');
+  await expect(page.locator('#chart-assistance .chart-takeaway')).toContainText('48.1 points');
+  await page.locator('[data-track-milestone="lower-amie-previsit-2026"]').click();
+  const card=page.getByRole('dialog');await expect(card).toContainText('33/44');await expect(card).toContainText('25/44');await expect(card).toContainText('98 completed');await expect(card).toContainText('No control group');
+  await expect(card.locator('.point-sources a')).toHaveAttribute('href',/^https:\/\/research.google\/pubs\//);
+  await page.keyboard.press('Escape');await expect(page.locator('#news-amie-before-the-appointment')).toContainText('24 Oct');
 });

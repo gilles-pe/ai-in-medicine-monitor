@@ -4,12 +4,12 @@ import { trackMilestones,trustContext } from '../data/track-milestones.js';
 import { sourceCatalog,measurements } from '../data/evidence.js';
 import { visibleTrackMilestones,historyX,renderTrackHistory } from '../lib/track-history.js';
 
-test('each lower group has three dated original-source milestones and valid evidence boundaries',()=>{
-  assert.equal(trackMilestones.length,9);
-  assert.equal(new Set([...trackMilestones,trustContext].map(item=>item.id)).size,10);
+test('each lower group has dated original-source milestones and valid evidence boundaries',()=>{
+  assert.equal(trackMilestones.length,10);
+  assert.equal(new Set([...trackMilestones,trustContext].map(item=>item.id)).size,11);
   for(const trackId of ['knowledge','assistance','autonomy']) {
     const group=visibleTrackMilestones(trackId,'2026-10-18');
-    assert.equal(group.length,3);
+    assert.equal(group.length,trackId==='assistance'?4:3);
     assert.ok(group[0].date<'2024-01-01');
     assert.ok(group.every(item=>item.trackId===trackId));
   }
@@ -46,4 +46,11 @@ test('history x coordinates share the real 2022 publication axis with bounded po
   assert.ok(historyX('2023-01-01','2026-10-18')<historyX('2025-01-01','2026-10-18'));
   assert.equal(historyX('2020-01-01','2026-10-18'),40);
   assert.equal(historyX('2030-01-01','2026-10-18'),970);
+});
+
+ test('AMIE previsit uses correct survey denominators and stays outside benchmark series',()=>{
+  const mark=trackMilestones.find(x=>x.id==='lower-amie-previsit-2026');
+  assert.equal(mark.date,'2026-03-09');assert.match(mark.finding,/33\/44/);assert.match(mark.finding,/25\/44/);
+  assert.match(mark.limitations,/No control group/);assert.match(mark.design,/98 completed/);
+  assert.ok(!measurements.some(row=>row.id==='amie-previsit-2026'));
 });

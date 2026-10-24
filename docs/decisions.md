@@ -54,3 +54,7 @@ Phone evidence access means tapping a touch-sized source target, not hover. Over
 Owner-approved copy: Still pending; Tracking what I can really do in medicine.; What can I do in medicine today? The question is always visible above an initially open triangle introduction. Medtech executive. Founder. moves into the reserved author/image area. Glossary and all Sources disclosures start closed. The GP monogram remains explicitly labelled as a placeholder until a real portrait is supplied.
 
 FUNCTIONALITY.md is the current behavioral contract. Root TODO.md is the active backlog; docs/TODO.md is historical. Both JSON content stores remain authoritative and are exported with the feature/design/history documentation. A UI repair does not change the date of scientific evidence review.
+
+AMIE previsit is a clinical feasibility milestone, not a benchmark-frontier measurement: the 75% finding uses 44 reviewed cases, not 98 completed visits. Use final-publication counts; keep first-evidence and journal-publication dates separate. Only verified cross-post URLs are linked. Dynamic translated takeaways preserve the complete original sentence before abbreviation markup is restored.
+
+Owner-supplied portrait replaces the GP monogram in the profile and About page. Preserve the original square image; use truthful portrait alt text and a versioned URL to avoid stale placeholder caches.

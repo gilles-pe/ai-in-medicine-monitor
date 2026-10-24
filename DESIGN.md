@@ -61,12 +61,12 @@ The compact header includes a language switch and hamburger navigation. The menu
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `3582ef8bc25942f0ee540bc5ba06dd7fe14be7132c0a336e9a99c5544fc34455`
+- SHA-256 (parsed JSON): `1c0c5ef87587158ccf1935c0ae7bbde2977d9551c96c3fef46a6a824d60a5c27`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2
 - Chronology: 44 unknown evaluation dates; 40 month-precision release proxies
-- Last evidence review: 2026-10-23; last data change: 2026-10-23
+- Last evidence review: 2026-10-23; last data change: 2026-10-25
 - Calendar positioning uses model availability proxies, not evaluation dates. Confirmed scores do not validate release-month chronology or source-publication dates and versions.
 - Frontier must be recalculated separately within each benchmark series. Pending and qualified-only records do not form a confirmed main line.
 - Source policy: MONITOR_STANDARD.md; interface: DESIGN.md; collaboration: AGENTS.md.
@@ -104,4 +104,4 @@ The introduction's news section shows Interesting news in place of Changes: the 
 - **Clean editorial surfaces (no decorative color stripes)**: Use warm paper surfaces (`--paper`, `--surface`, `--surface-muted`), understated 1px borders (`--line`, `--line-strong`) and subtle elevation (`--shadow-sm`, `--shadow-md`, `--shadow-lg`). Avoid decorative colored top/left borders or colored heading dots on cards, thumbnails and tracks; let the data lines and markers carry track colors. Keep every track below 620px in vertical height and preserve 320px viewport fit without horizontal overflow.
 
 ## Approved hierarchy and restored interactions - 25 October 2026
-Current behavior is specified in FUNCTIONALITY.md. The masthead is Still pending with Tracking what I can really do in medicine. beneath it. The visible question What can I do in medicine today? stays outside the initially open introduction disclosure; only its body collapses. Medtech executive. Founder. belongs beside the reserved profile image. Glossary and all Sources start closed with native triangles. A user-opened source disclosure persists through chart updates. The portrait placeholder is labelled as a monogram. All four chart zoom controls have 44px targets, an accessible exit label, Escape/backdrop exit and focus restoration. On phones, tapping an overview source uses a 44px CSS-pixel target with a chooser for nearby sources; dragging scrubs instead of opening cards. Production behavior is tested against built dist under the project path before publication.
+Current behavior is specified in FUNCTIONALITY.md. The masthead is Still pending with Tracking what I can really do in medicine. beneath it. The visible question What can I do in medicine today? stays outside the initially open introduction disclosure; only its body collapses. Medtech executive. Founder. belongs beside the reserved profile image. Glossary and all Sources start closed with native triangles. A user-opened source disclosure persists through chart updates. The owner-supplied portrait is shown in the profile area with accurate alt text. All four chart zoom controls have 44px targets, an accessible exit label, Escape/backdrop exit and focus restoration. On phones, tapping an overview source uses a 44px CSS-pixel target with a chooser for nearby sources; dragging scrubs instead of opening cards. Production behavior is tested against built dist under the project path before publication.

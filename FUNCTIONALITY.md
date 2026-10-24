@@ -26,7 +26,7 @@ Current specification: 25 October 2026. Read alongside DESIGN.md and MONITOR_STA
 
 - The masthead reads Still pending, followed by Tracking what I can really do in medicine. These owner-approved words are intentional.
 - What can I do in medicine today? is always visible outside the introduction disclosure. The triangle and explanatory content sit beneath it, initially open.
-- Medtech executive. Founder. belongs in the author/profile area beside the reserved image, not the masthead tagline. The current GP monogram is a placeholder and must be described truthfully until an owner portrait is supplied.
+- Medtech executive. Founder. belongs in the author/profile area beside the reserved image, not the masthead tagline. Use the owner-supplied portrait, with an accurate alt description and the image beside this profile wording.
 - Glossary and every Sources section start closed and use native triangle disclosures. Studies remains a native disclosure. A user-opened Sources panel survives chart updates.
 - Milestones contains stable timeline controls and stays open through slider/model/viewport changes. Source explanations stay compact and visible around each lower chart.
 

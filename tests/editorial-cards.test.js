@@ -15,7 +15,7 @@ test('research corrections preserve observed scores while fixing setup, dates an
   for(const id of ['2.14','2.15']){assert.equal(point(id).validation.status,'needs_review');assert.equal(point(id).publicationDate,null);assert.ok(eligibilityReasons(point(id)).length);}
 });
 test('every canonical card has one scannable layout, no Q&A or orphaned metadata delimiter',()=>{
-  assert.equal(Object.keys(monitorData.editorialCards).length,113);
+  assert.equal(Object.keys(monitorData.editorialCards).length,114);
   for(const id of Object.keys(monitorData.editorialCards)){
     const html=pointCardHtml(editorialCard(id));
     assert.match(html,/card-key-finding/);assert.match(html,/SETUP &amp; COHORT/);assert.match(html,/LIMITATIONS &amp; VALIDITY/);
@@ -37,4 +37,11 @@ test('confirmed clinical frontiers exclude product harness, supplier and unresol
   assert.equal(buildTrackSeries('assistance','2026-04-29').series[1].points.length,0);
   assert.equal(buildTrackSeries('assistance','2026-04-30').series[1].points.length,7);
   assert.equal(buildTrackSeries('assistance','2025-12-31').series.flatMap(s=>s.undated).length,0);
+});
+
+test('study and milestone triggers resolve the same canonical card through cardId',()=>{
+  const milestone=editorialCard('lower-amie-previsit-2026'),study=editorialCard('amie-previsit-2026');
+  assert.equal(milestone.finding.headline,study.finding.headline);
+  assert.equal(milestone.id,'lower-amie-previsit-2026');assert.equal(study.id,'amie-previsit-2026');
+  assert.equal(milestone.finding.value,75);assert.match(milestone.setup,/98 completed/);
 });
