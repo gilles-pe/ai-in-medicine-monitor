@@ -38,4 +38,4 @@ The original phase 3 acceptance remains partly open. Current feature behavior is
 
 ## Verification status
 
-Repair f926a6ba passed 68 unit tests, typecheck, build/path checks and 35 production desktop/touch browser tests (three intentional device-specific skips). Its GitHub Pages deployment succeeded; live cards and grouped switching were checked at gillespenning.com. Follow-up AMIE/translation changes run the same release gate. Full Lighthouse and numerical contrast targets have not been certified.
+Repair f926a6ba passed 68 unit tests, typecheck, build/path checks and 35 production desktop/touch browser tests (three intentional device-specific skips). Its GitHub Pages deployment succeeded; live cards and grouped switching were checked at gillespenning.com. Final source 1fa83e9b passed 75 unit tests, typecheck, build/path checks and 39 production desktop/touch browser cases (three intentional device-specific skips). GitHub Pages run 40141452498 deployed successfully. The public header, AI tagline, portrait asset and AMIE milestone were verified live. Full Lighthouse and numerical contrast targets have not been certified.
