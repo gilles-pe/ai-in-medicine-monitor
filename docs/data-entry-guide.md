@@ -40,3 +40,5 @@ Use data/news.json's items array and read docs/news-editorial.md. An approved it
 3. Run npm test, npm run typecheck, npm run build and node scripts/verify-pages.mjs. For UI changes also run production browser tests.
 4. Review the resulting charts/cards/news; preserve independent benchmark lines and the 2030 horizon.
 5. Commit to the GitHub repository and verify the gated Publish GitHub Pages deployment. Source and news files are included in the portable export.
+
+News thumbnail shape: thumbnail.url is a verified original HTTPS image; thumbnail.alt may have en/de values; thumbnail.sourceUrl records the original post. No avatar substitutes. Record coverage and unknown original article dates explicitly; one story may hold several verified cross-post URLs.

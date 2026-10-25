@@ -26,9 +26,9 @@ Current specification: 25 October 2026. Read alongside DESIGN.md and MONITOR_STA
 ## Disclosure defaults and layout
 
 - The masthead reads Gilles Penning, followed by Tracking what AI can do in medicine. These owner-approved words are intentional.
-- What can AI do in medicine today? is always visible outside the introduction disclosure. The triangle and explanatory content sit beneath it, initially open.
+- What can AI do in medicine today? is always visible outside the introduction disclosure. The triangle sits beside a closed two-line preview, with the second line fading out.
 - Medtech executive. Founder. belongs in the author/profile area beside the reserved image, not the masthead tagline. Use the owner-supplied portrait, with an accurate alt description and the image beside this profile wording.
-- Glossary and every Sources section start closed and use native triangle disclosures. Studies remains a native disclosure. A user-opened Sources panel survives chart updates.
+- Glossary and every Sources section start closed and use native triangle disclosures. The redundant global Studies and Sources indexes are removed; study cards remain available from chart points. A user-opened Sources panel survives chart updates.
 - Milestones contains stable timeline controls and stays open through slider/model/viewport changes. Source explanations stay compact and visible around each lower chart.
 
 ## Menu, language and navigation
