@@ -1,5 +1,7 @@
 # Adding content through portable JSON
 
+Before adding ANY source-backed content read `docs/EVIDENCE_TAGGING.md`; its machine vocabulary is in `data/monitor-data.json` -> `meta.evidenceTaxonomy`. Each `editorialCards[cardId]` entry has a required `classification` with `topic`, `testSetting`, `studyDesign`, `milestone`, `realPatientTested`, `patientOutcomeEvidence` and `classificationStatus`. Do not infer clinical testing from a journal title, case series or peer review. Existing free-text tags stay descriptive only.
+
 The content files are ordinary UTF-8 JSON, independent of the dashboard. Use stable IDs and HTTPS original sources. Preserve original records and unknown values as null. Data import is editorial: no automatic approval or publication.
 
 ## Which file and collection?
@@ -28,6 +30,9 @@ Its editorial card needs badge, tags, a quantitative finding/teaser, setup, conc
 ## New source, study or milestone
 
 Add a sourceCatalog record with id, title, url, publisher, version, checkedAt, kind and summary. Only use a checkedAt date if the link was actually checked. Reference its ID from the appropriate study/milestone and add a complete matching editorial card. A historical/conceptual milestone may use a documented categorical finding rather than an invented score. A study is not automatically a comparable benchmark point.
+
+## Cross-link approved study news
+A news item MAY set `linkedCardId` to an existing classification-bearing evidence card (for example AMIE). The UI reuses the card's classification; generic opinion/news without a card stays unclassified. Never classify a commentary item as a clinical trial.
 
 ## New news item
 

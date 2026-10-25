@@ -12,6 +12,7 @@ import { trackMilestones, trustContext } from './data/track-milestones.js';
 import { renderOverview, renderMilestoneLinks, renderOverviewMilestoneStrip, visibleHistory, visibleAnchors } from './lib/overview.js';
 import { renderPreviewSection, renderStudyButtons, renderTrackSection, renderSourceIndex, resetAbbreviations } from './lib/published-page.js';
 import { reviewedMarkup } from './lib/site-meta.js';
+import { filterOptions } from './lib/evidence-classification.js';
 import { filterMeasurements, latestByModel, escapeHtml as e } from './lib/selectors.js';
 
 const $=selector=>document.querySelector(selector);
@@ -101,14 +102,23 @@ function toggleChartZoom(target){
 function renderTrack(track){
   return renderTrackSection(track, state.cutoff, {model:state.model, zoomed:state.zoomedChart===track.id,range:state.ranges[track.id]||'all'});
 }
+function applyEvidenceFilters(){
+  const topic=$('#evidence-topic-filter')?.value||'all',setting=$('#evidence-setting-filter')?.value||'all',only=$('#evidence-milestone-only')?.checked||false;
+  shell.querySelectorAll('.chart-stories [data-evidence-topic]').forEach(button=>{
+    button.hidden=(topic!=='all'&&button.dataset.evidenceTopic!==topic)||(setting!=='all'&&button.dataset.evidenceSetting!==setting)||(only&&button.dataset.evidenceMilestone!=='true');
+  });
+}
+document.addEventListener('change',event=>{if(event.target.closest('#evidence-filter-bar'))applyEvidenceFilters();});
 function render(){
   resetAbbreviations();
+  if(!$('#evidence-filter-bar'))$('#tracks-slot').insertAdjacentHTML('beforebegin',filterOptions());
   const openSources=[...shell.querySelectorAll('.section-sources[open]')].map(el=>el.id);
   $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false,range:state.ranges.overview||'all'});
   if($('#milestone-list'))$('#milestone-list').innerHTML=renderMilestoneLinks(state.cutoff);
   $('#previews-slot').innerHTML=renderPreviews();
   $('#tracks-slot').innerHTML=tracks.map(renderTrack).join('');
   openSources.forEach(id=>{const panel=document.getElementById(id);if(panel)panel.open=true;});
+  applyEvidenceFilters();
   if($('#study-list'))$('#study-list').innerHTML=renderStudyButtons(state.cutoff);
   const sourceIndex=$('#source-index');
   if(sourceIndex) sourceIndex.innerHTML=renderSourceIndex(state.cutoff);

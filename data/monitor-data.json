@@ -64,6 +64,10 @@
       {
         "date": "2026-10-25",
         "action": "Owner-approved Microsoft MAI-DxO Science 2026 stepwise diagnostic reasoning milestone added to Clinical Assistance, with source and editorial card. Source score 83.2% on 304 simulated NEJM cases; physician open-book comparator 36.1% on a 56-case subset. Explicitly excluded from benchmark time-series and clinical patient-outcome claims. No other study, news, or benchmark points changed."
+      },
+      {
+        "date": "2026-10-25",
+        "action": "Added centralized evidence taxonomy and per-card classification for the existing 115 editorial cards. Conservative initial labeling: unverified methods retain provisional or unknown status; real-patient testing and outcome evidence separate from design and topic. Microsoft MAI-DxO tagged as capability milestone, explicitly simulated cases; AMIE previsit tagged prospective single-arm clinical feasibility. No score, benchmark frontier, source validation or lastReviewedAt modified."
       }
     ],
     "previousTitles": [
@@ -75,7 +79,296 @@
       "de"
     ],
     "defaultLanguage": "en",
-    "cardSchemaVersion": "2.0"
+    "cardSchemaVersion": "2.0",
+    "evidenceTaggingStandard": "docs/EVIDENCE_TAGGING.md",
+    "evidenceTaxonomy": {
+      "topics": {
+        "capability": {
+          "label": {
+            "en": "Capability",
+            "de": "Modellleistung"
+          },
+          "description": {
+            "en": "AI task and benchmark performance, not automatically clinical validity.",
+            "de": "Modell- und Benchmarkleistung, nicht automatisch klinisch validiert."
+          }
+        },
+        "clinical_evidence": {
+          "label": {
+            "en": "Clinical Evidence",
+            "de": "Klinische Evidenz"
+          },
+          "description": {
+            "en": "Clinical evaluation, including early or simulated clinical studies; see test setting.",
+            "de": "Klinische Untersuchung, auch frühe oder simulierte Studien; Testumgebung beachten."
+          }
+        },
+        "real_world_use": {
+          "label": {
+            "en": "Real-World Use",
+            "de": "Versorgungsalltag"
+          },
+          "description": {
+            "en": "Documented routine use in healthcare, independent of evidence for better outcomes.",
+            "de": "Belegter Routineeinsatz in der Versorgung, unabhängig vom Nachweis besserer Ergebnisse."
+          }
+        },
+        "discovery": {
+          "label": {
+            "en": "Discovery",
+            "de": "Wissenschaftliche Entdeckung"
+          },
+          "description": {
+            "en": "Biomedical discoveries and research enabled by AI.",
+            "de": "Neue biomedizinische Erkenntnisse durch KI."
+          }
+        },
+        "context": {
+          "label": {
+            "en": "Context",
+            "de": "Hintergrund"
+          },
+          "description": {
+            "en": "Historical or related context outside the four core medical AI themes.",
+            "de": "Historischer oder thematischer Hintergrund außerhalb der vier Kernbereiche."
+          }
+        },
+        "unclassified": {
+          "label": {
+            "en": "Unclassified",
+            "de": "Nicht eingeordnet"
+          },
+          "description": {
+            "en": "Topic has not yet been classified.",
+            "de": "Thematische Einordnung steht aus."
+          }
+        }
+      },
+      "testSettings": {
+        "exam_or_vignette": {
+          "label": {
+            "en": "Exam / cases",
+            "de": "Prüfungsfragen / Fallvignetten"
+          },
+          "description": {
+            "en": "Questions, crafted cases or published teaching cases, without direct live patient care.",
+            "de": "Fragen, konstruierte Fälle oder veröffentlichte Lehrfälle ohne unmittelbare Versorgung echter Patienten."
+          }
+        },
+        "simulated_workflow": {
+          "label": {
+            "en": "Simulated workflow",
+            "de": "Simulierter Ablauf"
+          },
+          "description": {
+            "en": "Agent or diagnostic actions performed in a sandbox, including replayed EHR records.",
+            "de": "KI-Aufgaben in einer Simulation, auch wenn historische Patientenakten nachgespielt werden."
+          }
+        },
+        "standardized_patient": {
+          "label": {
+            "en": "Patient actors",
+            "de": "Simulationspatienten"
+          },
+          "description": {
+            "en": "Trained actors or standardized patients instead of patients receiving real care.",
+            "de": "Trainierte Schauspieler oder Simulationspatienten statt echter Behandlung."
+          }
+        },
+        "retrospective_records": {
+          "label": {
+            "en": "Retrospective records",
+            "de": "Retrospektive Patientendaten"
+          },
+          "description": {
+            "en": "Previously collected genuine patient information evaluated after the fact.",
+            "de": "Nachträgliche Auswertung echter, zuvor erhobener Patientendaten."
+          }
+        },
+        "prospective_patients": {
+          "label": {
+            "en": "Prospective patients",
+            "de": "Prospektiv mit Patienten"
+          },
+          "description": {
+            "en": "Real patients enrolled and tested prospectively under a predefined study plan.",
+            "de": "Echte Patienten wurden prospektiv nach einem festgelegten Studienplan einbezogen."
+          }
+        },
+        "routine_care": {
+          "label": {
+            "en": "Routine care",
+            "de": "Regelversorgung"
+          },
+          "description": {
+            "en": "Documented ongoing use in ordinary healthcare delivery; not an announced launch or one-off pilot.",
+            "de": "Belegter laufender Einsatz in der Regelversorgung, nicht nur Ankündigung oder einmaliger Pilot."
+          }
+        },
+        "preclinical": {
+          "label": {
+            "en": "Preclinical / animal",
+            "de": "Präklinisch / Tiermodell"
+          },
+          "description": {
+            "en": "Non-human preclinical experiments including animals or phantoms.",
+            "de": "Präklinische Untersuchungen, etwa am Tiermodell oder Phantom."
+          }
+        },
+        "laboratory": {
+          "label": {
+            "en": "Laboratory / research",
+            "de": "Labor / Forschung"
+          },
+          "description": {
+            "en": "Laboratory or computational-science benchmarks, not care of patients.",
+            "de": "Labor- oder Forschungsbenchmark, keine Patientenversorgung."
+          }
+        },
+        "non_clinical": {
+          "label": {
+            "en": "Non-clinical",
+            "de": "Nichtklinisch"
+          },
+          "description": {
+            "en": "Method, policy, historical or non-medical context without a patient evaluation.",
+            "de": "Methode, Geschichte oder nichtmedizinischer Kontext ohne Patientenuntersuchung."
+          }
+        },
+        "unknown": {
+          "label": {
+            "en": "Setting unknown",
+            "de": "Testumgebung unklar"
+          },
+          "description": {
+            "en": "The actual testing environment is not sufficiently evidenced.",
+            "de": "Die tatsächliche Testumgebung ist noch nicht ausreichend belegt."
+          }
+        }
+      },
+      "studyDesigns": {
+        "benchmark": {
+          "label": {
+            "en": "Benchmark",
+            "de": "Benchmark"
+          },
+          "description": {
+            "en": "Standardized questions or tasks scored against a reference, potentially simulated.",
+            "de": "Standardisierte Fragen oder Aufgaben mit Referenzbewertung, gegebenenfalls simuliert."
+          }
+        },
+        "retrospective_evaluation": {
+          "label": {
+            "en": "Retrospective evaluation",
+            "de": "Retrospektive Auswertung"
+          },
+          "description": {
+            "en": "Analysis of an existing dataset without prospective patient enrollment for the test.",
+            "de": "Auswertung vorhandener Daten ohne prospektive Patientenrekrutierung."
+          }
+        },
+        "retrospective_simulation": {
+          "label": {
+            "en": "Retrospective simulation",
+            "de": "Retrospektive Simulation"
+          },
+          "description": {
+            "en": "Historical cases replayed in a virtual environment; not prospective treatment.",
+            "de": "Historische Fälle in einer virtuellen Umgebung, keine prospektive Behandlung."
+          }
+        },
+        "prospective_single_arm": {
+          "label": {
+            "en": "Prospective single-arm",
+            "de": "Prospektiv ohne Kontrollgruppe"
+          },
+          "description": {
+            "en": "Prospective real-patient study with no concurrent control arm.",
+            "de": "Prospektive Untersuchung mit echten Patienten ohne parallele Kontrollgruppe."
+          }
+        },
+        "prospective_observational": {
+          "label": {
+            "en": "Prospective observational",
+            "de": "Prospektive Beobachtung"
+          },
+          "description": {
+            "en": "Pre-planned observation of real patients without random treatment assignment.",
+            "de": "Geplante Beobachtung echter Patienten ohne randomisierte Behandlung."
+          }
+        },
+        "randomized_simulation": {
+          "label": {
+            "en": "Randomized simulation",
+            "de": "Randomisierte Simulation"
+          },
+          "description": {
+            "en": "Randomized vignette or actor experiment, not a clinical patient RCT.",
+            "de": "Randomisierter Vergleich von Fallvignetten oder Simulationspatienten, keine klinische RCT."
+          }
+        },
+        "randomized_clinical_trial": {
+          "label": {
+            "en": "Clinical RCT",
+            "de": "Klinische RCT"
+          },
+          "description": {
+            "en": "Randomized controlled intervention study with real patients.",
+            "de": "Randomisierte kontrollierte Interventionsstudie mit echten Patienten."
+          }
+        },
+        "real_world_observational": {
+          "label": {
+            "en": "Routine observational",
+            "de": "Beobachtung im Alltag"
+          },
+          "description": {
+            "en": "Observational data from a deployed tool in routine clinical care.",
+            "de": "Beobachtungsdaten eines eingesetzten Systems in der Regelversorgung."
+          }
+        },
+        "case_report": {
+          "label": {
+            "en": "Case report / series",
+            "de": "Fallbericht / Fallserie"
+          },
+          "description": {
+            "en": "Description of one or several patient cases, not a standardized benchmark or controlled trial.",
+            "de": "Beschreibung eines oder mehrerer Patientenfälle, kein standardisierter Benchmark oder kontrollierter Versuch."
+          }
+        },
+        "historical_event": {
+          "label": {
+            "en": "Historical event",
+            "de": "Historisches Ereignis"
+          },
+          "description": {
+            "en": "Historical announcement, development or award rather than a study design.",
+            "de": "Historische Entwicklung, Ankündigung oder Auszeichnung statt Studiendesign."
+          }
+        },
+        "other": {
+          "label": {
+            "en": "Other design",
+            "de": "Anderes Design"
+          },
+          "description": {
+            "en": "Study or event not captured by the predefined design categories.",
+            "de": "Studie oder Ereignis außerhalb der definierten Studiendesigns."
+          }
+        },
+        "unknown": {
+          "label": {
+            "en": "Design unknown",
+            "de": "Studiendesign unklar"
+          },
+          "description": {
+            "en": "Design has not yet been established from methods.",
+            "de": "Studiendesign anhand der Methoden noch nicht geklärt."
+          }
+        }
+      }
+    }
   },
   "tracks": [
     {
@@ -7175,7 +7468,16 @@
       },
       "release": "2022-12",
       "publication": "2022-12-15",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "1.1": {
       "title": "Flan-PaLM (540B)",
@@ -7218,7 +7520,16 @@
       },
       "release": "2022-12",
       "publication": "2022-12-26",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "1.1b": {
       "title": "GPT-4-base (non-production)",
@@ -7261,7 +7572,16 @@
       },
       "release": null,
       "publication": "2023-04-12",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "1.2": {
       "title": "Med-PaLM 2",
@@ -7304,7 +7624,16 @@
       },
       "release": "2023-03",
       "publication": "2023-05-16",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "1.2b": {
       "title": "GPT-4 + Medprompt",
@@ -7347,7 +7676,16 @@
       },
       "release": "2023-11",
       "publication": "2023-11-28",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "1.3": {
       "title": "Med-Gemini (L 1.0)",
@@ -7390,7 +7728,16 @@
       },
       "release": "2024-04",
       "publication": "2024-04-29",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "1.4": {
       "title": "GPT-4o",
@@ -7434,7 +7781,16 @@
       },
       "release": "2024-05",
       "publication": "2025-05-02",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "1.5": {
       "title": "OpenAI o1",
@@ -7478,7 +7834,16 @@
       },
       "release": "2024-12",
       "publication": "2025-05-02",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "1.6": {
       "title": "OpenAI o3-mini",
@@ -7522,7 +7887,16 @@
       },
       "release": "2025-01",
       "publication": "2025-05-02",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "2.1": {
       "title": "GPT-3.5 Turbo",
@@ -7566,7 +7940,16 @@
       },
       "release": "2023-03",
       "publication": "2025-05-13",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "2.2": {
       "title": "GPT-4o (Aug 2024)",
@@ -7610,7 +7993,16 @@
       },
       "release": "2024-08",
       "publication": "2025-05-13",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "2.3": {
       "title": "OpenAI o1",
@@ -7654,7 +8046,16 @@
       },
       "release": "2024-12",
       "publication": "2025-05-13",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "2.4": {
       "title": "GPT-4.1",
@@ -7698,7 +8099,16 @@
       },
       "release": "2025-04",
       "publication": "2025-05-13",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "2.5": {
       "title": "OpenAI o3",
@@ -7742,7 +8152,16 @@
       },
       "release": "2025-04",
       "publication": "2025-05-13",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "2.6": {
       "title": "GPT-5",
@@ -7785,7 +8204,16 @@
       },
       "release": "2025-08",
       "publication": "2026-04-30",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "2.7": {
       "title": "GPT-5.2",
@@ -7828,7 +8256,16 @@
       },
       "release": "2025-12",
       "publication": "2026-04-30",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "2.8": {
       "title": "Gemini 3.1 Pro",
@@ -7871,7 +8308,16 @@
       },
       "release": "2026-02",
       "publication": "2026-04-30",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "2.9": {
       "title": "Grok 4.20",
@@ -7914,7 +8360,16 @@
       },
       "release": "2026-02",
       "publication": "2026-04-30",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "2.10": {
       "title": "GPT-5.4 (Base)",
@@ -7957,7 +8412,16 @@
       },
       "release": "2026-03",
       "publication": "2026-04-30",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "2.11": {
       "title": "Claude Opus 4.7",
@@ -8000,7 +8464,16 @@
       },
       "release": "2026-04",
       "publication": "2026-04-30",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "2.12": {
       "title": "ChatGPT for Clinicians (GPT-5.4)",
@@ -8043,7 +8516,16 @@
       },
       "release": "2026-04",
       "publication": "2026-04-30",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "2.13": {
       "title": "Corti Symphony",
@@ -8086,7 +8568,16 @@
       },
       "release": "2026-05",
       "publication": null,
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "2.14": {
       "title": "Claude Opus 4.8",
@@ -8129,7 +8620,16 @@
       },
       "release": "2026-05",
       "publication": null,
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "2.15": {
       "title": "Claude Mythos 5",
@@ -8172,7 +8672,16 @@
       },
       "release": "2026-06",
       "publication": null,
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.1": {
       "title": "Mistral 7B v0.3",
@@ -8216,7 +8725,16 @@
       },
       "release": "2024-05",
       "publication": "2025-01",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.6": {
       "title": "Gemini 1.5 Pro",
@@ -8260,7 +8778,16 @@
       },
       "release": "2024-05",
       "publication": "2025-01",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.8": {
       "title": "GPT-4o",
@@ -8304,7 +8831,16 @@
       },
       "release": "2024-05",
       "publication": "2025-01",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.5": {
       "title": "GPT-4o mini",
@@ -8348,7 +8884,16 @@
       },
       "release": "2024-07",
       "publication": "2025-01",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.9": {
       "title": "Claude 3.5 Sonnet v2",
@@ -8392,7 +8937,16 @@
       },
       "release": "2024-10",
       "publication": "2025-01",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.3": {
       "title": "Llama 3.3 70B",
@@ -8436,7 +8990,16 @@
       },
       "release": "2024-12",
       "publication": "2025-01",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.7": {
       "title": "DeepSeek V3",
@@ -8480,7 +9043,16 @@
       },
       "release": "2024-12",
       "publication": "2025-01",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.2": {
       "title": "Gemini 2.0 Flash",
@@ -8524,7 +9096,16 @@
       },
       "release": "2025-01",
       "publication": "2025-01",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.4": {
       "title": "OpenAI o3-mini",
@@ -8568,7 +9149,16 @@
       },
       "release": "2025-01",
       "publication": "2025-01",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.10": {
       "title": "Claude Code / Opus 4.6",
@@ -8612,7 +9202,16 @@
       },
       "release": "2026-02",
       "publication": "2026-06",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.11": {
       "title": "Codex / GPT-5.3",
@@ -8656,7 +9255,16 @@
       },
       "release": "2026-02",
       "publication": "2026-06",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.13": {
       "title": "Codex / GPT-5.4",
@@ -8700,7 +9308,16 @@
       },
       "release": "2026-03",
       "publication": "2026-06",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.12": {
       "title": "Claude Code / Opus 4.7",
@@ -8744,7 +9361,16 @@
       },
       "release": "2026-04",
       "publication": "2026-06",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.15": {
       "title": "Codex / GPT-5.5",
@@ -8788,7 +9414,16 @@
       },
       "release": "2026-04",
       "publication": "2026-06",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.14": {
       "title": "Claude Code / Opus 4.8",
@@ -8832,7 +9467,16 @@
       },
       "release": "2026-05",
       "publication": "2026-06",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.16": {
       "title": "Codex / GPT-5.6-sol",
@@ -8876,7 +9520,16 @@
       },
       "release": "2026-07",
       "publication": "2026-07",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "3.17": {
       "title": "Claude Code / Opus 5",
@@ -8920,7 +9573,16 @@
       },
       "release": "2026-07",
       "publication": "2026-07",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "mq-gpt4o-20241120": {
       "title": "GPT-4o-2024-11-20",
@@ -8957,6 +9619,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "mq-claude35-20241022": {
@@ -8994,6 +9665,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "mq-gemini15pro002": {
@@ -9031,6 +9711,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "mq-deepseekv3": {
@@ -9068,6 +9757,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "mq-llama33-70b": {
@@ -9105,6 +9803,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "hbp-gpt54-base": {
@@ -9143,6 +9850,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "hbp-gpt54-browsing": {
@@ -9181,6 +9897,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "hbp-chatgpt-clinicians": {
@@ -9219,6 +9944,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "mab-claude35v2": {
@@ -9256,6 +9990,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "mab-gpt4o": {
@@ -9293,6 +10036,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "mab-deepseekv3": {
@@ -9330,6 +10082,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "mab-gemini15pro": {
@@ -9367,6 +10128,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "mab-gpt4omini": {
@@ -9404,6 +10174,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "trend-qwen32": {
@@ -9441,6 +10220,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "trend-qwen72": {
@@ -9478,6 +10266,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "trend-hbp-gpt5": {
@@ -9516,6 +10313,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "trend-hbp-gpt52": {
@@ -9554,6 +10360,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "trend-hbp-gpt54": {
@@ -9592,6 +10407,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "trend-mab-easy": {
@@ -9629,6 +10453,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "trend-mab-medium": {
@@ -9666,6 +10499,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "trend-mab-hard": {
@@ -9703,6 +10545,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "trend-hbp-physicians": {
@@ -9741,6 +10592,15 @@
       "validation": {
         "status": "reported",
         "note": "Recorded from the cited paper version; unchanged by this content migration. Confidence intervals are not reproduced."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "turing-1950": {
@@ -9777,6 +10637,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "dartmouth-1956": {
@@ -9813,6 +10682,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "eliza-1966": {
@@ -9849,6 +10727,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "mycin-1975": {
@@ -9885,6 +10772,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "backprop-1986": {
@@ -9921,6 +10817,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "deep-blue-1997": {
@@ -9957,6 +10862,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "alexnet-2012": {
@@ -9993,6 +10907,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "alphago-2016": {
@@ -10029,6 +10952,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "skin-cancer-2017": {
@@ -10066,6 +10998,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "retrospective_records",
+        "studyDesign": "retrospective_evaluation",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "gpt3-2020": {
@@ -10102,6 +11043,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "instructgpt-2022": {
@@ -10138,6 +11088,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "medpalm-preprint-2022": {
@@ -10174,6 +11133,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "medpalm-2023": {
@@ -10210,6 +11178,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "gpt4-2023": {
@@ -10246,6 +11223,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "diagnostic-rct-2024": {
@@ -10283,6 +11269,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "clinical_evidence",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "randomized_simulation",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "metr-2025": {
@@ -10320,6 +11315,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "amie-2025": {
@@ -10358,6 +11362,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "clinical_evidence",
+        "testSetting": "standardized_patient",
+        "studyDesign": "randomized_simulation",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "mira-2026": {
@@ -10395,6 +11408,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "retrospective_simulation",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "af2-paper-2021": {
@@ -10432,6 +11454,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "discovery",
+        "testSetting": "laboratory",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "af3-paper-2024": {
@@ -10468,6 +11499,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "discovery",
+        "testSetting": "laboratory",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "medxpert-2025": {
@@ -10505,6 +11545,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "healthbench-2026": {
@@ -10542,6 +11591,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "medagent-2025": {
@@ -10579,6 +11637,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "residency-2026": {
@@ -10616,6 +11683,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "dartmouth": {
@@ -10652,6 +11728,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "deep-blue": {
@@ -10688,6 +11773,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "alphafold3-2024": {
@@ -10724,6 +11818,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "discovery",
+        "testSetting": "laboratory",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "residencyrl-2026": {
@@ -10761,6 +11864,15 @@
       "validation": {
         "status": "reported",
         "note": "Source-backed historical context; not a comparable medical performance series."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "alphafold-2018": {
@@ -10797,6 +11909,15 @@
       "validation": {
         "status": "reported",
         "note": "Developer-reported competition milestone, not an independent clinical evaluation."
+      },
+      "classification": {
+        "topic": "discovery",
+        "testSetting": "laboratory",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "alphafold2-2020": {
@@ -10833,6 +11954,15 @@
       "validation": {
         "status": "reported",
         "note": "Developer-reported competition milestone, not an independent clinical evaluation."
+      },
+      "classification": {
+        "topic": "discovery",
+        "testSetting": "laboratory",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "nobel-2024": {
@@ -10869,6 +11999,15 @@
       "validation": {
         "status": "reported",
         "note": "Official historical event; no performance value is inferred."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "lower-medpalm-2022": {
@@ -10906,6 +12045,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Flan-PaLM attribution, 67.6% MedQA score and first-preprint date checked against arXiv:2212.13138v1 abstract on 18 October 2026; cross-study line comparability is not established."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "lower-usmle-2023": {
@@ -10943,6 +12091,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Card claim and conditions checked against the linked primary evidence on 18 October 2026."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "lower-medxpert-2025": {
@@ -10980,6 +12137,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Card claim and conditions checked against the linked primary evidence on 18 October 2026."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "lower-ayers-2023": {
@@ -11018,6 +12184,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Card claim and conditions checked against the linked primary evidence on 18 October 2026."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "retrospective_evaluation",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "lower-goh-2024": {
@@ -11056,6 +12231,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Card claim and conditions checked against the linked primary evidence on 18 October 2026."
+      },
+      "classification": {
+        "topic": "clinical_evidence",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "randomized_simulation",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "lower-amie-2025": {
@@ -11100,6 +12284,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Card claim and conditions checked against the linked primary evidence on 18 October 2026."
+      },
+      "classification": {
+        "topic": "clinical_evidence",
+        "testSetting": "standardized_patient",
+        "studyDesign": "randomized_simulation",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "lower-star-2022": {
@@ -11138,6 +12331,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Primary author manuscript checked via PMC on 18 October 2026; confirmed for this specific card claim, not clinical efficacy."
+      },
+      "classification": {
+        "topic": "discovery",
+        "testSetting": "preclinical",
+        "studyDesign": "other",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "lower-medagent-2025": {
@@ -11176,6 +12378,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Card claim and conditions checked against the linked primary evidence on 18 October 2026."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "lower-mira-2026": {
@@ -11214,6 +12425,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Card claim and conditions checked against the linked primary evidence on 18 October 2026."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "retrospective_simulation",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "nov-trust-2023": {
@@ -11252,6 +12472,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Card claim and conditions checked against the linked primary evidence on 18 October 2026."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "alphafold2": {
@@ -11289,6 +12518,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Primary author manuscript checked via PMC on 18 October 2026; confirmed for this specific card claim, not clinical efficacy."
+      },
+      "classification": {
+        "topic": "discovery",
+        "testSetting": "laboratory",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "alphafold3": {
@@ -11326,6 +12564,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Primary author manuscript checked via PMC on 18 October 2026; confirmed for this specific card claim, not clinical efficacy."
+      },
+      "classification": {
+        "topic": "discovery",
+        "testSetting": "laboratory",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "nobel-chemistry-2024": {
@@ -11363,6 +12610,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Card claim and conditions checked against the linked primary evidence on 18 October 2026."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "residencyrl": {
@@ -11401,6 +12657,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Card claim and conditions checked against the linked primary evidence on 18 October 2026."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "learning-impact": {
@@ -11439,6 +12704,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Card claim and conditions checked against the linked primary evidence on 18 October 2026."
+      },
+      "classification": {
+        "topic": "context",
+        "testSetting": "non_clinical",
+        "studyDesign": "historical_event",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "mira": {
@@ -11477,6 +12751,15 @@
       "validation": {
         "status": "confirmed",
         "note": "Card claim and conditions checked against the linked primary evidence on 18 October 2026."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "retrospective_simulation",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
       }
     },
     "knowledge-nyu-gpt52": {
@@ -11521,7 +12804,16 @@
       },
       "release": "2025-12-11",
       "publication": "2026-06-12",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "knowledge-nyu-claude46": {
       "title": "Claude Opus 4.6",
@@ -11565,7 +12857,16 @@
       },
       "release": "2026-02-05",
       "publication": "2026-06-12",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "knowledge-nyu-gemini31": {
       "title": "Gemini 3.1 Pro Preview",
@@ -11609,7 +12910,16 @@
       },
       "release": "2026-02-19",
       "publication": "2026-06-12",
-      "evaluation": null
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
     },
     "amie-previsit-2026": {
       "title": "AMIE before the appointment",
@@ -11650,6 +12960,15 @@
         "reviewedAt": "2026-10-25",
         "reviewedBy": "AI-assisted primary-source review",
         "note": "Final Lancet abstract checked on the authors’ publication record; survey counts differ from total completed visits. Clinical feasibility milestone, excluded from benchmark frontiers. Publication DOI 10.1016/S0140-6736(26)01535-7; volume/pages not verified."
+      },
+      "classification": {
+        "topic": "clinical_evidence",
+        "testSetting": "prospective_patients",
+        "studyDesign": "prospective_single_arm",
+        "milestone": false,
+        "realPatientTested": true,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "reviewed"
       }
     },
     "lower-mai-dxo-2026": {
@@ -11697,6 +13016,15 @@
         "reviewedAt": "2026-10-25",
         "reviewedBy": "AI-assisted source cross-check",
         "note": "Microsoft's original report and independently published accounts corroborate the Science DOI, date and headline scores. Science full text could not be read directly (403); the milestone is labeled reported rather than fully independently confirmed. Physician subset is 56 cases, AI total 304. Neither clinical benefit nor comparable frontier series established."
+      },
+      "classification": {
+        "topic": "capability",
+        "testSetting": "exam_or_vignette",
+        "studyDesign": "benchmark",
+        "milestone": true,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "reviewed"
       }
     }
   }

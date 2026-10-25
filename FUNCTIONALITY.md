@@ -9,6 +9,9 @@ Current specification: 25 October 2026. Read alongside DESIGN.md and MONITOR_STA
 - Browser tests run against the actual dist artifact under /ai-in-medicine-monitor/, including JSON imports and all relative assets. The Pages publication must pass these tests before deployment.
 - Built stylesheets use a content-fingerprinted filename. Returning browsers receive the current layout after publication even when the previous CSS remains cached.
 
+## Classification contract
+The source-linked taxonomy is specified in `docs/EVIDENCE_TAGGING.md`. Every editorial card has a standardized topic, test setting and design; milestone and real-patient/outcome evidence are independent. Detail cards, milestone filters, chart Data tables, Glossary and any linked clinical-news tags must derive from the same central JSON metadata. Evidence filtering must not alter chart observations or source-validation status.
+
 ## Evidence cards and sample selection
 
 - Desktop: every source-backed overview/lower-chart point reveals an interactive hover card. Moving onto the original-source link keeps the card reachable. Click or Enter pins the card.

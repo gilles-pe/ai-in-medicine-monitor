@@ -102,6 +102,22 @@ export function validateMonitor(data) {
       for(const key of ['title','setup','limitations','teaser','date_basis','timeline_note'])if(!text(card[key]))fail('editorialCards.'+id+'.'+key,'required');
       if(!text(card.finding?.headline)||!text(card.finding?.explanation))fail('editorialCards.'+id+'.finding','explicit outcome and meaning required');
       if(!Array.isArray(card.tags)||!card.tags.every(tag=>typeof tag==='string'))fail('editorialCards.'+id+'.tags','array of strings required');
+      // Controlled taxonomy is independent of score review and journal status.
+      const taxonomy=data.meta?.evidenceTaxonomy, cls=card.classification;
+      if(!taxonomy||!['topics','testSettings','studyDesigns'].every(key=>taxonomy[key]&&typeof taxonomy[key]==='object'))fail('meta.evidenceTaxonomy','controlled vocabulary required');
+      if(!cls||typeof cls!=='object')fail('editorialCards.'+id+'.classification','required for every evidence card');
+      else {
+        for(const [field,section] of [['topic','topics'],['testSetting','testSettings'],['studyDesign','studyDesigns']]){
+          if(!Object.hasOwn(taxonomy?.[section]||{},cls[field]))fail('editorialCards.'+id+'.classification.'+field,'unknown vocabulary code');
+        }
+        if(typeof cls.milestone!=='boolean')fail('editorialCards.'+id+'.classification.milestone','must be boolean');
+        for(const field of ['realPatientTested','patientOutcomeEvidence'])if(cls[field]!==true&&cls[field]!==false&&cls[field]!==null)fail('editorialCards.'+id+'.classification.'+field,'must be true, false or null');
+        if(!['reviewed','provisional'].includes(cls.classificationStatus))fail('editorialCards.'+id+'.classification.classificationStatus','reviewed or provisional required');
+        if(['exam_or_vignette','simulated_workflow','standardized_patient','preclinical','laboratory','non_clinical'].includes(cls.testSetting)&&cls.realPatientTested===true)fail('editorialCards.'+id+'.classification.realPatientTested','simulations, actors, lab and exams are not real-patient care');
+        if(['prospective_patients','routine_care'].includes(cls.testSetting)&&cls.realPatientTested!==true)fail('editorialCards.'+id+'.classification.realPatientTested','patient involvement must be explicit');
+        if(cls.studyDesign==='randomized_clinical_trial'&&cls.testSetting!=='prospective_patients')fail('editorialCards.'+id+'.classification.studyDesign','clinical RCT requires real prospective patients');
+        if(cls.topic==='real_world_use'&&cls.testSetting!=='routine_care')fail('editorialCards.'+id+'.classification.topic','real-world use requires actual routine-care evidence');
+      }
       if(!STATUSES.has(card.validation?.status))fail('editorialCards.'+id+'.validation','explicit status required');
       if(card.evidence_date!==null && !isMonitorDate(card.evidence_date))fail('editorialCards.'+id+'.evidence_date','supported evidence date or null required');
       if(card.evidence_date && card.timeline_year!==Number(card.evidence_date.slice(0,4)))fail('editorialCards.'+id+'.timeline_year','must match cited evidence version');

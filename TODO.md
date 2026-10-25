@@ -71,3 +71,11 @@ Release verification for the responsive-density/table-order update: source 5ec86
 25 October 2026 - latest owner correction: benchmark value sits immediately beside its chart title; review date sits small below the hamburger button. Menu uses About Me, icon-only social links including X, and a bottom row with Feedback left and language right. Presentation controls/behavior, menu News link, timeline playback/date/model controls removed. Historical share URL cutoff remains supported. X profile URL is not verified; its icon currently links to the X homepage. This supersedes earlier timeline/presentation/menu requirements. Release checks pending.
 
 25 October 2026 - chart windows and image export: all four charts offer All time / 5Y / 2Y / 1Y / 6M controls below their plots; chosen windows survive full-view and resize. Axes show actual units and adapt with padding to the visible observations; zero remains when appropriate. The overview remains illustrative and all-time retains the 1950–2030 scenarios. Full-view charts offer PNG export with repeated low-contrast ai.gillespenning.com credits rasterized inside the plot, retaining title/date/evidence caveats. Image attribution discourages cropping but is not tamper-proof. News filters removed; owner-confirmed X profile installed. Three authorized Substack Notes are retained in data/news.json coverage.requestedNotes pending verifiable original text/date; see docs/NEWS_COVERAGE.md. No study scores or scientific review date changed. Release checks pending.
+
+
+## Evidence classification - 25 October 2026
+- [x] Create canonical docs/EVIDENCE_TAGGING.md, reference from AGENTS and content-entry instructions.
+- [x] Attach standard topic, test setting, study design, real-patient flag, patient outcome flag and milestone to all existing editorial cards.
+- [x] Expose the distinction in evidence cards, news linked to studies, milestone filters, chart Data tables and bilingual Glossary.
+- [x] Reject invalid setting/clinical-test combinations in validator and unit tests.
+- [ ] Independently re-check the primary Methods for provisional historical classifications (especially case origin, retrospective versus prospective setting and real-patient outcomes). Keep tentative labels explicitly provisional until examined.

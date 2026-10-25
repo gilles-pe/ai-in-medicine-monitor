@@ -14,6 +14,7 @@ The three questions are:
 - `MONITOR_STANDARD.md`: editorial and evidence policy (this file).
 - `DESIGN.md`: interface and interaction rules.
 - `AGENTS.md`: instructions for any AI assistant working with the project.
+- `docs/EVIDENCE_TAGGING.md`: canonical source-linked topic, clinical test-setting, design and milestone rules. Machine values: `meta.evidenceTaxonomy`; per-card fields: `editorialCards[cardId].classification`.
 
 A database server is not required. JSON is portable to charts, slides, websites and other AI models. Changes should be version-controlled. Never silently replace or erase a historical record.
 
@@ -70,7 +71,10 @@ Always show plain-language labels first, metric and source second. Say what is a
 
 Keep score truth, comparison protocol and chronology separate. Confirmed but qualified MedQA results stay unconnected. Clinical product harnesses cannot join the base-model line. A score without a verified publication or availability date is retained in an accessible unplaced-results list; an unknown publication date is shown only at/after the audit date in historical views. No invented dates or performance lines.
 
-## 10. Release checklist
+## 10. Clinical evaluation ≠ case-based benchmarking
+Never equate exam cases, NEJM teaching cases, standardized patients, simulated EHR tasks or retrospective records with prospective care of real patients. Controlled comparisons of vignettes or actors are randomized simulations, not clinical patient trials. Patient testing, clinical outcomes, source peer review and milestone significance are independent fields. See `docs/EVIDENCE_TAGGING.md` for required classification and tri-state unknown rules.
+
+## 11. Release checklist
 - [ ] Every chart says what was tested and what the score means.
 - [ ] Main-line points are confirmed and comparable.
 - [ ] Retrospective results are labeled and dated properly.
@@ -86,7 +90,7 @@ Keep score truth, comparison protocol and chronology separate. Confirmed but qua
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `d427efcf191b5a8bc4bb4c8aad4e808de828ed5531ed68da6fd7969fcabfc525`
+- SHA-256 (parsed JSON): `4c92e6256f3233a68d20be67bdf2dea1c73e36780297bc7aa41c00c5e2a301a9`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2
