@@ -43,6 +43,7 @@ Maintain a popular-science 'AI in Medicine' showing medical AI progress in three
 ## Dashboard agent: task procedure
 - Treat JSON as read-only content authority. Do not modify underlying score/source facts to improve the visual shape.
 - Render chart and details following `DESIGN.md`. Ensure mobile tap and keyboard interactions.
+- Capability questions refer to AI, not the owner: use What can AI do in medicine today? Reserve first-person I for the owner’s introduction/profile. Keep complete English/German UI phrases together in the portable locale registry.
 - Recalculate frontier by benchmark series at render time from eligible points.
 - Display date/measurement and benchmarking limitations explicitly but concisely.
 - Test source URLs, gaps, ties and benchmark transitions.
@@ -73,7 +74,7 @@ The primary publication target is GitHub Pages at `https://gilles-pe.github.io/a
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `2fdef13e361d2e91549b23a7e8144fe87406c6f7f4d6a9b410c68f6ae55bc25d`
+- SHA-256 (parsed JSON): `3a645ceadb69400fd5570ea62167b43d5a6ef2d41f747377dac9a388d479ed56`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2

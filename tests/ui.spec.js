@@ -90,7 +90,7 @@ test('320px fits the header, charts, menu and touch controls',async({page})=>{
 });
 
 test('language preserves date, model, open milestones and translated cards',async({page})=>{
-  await date(page,'2026-07-31');await page.locator('#model-filter').selectOption('GPT-5.2');await page.locator('#menu-button').click();await page.locator('[data-language="de"]').click();await expect(page.locator('html')).toHaveAttribute('lang','de');await page.keyboard.press('Escape');await expect(page.locator('#milestones-panel')).toHaveAttribute('open','');await expect(page.locator('#cutoff-date')).toHaveValue('2026-07-31');await expect(page.locator('#model-filter')).toHaveValue('GPT-5.2');await expect(page.locator('#track-knowledge')).toHaveText('Medizinisches Wissen');
+  await date(page,'2026-07-31');await page.locator('#model-filter').selectOption('GPT-5.2');await page.locator('#menu-button').click();await page.locator('[data-language="de"]').click();await expect(page.locator('html')).toHaveAttribute('lang','de');await page.keyboard.press('Escape');await expect(page.locator('#milestones-panel')).toHaveAttribute('open','');await expect(page.locator('#cutoff-date')).toHaveValue('2026-07-31');await expect(page.locator('#model-filter')).toHaveValue('GPT-5.2');await expect(page.locator('#track-knowledge')).toHaveText('Medizinisches Wissen');await expect(page.locator('#intro-question')).toHaveText('Was kann KI heute in der Medizin leisten?');
   await openMonitor(page,'3.9');await expect(page.getByRole('dialog').locator('.point-card-sections dt')).toHaveText(['AUFBAU & STICHPROBE','GRENZEN & VALIDITÄT']);await page.keyboard.press('Escape');await page.reload();await expect(page.locator('html')).toHaveAttribute('lang','de');await page.locator('#menu-button').click();await page.locator('[data-language="en"]').click();await expect(page.locator('#track-knowledge')).toHaveText('Medical knowledge');await expect(page.getByRole('heading',{level:1})).toHaveText('Digital Health & AI in Medicine');
 });
 
@@ -134,7 +134,7 @@ test('nearby lower-chart markers support source-backed hover and keyboard pinnin
 
 
 test('approved disclosure hierarchy preserves the practical question and profile placement',async({page})=>{
-  await expect(page.locator('#intro-question')).toHaveText('What can I do in medicine today?');
+  await expect(page.locator('#intro-question')).toHaveText('What can AI do in medicine today?');
   await expect(page.locator('.about-monitor')).toHaveAttribute('open','');
   await page.locator('.about-monitor > summary').click();
   await expect(page.locator('.about-monitor')).not.toHaveAttribute('open','');await expect(page.locator('#intro-question')).toBeVisible();

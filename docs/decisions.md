@@ -60,3 +60,5 @@ AMIE previsit is a clinical feasibility milestone, not a benchmark-frontier meas
 Owner-supplied portrait replaces the GP monogram in the profile and About page. Preserve the original square image; use truthful portrait alt text and a versioned URL to avoid stale placeholder caches.
 
 Latest owner correction, 25 October 2026: masthead is Gilles Penning, with Gilles in the existing dark ink and Penning in the existing teal accent. Tagline: Tracking what AI can do in medicine. This replaces the earlier Still pending / first-person wording in the current interface. Keep these exact English words in the English interface, with the matching German tagline in DE.
+
+25 October 2026 - copy correction: the capability heading is What can AI do in medicine today? / Was kann KI heute in der Medizin leisten? AI is the subject here; first-person wording belongs only to the owner’s personal introduction and profile. Keep EN/DE copy complete and consistent, and visually separate news category and language.
