@@ -2,8 +2,7 @@ import {test,expect} from '@playwright/test';
 import {createHash} from 'node:crypto';
 async function bytesOf(pending){const download=await pending,stream=await download.createReadStream(),chunks=[];for await(const chunk of stream)chunks.push(chunk);return {download,bytes:Buffer.concat(chunks)};}
 function zipFiles(bytes){const files={};let o=0;while(bytes.readUInt32LE(o)===0x04034b50){expect(bytes.readUInt16LE(o+8)).toBe(0);const size=bytes.readUInt32LE(o+18),names=bytes.readUInt16LE(o+26),extra=bytes.readUInt16LE(o+28),start=o+30+names+extra;files[bytes.subarray(o+30,o+30+names).toString()]=bytes.subarray(start,start+size);o=start+size;}return files;}
-async function milestones(page){if(!await page.locator('#site-menu').isVisible())await page.locator('#menu-button').click();const p=page.locator('#timeline-panel');if(!await p.evaluate(e=>e.open))await p.locator(':scope > summary').click();return p;}
-async function date(page,value){await milestones(page);await page.locator('#cutoff-date').fill(value);await page.locator('#cutoff-date').press('Tab');await page.keyboard.press('Escape');}
+async function date(page,value){await page.goto('./?cutoff='+value);await expect(page.locator('html')).toHaveAttribute('data-app-state','ready');}
 async function openMonitor(page,id){const hit=page.locator('.detail-charts .monitor-point-hit[data-monitor-point="'+id+'"],.detail-charts .monitor-point-hit[data-monitor-cluster*="'+id+'"]');await hit.first().click();const card=page.locator('#detail-dialog'),ids=(await card.getAttribute('data-card-ids')||'').split(','),i=ids.indexOf(id);if(i>=0&&ids.length>1)await card.locator('[data-card-choice="'+i+'"]').click();}
 
 test.beforeEach(async({page})=>{
@@ -17,25 +16,13 @@ test.afterEach(async({page})=>{expect(page.__runtimeErrors).toEqual([]);});
 test('clean header keeps preferences in the menu and three thumbnails',async({page})=>{
   await expect(page).toHaveTitle('Digital Health & AI in Medicine | Gilles Penning');
   await expect(page.locator('.brand,.chart-tools,.back-link,.track-navigation,.result-row,.monitor-undated,.track-details')).toHaveCount(0);
-  await expect(page.getByRole('tab')).toHaveCount(0);await expect(page.locator('#present-button')).not.toBeVisible();await expect(page.locator('[data-language="de"]')).not.toBeVisible();
+  await expect(page.getByRole('tab')).toHaveCount(0);await expect(page.locator('#present-button,#timeline-panel,#model-filter')).toHaveCount(0);await expect(page.locator('[data-language="de"]')).not.toBeVisible();
   await expect(page.locator('.chart-thumbnail')).toHaveCount(3);await expect(page.locator('#content')).not.toContainText(/Timeline data|Under review|Benchmark results|About this benchmark|PPT|PowerPoint/);
   await expect(page.locator('.masthead-author')).toHaveText('Gilles Penning');await expect(page.locator('.author-byline')).toHaveText('Tracking what AI can do in medicine.');await expect(page.locator('.site-footer')).not.toContainText('Gilles Penning');
   await expect(page.locator('#editorial-check')).toHaveText('Last reviewed 23 Oct 2026');
-  await page.locator('#menu-button').click();await expect(page.locator('#present-button')).toBeVisible();await expect(page.locator('[data-language="de"]')).toBeVisible();
+  await page.locator('#menu-button').click();await expect(page.locator('[data-language="de"]')).toBeVisible();
 });
 
-test('milestones owns stable timeline controls and stays open through slider, date, model and resize updates',async({page})=>{
-  const panel=await milestones(page),slider=page.locator('#time-slider');
-  await expect(panel.locator('#timeline-slot > #time-controls')).toHaveCount(1);
-  expect(await panel.evaluate(e=>e.children[1].id)).toBe('timeline-slot');
-  await slider.evaluate(e=>{window.__slider=e;});await slider.focus();await slider.press('ArrowLeft');await slider.press('ArrowLeft');
-  await expect(panel).toHaveAttribute('open','');await expect(slider).toBeFocused();expect(await slider.evaluate(e=>e===window.__slider)).toBe(true);
-  await date(page,'2025-06-30');await milestones(page);await page.locator('#model-filter').selectOption('GPT-5.2');
-  await expect(panel).toHaveAttribute('open','');await expect(page.locator('#cutoff-date')).toHaveValue('2025-06-30');
-  await page.setViewportSize({width:360,height:844});await page.clock.runFor(200);await expect(panel).toHaveAttribute('open','');
-  await expect(page.locator('#model-filter')).toHaveValue('GPT-5.2');expect(await slider.evaluate(e=>e===window.__slider)).toBe(true);
-  await milestones(page);await page.locator('#today-button').click();await expect(panel).toHaveAttribute('open','');await expect(page.locator('#cutoff-date')).toHaveValue('2026-10-18');
-});
 
 test('overview keeps illustration, separate scenarios, source cards and date cutoff',async({page})=>{
   await expect(page.locator('.overview-line:not(.scenario-line)')).toHaveCount(4);await expect(page.locator('.scenario-line')).toHaveCount(3);await expect(page.locator('.overview-point')).toHaveCount(22);
@@ -92,20 +79,12 @@ test('320px fits the header, charts, menu and touch controls',async({page})=>{
   await page.locator('#menu-button').click();await page.locator('[data-language="de"]').click();await expect(page.locator('#site-menu')).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth)).toBeLessThanOrEqual(1);for(const b of await page.locator('[data-language]').all()){const box=await b.boundingBox();expect(box.width).toBeGreaterThanOrEqual(44);expect(box.height).toBeGreaterThanOrEqual(44);}
 });
 
-test('language preserves date, model, open milestones and translated cards',async({page})=>{
-  await date(page,'2026-07-31');await milestones(page);await page.locator('#model-filter').selectOption('GPT-5.2');await page.locator('[data-language="de"]').click();await expect(page.locator('html')).toHaveAttribute('lang','de');await page.keyboard.press('Escape');await expect(page.locator('#timeline-panel')).toHaveAttribute('open','');await expect(page.locator('#cutoff-date')).toHaveValue('2026-07-31');await expect(page.locator('#model-filter')).toHaveValue('GPT-5.2');await expect(page.locator('#track-knowledge')).toHaveText('Medizinisches Wissen');await expect(page.locator('#intro-question')).toHaveText('Was kann KI heute in der Medizin leisten?');
-  await openMonitor(page,'3.9');await expect(page.getByRole('dialog').locator('.point-card-sections dt')).toHaveText(['AUFBAU & STICHPROBE','GRENZEN & VALIDITÄT']);await page.keyboard.press('Escape');await page.reload();await expect(page.locator('html')).toHaveAttribute('lang','de');await page.locator('#menu-button').click();await page.locator('[data-language="en"]').click();await expect(page.locator('#track-knowledge')).toHaveText('Medical Knowledge');await expect(page.getByRole('heading',{level:1})).toHaveText('Digital Health & AI in Medicine');
+
+test('menu retains social links, direct message feedback dialog',async({page})=>{
+  await page.locator('#menu-button').click();await expect(page.locator('#site-menu a[aria-label="LinkedIn"]')).toHaveAttribute('href','https://de.linkedin.com/in/gillespenning');await expect(page.locator('#site-menu').getByRole('link',{name:'Substack',exact:true})).toHaveAttribute('href','https://medtechsignal.substack.com/');await page.locator('#feedback-button').click();await expect(page.locator('#feedback-dialog')).toBeVisible();await expect(page.locator('#site-menu')).not.toBeVisible();await expect(page.locator('#feedback-dialog')).toContainText('direct message on LinkedIn or Bluesky');await expect(page.locator('#feedback-dialog a[href*="linkedin.com"]')).toBeVisible();await expect(page.locator('#feedback-dialog a[href*="bsky.app"]')).toBeVisible();await page.locator('#feedback-close').click();await expect(page.locator('#menu-button')).toBeFocused();
+
 });
 
-test('menu retains social links, direct message feedback dialog and presentation mode',async({page})=>{
-  await page.locator('#menu-button').click();await expect(page.locator('#site-menu a[aria-label="LinkedIn"]')).toHaveAttribute('href','https://de.linkedin.com/in/gillespenning');await expect(page.locator('#site-menu').getByRole('link',{name:'articles on substack',exact:false})).toHaveAttribute('href','https://medtechsignal.substack.com/');await page.locator('#feedback-button').click();await expect(page.locator('#feedback-dialog')).toBeVisible();await expect(page.locator('#site-menu')).not.toBeVisible();await expect(page.locator('#feedback-dialog')).toContainText('direct message on LinkedIn or Bluesky');await expect(page.locator('#feedback-dialog a[href*="linkedin.com"]')).toBeVisible();await expect(page.locator('#feedback-dialog a[href*="bsky.app"]')).toBeVisible();await page.locator('#feedback-close').click();await expect(page.locator('#menu-button')).toBeFocused();
-  await page.locator('#menu-button').click();await page.locator('#present-button').click();await expect(page.locator('body')).toHaveClass(/presentation-mode/);await expect(page.locator('#site-menu')).not.toBeVisible();await expect(page.locator('#menu-button')).toBeVisible();await page.keyboard.press('Escape');await expect(page.locator('body')).not.toHaveClass(/presentation-mode/);
-});
-
-test('timeline playback keeps controls open without redundant bottom indexes',async({page})=>{
- await expect(page.locator('#source-index,.study-library,#milestone-list')).toHaveCount(0);
- await date(page,'2020-12-31');await milestones(page);await page.locator('#play-button').click();await page.clock.runFor(1101);await expect(page.locator('#cutoff-date')).toHaveValue('2021-12-31');await expect(page.locator('#timeline-panel')).toHaveAttribute('open','');await page.locator('#play-button').click();
-});
 
 test('chart zoom buttons expand and collapse overview and track charts',async({page})=>{
   await expect(page.locator('[data-chart-zoom]')).toHaveCount(4);
@@ -226,3 +205,9 @@ test('news previews expand and archive shares navigation and menu',async({page})
  }
  await expect(page.locator('#overview .chart-data-table')).not.toHaveAttribute('open','');
  });
+
+test('compact menu and close headline metrics reflect owner choices',async({page})=>{
+ await expect(page.locator('.masthead-menu #editorial-check')).toHaveText('Last reviewed 23 Oct 2026');
+ const title=await page.locator('#track-knowledge').boundingBox(),value=await page.locator('#chart-knowledge .track-headline-result').boundingBox();expect(value.x-title.x-title.width).toBeLessThan(35);
+ await page.locator('#menu-button').click();await expect(page.locator('#site-menu').getByRole('link',{name:'About Me',exact:true})).toBeVisible();await expect(page.locator('#site-menu .author-card-links a')).toHaveCount(1);await expect(page.locator('#site-menu .social-icons a')).toHaveCount(4);await expect(page.locator('.menu-bottom #feedback-button')).toBeVisible();await expect(page.locator('.menu-bottom [data-language="de"]')).toBeVisible();await expect(page.locator('#site-menu').getByRole('link',{name:'News',exact:true})).toHaveCount(0);
+});

@@ -57,3 +57,5 @@ The introduction opens by default above 860px and closes below this breakpoint; 
 Latest layout correction (25 October): lower charts read title/value → measurement question → answer/takeaway → plot and compact context → milestone tiles → Data table → Sources. All chart Data table disclosures start closed, with a native triangle and the same micro-label styling as Sources.
 
 Expanded-chart hover cards reserve the title/control row and never cover the full-view exit button.
+
+25 October 2026 - latest owner correction: benchmark value sits immediately beside its chart title; review date sits small below the hamburger button. Menu uses About Me, icon-only social links including X, and a bottom row with Feedback left and language right. Presentation controls/behavior, menu News link, timeline playback/date/model controls removed. Historical share URL cutoff remains supported. X profile URL is not verified; its icon currently links to the X homepage. This supersedes earlier timeline/presentation/menu requirements. Release checks pending.

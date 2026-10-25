@@ -21,13 +21,13 @@ document.documentElement.lang=getLanguage();
 const today=new Date().toISOString().slice(0,10);
 const sharedCutoff=new URLSearchParams(location.search).get('cutoff');
 const initialCutoff=/^\d{4}-\d{2}-\d{2}$/.test(sharedCutoff||'')&&Number.isFinite(Date.parse(sharedCutoff+'T00:00:00Z'))&&new Date(sharedCutoff+'T00:00:00Z').toISOString().slice(0,10)===sharedCutoff&&sharedCutoff>='1950-01-01'&&sharedCutoff<='2030-12-31'?sharedCutoff:today;
-const state={cutoff:initialCutoff,model:'',playing:false,presentation:false,zoomedChart:null};
+const state={cutoff:initialCutoff,model:'',zoomedChart:null};
 const dates=new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});
 const numbers=new Intl.NumberFormat('en-GB',{maximumFractionDigits:2});
 const date=value=>dates.format(new Date(value+'T00:00:00Z'));
 const score=row=>numbers.format(row.score)+(tracks.find(track=>track.id===row.trackId).unit==='%'?'%':' pts');
 const system=row=>row.trackId==='assistance'?row.system:row.model;
-let timer;
+
 const introViewport=window.matchMedia('(min-width: 861px)');
 const introduction=$('.about-monitor');
 introduction.open=introViewport.matches;
@@ -44,7 +44,7 @@ function highlightCard(id){
 }
 function showEditorialCard(id){
   const card=editorialCard(id);if(!card)return;
-  stop();hover?.hide();$('#detail-body').innerHTML=pointCardHtml(card);if(!dialog.open)dialog.showModal();highlightCard(id);
+  hover?.hide();$('#detail-body').innerHTML=pointCardHtml(card);if(!dialog.open)dialog.showModal();highlightCard(id);
 }
 function showMeasurement(id){if(rows().some(item=>item.id===id))showEditorialCard(id);}
 function showTrackMilestone(id){if([...trackMilestones,trustContext].some(item=>item.id===id&&item.date<=state.cutoff))showEditorialCard(id);}
@@ -55,7 +55,7 @@ function clusterHeading(title){return '<div class="card-topbar"><h2 id="detail-t
 function showCardSelection(ids,index=0){
   const cards=ids.map(editorialCard).filter(Boolean);if(!cards.length)return;
   const selected=Math.max(0,Math.min(index,cards.length-1));
-  stop();hover?.hide();
+  hover?.hide();
   const controls=cards.length>1?'<div class="card-selection" role="group" aria-label="Results">'+cards.map((card,i)=>'<button type="button" data-card-choice="'+i+'" aria-pressed="'+(i===selected)+'">'+e(card.title)+'</button>').join('')+'</div>':'';
   dialog.dataset.cardIds=cards.map(c=>c.id).join(',');
   $('#detail-body').innerHTML=controls+pointCardHtml(cards[selected]);if(!dialog.open)dialog.showModal();highlightCard(cards[selected].id);
@@ -112,23 +112,6 @@ function render(){
   syncZoomState();
   markSection();
 }
-function sync(){
-  $('#cutoff-date').value=state.cutoff;
-  $('#time-slider').value=String(Math.max(0,Math.min(80,Number(state.cutoff.slice(0,4))-1950)));
-  $('#time-slider').setAttribute('aria-valuetext',state.cutoff.slice(0,4));
-}
-function cutoff(value,user=true){
-  if(!/^\d{4}-\d{2}-\d{2}$/.test(value)||!Number.isFinite(Date.parse(value+'T00:00:00Z'))||new Date(value+'T00:00:00Z').toISOString().slice(0,10)!==value){sync();return;}
-  if(user)stop();state.cutoff=value<'1950-01-01'?'1950-01-01':value>'2030-12-31'?'2030-12-31':value;sync();render();
-}
-function stop(){if(timer)clearInterval(timer);timer=null;state.playing=false;$('#play-button').textContent='▶';$('#play-button').setAttribute('aria-label','Play timeline');$('#play-button').setAttribute('aria-pressed','false');}
-function play(){
-  if(state.playing){stop();return;}
-  if(Number($('#time-slider').value)>=80)cutoff('1950-01-01',false);
-  state.playing=true;$('#play-button').textContent='Ⅱ';$('#play-button').setAttribute('aria-label','Pause timeline');$('#play-button').setAttribute('aria-pressed','true');
-  timer=setInterval(()=>{const year=1950+Number($('#time-slider').value)+1;cutoff(year+'-12-31',false);if(year>=2030)stop();},1100);
-}
-function present(){state.presentation=!state.presentation;document.body.classList.toggle('presentation-mode',state.presentation);$('#present-button').textContent=state.presentation?'× Exit presentation':'▷ Present';$('#present-button').setAttribute('aria-pressed',String(state.presentation));}
 function exportData(){
   const results=rows(),overviewPoints=visibleAnchors(state.cutoff),historicalTrackMilestones=[...trackMilestones,trustContext].filter(item=>item.date<=state.cutoff);
   const selectedStudies=studies.filter(item=>item.date<=state.cutoff).map(({presentationSlides,...item})=>item);
@@ -234,19 +217,12 @@ shell.addEventListener('pointerleave',event=>{
 $('#detail-body').addEventListener('click',action);
 dialog.addEventListener('click',event=>{if(event.target.closest('[data-card-close]'))dialog.close();});
 dialog.addEventListener('close',()=>{hover.hide();highlightCard(null);});
-$('#model-filter').innerHTML='<option value="">All models</option>'+[...new Set([...monitorData.tracks.flatMap(track=>track.series.flatMap(series=>series.data.filter(p=>p.validation.status==='confirmed').map(point=>point.model)))])].sort().map(model=>'<option>'+e(model)+'</option>').join('');
-$('#model-filter').addEventListener('change',event=>{stop();state.model=event.target.value;render();});
-$('#cutoff-date').addEventListener('change',event=>cutoff(event.target.value));
-$('#time-slider').addEventListener('input',event=>cutoff((1950+Number(event.target.value))+'-12-31'));
-$('#today-button').addEventListener('click',()=>cutoff(today));
-$('#play-button').addEventListener('click',play);
-$('#present-button').addEventListener('click',()=>{present();closeMenu();});
 $('#export-button')?.addEventListener('click',exportData);
 $('#editorial-check').innerHTML=reviewedMarkup();
 $('#package-export-button')?.addEventListener('click',async event=>{const button=event.currentTarget;button.disabled=true;try{announce(await downloadMonitorPackage());}catch(error){announce('Package export failed: '+error.message);}finally{button.disabled=false;}});
 // Old view hashes now lead to the single-page overview.
 if(['#verlauf','#anwendungen','#studien','#quellen'].includes(location.hash))history.replaceState(null,'','#top');
-document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!dialog.open){stop();if(state.zoomedChart){toggleChartZoom(null);return;}if(state.presentation)present();}});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!dialog.open){if(state.zoomedChart){toggleChartZoom(null);return;}}});
 document.addEventListener('keydown',event=>{
   if(event.key!=='Tab'||dialog.open)return;
   const scope=!siteMenu.hidden?siteMenu:state.zoomedChart?(state.zoomedChart==='overview'?$('#overview'):$('#chart-'+state.zoomedChart)):null;
@@ -257,8 +233,8 @@ document.addEventListener('keydown',event=>{
   if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}
   else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus();}
 });
-document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
-sync();render();
+
+render();
 if(location.hash)requestAnimationFrame(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView({block:'start'}));
 
 function hoverCard(target,event){
@@ -308,7 +284,7 @@ function markSection(){
 }
 document.addEventListener('scroll',()=>markSection(),{passive:true});
 const feedbackDialog=$('#feedback-dialog');
-$('#feedback-button').addEventListener('click',()=>{stop();hover.hide();closeMenu();feedbackDialog.showModal();});
+$('#feedback-button').addEventListener('click',()=>{hover.hide();closeMenu();feedbackDialog.showModal();});
 $('#feedback-close').addEventListener('click',()=>feedbackDialog.close());
 feedbackDialog.addEventListener('click',event=>{if(event.target.closest('a'))feedbackDialog.close();});
 feedbackDialog.addEventListener('close',()=>menuButton.focus());
