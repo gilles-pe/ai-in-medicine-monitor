@@ -1,3 +1,4 @@
+import {exportChart} from './lib/chart-export.js';
 import { feedbackUrl } from './lib/navigation.js';
 import { nearbyEvidenceIds } from './lib/chart-interactions.js';
 import { renderNewsSidebar } from './lib/news.js';
@@ -21,7 +22,7 @@ document.documentElement.lang=getLanguage();
 const today=new Date().toISOString().slice(0,10);
 const sharedCutoff=new URLSearchParams(location.search).get('cutoff');
 const initialCutoff=/^\d{4}-\d{2}-\d{2}$/.test(sharedCutoff||'')&&Number.isFinite(Date.parse(sharedCutoff+'T00:00:00Z'))&&new Date(sharedCutoff+'T00:00:00Z').toISOString().slice(0,10)===sharedCutoff&&sharedCutoff>='1950-01-01'&&sharedCutoff<='2030-12-31'?sharedCutoff:today;
-const state={cutoff:initialCutoff,model:'',zoomedChart:null};
+const state={cutoff:initialCutoff,model:'',zoomedChart:null,ranges:{}};
 const dates=new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});
 const numbers=new Intl.NumberFormat('en-GB',{maximumFractionDigits:2});
 const date=value=>dates.format(new Date(value+'T00:00:00Z'));
@@ -70,6 +71,8 @@ function showMonitorPoint(id){
 }
 function showMonitorCluster(ids){showCardSelection(ids.split(',').filter(id=>monitorPoint(id)?.point.validation.status==='confirmed'));}
 function syncZoomState(){
+  shell.querySelectorAll('.chart-download').forEach(el=>el.remove());
+  if(state.zoomedChart){const target=state.zoomedChart==='overview'?$('#overview'):$('#chart-'+state.zoomedChart);const button=document.createElement('button');button.type='button';button.className='chart-download';button.textContent='Download PNG';button.dataset.chartDownload=state.zoomedChart;target?.querySelector('.track-actions,.section-title')?.append(button);}
   document.querySelectorAll('.is-zoomed').forEach(el=>el.classList.remove('is-zoomed'));
   document.body.classList.toggle('has-zoomed-chart',Boolean(state.zoomedChart));
   let backdrop=$('#chart-zoom-backdrop');
@@ -96,12 +99,12 @@ function toggleChartZoom(target){
   shell.querySelector('[data-chart-zoom="'+(state.zoomedChart||previous)+'"]')?.focus({preventScroll:true});
 }
 function renderTrack(track){
-  return renderTrackSection(track, state.cutoff, {model:state.model, zoomed:state.zoomedChart===track.id});
+  return renderTrackSection(track, state.cutoff, {model:state.model, zoomed:state.zoomedChart===track.id,range:state.ranges[track.id]||'all'});
 }
 function render(){
   resetAbbreviations();
   const openSources=[...shell.querySelectorAll('.section-sources[open]')].map(el=>el.id);
-  $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false});
+  $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false,range:state.ranges.overview||'all'});
   if($('#milestone-list'))$('#milestone-list').innerHTML=renderMilestoneLinks(state.cutoff);
   $('#previews-slot').innerHTML=renderPreviews();
   $('#tracks-slot').innerHTML=tracks.map(renderTrack).join('');
@@ -121,6 +124,8 @@ function exportData(){
   const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='ai-in-medicine-'+state.cutoff+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('Data exported.');
 }
 async function action(event){
+  const rangeButton=event.target.closest('[data-chart-range]');if(rangeButton){hover?.hide();state.ranges[rangeButton.dataset.rangeChart]=rangeButton.dataset.chartRange;render();shell.querySelector('[data-range-chart="'+rangeButton.dataset.rangeChart+'"][data-chart-range="'+rangeButton.dataset.chartRange+'"]')?.focus({preventScroll:true});return;}
+  const download=event.target.closest('[data-chart-download]');if(download){const chart=download.closest('.overview,.track'),svg=chart.querySelector('.overview-scroll svg,.monitor-chart-svg');download.disabled=true;try{announce(await exportChart(svg,{title:chart.querySelector('h2').textContent,cutoff:state.cutoff,filename:'ai-medicine-'+download.dataset.chartDownload+'.png',note:chart.querySelector('.chart-takeaway').textContent}));}catch(error){announce('Image export failed: '+error.message);}finally{download.disabled=false;}return;}
   if(event.type==='click'&&Date.now()<suppressOverviewClickUntil&&event.target.closest('#overview .overview-scroll svg'))return;
   const zoom=event.target.closest('[data-chart-zoom]');
   if(zoom){toggleChartZoom(zoom.dataset.chartZoom);return;}
@@ -148,7 +153,7 @@ function scrubOverviewAtClientX(svg,clientX){
   if(!rect.width)return;
   const rawX=(clientX-rect.left)/rect.width*1200;
   const clampedX=Math.max(68,Math.min(1098,rawX));
-  const hoverYear=Math.round(1950+(clampedX-68)/1030*80);
+  const a=Number(svg.dataset.rangeStart||1950),b=Number(svg.dataset.rangeEnd||2030);const hoverYear=Math.round(a+(clampedX-68)/1030*(b-a));
   const currentYear=Number(today.slice(0,4));
   updateOverviewCursor(clampedX,String(hoverYear),hoverYear===currentYear?'TODAY':hoverYear>currentYear?'SCENARIO':'YEAR');
   if(hoverYear!==lastScrubYear){

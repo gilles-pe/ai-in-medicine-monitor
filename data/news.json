@@ -619,6 +619,37 @@
       "x": "No verified author handle or complete archive found by public search; no guessed X URLs added.",
       "exclusions": "Unrelated political comments, travel snapshots, reposts by other authors and non-topic personal posts omitted. Substack-linked stories are crosspost merges, not duplicate items.",
       "notes": "ki-diagnostik-hat-ein-problem-mit and hdrg-warum-das-bett-als-wahrung-ausgedient were exact linked original URLs in public posts, but archive agent could not verify them live. Added Bluesky-only standalone share entries as safe fallback; merge if a verified original is recovered."
+    },
+    "requestedNotes": {
+      "requestedAt": "2026-10-25",
+      "status": "awaiting_original_metadata",
+      "reason": "Exact Substack note pages returned Site Unavailable; no indexed originals or matching linked Bluesky posts were found. External Substack browser session is not exposed in this environment. Publication dates, text and thumbnails remain unknown; do not publish invented timeline entries.",
+      "items": [
+        {
+          "url": "https://substack.com/@medtechsignal/note/c-315969065",
+          "date": null,
+          "title": null,
+          "summary": null,
+          "thumbnail": null,
+          "approvedByOwner": true
+        },
+        {
+          "url": "https://substack.com/@medtechsignal/note/c-215865835",
+          "date": null,
+          "title": null,
+          "summary": null,
+          "thumbnail": null,
+          "approvedByOwner": true
+        },
+        {
+          "url": "https://substack.com/@medtechsignal/note/c-210781093",
+          "date": null,
+          "title": null,
+          "summary": null,
+          "thumbnail": null,
+          "approvedByOwner": true
+        }
+      ]
     }
   }
 }

@@ -18,37 +18,12 @@ function render(locale, persist = false) {
   document.querySelector('.skip-link').textContent = locale === 'de' ? 'Zum Inhalt' : 'Skip to content';
   document.querySelector('.language-switch').setAttribute('aria-label', locale === 'de' ? 'Sprache' : 'Language');
   document.querySelector('#news-items').innerHTML = renderNewsArchive(locale);
-  for (const [id, key] of [['#news-filter-category-label', 'category'], ['#news-filter-language-label', 'language'], ['#news-filter-source-label', 'source']]) {
-    const label = document.querySelector(id);
-    if (label) label.firstChild.textContent = copy[key] + ' ';
-  }
-  document.querySelectorAll('#news-filters option[value=""]').forEach(option => { option.textContent = copy.allFilters; });
-  const article = document.querySelector('#news-filters option[value="article"]');
-  const post = document.querySelector('#news-filters option[value="post"]');
-  if (article) article.textContent = copy.article;
-  if (post) post.textContent = copy.post;
-  applyNewsFilters();
   document.querySelectorAll('[data-news-language]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.newsLanguage === locale)));
   if (persist) {
     try { storage?.setItem('digital-health-language', locale); } catch {}
     const url = new URL(location.href); url.searchParams.set('lang', locale); history.replaceState(null, '', url);
   }
 }
-function applyNewsFilters() {
-  const category = document.querySelector('#news-filter-category')?.value || '';
-  const language = document.querySelector('#news-filter-language')?.value || '';
-  const source = document.querySelector('#news-filter-source')?.value || '';
-  document.querySelectorAll('#news-items article').forEach(article => {
-    const sources = (article.dataset.sources || '').split(' ');
-    const show = (!category || article.dataset.category === category) && (!language || article.dataset.lang === language) && (!source || sources.includes(source));
-    const item = article.closest('li');
-    if (item) item.hidden = !show;
-  });
-  document.querySelectorAll('#news-items .news-year').forEach(year => {
-    year.hidden = ![...year.querySelectorAll('li')].some(item => !item.hidden);
-  });
-}
-document.querySelector('#news-filters')?.addEventListener('change', applyNewsFilters);
 document.addEventListener('site-language-change',event=>render(event.detail.locale));
 render(preferredLanguage(location.search, storage));
 if (location.hash) requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView({ block: 'start' }));

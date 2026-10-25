@@ -211,3 +211,14 @@ test('compact menu and close headline metrics reflect owner choices',async({page
  const title=await page.locator('#track-knowledge').boundingBox(),value=await page.locator('#chart-knowledge .track-headline-result').boundingBox();expect(value.x-title.x-title.width).toBeLessThan(35);
  await page.locator('#menu-button').click();await expect(page.locator('#site-menu').getByRole('link',{name:'About Me',exact:true})).toBeVisible();await expect(page.locator('#site-menu .author-card-links a')).toHaveCount(1);await expect(page.locator('#site-menu .social-icons a')).toHaveCount(4);await expect(page.locator('.menu-bottom #feedback-button')).toBeVisible();await expect(page.locator('.menu-bottom [data-language="de"]')).toBeVisible();await expect(page.locator('#site-menu').getByRole('link',{name:'News',exact:true})).toHaveCount(0);
 });
+
+test('time windows and PNG downloads work for every expanded chart',async({page})=>{
+ for(const id of ['overview','knowledge','assistance','autonomy']){
+  const chart=page.locator(id==='overview'?'#overview':'#chart-'+id);
+  await chart.locator('[data-chart-range="6m"]').click();await expect(chart.locator('[data-chart-range="6m"]')).toHaveAttribute('aria-pressed','true');
+  await chart.locator('[data-chart-range="all"]').click();await chart.locator('[data-chart-zoom]').click();
+  const pending=page.waitForEvent('download');await chart.locator('[data-chart-download]').click();const {download,bytes}=await bytesOf(pending);expect(download.suggestedFilename()).toMatch(/\.png$/);expect(bytes.subarray(0,8).toString('hex')).toBe('89504e470d0a1a0a');
+  await page.keyboard.press('Escape');
+ }
+ await page.locator('#section-nav').getByRole('link',{name:'News',exact:true}).click();await expect(page.locator('#news-filters')).toHaveCount(0);
+});
