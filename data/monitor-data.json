@@ -72,6 +72,10 @@
       {
         "date": "2026-10-25",
         "action": "Conservative editorial status correction: Microsoft MAI-DxO evidence setting remains simulated case benchmark and owner-approved capability milestone, but classificationStatus changed to provisional pending independent full Science Methods review (publisher access restricted). No numerical/source claims or lastReviewedAt modified."
+      },
+      {
+        "date": "2026-10-25",
+        "action": "Historical source-grouped audit: reviewed setting/design and cited values in 11 existing editorial cards from six original papers (Goh JAMA 2024, AMIE Nature 2025, MIRA Nature 2026, MedAgentBench arXiv v2, Med-PaLM Nature 2023, STAR Science Robotics 2022). Retained all numeric values, validation statuses, chronology and prior milestone decisions; added methods provenance per card. Remaining classifications provisional; status source-specific in docs/HISTORICAL_EVIDENCE_AUDIT_2026-10-25.md. Intake evidence and material-impact gate documented separately. No full scientific review date change."
       }
     ],
     "previousTitles": [
@@ -11190,7 +11194,15 @@
         "milestone": false,
         "realPatientTested": false,
         "patientOutcomeEvidence": false,
-        "classificationStatus": "provisional"
+        "classificationStatus": "reviewed",
+        "methodReview": {
+          "checkedAt": "2026-10-25",
+          "reviewer": "AI-assisted primary-source methods and reported-results audit",
+          "primaryUrl": "https://www.nature.com/articles/s41586-023-06291-2",
+          "locator": "Abstract; Methods and MultiMedQA evaluation",
+          "scope": "Classification/test setting, study design and quoted result only; not independent clinical replication",
+          "evidence": "Flan-PaLM 67.6% on exam-style MedQA; medically adapted Med-PaLM separately evaluated."
+        }
       }
     },
     "gpt4-2023": {
@@ -11281,7 +11293,15 @@
         "milestone": false,
         "realPatientTested": false,
         "patientOutcomeEvidence": false,
-        "classificationStatus": "provisional"
+        "classificationStatus": "reviewed",
+        "methodReview": {
+          "checkedAt": "2026-10-25",
+          "reviewer": "AI-assisted primary-source methods and reported-results audit",
+          "primaryUrl": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2825395",
+          "locator": "Abstract; Methods, Clinical Vignettes and Study Design; Table 2",
+          "scope": "Classification/test setting, study design and quoted result only; not independent clinical replication",
+          "evidence": "50 randomized physicians on up to six vignettes; 76% vs 74%, adjusted +2 pp (95% CI -4 to 8), p=.60; no patient treatment outcomes."
+        }
       }
     },
     "metr-2025": {
@@ -11374,7 +11394,15 @@
         "milestone": false,
         "realPatientTested": false,
         "patientOutcomeEvidence": false,
-        "classificationStatus": "provisional"
+        "classificationStatus": "reviewed",
+        "methodReview": {
+          "checkedAt": "2026-10-25",
+          "reviewer": "AI-assisted primary-source methods and reported-results audit",
+          "primaryUrl": "https://www.nature.com/articles/s41586-025-08866-7",
+          "locator": "Abstract; randomized double-blind crossover method",
+          "scope": "Classification/test setting, study design and quoted result only; not independent clinical replication",
+          "evidence": "159 trained-patient-actor scenarios, 20 physicians; 30/32 specialist and 25/26 actor axes; no real-patient treatment."
+        }
       }
     },
     "mira-2026": {
@@ -11420,7 +11448,15 @@
         "milestone": false,
         "realPatientTested": false,
         "patientOutcomeEvidence": false,
-        "classificationStatus": "provisional"
+        "classificationStatus": "reviewed",
+        "methodReview": {
+          "checkedAt": "2026-10-25",
+          "reviewer": "AI-assisted primary-source methods and reported-results audit",
+          "primaryUrl": "https://www.nature.com/articles/s41586-026-10675-5",
+          "locator": "Fig. 1; Fig. 3a; Methods, MIMIC-IV cohort and patient simulation",
+          "scope": "Classification/test setting, study design and quoted result only; not independent clinical replication",
+          "evidence": "574 retrospective cases in virtual EHR; matched comparison n=311, 87.8% vs 78.1%, exact McNemar p=.000287."
+        }
       }
     },
     "af2-paper-2021": {
@@ -11649,7 +11685,15 @@
         "milestone": false,
         "realPatientTested": false,
         "patientOutcomeEvidence": false,
-        "classificationStatus": "provisional"
+        "classificationStatus": "reviewed",
+        "methodReview": {
+          "checkedAt": "2026-10-25",
+          "reviewer": "AI-assisted primary-source methods and reported-results audit",
+          "primaryUrl": "https://arxiv.org/html/2501.14654v2",
+          "locator": "Abstract; Section 2; Table 3",
+          "scope": "Classification/test setting, study design and quoted result only; not independent clinical replication",
+          "evidence": "300 virtual EHR tasks, 100 patient profiles; Claude 3.5 Sonnet v2 69.67%, GPT-4o 64.00%; not real treatment."
+        }
       }
     },
     "residency-2026": {
@@ -12243,7 +12287,15 @@
         "milestone": false,
         "realPatientTested": false,
         "patientOutcomeEvidence": false,
-        "classificationStatus": "provisional"
+        "classificationStatus": "reviewed",
+        "methodReview": {
+          "checkedAt": "2026-10-25",
+          "reviewer": "AI-assisted primary-source methods and reported-results audit",
+          "primaryUrl": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2825395",
+          "locator": "Abstract; Methods, Clinical Vignettes and Study Design; Table 2",
+          "scope": "Classification/test setting, study design and quoted result only; not independent clinical replication",
+          "evidence": "50 randomized physicians on up to six vignettes; 76% vs 74%, adjusted +2 pp (95% CI -4 to 8), p=.60; no patient treatment outcomes."
+        }
       }
     },
     "lower-amie-2025": {
@@ -12296,7 +12348,15 @@
         "milestone": false,
         "realPatientTested": false,
         "patientOutcomeEvidence": false,
-        "classificationStatus": "provisional"
+        "classificationStatus": "reviewed",
+        "methodReview": {
+          "checkedAt": "2026-10-25",
+          "reviewer": "AI-assisted primary-source methods and reported-results audit",
+          "primaryUrl": "https://www.nature.com/articles/s41586-025-08866-7",
+          "locator": "Abstract; randomized double-blind crossover method",
+          "scope": "Classification/test setting, study design and quoted result only; not independent clinical replication",
+          "evidence": "159 trained-patient-actor scenarios, 20 physicians; 30/32 specialist and 25/26 actor axes; no real-patient treatment."
+        }
       }
     },
     "lower-star-2022": {
@@ -12343,7 +12403,15 @@
         "milestone": false,
         "realPatientTested": false,
         "patientOutcomeEvidence": false,
-        "classificationStatus": "provisional"
+        "classificationStatus": "reviewed",
+        "methodReview": {
+          "checkedAt": "2026-10-25",
+          "reviewer": "AI-assisted primary-source methods and reported-results audit",
+          "primaryUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8992572/",
+          "locator": "Phantom end-to-end anastomosis / Fig. 3; in vivo / Table 1",
+          "scope": "Classification/test setting, study design and quoted result only; not independent clinical replication",
+          "evidence": "83.05% = 98/118 phantom first-attempt stitch placements; four separate supervised pig procedures."
+        }
       }
     },
     "lower-medagent-2025": {
@@ -12390,7 +12458,15 @@
         "milestone": false,
         "realPatientTested": false,
         "patientOutcomeEvidence": false,
-        "classificationStatus": "provisional"
+        "classificationStatus": "reviewed",
+        "methodReview": {
+          "checkedAt": "2026-10-25",
+          "reviewer": "AI-assisted primary-source methods and reported-results audit",
+          "primaryUrl": "https://arxiv.org/html/2501.14654v2",
+          "locator": "Abstract; Section 2; Table 3",
+          "scope": "Classification/test setting, study design and quoted result only; not independent clinical replication",
+          "evidence": "300 virtual EHR tasks, 100 patient profiles; Claude 3.5 Sonnet v2 69.67%, GPT-4o 64.00%; not real treatment."
+        }
       }
     },
     "lower-mira-2026": {
@@ -12437,7 +12513,15 @@
         "milestone": false,
         "realPatientTested": false,
         "patientOutcomeEvidence": false,
-        "classificationStatus": "provisional"
+        "classificationStatus": "reviewed",
+        "methodReview": {
+          "checkedAt": "2026-10-25",
+          "reviewer": "AI-assisted primary-source methods and reported-results audit",
+          "primaryUrl": "https://www.nature.com/articles/s41586-026-10675-5",
+          "locator": "Fig. 1; Fig. 3a; Methods, MIMIC-IV cohort and patient simulation",
+          "scope": "Classification/test setting, study design and quoted result only; not independent clinical replication",
+          "evidence": "574 retrospective cases in virtual EHR; matched comparison n=311, 87.8% vs 78.1%, exact McNemar p=.000287."
+        }
       }
     },
     "nov-trust-2023": {
@@ -12763,7 +12847,15 @@
         "milestone": false,
         "realPatientTested": false,
         "patientOutcomeEvidence": false,
-        "classificationStatus": "provisional"
+        "classificationStatus": "reviewed",
+        "methodReview": {
+          "checkedAt": "2026-10-25",
+          "reviewer": "AI-assisted primary-source methods and reported-results audit",
+          "primaryUrl": "https://www.nature.com/articles/s41586-026-10675-5",
+          "locator": "Fig. 1; Fig. 3a; Methods, MIMIC-IV cohort and patient simulation",
+          "scope": "Classification/test setting, study design and quoted result only; not independent clinical replication",
+          "evidence": "574 retrospective cases in virtual EHR; matched comparison n=311, 87.8% vs 78.1%, exact McNemar p=.000287."
+        }
       }
     },
     "knowledge-nyu-gpt52": {

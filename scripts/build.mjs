@@ -15,7 +15,7 @@ for (const name of ['index.html', 'styles.css', 'editorial.css', 'monitor.css', 
 }
 await mkdir(path.join(output,'docs'),{recursive:true});
 await cp(path.join(root,'docs/MONITOR_DATA_STATUS.md'),path.join(output,'docs/MONITOR_DATA_STATUS.md'));
-for (const name of ['data-entry-guide.md', 'EVIDENCE_TAGGING.md', 'decisions.md', 'implementation-status.md', 'news-editorial.md', 'NEWS_COVERAGE.md']) {
+for (const name of ['data-entry-guide.md', 'EVIDENCE_TAGGING.md', 'MEASUREMENT_INTAKE.md', 'HISTORICAL_EVIDENCE_AUDIT_2026-10-25.md', 'decisions.md', 'implementation-status.md', 'news-editorial.md', 'NEWS_COVERAGE.md']) {
   await cp(path.join(root, 'docs', name), path.join(output, 'docs', name));
 }
 await prerenderTree(output);

@@ -14,6 +14,9 @@ Use stable machine values in JSON, not localized labels. The UI, export, Data ta
 5. `realPatientTested` and `patientOutcomeEvidence` are tri-state booleans (`true`, `false`, `null`). `null` means not established; never treat unknown as no. Patient interactions alone do NOT establish improved clinical outcomes.
 6. `classificationStatus`: `reviewed` only if the primary study's methods have been checked specifically for these attributes; otherwise `provisional`. This is separate from `validation.status` of the score claim.
 
+## Admission is not the same as tagging
+Assigning a correct classification or source-verifying a number never warrants adding an item. Apply both editorial gates in `docs/MEASUREMENT_INTAKE.md` before any new content. For ambiguous distinctions or marginal impact, ask the owner and record the answer in `docs/decisions.md`; update written policy and tests after feedback.
+
 ## Critical decision rules
 - Exam-style questions, constructed case vignettes, published NEJM teaching cases and model-graded clinician-chat prompts are NOT real-patient clinical trials, even if authored by clinicians, peer-reviewed or originally motivated by real cases. Set `realPatientTested=false` when confirmed by the methods.
 - Simulated EHR tasks remain `simulated_workflow` even if they replay retrospective MIMIC records; choose `retrospective_simulation` and note the actual record origin in the card's setup. DO NOT upgrade a replay to `prospective_patients`.

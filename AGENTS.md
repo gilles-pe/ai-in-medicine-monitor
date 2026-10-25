@@ -1,26 +1,34 @@
 # AGENTS.md - Instructions for AI collaborators
-Version: 1.0 | Date: 2026-10-18
+Version: 1.1 | Date: 2026-10-25
 
 ## Mission
 Maintain a popular-science 'AI in Medicine' showing medical AI progress in three tracks. Clear for physicians, healthcare industry and non-experts. Credible but not framed as a medical clinical validation study.
 
 ## Read before work
-1. `MONITOR_STANDARD.md` - editorial/evidence rules, frontier definition and criteria.
-2. `docs/EVIDENCE_TAGGING.md` - MANDATORY topic, patient-test setting, study design and milestone rules for EVERY evidence entry.
-3. `DESIGN.md` - UI, chart and point-card requirements.
-4. `data/monitor-data.json` - portable data store.
-5. `VALIDATION_REPORT.md` - current evidence audit and unresolved blockers.
-6. `FUNCTIONALITY.md` - current features, interaction requirements and release acceptance.
-7. `TODO.md` - canonical active backlog; `docs/TODO.md` is historical.
-8. `docs/decisions.md` and `docs/implementation-status.md` - approved decisions and per-run change/test history.
-9. `docs/NEWS_COVERAGE.md` - archive provenance, exclusions and access limits.
-10. `docs/data-entry-guide.md`, `data/news.json`, `docs/news-editorial.md` - portable content entry and approved news.
+1. **`docs/MEASUREMENT_INTAKE.md` - MANDATORY evidence AND material-impact gates BEFORE proposing, adding, publishing or promoting any new measurement, study, milestone or clinical-news claim. Escalation to the owner is required for borderline cases; never assume consent.**
+2. `MONITOR_STANDARD.md` - editorial/evidence rules, frontier definition and criteria.
+3. `docs/EVIDENCE_TAGGING.md` - MANDATORY topic, patient-test setting, study design and milestone rules for EVERY evidence entry.
+4. `DESIGN.md` - UI, chart and point-card requirements.
+5. `data/monitor-data.json` - portable data store.
+6. `VALIDATION_REPORT.md` - current evidence audit and unresolved blockers.
+7. `FUNCTIONALITY.md` - current features, interaction requirements and release acceptance.
+8. `TODO.md` - canonical active backlog; `docs/TODO.md` is historical.
+9. `docs/decisions.md` and `docs/implementation-status.md` - approved decisions and per-run change/test history.
+10. `docs/NEWS_COVERAGE.md` - archive provenance, exclusions and access limits.
+11. `docs/data-entry-guide.md`, `data/news.json`, `docs/news-editorial.md` - portable content entry and approved news.
 
 ## Evidence classification - required on every new item
 - Follow `docs/EVIDENCE_TAGGING.md` and the machine vocabulary in `data/monitor-data.json` -> `meta.evidenceTaxonomy`. Add or verify `editorialCards[cardId].classification` before publishing a new evidence record; leave unknowns explicit.
 - Differentiate exam/vignette benchmarks, simulated workflows, actor studies, retrospective actual records and prospective real-patient studies. A case-based RCT is NOT a real-patient clinical RCT; peer review is NOT clinical validation.
 - A `milestone` flag is editorial significance, not an evidence level. Do not add without explicit justification and approval. Preserve `patientOutcomeEvidence=false/null` unless actual outcomes were assessed.
 - Use the same classification in cards, milestones, Data tables, Glossary and news with `linkedCardId`. Do not create parallel tags from free-form `tags[]`.
+
+## Admission gate - mandatory and separate from technical validation
+- No new record is admitted merely because a model score is higher, a paper is prestigious or a supplier describes a breakthrough. Apply **Gate A (original evidence, protocol and exact metric)** AND **Gate B (meaningful clinical/scientific or capability impact)** in `docs/MEASUREMENT_INTAKE.md`. Fail either: hold/reject with a recorded reason, not an automatically published item.
+- Distinguish a benchmark measurement, independent study card, owner-approved Milestone and owner-approved news. A technically correct result can be too unimportant or duplicative to include. Negative comparative evidence may be more important than a benchmark record.
+- In any serious doubt about impact, clinical meaning, study design, comparability, new taxonomy/series or admission, send the owner a short decision brief and wait for a clear decision before modifying the public dataset. Never infer approval from silence.
+- Every owner decision is logged in `docs/decisions.md`. Use that feedback to **revise the written rules** in `docs/MEASUREMENT_INTAKE.md` or `docs/EVIDENCE_TAGGING.md` and relevant validation tests, and re-check comparable existing items. Do not silently turn a one-off exception into policy.
+- Historical audit work proceeds by unique study/source/cohort; read `docs/HISTORICAL_EVIDENCE_AUDIT_2026-10-25.md`, distinguish reviewed versus provisional classifications and publish only substantiated changes. An audit PR is not a source of new evidence by itself.
 
 ## Universal operating constraints
 - Never program or redesign unless asked; a research task produces candidate data and sources.
@@ -34,14 +42,15 @@ Maintain a popular-science 'AI in Medicine' showing medical AI progress in three
 - Never use an unverified URL or fabricate a missing date, source, score or test protocol.
 
 ## Research agent: task procedure
-1. Read current JSON; identify track, exact benchmark name/version and latest reviewed source.
+1. Read `docs/MEASUREMENT_INTAKE.md`, current JSON and audit ledger; identify duplicates, study cohort, exact benchmark name/version and latest reviewed source.
 2. Search primary sources for new scores on existing benchmarks first; then propose any new benchmark separately.
 3. For each candidate capture exact benchmark, metric, score, model/system, release date, evaluation/publication dates, prompt/tool/harness configuration, exact primary URL and table/figure location.
 4. Update the canonical editorial card: quantitative/comparative finding, teaser, setup/cohort, actual limitations, source footer and evidence date/version. Keep legacy `explain` compatibility fields consistent. Never duplicate citations in setup text.
 5. Set validation status honestly: `confirmed`, `reported`, or `needs_review`; set comparability separately.
-6. Deliver a JSON patch proposal/change log. Flag conflicting sources and methodology changes for human review.
+6. Apply both editorial gates. Deliver a candidate decision (Add / Hold / Reject / Milestone proposal) with evidence, impact rationale and JSON patch only if eligible. Flag borderline conclusions for the owner before inclusion; record owner decisions and policy revisions.
 
 ## Validation agent: task procedure
+- Historical reviews must cover original Methods/Results and record exact scope, audited card IDs and primary locators in the audit ledger. Source-checked score and classification-reviewed setting are independent; do not upgrade one because of the other.
 - Independently open and check the stated primary source, number, units, date and condition.
 - Compare benchmark version/setup to other points in *same series*.
 - Mark a point eligible for main line only if `status=confirmed`, `comparability=same_protocol` (or carefully documented `qualified` with explicit approval), and working source URL.
@@ -82,7 +91,7 @@ The primary publication target is GitHub Pages at `https://gilles-pe.github.io/a
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `a9436d38dbef13221dd480ba7086f9b199641cacee0d32437320049bd1e51c91`
+- SHA-256 (parsed JSON): `9c60d4b611cf3afe1807032f74f97ab1d912055bb55946b48031d5f38b147195`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2

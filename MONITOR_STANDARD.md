@@ -14,6 +14,7 @@ The three questions are:
 - `MONITOR_STANDARD.md`: editorial and evidence policy (this file).
 - `DESIGN.md`: interface and interaction rules.
 - `AGENTS.md`: instructions for any AI assistant working with the project.
+- `docs/MEASUREMENT_INTAKE.md`: mandatory evidence quality + material impact/admission criteria, owner escalation, and rule-update loop.
 - `docs/EVIDENCE_TAGGING.md`: canonical source-linked topic, clinical test-setting, design and milestone rules. Machine values: `meta.evidenceTaxonomy`; per-card fields: `editorialCards[cardId].classification`.
 
 A database server is not required. JSON is portable to charts, slides, websites and other AI models. Changes should be version-controlled. Never silently replace or erase a historical record.
@@ -36,7 +37,10 @@ A result is comparable only if dataset version, scoring metric, task subset, sco
 
 Do not turn benchmark points into 'X% of doctors replaced', 'X% clinical accuracy', or 'X% safe care'. Reference baselines must be tested on exactly the same benchmark/protocol or labeled as context only. In particular, a USMLE pass percentage is not an official MedQA pass threshold.
 
-## 5. Data inclusion and validation
+## 5. Admission before verification
+Source-supported correctness is necessary but not sufficient: each NEW point/study/milestone first passes two separate gates, source-level reproducibility and material impact for understanding AI in medicine. An accurate but trivial or duplicative claim is held/rejected. Clinical applicability is independent of peer review. New series and milestone flags require owner approval. Use `docs/MEASUREMENT_INTAKE.md` for acceptance/hold/rejection rules and decision log; do not silently auto-ingest new results.
+
+## 6. Data inclusion and validation
 Source preference: (1) original peer-reviewed paper + tables, (2) original preprint or benchmark technical report, (3) official versioned leaderboard with methodology, (4) supplier testing clearly tagged as such. News articles are leads, not final proof.
 
 Every eligible main-line point requires: model/system name, exact score and unit, benchmark/version, release and measurement/publication dates when available, test setup, human-readable meaning, original source **URL**, specific page/table/row if possible, and a comparison assessment.
@@ -90,7 +94,7 @@ Never equate exam cases, NEJM teaching cases, standardized patients, simulated E
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `a9436d38dbef13221dd480ba7086f9b199641cacee0d32437320049bd1e51c91`
+- SHA-256 (parsed JSON): `9c60d4b611cf3afe1807032f74f97ab1d912055bb55946b48031d5f38b147195`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2

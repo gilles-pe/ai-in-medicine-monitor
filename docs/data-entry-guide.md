@@ -1,6 +1,6 @@
 # Adding content through portable JSON
 
-Before adding ANY source-backed content read `docs/EVIDENCE_TAGGING.md`; its machine vocabulary is in `data/monitor-data.json` -> `meta.evidenceTaxonomy`. Each `editorialCards[cardId]` entry has a required `classification` with `topic`, `testSetting`, `studyDesign`, `milestone`, `realPatientTested`, `patientOutcomeEvidence` and `classificationStatus`. Do not infer clinical testing from a journal title, case series or peer review. Existing free-text tags stay descriptive only.
+Before adding ANY source-backed content first apply the *evidence AND material impact* intake gate in `docs/MEASUREMENT_INTAKE.md` (including duplicate search, candidate decision and owner escalation); then read `docs/EVIDENCE_TAGGING.md`; its machine vocabulary is in `data/monitor-data.json` -> `meta.evidenceTaxonomy`. Each `editorialCards[cardId]` entry has a required `classification` with `topic`, `testSetting`, `studyDesign`, `milestone`, `realPatientTested`, `patientOutcomeEvidence` and `classificationStatus`. Do not infer clinical testing from a journal title, case series or peer review. Existing free-text tags stay descriptive only.
 
 The content files are ordinary UTF-8 JSON, independent of the dashboard. Use stable IDs and HTTPS original sources. Preserve original records and unknown values as null. Data import is editorial: no automatic approval or publication.
 
@@ -20,6 +20,11 @@ The content files are ordinary UTF-8 JSON, independent of the dashboard. Use sta
 | Interface translations | extensions.locales.de | English string → German translation |
 
 The legacyDashboard name is historical. These collections remain live and authoritative; adapters in data/*.js read them. Do not create a duplicate source or another content database.
+
+## Pre-insertion admission check
+- Do not write any new measurement, study or milestone before **both** hard gates in `docs/MEASUREMENT_INTAKE.md` pass. An exact, correct score can still be irrelevant, trivial, duplicated or too poorly generalizable to merit inclusion.
+- Existing comparable measurements may be proposed as small JSON changes, but new benchmark series, milestone flags, or debatable clinical conclusions require the owner’s decision; record decision and upgrade the intake rules after feedback.
+- The authoring agent must include source methods/table and a one-paragraph reason for inclusion; rejected/held candidates belong in the audit/backlog, not the published JSON.
 
 ## New measurement
 
