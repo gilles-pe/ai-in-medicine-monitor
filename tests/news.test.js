@@ -50,6 +50,6 @@ test('every Substack story has a star and original links carry named platform ic
 
 test('verified original metadata overrides translated-headline heuristics',()=>{
   const amie=orderedNews().find(item=>item.id==='amie-before-the-appointment');
-  assert.equal(newsLanguage(amie),'de');assert.equal(newsCategory(amie),'post');
-  assert.equal(newsLanguage({...amie,title:{en:'English translation',de:'Deutsches Original'}}),'de');
+  assert.equal(newsLanguage(amie),'en');assert.equal(newsCategory(amie),'post');
+  assert.equal(newsLanguage({...amie,originalLanguage:'de',title:{en:'English translation',de:'Deutsches Original'}}),'de');
 });

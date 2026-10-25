@@ -16,10 +16,14 @@
         {
           "platform": "bluesky",
           "url": "https://bsky.app/profile/gillespe.bsky.social/post/3myn3azwd6c2f"
+        },
+        {
+          "platform": "linkedin",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7519789452114874368/"
         }
       ],
       "category": "post",
-      "originalLanguage": "de"
+      "originalLanguage": "en"
     },
     {
       "id": "ai-physics-2026",
