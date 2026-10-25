@@ -35,6 +35,8 @@ Eligible = verified primary evidence, exact benchmark variant, sufficiently comp
 ## 4. Comparison discipline
 A result is comparable only if dataset version, scoring metric, task subset, scoring implementation, prompting/agent harness and tool access are sufficiently aligned. Different tools or ensemble methods can represent system-level progress, but must be named in the card. Where methods materially differ, keep a separate series or label the comparison illustrative rather than precise.
 
+The dedicated `clinician_chat_benchmark` test setting indicates offline rubric-scored professional clinician–AI conversations (HealthBench Professional), NOT a prospective real-patient trial, routine clinical deployment or proven patient outcome. Even when task origin is actual physician use, evaluation happens offline. HealthBench Core and Professional differ in cohort and scoring/protocol; never join their trend lines solely because both use the HealthBench name. The `docs/EVIDENCE_TAGGING.md` rule and `docs/MEASUREMENT_INTAKE.md` quality/impact gate remain mandatory.
+
 Do not turn benchmark points into 'X% of doctors replaced', 'X% clinical accuracy', or 'X% safe care'. Reference baselines must be tested on exactly the same benchmark/protocol or labeled as context only. In particular, a USMLE pass percentage is not an official MedQA pass threshold.
 
 ## 5. Admission before verification
