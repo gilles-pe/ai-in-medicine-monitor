@@ -3947,7 +3947,7 @@
       "tracks": [
         {
           "id": "knowledge",
-          "label": "Medical knowledge",
+          "label": "Medical Knowledge",
           "subtitle": "Knowledge and case solving",
           "unit": "%",
           "color": "#1c9d90",
@@ -3955,7 +3955,7 @@
         },
         {
           "id": "assistance",
-          "label": "Clinical assistance",
+          "label": "Clinical Assistance",
           "subtitle": "Quality of clinical answers",
           "unit": "points",
           "color": "#d69b28",
@@ -3963,7 +3963,7 @@
         },
         {
           "id": "autonomy",
-          "label": "Autonomous workflows",
+          "label": "Autonomous Workflows",
           "subtitle": "Virtual EHR test",
           "unit": "%",
           "color": "#4d7fbd",
@@ -6739,7 +6739,11 @@
         "What can AI do in medicine today?": "Was kann KI heute in der Medizin leisten?",
         "88.0% vs 81.0% met the diagnostic rubric threshold (≥4/5)": "88,0 % gegenüber 81,0 % mit mindestens 4/5 Punkten im diagnostischen Bewertungsraster",
         "Small vignette experiment, not prospective patient care. Better exploratory results for AI alone do not establish a benefit from AI assistance for physicians.": "Kleine Vignettenstudie statt prospektiver Versorgung. Bessere explorative Ergebnisse der KI allein belegen keinen Nutzen der KI-Unterstützung für Ärzte.",
-        "about me": "Über mich"
+        "about me": "Über mich",
+        "Medical Knowledge": "Medizinisches Wissen",
+        "Clinical Assistance": "Klinische Assistenz",
+        "Autonomous Workflows": "Selbstständige Abläufe",
+        "HealthBench Professional: 0–100 points; no verified human baseline in this dataset.": "HealthBench Professional: 0–100 Punkte; kein belegter menschlicher Referenzwert in diesem Datensatz."
       }
     },
     "navigation": {

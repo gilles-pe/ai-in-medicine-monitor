@@ -21,13 +21,17 @@ document.documentElement.lang=getLanguage();
 const today=new Date().toISOString().slice(0,10);
 const sharedCutoff=new URLSearchParams(location.search).get('cutoff');
 const initialCutoff=/^\d{4}-\d{2}-\d{2}$/.test(sharedCutoff||'')&&Number.isFinite(Date.parse(sharedCutoff+'T00:00:00Z'))&&new Date(sharedCutoff+'T00:00:00Z').toISOString().slice(0,10)===sharedCutoff&&sharedCutoff>='1950-01-01'&&sharedCutoff<='2030-12-31'?sharedCutoff:today;
-const state={cutoff:initialCutoff,model:'',playing:false,presentation:false,zoomedChart:null,seriesView:{}};
+const state={cutoff:initialCutoff,model:'',playing:false,presentation:false,zoomedChart:null};
 const dates=new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});
 const numbers=new Intl.NumberFormat('en-GB',{maximumFractionDigits:2});
 const date=value=>dates.format(new Date(value+'T00:00:00Z'));
 const score=row=>numbers.format(row.score)+(tracks.find(track=>track.id===row.trackId).unit==='%'?'%':' pts');
 const system=row=>row.trackId==='assistance'?row.system:row.model;
 let timer;
+const introViewport=window.matchMedia('(min-width: 861px)');
+const introduction=$('.about-monitor');
+introduction.open=introViewport.matches;
+introViewport.addEventListener('change',event=>{introduction.open=event.matches;});
 function rows(){return filterMeasurements(measurements,{cutoff:state.cutoff}).filter(row=>!state.model||row.model===state.model);}
 function announce(text){$('#live-status').textContent=text;}
 function highlightCard(id){
@@ -92,7 +96,7 @@ function toggleChartZoom(target){
   shell.querySelector('[data-chart-zoom="'+(state.zoomedChart||previous)+'"]')?.focus({preventScroll:true});
 }
 function renderTrack(track){
-  return renderTrackSection(track, state.cutoff, {model:state.model, seriesView:state.seriesView[track.id]||'all', zoomed:state.zoomedChart===track.id});
+  return renderTrackSection(track, state.cutoff, {model:state.model, zoomed:state.zoomedChart===track.id});
 }
 function render(){
   resetAbbreviations();
@@ -146,7 +150,6 @@ async function action(event){
   }
 }
 shell.addEventListener('click',action);
-content.addEventListener('change',event=>{if(event.target.matches('[data-series-view]')){state.seriesView[event.target.dataset.seriesView]=event.target.value;render();}});
 shell.addEventListener('keydown',event=>{if(['Enter',' '].includes(event.key)&&event.target.closest('svg [role="button"]')){event.preventDefault();action(event);}});
 let lastScrubYear=null,touchScrub=null,suppressOverviewClickUntil=0;
 function updateOverviewCursor(svgX,yearText,statusText){

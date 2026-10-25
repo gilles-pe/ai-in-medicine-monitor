@@ -49,7 +49,7 @@ export async function prerenderTree(root) {
   await writeFile(path.join(root, 'index.html'), home);
 
   let news = sharedFrame(await readFile(path.join(root, 'news/index.html'), 'utf8'),'../',{secondary:true});
-  news = fill(news, 'jsonld', jsonScript('/news/', 'Chronological news | Gilles Penning', "Gilles Penning's posts and perspectives on AI, medicine and the future of healthcare."));
+  news = fill(news, 'jsonld', jsonScript('/news/', 'Chronological News | Gilles Penning', "Gilles Penning's posts and perspectives on AI, medicine and the future of healthcare."));
   news = fill(news, 'archive', renderNewsArchive('en'));
   const newsItems='<script type="application/ld+json" id="news-structured-items">'+newsStructuredData()+'</script>';
   if(/<script[^>]*id="news-structured-items"[\s\S]*?<\/script>/.test(news))news=news.replace(/<script[^>]*id="news-structured-items"[\s\S]*?<\/script>/,newsItems);
