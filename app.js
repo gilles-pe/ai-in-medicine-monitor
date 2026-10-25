@@ -251,7 +251,7 @@ document.addEventListener('keydown',event=>{
   if(event.key!=='Tab'||dialog.open)return;
   const scope=!siteMenu.hidden?siteMenu:state.zoomedChart?(state.zoomedChart==='overview'?$('#overview'):$('#chart-'+state.zoomedChart)):null;
   if(!scope)return;
-  const elements=[...scope.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),summary,[tabindex="0"]')].filter(el=>el.getClientRects().length);
+  const elements=[...scope.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),summary,[tabindex="0"]')].filter(el=>el.getClientRects().length&&el.checkVisibility());
   if(scope===siteMenu)elements.unshift(menuButton);
   const first=elements[0],last=elements.at(-1);
   if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}

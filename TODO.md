@@ -32,7 +32,7 @@ The original phase 3 acceptance remains partly open. Current feature behavior is
 - Mobile Lighthouse performance is not yet >= 90, and mobile LCP is not yet < 2.5s. Do not treat the Phase 1–2 scores as meeting the original target.
 - [x] Owner portrait supplied and installed at `assets/img/gilles-penning.jpg`; original square JPEG preserved.
 - [x] Replace the privacy placeholder with an English/German notice reflecting actual hosting, local language storage, external images and links; retain noindex.
-- [x] Backfill explicit category/originalLanguage for the four older news entries after checking their originals. New AMIE entry has verified post/en metadata; older records keep the documented compatibility fallback.
+- [ ] Backfill explicit category/originalLanguage for the four older news entries after checking their originals. New AMIE entry has verified post/en metadata; older records keep the documented compatibility fallback.
 - [x] Translate dynamic takeaways as complete sentences before restoring abbreviation markup; preserve values, model names, dates and EN/DE round trips.
 - [x] Retain the assistance key number from the eligible same-protocol result (GPT-5.4 (Base), 48.1 points); other protocols remain separate.
 
@@ -62,3 +62,5 @@ Repair f926a6ba passed 68 unit tests, typecheck, build/path checks and 35 produc
 - [x] Remove the separate Milestones bar and benchmark selectors; keep independent series and move timeline controls to the burger menu.
 - [x] Smaller Glossary and factual bilingual privacy notice.
 - [ ] Add a human reference only when a directly comparable primary-source result is validated; current assistance dataset has none.
+
+- [x] Place milestone tiles below each lower chart, followed by a closed native Data table disclosure; question and answer follow immediately.

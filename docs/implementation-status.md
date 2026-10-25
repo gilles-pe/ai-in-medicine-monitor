@@ -238,3 +238,7 @@ Release f884288d2a21e6fd353f96bfbe4fc85152f74681 passed 75 unit tests, typecheck
 ## 25 October 2026 — responsive density and privacy
 
 Adjusted intro defaults, compact image/text fades, title casing, inline chart metrics, smaller Glossary and bilingual privacy notice. Removed standalone Milestones bar and per-chart benchmark filters; retained timeline controls in the menu and both separate benchmark series. Underlying study values and scientific review date unchanged. Local verification: 75 unit tests, TypeScript, build and 156 Pages paths passed. Production desktop/touch checks and deployment are pending for this revision.
+
+Follow-up in the same run: moved milestone tiles below each lower plot and its context, immediately before the closed Data table disclosure. Styled native data-table triangles like Sources. Question and answer now have no milestone tiles between them. Added a production interaction/order check.
+
+Release check found a keyboard focus edge case after moving the timeline into the menu: controls inside a closed native disclosure were counted as focusable. The menu/chart focus filter now excludes elements that fail checkVisibility(); desktop/touch release tests are being rerun. The previous build was blocked before deployment (41 browser cases passed, 2 focus cases failed).

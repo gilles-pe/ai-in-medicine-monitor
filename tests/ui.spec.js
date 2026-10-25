@@ -217,3 +217,12 @@ test('news previews expand and archive shares navigation and menu',async({page})
    await fold.locator('summary').click();await expect(fold.locator('.fold-content .news-thumbnail')).toBeVisible();
    await page.locator('.about-monitor>summary').click();await page.setViewportSize({width:390,height:844});await page.clock.runFor(200);await expect(page.locator('.about-monitor')).toHaveAttribute('open','');
  });
+
+ test('questions lead straight to answers and closed data tables follow milestone tiles',async({page})=>{
+ for(const id of ['knowledge','assistance','autonomy']){
+ const track=page.locator('#chart-'+id);await expect(track.locator('.chart-data-table')).not.toHaveAttribute('open','');
+ expect(await track.evaluate(e=>{const q=e.querySelector('.track-description'),visual=q.nextElementSibling,stories=e.querySelector('.chart-stories');return visual.classList.contains('track-visual')&&visual.querySelector('figure').firstElementChild.classList.contains('chart-takeaway')&&stories.nextElementSibling.classList.contains('chart-data-table');})).toBe(true);
+ await track.locator('.chart-data-table>summary').click();await expect(track.locator('.chart-data-table table')).toBeVisible();
+ }
+ await expect(page.locator('#overview .chart-data-table')).not.toHaveAttribute('open','');
+ });
