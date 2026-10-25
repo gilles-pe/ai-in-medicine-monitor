@@ -21,6 +21,9 @@ A glanceable medical AI progress radar for presentations, mobile screens, physic
 - Horizontal baseline only when test protocol supports it; benchmark context baselines use different styling with an explanation.
 - Highlight meaningful real milestones, not every press release.
 
+## Evidence tagging and filters
+Read `docs/EVIDENCE_TAGGING.md`. Evidence card must clearly show Topic and Test setting (and meaningful study design), independent of original peer-review badge. Show the difference between simulated cases and real patients, and never imply a clinical outcome from a benchmark. Milestone is a separate editorial flag, not the next evidence level. Expose compact filters only where supported by the displayed records; do not hide benchmark frontiers without explanation. Data Table includes the canonical test setting and design; Glossary defines controlled vocabulary using the central data. Keep labels bilingual and layout mobile-friendly.
+
 ## Point detail card - editorial schema 2.0
 All benchmark, milestone, history and study cards resolve their stable `cardId` through `editorialCards` in the central JSON. No generated fallback prose.
 
