@@ -14,6 +14,7 @@ The three questions are:
 - `MONITOR_STANDARD.md`: editorial and evidence policy (this file).
 - `DESIGN.md`: interface and interaction rules.
 - `AGENTS.md`: instructions for any AI assistant working with the project.
+- `docs/MEASUREMENT_INTAKE.md`: mandatory evidence quality + material impact/admission criteria, owner escalation, and rule-update loop.
 - `docs/EVIDENCE_TAGGING.md`: canonical source-linked topic, clinical test-setting, design and milestone rules. Machine values: `meta.evidenceTaxonomy`; per-card fields: `editorialCards[cardId].classification`.
 
 A database server is not required. JSON is portable to charts, slides, websites and other AI models. Changes should be version-controlled. Never silently replace or erase a historical record.
@@ -36,7 +37,10 @@ A result is comparable only if dataset version, scoring metric, task subset, sco
 
 Do not turn benchmark points into 'X% of doctors replaced', 'X% clinical accuracy', or 'X% safe care'. Reference baselines must be tested on exactly the same benchmark/protocol or labeled as context only. In particular, a USMLE pass percentage is not an official MedQA pass threshold.
 
-## 5. Data inclusion and validation
+## 5. Admission before verification
+Source-supported correctness is necessary but not sufficient: each NEW point/study/milestone first passes two separate gates, source-level reproducibility and material impact for understanding AI in medicine. An accurate but trivial or duplicative claim is held/rejected. Clinical applicability is independent of peer review. New series and milestone flags require owner approval. Use `docs/MEASUREMENT_INTAKE.md` for acceptance/hold/rejection rules and decision log; do not silently auto-ingest new results.
+
+## 6. Data inclusion and validation
 Source preference: (1) original peer-reviewed paper + tables, (2) original preprint or benchmark technical report, (3) official versioned leaderboard with methodology, (4) supplier testing clearly tagged as such. News articles are leads, not final proof.
 
 Every eligible main-line point requires: model/system name, exact score and unit, benchmark/version, release and measurement/publication dates when available, test setup, human-readable meaning, original source **URL**, specific page/table/row if possible, and a comparison assessment.
