@@ -60,6 +60,10 @@
       {
         "date": "2026-10-25",
         "action": "Copy audit: corrected AI capability question in EN/DE; repaired sentence fragments, awkward invitations and untranslated profile/caveat text. Clarified existing diagnostic rubric threshold (≥4/5) and direction of AI assistance without changing measurements, dates, statuses, sources or historical migration records. UI text changes do not constitute a scientific evidence review."
+      },
+      {
+        "date": "2026-10-25",
+        "action": "Owner-approved Microsoft MAI-DxO Science 2026 stepwise diagnostic reasoning milestone added to Clinical Assistance, with source and editorial card. Source score 83.2% on 304 simulated NEJM cases; physician open-book comparator 36.1% on a 56-case subset. Explicitly excluded from benchmark time-series and clinical patient-outcome claims. No other study, news, or benchmark points changed."
       }
     ],
     "previousTitles": [
@@ -3682,6 +3686,16 @@
           "checkedAt": "2026-10-25",
           "kind": "Peer-reviewed clinical feasibility study",
           "summary": "Final abstract: 98 completed visits; helpful preparation 33/44 reviewed questionnaire cases; possible behaviour change 25/44. Single-arm with live physician oversight."
+        },
+        {
+          "id": "mai-dxo-science-2026",
+          "title": "Sequential diagnosis with language models",
+          "publisher": "Nori et al. / Microsoft Research; Science (AAAS)",
+          "url": "https://www.science.org/doi/10.1126/science.aeh7930",
+          "version": "Published 22 October 2026 · DOI 10.1126/science.aeh7930",
+          "kind": "Peer-reviewed · simulated sequential diagnosis",
+          "checkedAt": "2026-10-25",
+          "summary": "MAI-DxO (GPT-5 orchestrator) reached 83.2% diagnostic accuracy on 304 complex NEJM teaching cases in SDBench. Generalist-physician comparator: 36.1% with references on 56 cases. Text-only benchmark, no prospective clinical validation."
         }
       ],
       "studies": [
@@ -4864,6 +4878,24 @@
           "cardId": "amie-previsit-2026",
           "timeline_year": 2026,
           "journal_citation": "The Lancet (2026), published online 8 October"
+        },
+        {
+          "id": "lower-mai-dxo-2026",
+          "trackId": "assistance",
+          "date": "2026-10-22",
+          "title": "MAI-DxO: Stepwise diagnostic reasoning",
+          "sourceId": "mai-dxo-science-2026",
+          "kind": "Peer-reviewed · simulated sequential diagnosis",
+          "design": "SDBench simulated stepwise medical workups: AI requested histories and tests, considered results and iteratively updated differential diagnoses. Microsoft tested GPT-5-based MAI-DxO on 304 published NEJM clinicopathological cases.",
+          "finding": "83.2% correct diagnoses on 304 complex NEJM cases. Generalist physicians using reference materials achieved 36.1% on a held-out subset of 56 cases, not the full 304.",
+          "limitations": "Controlled text-only simulations, not prospective care or patient outcomes. The 304-case AI and 56-case physician samples are not identical in size. Complex teaching cases may not reflect routine practice; generalists do not represent specialist teams. Model-orchestrator result, not a stand-alone model score.",
+          "locator": "Science: Abstract, SDBench evaluation and diagnostic-accuracy results; DOI 10.1126/science.aeh7930",
+          "shortTitle": "MAI-DxO: Stepwise diagnosis",
+          "result": "83.2% accuracy on 304 NEJM cases",
+          "note": "Diagnostic workflow orchestrator, simulated; 36.1% physician benchmark used a 56-case subset.",
+          "cardId": "lower-mai-dxo-2026",
+          "timeline_year": 2026,
+          "journal_citation": "Science 394(6822), 423–428 (2026)"
         }
       ],
       "trustContext": {
@@ -11618,6 +11650,53 @@
         "reviewedAt": "2026-10-25",
         "reviewedBy": "AI-assisted primary-source review",
         "note": "Final Lancet abstract checked on the authors’ publication record; survey counts differ from total completed visits. Clinical feasibility milestone, excluded from benchmark frontiers. Publication DOI 10.1016/S0140-6736(26)01535-7; volume/pages not verified."
+      }
+    },
+    "lower-mai-dxo-2026": {
+      "title": "MAI-DxO: Stepwise diagnostic reasoning",
+      "badge": {
+        "kind": "peer_reviewed",
+        "year": 2026
+      },
+      "tags": [
+        "Science 2026",
+        "Sequential diagnosis",
+        "304 simulated NEJM cases"
+      ],
+      "finding": {
+        "headline": "83.2% correct diagnoses in stepwise simulation",
+        "explanation": "MAI-DxO gathered evidence, requested tests and revised diagnoses over several rounds. Physicians using reference tools scored 36.1% in a 56-case subset.",
+        "value": 83.2,
+        "unit": "% diagnostic accuracy on 304 NEJM cases",
+        "kind": "quantitative"
+      },
+      "setup": "SDBench simulated stepwise medical workups: AI requested histories and tests, considered results and iteratively updated differential diagnoses. Microsoft tested GPT-5-based MAI-DxO on 304 published NEJM clinicopathological cases.",
+      "limitations": "Controlled text-only simulations, not prospective care or patient outcomes. The 304-case AI and 56-case physician samples are not identical in size. Complex teaching cases may not reflect routine practice; generalists do not represent specialist teams. Model-orchestrator result, not a stand-alone model score.",
+      "teaser": "83.2% in complex NEJM cases using sequential diagnostic reasoning.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-10-22",
+      "date_basis": "journal_publication",
+      "timeline_note": "Dated by publication in Science, not by GPT-5 release or evaluation date. This is a capability milestone, not a comparable benchmark-line point.",
+      "sources": [
+        {
+          "title": "Sequential diagnosis with language models",
+          "url": "https://www.science.org/doi/10.1126/science.aeh7930",
+          "journal_citation": "Science 394(6822), 423–428 (2026)",
+          "locator": "Results: SDBench NEJM diagnostic accuracy; DOI 10.1126/science.aeh7930"
+        },
+        {
+          "title": "Building Medical Superintelligence - official research summary",
+          "url": "https://microsoft.ai/news/building-medical-superintelligence/",
+          "journal_citation": "Microsoft AI, 22 October 2026",
+          "locator": "Rethinking How AI is Built and Tested; What we found"
+        }
+      ],
+      "validation": {
+        "status": "reported",
+        "comparability": "different_protocol",
+        "reviewedAt": "2026-10-25",
+        "reviewedBy": "AI-assisted source cross-check",
+        "note": "Microsoft's original report and independently published accounts corroborate the Science DOI, date and headline scores. Science full text could not be read directly (403); the milestone is labeled reported rather than fully independently confirmed. Physician subset is 56 cases, AI total 304. Neither clinical benefit nor comparable frontier series established."
       }
     }
   }
