@@ -15,7 +15,7 @@ test('research corrections preserve observed scores while fixing setup, dates an
   for(const id of ['2.14','2.15']){assert.equal(point(id).validation.status,'needs_review');assert.equal(point(id).publicationDate,null);assert.ok(eligibilityReasons(point(id)).length);}
 });
 test('every canonical card has one scannable layout, no Q&A or orphaned metadata delimiter',()=>{
-  assert.equal(Object.keys(monitorData.editorialCards).length,114);
+  assert.equal(Object.keys(monitorData.editorialCards).length,115);
   for(const id of Object.keys(monitorData.editorialCards)){
     const html=pointCardHtml(editorialCard(id));
     assert.match(html,/card-key-finding/);assert.match(html,/SETUP &amp; COHORT/);assert.match(html,/LIMITATIONS &amp; VALIDITY/);
@@ -44,4 +44,14 @@ test('study and milestone triggers resolve the same canonical card through cardI
   assert.equal(milestone.finding.headline,study.finding.headline);
   assert.equal(milestone.id,'lower-amie-previsit-2026');assert.equal(study.id,'amie-previsit-2026');
   assert.equal(milestone.finding.value,75);assert.match(milestone.setup,/98 completed/);
+});
+
+test('MAI-DxO is a separate Science milestone, not a chart frontier',()=>{
+  const card=editorialCard('lower-mai-dxo-2026');
+  assert.equal(card.finding.value,83.2);
+  assert.match(card.finding.headline,/stepwise simulation/);
+  assert.match(card.setup,/304 published NEJM/);
+  assert.match(card.limitations,/304-case AI and 56-case physician samples/);
+  assert.equal(card.validation.comparability,'different_protocol');
+  assert.ok(!points.some(point=>point.cardId==='lower-mai-dxo-2026'));
 });

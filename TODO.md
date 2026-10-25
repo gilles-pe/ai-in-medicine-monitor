@@ -12,6 +12,7 @@ The original phase 3 acceptance remains partly open. Current feature behavior is
 - [x] Link current feature/design/data-entry/change-log docs from AGENTS; include both JSON stores and docs in portable export.
 - [x] Replace GP monogram with the owner-supplied portrait in the profile and About page; accurate alt text and cache-busted asset URL.
 - [x] Add the authorized AMIE previsit study, source, milestone, card and news with the verified Bluesky thread. Correct denominators: 33/44 and 25/44; 98 completed visits. Keep outside benchmark frontiers.
+- [x] Add Microsoft MAI-DxO (Science, 22 October 2026) as a Clinical Assistance milestone with original study link, 83.2% on 304 simulated cases, 36.1% generalist comparator on 56 cases, and explicit clinical limitations. No new benchmark frontier point or other studies.
 - [ ] Add the AMIE Substack cross-post link when its exact published URL is verified; Substack was unavailable on 25 October. The exact LinkedIn post and Bluesky thread are verified and included; profiles and older articles are not substitutes.
 
 
