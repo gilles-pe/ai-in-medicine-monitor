@@ -41,3 +41,40 @@ test('Data table, Glossary and filters use controlled test-setting values',()=>{
   assert.match(filterOptions(),/Major milestones only/);
   assert.match(renderTrackDataTable(tracks.find(x=>x.id==='knowledge'),'2026-10-25'),/Test setting/);
 });
+
+test('HealthBench Professional uses clinician-chat benchmark across linked cards, never patient trial',()=>{
+  const professionalIds=['2.6','2.7','2.8','2.9','2.10','2.11','2.12','2.13','2.14','2.15','hbp-gpt54-base','hbp-gpt54-browsing','hbp-chatgpt-clinicians','trend-hbp-gpt5','trend-hbp-gpt52','trend-hbp-gpt54','trend-hbp-physicians','healthbench-2026'];
+  for(const id of professionalIds){
+    const c=evidenceCard(id).classification;
+    assert.equal(c.testSetting,'clinician_chat_benchmark',id);
+    assert.equal(c.studyDesign,'benchmark',id);
+    assert.equal(c.realPatientTested,false,id);
+    assert.equal(c.patientOutcomeEvidence,false,id);
+    assert.equal(c.milestone,false,id);
+  }
+  for(const id of ['2.1','2.2','2.3','2.4','2.5']) {
+    assert.notEqual(evidenceCard(id).classification.testSetting,'clinician_chat_benchmark','HealthBench Core must not inherit Professional cohort');
+  }
+  assert.equal(data.meta.evidenceTaxonomy.testSettings.clinician_chat_benchmark.label.de,'Benchmark mit Arzt-KI-Dialogen');
+});
+
+test('Bilingual glossary, data table and filter show new clinician-chat classification',()=>{
+  assert.match(evidenceGlossaryHtml(),/Clinician-chat benchmark/);
+  assert.match(evidenceGlossaryHtml(),/not patients in a prospective clinical trial/);
+  assert.match(filterOptions(),/option value="clinician_chat_benchmark"/);
+  assert.match(evidenceSummary(evidenceCard('healthbench-2026'),'de'),/Arzt-KI-Dialogen/);
+  const table=renderTrackDataTable(tracks.find(track=>track.id==='assistance'),'2026-10-25');
+  assert.match(table,/Clinician-chat benchmark/);
+});
+
+test('Validator prevents clinician chat benchmark from falsely claiming real patient trial',()=>{
+  for(const change of [
+    cls=>{cls.studyDesign='randomized_clinical_trial';},
+    cls=>{cls.realPatientTested=true;},
+    cls=>{cls.patientOutcomeEvidence=true;}
+  ]){
+    const altered=structuredClone(data);
+    change(altered.editorialCards['healthbench-2026'].classification);
+    assert.match(validateMonitor(altered).errors.join('; '),/offline clinician chat tests require benchmark design/);
+  }
+});

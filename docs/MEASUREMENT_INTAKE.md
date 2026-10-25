@@ -1,5 +1,5 @@
 # Measurement intake, verification and editorial admission gate
-Version 1.0 | 2026-10-25 | normative, before any insertion of a new benchmark, study, milestone or source-backed news
+Version 1.1 | 2026-10-25 | normative, before any insertion of a new benchmark, study, milestone or source-backed news
 
 ## Mandatory reading / authority
 Every research, validation, data-entry, news or publishing agent MUST first read:
@@ -34,6 +34,9 @@ Admit only when at least ONE of these is defensible AND supported by Gate A:
 5. A historically pivotal foundation that makes the timeline more understandable and is not a repeat of an already represented milestone.
 
 A source can pass **source verification** and FAIL **admission** as trivial, redundant, poorly generalizable, PR-driven or misleading. Keep it in the research queue/rejection log; do not hide negative evidence when it materially changes the picture.
+
+### Clinician-chat benchmark - owner-approved classification precedent
+The owner approved a distinct **`clinician_chat_benchmark` test setting** for offline professional tasks from real-origin clinician–AI conversations (notably HealthBench Professional, 2026). The fact that original clinicians may have used AI at work **does not turn an offline re-evaluation into a prospective patient study or evidence of improved outcomes**. Match actual benchmark cohort, prompt, grader/rubric, difficulty selection, original publication and model-vs-product harness. The original general HealthBench Core (2025) is a different, broader set of mostly synthetic health conversations and must NOT be relabeled as clinician-only or numerically bridged to Professional. Existing supplier-only or missing-source scores stay unverified/provisional despite a shared test-setting category. This owner's classification decision does NOT grant automatic admission to new studies, new benchmark series or milestones: both Gate A and Gate B still apply.
 
 ### Editorial destinations (do not conflate)
 - **Existing benchmark data point**: passes Gate A and B, exact existing metric/protocol/version, same series (or explicitly new independent series), reusable timestamp + limitations. `status` and `comparability` determine whether shown/connected.

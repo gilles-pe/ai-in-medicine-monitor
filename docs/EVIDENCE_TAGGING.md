@@ -1,5 +1,5 @@
 # Evidence classification and milestone tagging
-Version: 1.0 · 2026-10-25 · Canonical policy for all AI editors
+Version: 1.1 · 2026-10-25 · Canonical policy for all AI editors
 
 ## Read order and single source of truth
 Every research, validation, data-entry, dashboard and publishing agent MUST read `AGENTS.md`, this document, `MONITOR_STANDARD.md` and `docs/data-entry-guide.md` BEFORE adding or changing studies, chart observations, historical events, milestones or evidence-backed news.
@@ -8,7 +8,7 @@ Use stable machine values in JSON, not localized labels. The UI, export, Data ta
 
 ## Two axes plus milestone - never flatten into one ladder
 1. `topic` (exactly one): `capability` (benchmarks/model performance), `clinical_evidence` (clinical validation/test of a tool, including experimental clinical studies), `real_world_use` (documented routine clinical implementation), `discovery` (scientific/biomedical discovery), `context` (background events outside these four areas), or `unclassified` (not assessed). Topic expresses what the item is ABOUT, not how mature or credible it is.
-2. `testSetting` (exactly one): `exam_or_vignette`, `simulated_workflow`, `standardized_patient`, `retrospective_records`, `prospective_patients`, `routine_care`, `preclinical`, `laboratory`, `non_clinical`, `unknown`. This describes what was tested, not the source's prestige.
+2. `testSetting` (exactly one): `exam_or_vignette`, `clinician_chat_benchmark`, `simulated_workflow`, `standardized_patient`, `retrospective_records`, `prospective_patients`, `routine_care`, `preclinical`, `laboratory`, `non_clinical`, `unknown`. This describes what was tested, not the source's prestige.
 3. `studyDesign` (exactly one): `benchmark`, `retrospective_evaluation`, `retrospective_simulation`, `prospective_single_arm`, `prospective_observational`, `randomized_simulation`, `randomized_clinical_trial`, `real_world_observational`, `case_report`, `historical_event`, `other`, `unknown`. This describes protocol and presence of a control group, independent of setting.
 4. `milestone` is an independently curated boolean flag, not a fifth topic or automatically assigned to every paper, high score, study or chart milestone tile.
 5. `realPatientTested` and `patientOutcomeEvidence` are tri-state booleans (`true`, `false`, `null`). `null` means not established; never treat unknown as no. Patient interactions alone do NOT establish improved clinical outcomes.
@@ -17,8 +17,15 @@ Use stable machine values in JSON, not localized labels. The UI, export, Data ta
 ## Admission is not the same as tagging
 Assigning a correct classification or source-verifying a number never warrants adding an item. Apply both editorial gates in `docs/MEASUREMENT_INTAKE.md` before any new content. For ambiguous distinctions or marginal impact, ask the owner and record the answer in `docs/decisions.md`; update written policy and tests after feedback.
 
+## Owner-approved rule: clinician-chat benchmarks (25 October 2026)
+- Use `clinician_chat_benchmark` for **offline model evaluations** of physician-authored, real-world-origin clinician–AI conversations / curated clinician professional tasks (e.g. **HealthBench Professional, arXiv:2604.27470v1**). The evaluated unit is a model response graded against a rubric; even a conversation collected from actual clinical use is **not** evidence that the evaluated model underwent a prospective trial with real patients. For this offline test `studyDesign=benchmark`, `realPatientTested=false`, `patientOutcomeEvidence=false` unless source-specific contrary evidence has been established.
+- HealthBench Professional uses 525 clinician-authored tasks selected from 15,079 candidate conversations, with difficulty-enriched sampling and about one-third adversarial examples; the three use cases include care consultations, documentation and medical research. The benchmark score is not clinical diagnostic accuracy or treatment outcome, and it is not a comparison with a matched prospective care cohort. The full product/system harness and physician reference results must not be silently collapsed into base-model performance.
+- **Do not apply this tag by keyword alone.** Original **HealthBench Core 2025** used 5,000 broader health conversations with laypeople and professionals, generated through a different evaluation pipeline. It is NOT HealthBench Professional, should remain in a separate benchmark series, and should not inherit the clinician-chat tag. Its currently provisional `exam_or_vignette` classification merits independent re-audit; do not silently reinterpret it as a physician-only cohort.
+- Vendor or unverified results claiming HealthBench Professional can carry this *test-setting type* with `classificationStatus=provisional` and original score validation unchanged. The tag does not validate whether a vendor actually ran the identical protocol or had access to the claimed model.
+- A newly named clinician-chat benchmark must pass the **evidence AND impact** gates in `docs/MEASUREMENT_INTAKE.md`, including source provenance, rubric/harness, sample composition and comparative methods; ask the owner if admission or classification is materially unclear.
+
 ## Critical decision rules
-- Exam-style questions, constructed case vignettes, published NEJM teaching cases and model-graded clinician-chat prompts are NOT real-patient clinical trials, even if authored by clinicians, peer-reviewed or originally motivated by real cases. Set `realPatientTested=false` when confirmed by the methods.
+- Exam-style questions, constructed case vignettes, published NEJM teaching cases and model-graded clinician-chat benchmark tasks are NOT real-patient clinical trials, even if authored by clinicians, peer-reviewed or originally motivated by real cases. Set `realPatientTested=false` when confirmed by the methods.
 - Simulated EHR tasks remain `simulated_workflow` even if they replay retrospective MIMIC records; choose `retrospective_simulation` and note the actual record origin in the card's setup. DO NOT upgrade a replay to `prospective_patients`.
 - Standardized patients / paid actors are `standardized_patient`, not actual prospective patient care. Randomization of vignettes or actor conversations is `randomized_simulation`, not `randomized_clinical_trial`.
 - A real prospective study with patients but no control arm is `prospective_single_arm`, not a controlled trial. A clinical RCT requires real patients, prospectively assigned interventions and a relevant clinical comparator.

@@ -19,7 +19,8 @@ Maintain a popular-science 'AI in Medicine' showing medical AI progress in three
 
 ## Evidence classification - required on every new item
 - Follow `docs/EVIDENCE_TAGGING.md` and the machine vocabulary in `data/monitor-data.json` -> `meta.evidenceTaxonomy`. Add or verify `editorialCards[cardId].classification` before publishing a new evidence record; leave unknowns explicit.
-- Differentiate exam/vignette benchmarks, simulated workflows, actor studies, retrospective actual records and prospective real-patient studies. A case-based RCT is NOT a real-patient clinical RCT; peer review is NOT clinical validation.
+- Differentiate exam/vignette benchmarks, **offline clinician-chat benchmarks (HealthBench Professional)**, simulated workflows, actor studies, retrospective actual records and prospective real-patient studies. A case-based RCT is NOT a real-patient clinical RCT; peer review is NOT clinical validation.
+- `clinician_chat_benchmark` is a source-checked TEST SETTING (not the topic `clinical_evidence` nor proof of real-patient care). Only apply to offline clinician-authored professional-chat tasks after inspecting cohort and grader; **do not conflate HealthBench Core with HealthBench Professional**. See the owner-approved exception/rule in `docs/EVIDENCE_TAGGING.md`.
 - A `milestone` flag is editorial significance, not an evidence level. Do not add without explicit justification and approval. Preserve `patientOutcomeEvidence=false/null` unless actual outcomes were assessed.
 - Use the same classification in cards, milestones, Data tables, Glossary and news with `linkedCardId`. Do not create parallel tags from free-form `tags[]`.
 
@@ -91,7 +92,7 @@ The primary publication target is GitHub Pages at `https://gilles-pe.github.io/a
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `9c60d4b611cf3afe1807032f74f97ab1d912055bb55946b48031d5f38b147195`
+- SHA-256 (parsed JSON): `8bbe22eff02970fb0e4709d3d60b59ffa19a84f476b4e927524466bca2b35fad`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2

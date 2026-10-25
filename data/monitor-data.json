@@ -76,6 +76,10 @@
       {
         "date": "2026-10-25",
         "action": "Historical source-grouped audit: reviewed setting/design and cited values in 11 existing editorial cards from six original papers (Goh JAMA 2024, AMIE Nature 2025, MIRA Nature 2026, MedAgentBench arXiv v2, Med-PaLM Nature 2023, STAR Science Robotics 2022). Retained all numeric values, validation statuses, chronology and prior milestone decisions; added methods provenance per card. Remaining classifications provisional; status source-specific in docs/HISTORICAL_EVIDENCE_AUDIT_2026-10-25.md. Intake evidence and material-impact gate documented separately. No full scientific review date change."
+      },
+      {
+        "date": "2026-10-25",
+        "action": "Owner-approved taxonomy refinement: added clinician_chat_benchmark for offline clinician-authored tasks derived from clinician–AI conversations. Applied to 18 existing HealthBench Professional/claimed Professional benchmark evidence cards incl. system variants, physician reference, vendor and unverified claims; kept their original validation.status, classificationStatus, scores, patient-outcome flags, milestone flags, dates, tools/protocol and frontier eligibility unchanged. Original general HealthBench Core and MedQA remain separate; see docs/EVIDENCE_TAGGING.md and docs/decisions.md."
       }
     ],
     "previousTitles": [
@@ -161,6 +165,16 @@
           "description": {
             "en": "Questions, crafted cases or published teaching cases, without direct live patient care.",
             "de": "Fragen, konstruierte Fälle oder veröffentlichte Lehrfälle ohne unmittelbare Versorgung echter Patienten."
+          }
+        },
+        "clinician_chat_benchmark": {
+          "label": {
+            "en": "Clinician-chat benchmark",
+            "de": "Benchmark mit Arzt-KI-Dialogen"
+          },
+          "description": {
+            "en": "Offline, rubric-scored clinician–AI conversations or physician-authored clinical tasks (e.g. HealthBench Professional), often selected from real clinician chats. The tested model answers archived or curated tasks, not patients in a prospective clinical trial; the origin of a conversation does not prove treatment benefit.",
+            "de": "Offline bewertete Arzt-KI-Dialoge oder ärztlich erstellte klinische Aufgaben (z. B. HealthBench Professional), teils aus echten Arzt-Chats ausgewählt. Getestet werden Modellantworten auf kuratierte Aufgaben, keine Behandlung von Patienten in einer prospektiven klinischen Studie. Die Herkunft eines Dialogs belegt keinen Patientennutzen."
           }
         },
         "simulated_workflow": {
@@ -8215,7 +8229,7 @@
       "evaluation": null,
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -8267,7 +8281,7 @@
       "evaluation": null,
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -8319,7 +8333,7 @@
       "evaluation": null,
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -8371,7 +8385,7 @@
       "evaluation": null,
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -8423,7 +8437,7 @@
       "evaluation": null,
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -8475,7 +8489,7 @@
       "evaluation": null,
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -8527,7 +8541,7 @@
       "evaluation": null,
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -8579,7 +8593,7 @@
       "evaluation": null,
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -8631,7 +8645,7 @@
       "evaluation": null,
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -8683,7 +8697,7 @@
       "evaluation": null,
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -9861,7 +9875,7 @@
       },
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -9908,7 +9922,7 @@
       },
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -9955,7 +9969,7 @@
       },
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -10324,7 +10338,7 @@
       },
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -10371,7 +10385,7 @@
       },
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -10418,7 +10432,7 @@
       },
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -10603,7 +10617,7 @@
       },
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
@@ -11634,7 +11648,7 @@
       },
       "classification": {
         "topic": "capability",
-        "testSetting": "exam_or_vignette",
+        "testSetting": "clinician_chat_benchmark",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,
