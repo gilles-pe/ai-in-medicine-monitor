@@ -86,5 +86,6 @@ Release verification for the responsive-density/table-order update: source 5ec86
 - [x] Add independent historical audit ledger and verify the original Methods / cited values for six unique study sources, 11 linked cards (without changing benchmark scores, comparability or timeline).
 - [x] Include audit and intake specifications in portable ZIP export and GitHub Pages build.
 - [ ] Historical source audit, follow-up: remaining provisional classification cards, prioritize clinical study and numeric benchmark series; group by original cohort/DOI and avoid counting duplicate representations as separate validation.
-- [ ] Owner to decide whether a distinct `clinician_chat_benchmark` testSetting is needed for HealthBench Professional; current `exam_or_vignette` may be misleading for physician-authored multi-turn tasks. Do not alter taxonomy pending owner feedback.
+- [x] Owner approved and implemented distinct `clinician_chat_benchmark` testSetting for HealthBench Professional (18 evidence cards); maintain separate HealthBench Core evaluation series and unchanged source-validation statuses.
+- [ ] Independently reassess whether `exam_or_vignette` adequately describes HealthBench Core's mostly synthetic general health conversations; do not infer that its examples are exclusively physician chats.
 - [ ] Independent evidence audit of source-restricted papers and clinical patient outcome claims; no inferred upgrade from source title or PR.
