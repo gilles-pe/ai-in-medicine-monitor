@@ -64,3 +64,5 @@ Repair f926a6ba passed 68 unit tests, typecheck, build/path checks and 35 produc
 - [ ] Add a human reference only when a directly comparable primary-source result is validated; current assistance dataset has none.
 
 - [x] Place milestone tiles below each lower chart, followed by a closed native Data table disclosure; question and answer follow immediately.
+
+Release verification for the responsive-density/table-order update: source 5ec865c passed 75 unit tests, TypeScript, document/build/path checks and 45 production desktop/touch cases (3 intentional skips). Pages run 40181288607 deployed successfully; live HTML and bilingual privacy content checked. Remaining archive, contrast, Lighthouse and human-baseline research tasks stay open.
