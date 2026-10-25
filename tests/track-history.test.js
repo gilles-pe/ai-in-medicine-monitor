@@ -5,8 +5,8 @@ import { sourceCatalog,measurements } from '../data/evidence.js';
 import { visibleTrackMilestones,historyX,renderTrackHistory } from '../lib/track-history.js';
 
 test('each lower group has dated original-source milestones and valid evidence boundaries',()=>{
-  assert.equal(trackMilestones.length,10);
-  assert.equal(new Set([...trackMilestones,trustContext].map(item=>item.id)).size,11);
+  assert.equal(trackMilestones.length,11);
+  assert.equal(new Set([...trackMilestones,trustContext].map(item=>item.id)).size,12);
   for(const trackId of ['knowledge','assistance','autonomy']) {
     const group=visibleTrackMilestones(trackId,'2026-10-18');
     assert.equal(group.length,trackId==='assistance'?4:3);
@@ -53,4 +53,14 @@ test('history x coordinates share the real 2022 publication axis with bounded po
   assert.equal(mark.date,'2026-03-09');assert.match(mark.finding,/33\/44/);assert.match(mark.finding,/25\/44/);
   assert.match(mark.limitations,/No control group/);assert.match(mark.design,/98 completed/);
   assert.ok(!measurements.some(row=>row.id==='amie-previsit-2026'));
+});
+
+test('MAI-DxO appears only once at publication date as an assistance milestone',()=>{
+  const mark=trackMilestones.find(x=>x.id==='lower-mai-dxo-2026');
+  assert.equal(mark.date,'2026-10-22');
+  assert.equal(mark.trackId,'assistance');
+  assert.match(mark.finding,/83\.2%.*304.*36\.1%.*56/);
+  assert.equal(visibleTrackMilestones('assistance','2026-10-21').length,4);
+  assert.equal(visibleTrackMilestones('assistance','2026-10-22').length,5);
+  assert.ok(!measurements.some(row=>row.id===mark.id));
 });
