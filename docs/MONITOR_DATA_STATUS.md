@@ -6,7 +6,7 @@
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `9c60d4b611cf3afe1807032f74f97ab1d912055bb55946b48031d5f38b147195`
+- SHA-256 (parsed JSON): `8bbe22eff02970fb0e4709d3d60b59ffa19a84f476b4e927524466bca2b35fad`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2
