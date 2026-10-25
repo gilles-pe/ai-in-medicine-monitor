@@ -86,7 +86,7 @@ Keep score truth, comparison protocol and chronology separate. Confirmed but qua
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `3a645ceadb69400fd5570ea62167b43d5a6ef2d41f747377dac9a388d479ed56`
+- SHA-256 (parsed JSON): `d09398075c15d99c6d9048359c84bc40bc1c835e65780880c0762d3a82c5f3a8`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2

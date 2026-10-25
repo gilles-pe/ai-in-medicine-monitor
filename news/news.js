@@ -9,11 +9,11 @@ function render(locale, persist = false) {
   document.title = copy.title + ' · Gilles Penning';
   document.querySelector('#news-title').textContent = copy.title;
   document.querySelector('#news-intro').textContent = copy.intro;
-  document.querySelector('#news-order').textContent = copy.order;
-  document.querySelector('#news-star-key').textContent = copy.key;
+  
+  
   document.querySelector('#news-back').textContent = '← ' + copy.back;
   document.querySelector('#news-back').href = '../?lang=' + locale;
-  document.querySelector('#news-home').href = '../?lang=' + locale;
+  
   document.querySelector('#news-follow').textContent = copy.follow + ' ↗';
   document.querySelector('.skip-link').textContent = locale === 'de' ? 'Zum Inhalt' : 'Skip to content';
   document.querySelector('.language-switch').setAttribute('aria-label', locale === 'de' ? 'Sprache' : 'Language');
@@ -49,6 +49,6 @@ function applyNewsFilters() {
   });
 }
 document.querySelector('#news-filters')?.addEventListener('change', applyNewsFilters);
-document.querySelectorAll('[data-news-language]').forEach(button => button.addEventListener('click', () => render(button.dataset.newsLanguage, true)));
+document.addEventListener('site-language-change',event=>render(event.detail.locale));
 render(preferredLanguage(location.search, storage));
 if (location.hash) requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView({ block: 'start' }));

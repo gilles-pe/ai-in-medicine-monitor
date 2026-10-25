@@ -98,11 +98,11 @@ function render(){
   resetAbbreviations();
   const openSources=[...shell.querySelectorAll('.section-sources[open]')].map(el=>el.id);
   $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false});
-  $('#milestone-list').innerHTML=renderMilestoneLinks(state.cutoff);
+  if($('#milestone-list'))$('#milestone-list').innerHTML=renderMilestoneLinks(state.cutoff);
   $('#previews-slot').innerHTML=renderPreviews();
   $('#tracks-slot').innerHTML=tracks.map(renderTrack).join('');
   openSources.forEach(id=>{const panel=document.getElementById(id);if(panel)panel.open=true;});
-  $('#study-list').innerHTML=renderStudyButtons(state.cutoff);
+  if($('#study-list'))$('#study-list').innerHTML=renderStudyButtons(state.cutoff);
   const sourceIndex=$('#source-index');
   if(sourceIndex) sourceIndex.innerHTML=renderSourceIndex(state.cutoff);
   syncZoomState();

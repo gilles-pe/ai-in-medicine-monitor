@@ -99,8 +99,9 @@ test('menu retains social links, direct message feedback dialog and presentation
   await page.locator('#menu-button').click();await page.locator('#present-button').click();await expect(page.locator('body')).toHaveClass(/presentation-mode/);await expect(page.locator('#site-menu')).not.toBeVisible();await expect(page.locator('#menu-button')).toBeVisible();await page.keyboard.press('Escape');await expect(page.locator('body')).not.toHaveClass(/presentation-mode/);
 });
 
-test('timeline playback keeps milestones open and study disclosure persists on updates',async({page})=>{
-  await page.locator('.study-library summary').click();await expect(page.locator('[data-study-id]')).toHaveCount(7);await page.locator('[data-study-id="alphafold2"]').click();await expect(page.getByRole('dialog')).toContainText('0.96');await page.keyboard.press('Escape');await date(page,'2020-12-31');await page.locator('#play-button').click();await page.clock.runFor(1101);await expect(page.locator('#cutoff-date')).toHaveValue('2021-12-31');await expect(page.locator('#milestones-panel')).toHaveAttribute('open','');await expect(page.locator('.study-library')).toHaveAttribute('open','');await page.locator('#play-button').click();
+test('timeline playback keeps controls open without redundant bottom indexes',async({page})=>{
+ await expect(page.locator('#source-index,.study-library,#milestone-list')).toHaveCount(0);
+ await date(page,'2020-12-31');await page.locator('#play-button').click();await page.clock.runFor(1101);await expect(page.locator('#cutoff-date')).toHaveValue('2021-12-31');await expect(page.locator('#milestones-panel')).toHaveAttribute('open','');await page.locator('#play-button').click();
 });
 
 test('chart zoom buttons expand and collapse overview and track charts',async({page})=>{
@@ -135,10 +136,10 @@ test('nearby lower-chart markers support source-backed hover and keyboard pinnin
 
 test('approved disclosure hierarchy preserves the practical question and profile placement',async({page})=>{
   await expect(page.locator('#intro-question')).toHaveText('What can AI do in medicine today?');
-  await expect(page.locator('.about-monitor')).toHaveAttribute('open','');
+  await expect(page.locator('.about-monitor')).not.toHaveAttribute('open','');
   await page.locator('.about-monitor > summary').click();
-  await expect(page.locator('.about-monitor')).not.toHaveAttribute('open','');await expect(page.locator('#intro-question')).toBeVisible();
-  for(const selector of ['#glossary','#source-index','#track-sources-knowledge','#track-sources-assistance','#track-sources-autonomy']){
+  await expect(page.locator('.about-monitor')).toHaveAttribute('open','');await expect(page.locator('#intro-question')).toBeVisible();
+  for(const selector of ['#glossary','#track-sources-knowledge','#track-sources-assistance','#track-sources-autonomy']){
     const panel=page.locator(selector);await expect(panel).not.toHaveAttribute('open','');await panel.locator(':scope > summary').click();await expect(panel).toHaveAttribute('open','');
   }
   await page.locator('#chart-knowledge [data-series-view]').selectOption('medqa_main');
@@ -195,4 +196,11 @@ test('German dynamic summaries and AMIE clinical card retain exact evidence',asy
   const card=page.getByRole('dialog');await expect(card).toContainText('33/44');await expect(card).toContainText('25/44');await expect(card).toContainText('98 completed');await expect(card).toContainText('No control group');
   await expect(card.locator('.point-sources a')).toHaveAttribute('href',/^https:\/\/research.google\/pubs\//);
   await page.keyboard.press('Escape');await expect(page.locator('#news-amie-before-the-appointment')).toContainText('24 Oct');
+});
+
+test('news previews expand and archive shares navigation and menu',async({page})=>{
+ const first=page.locator('.news-fold').first();await expect(first).not.toHaveAttribute('open','');await first.locator('summary').click();await expect(first.locator('.news-meta-row')).toBeVisible();
+ await page.locator('#section-nav').getByRole('link',{name:'News',exact:true}).click();await expect(page).toHaveURL(/news\/\?lang=en/);await expect(page.locator('#news-title')).toHaveText('Chronological news');await expect(page.locator('#news-back')).toHaveText('← Back to medical AI dashboard');await expect(page.locator('#news-reading-key,#news-order')).toHaveCount(0);
+ await page.locator('#menu-button').click();await expect(page.locator('#site-menu')).toBeVisible();await page.locator('[data-language="de"]').click();await expect(page.locator('#news-title')).toHaveText('Chronologische News');await page.keyboard.press('Escape');
+ await expect(page.locator('#news-items .news-card-item')).not.toHaveCount(0);await page.locator('#news-items .news-fold summary').first().click();await expect(page.locator('#news-items .news-meta-row').first()).toBeVisible();
 });

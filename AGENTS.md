@@ -12,7 +12,8 @@ Maintain a popular-science 'AI in Medicine' showing medical AI progress in three
 5. `FUNCTIONALITY.md` - current features, interaction requirements and release acceptance.
 6. `TODO.md` - canonical active backlog; `docs/TODO.md` is historical.
 7. `docs/decisions.md` and `docs/implementation-status.md` - approved decisions and per-run change/test history.
-8. `docs/data-entry-guide.md`, `data/news.json`, `docs/news-editorial.md` - portable content entry and approved news.
+8. `docs/NEWS_COVERAGE.md` - archive provenance, exclusions and access limits.
+9. `docs/data-entry-guide.md`, `data/news.json`, `docs/news-editorial.md` - portable content entry and approved news.
 
 ## Universal operating constraints
 - Never program or redesign unless asked; a research task produces candidate data and sources.
@@ -74,7 +75,7 @@ The primary publication target is GitHub Pages at `https://gilles-pe.github.io/a
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `3a645ceadb69400fd5570ea62167b43d5a6ef2d41f747377dac9a388d479ed56`
+- SHA-256 (parsed JSON): `d09398075c15d99c6d9048359c84bc40bc1c835e65780880c0762d3a82c5f3a8`
 - Tracks / benchmark series / measurements: 3 / 6 / 44
 - Score validation: 38 confirmed, 1 reported, 5 under review
 - Main-line eligible scores: 31; original-link gaps: 2
@@ -86,3 +87,5 @@ This section is generated from `data/monitor-data.json`; do not edit it by hand.
 
 Run `node scripts/sync-monitor-docs.mjs` after a JSON change, and `node scripts/sync-monitor-docs.mjs --check` before release. Structural checks do not constitute independent scientific validation or live URL verification.
 <!-- monitor-data-contract:end -->
+
+The owner explicitly authorized the 25 October 2026 historical-post import. Crossposts are one item with several verified URLs; follow one original per story, never invent unavailable X/LinkedIn links or article dates. See docs/decisions.md and docs/NEWS_COVERAGE.md for current news design and coverage.

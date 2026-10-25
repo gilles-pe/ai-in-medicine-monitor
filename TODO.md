@@ -45,3 +45,11 @@ Repair f926a6ba passed 68 unit tests, typecheck, build/path checks and 35 produc
 - [x] Correct AI capability question in EN/DE; retain personal I only in owner copy.
 - [x] Repair sentence fragments, awkward invitations, untranslated profile/card caveats and category/language concatenation.
 - [x] Preserve benchmark records, original sources and evidence-review dates; synchronize policy/document hashes.
+
+## Chronological archive - 25 October 2026
+
+- [x] Compact faded intro/news, consistent headings, thumbnails and metadata/source rows.
+- [x] Shared header/menu on dashboard, archive, About and legal pages.
+- [x] Remove redundant bottom indexes; preserve chart cards and timeline controls.
+- [x] Import 20 distinct verified stories and document research coverage.
+- [ ] Complete missing Substack/LinkedIn/X archive from accessible original links or publication export; see docs/NEWS_COVERAGE.md.

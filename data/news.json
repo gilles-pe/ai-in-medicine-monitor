@@ -23,7 +23,15 @@
         }
       ],
       "category": "post",
-      "originalLanguage": "en"
+      "originalLanguage": "en",
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreihll66jqaxgsht7zfx5gacn2btobvryzazjbhj2k52bco6zvrueya",
+        "alt": {
+          "en": "Image accompanying the original post",
+          "de": "Bild aus dem Originalbeitrag"
+        },
+        "sourceUrl": "https://bsky.app/profile/gillespe.bsky.social/post/3myn3azwd6c2f"
+      }
     },
     {
       "id": "ai-physics-2026",
@@ -42,7 +50,45 @@
           "platform": "bluesky",
           "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mygyvefons2o"
         }
-      ]
+      ],
+      "originalLanguage": "en",
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreiasxacpfciazsjfx3xxhedrh5ukxx5w6bevc6ynwkiofylsstd2qu",
+        "alt": {
+          "en": "Image accompanying the original post",
+          "de": "Bild aus dem Originalbeitrag"
+        },
+        "sourceUrl": "https://bsky.app/profile/gillespe.bsky.social/post/3mygyvefons2o"
+      }
+    },
+    {
+      "id": "healthcare-waste-art",
+      "date": "2026-10-17",
+      "approved": true,
+      "category": "post",
+      "originalLanguage": "en",
+      "title": {
+        "en": "Healthcare waste, seen through art",
+        "de": "Kunst macht Ressourcenverbrauch im Gesundheitswesen sichtbar"
+      },
+      "summary": {
+        "en": "A hospital artwork in Istanbul prompted thoughts about waste and resources in healthcare.",
+        "de": "Ein Kunstwerk in einem Istanbuler Krankenhaus als Anlass, über Abfall und Ressourcenverbrauch im Gesundheitswesen nachzudenken."
+      },
+      "sources": [
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3my3tg2so3s2n"
+        }
+      ],
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreiaq677r6it2syntdd2owzvvqy73apl36fqy4yft6rqesrbcifwkri",
+        "alt": {
+          "en": "Image accompanying the original post",
+          "de": "Bild aus dem Originalbeitrag"
+        },
+        "sourceUrl": "https://bsky.app/profile/gillespe.bsky.social/post/3my3tg2so3s2n"
+      }
     },
     {
       "id": "langweilige-ai-revolution",
@@ -69,7 +115,17 @@
           "platform": "bluesky",
           "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mxrd2p2epc2x"
         }
-      ]
+      ],
+      "originalLanguage": "de",
+      "category": "article",
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreia5f5icrfzhkft3m3dwpf5usgitvcgaxsgaq4vavrdpjpdvrnp3oy",
+        "alt": {
+          "en": "Image accompanying the original post",
+          "de": "Bild aus dem Originalbeitrag"
+        },
+        "sourceUrl": "https://bsky.app/profile/gillespe.bsky.social/post/3mxrd2p2epc2x"
+      }
     },
     {
       "id": "watch-medical-capabilities",
@@ -87,6 +143,86 @@
         {
           "platform": "bluesky",
           "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mxfbhk2zjs2w"
+        }
+      ],
+      "originalLanguage": "en",
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreiblfwitvoa5qhp7f3s436oagkhgwsrl6tjmf3pglu7z4kulv7shky",
+        "alt": {
+          "en": "Image accompanying the original post",
+          "de": "Bild aus dem Originalbeitrag"
+        },
+        "sourceUrl": "https://bsky.app/profile/gillespe.bsky.social/post/3mxfbhk2zjs2w"
+      }
+    },
+    {
+      "id": "private-weekend-care-linz",
+      "date": "2026-08-14",
+      "approved": true,
+      "category": "post",
+      "originalLanguage": "de",
+      "title": {
+        "en": "Private weekend care and the price of access",
+        "de": "Privater Wochenenddienst und der Preis des Zugangs"
+      },
+      "summary": {
+        "en": "A private weekend service in Linz raises questions about access, working conditions and the erosion of publicly funded care.",
+        "de": "Ein privater Wochenenddienst in Linz wirft Fragen nach Zugang, Arbeitsbedingungen und der Zukunft der Kassenversorgung auf."
+      },
+      "sources": [
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mt34rqp2bs2h"
+        }
+      ],
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreigsdo7kdohbljelsyydorzapdvzdmkhvbk7et2gksftd5dg3f7a4q",
+        "alt": {
+          "en": "Image accompanying the original post",
+          "de": "Bild aus dem Originalbeitrag"
+        },
+        "sourceUrl": "https://bsky.app/profile/gillespe.bsky.social/post/3mt34rqp2bs2h"
+      }
+    },
+    {
+      "id": "ipatient-idoctor",
+      "date": "2026-08-03",
+      "approved": true,
+      "category": "post",
+      "originalLanguage": "en",
+      "title": {
+        "en": "iPatient versus iDoctor",
+        "de": "iPatient gegen iDoctor"
+      },
+      "summary": {
+        "en": "A critical look at AI plans, remote consultations and the risk that efficiency makes care less personal.",
+        "de": "Ein kritischer Blick auf KI-Pläne, Fernkonsultationen und das Risiko, dass effizientere Versorgung unpersönlicher wird."
+      },
+      "sources": [
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3ms6m2x63p22c"
+        }
+      ]
+    },
+    {
+      "id": "ai-2027-scenarios",
+      "date": "2026-07-29",
+      "approved": true,
+      "category": "post",
+      "originalLanguage": "en",
+      "title": {
+        "en": "Revisiting the AI 2027 scenario",
+        "de": "Ein neuer Blick auf das Szenario AI 2027"
+      },
+      "summary": {
+        "en": "A reflection on AI scenarios and reports about autonomous model behaviour. Scenarios are not forecasts or clinical evidence.",
+        "de": "Gedanken zu KI-Szenarien und Berichten über autonomes Modellverhalten. Szenarien sind keine Prognosen oder klinische Evidenz."
+      },
+      "sources": [
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mrrtkdxrls2h"
         }
       ]
     },
@@ -106,8 +242,383 @@
         {
           "platform": "substack",
           "url": "https://medtechsignal.substack.com/p/the-heart-has-a-blue-screen-of-death-4d8"
+        },
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mq4hdxsngk2a"
+        }
+      ],
+      "originalLanguage": "en",
+      "category": "article",
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreiajjy7toqf6ylp2jm7cnel3gjcwo5vuqiyai2yxsmwnmixi77pjoi",
+        "alt": {
+          "en": "Image accompanying the original post",
+          "de": "Bild aus dem Originalbeitrag"
+        },
+        "sourceUrl": "https://bsky.app/profile/gillespe.bsky.social/post/3mq4hdxsngk2a"
+      }
+    },
+    {
+      "id": "hospital-cooling-constraints",
+      "date": "2026-06-27",
+      "approved": true,
+      "category": "post",
+      "originalLanguage": "de",
+      "title": {
+        "en": "Hospital cooling is more than a household problem",
+        "de": "Krankenhauskühlung ist mehr als eine Haushaltsfrage"
+      },
+      "summary": {
+        "en": "Why criticism of hot hospitals should consider building rules, financing, infection control and operating-room ventilation.",
+        "de": "Warum Kritik an heißen Krankenhäusern auch Bauvorschriften, Finanzierung, Infektionsschutz und OP-Lüftung berücksichtigen sollte."
+      },
+      "sources": [
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mpc3ej4x6k2y"
         }
       ]
+    },
+    {
+      "id": "health-data-sovereignty",
+      "date": "2026-06-15",
+      "approved": true,
+      "category": "article",
+      "originalLanguage": "de",
+      "title": {
+        "en": "Health-Daten: Mitten im medizinischen Souveränitätsverlust",
+        "de": "Health-Daten: Mitten im medizinischen Souveränitätsverlust"
+      },
+      "summary": {
+        "en": "Why control over health data matters for clinical care, digital independence and a European health-AI ecosystem.",
+        "de": "Warum die Kontrolle über Gesundheitsdaten für Versorgung, digitale Unabhängigkeit und ein europäisches Health-KI-Ökosystem entscheidend ist."
+      },
+      "sources": [
+        {
+          "platform": "substack",
+          "url": "https://medtechsignal.substack.com/p/health-daten-mitten-im-medizinische?trk=public_post_comment-text"
+        },
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mocnyztxls25"
+        }
+      ],
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreiej2heff2tsefgkgqtqbtlwxhsvgpy4ivurop5vetyvruq5yd4gh4",
+        "alt": {
+          "en": "Image accompanying the original post",
+          "de": "Bild aus dem Originalbeitrag"
+        },
+        "sourceUrl": "https://bsky.app/profile/gillespe.bsky.social/post/3mocnyztxls25"
+      }
+    },
+    {
+      "id": "ai-diagnostics-real-life-share",
+      "date": "2026-04-26",
+      "approved": true,
+      "category": "post",
+      "originalLanguage": "de",
+      "title": {
+        "en": "AI diagnostics and the challenge of real life",
+        "de": "KI-Diagnostik und die Herausforderung des Alltags"
+      },
+      "summary": {
+        "en": "My post on how incomplete information and real-world conditions can challenge strong benchmark results.",
+        "de": "Mein Beitrag darüber, wie unvollständige Informationen und reale Bedingungen starke Benchmark-Ergebnisse relativieren können."
+      },
+      "sources": [
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mkfwaiiccc2o"
+        }
+      ],
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreiascfqcl46yal3fl7dkalefmhxvdcdihzbo7iy2dzjhftavscacii",
+        "alt": {
+          "en": "Image accompanying the original post",
+          "de": "Bild aus dem Originalbeitrag"
+        },
+        "sourceUrl": "https://bsky.app/profile/gillespe.bsky.social/post/3mkfwaiiccc2o"
+      }
+    },
+    {
+      "id": "gkv-financial-reform-2026",
+      "date": "2026-04-01",
+      "approved": true,
+      "category": "post",
+      "originalLanguage": "de",
+      "title": {
+        "en": "What GKV reform could mean for providers and MedTech",
+        "de": "Was die GKV-Reform für Versorgung und MedTech bedeuten könnte"
+      },
+      "summary": {
+        "en": "My analysis of the commission recommendations and their implications for clinics, practices, manufacturers and evidence requirements.",
+        "de": "Meine Einordnung der Kommissionsempfehlungen und ihrer Folgen für Kliniken, Praxen, Hersteller und Evidenzanforderungen."
+      },
+      "sources": [
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mifxwefa6k2v"
+        }
+      ]
+    },
+    {
+      "id": "hdrg-outpatient-care-share",
+      "date": "2026-03-24",
+      "approved": true,
+      "category": "post",
+      "originalLanguage": "de",
+      "title": {
+        "en": "Hybrid DRGs and the shift toward outpatient care",
+        "de": "Hybrid-DRG und der Wandel zur ambulanten Versorgung"
+      },
+      "summary": {
+        "en": "My analysis of reimbursement incentives, hospital stays and opportunities for outpatient providers.",
+        "de": "Meine Analyse von Vergütungsanreizen, Liegezeiten und Chancen für ambulante Anbieter."
+      },
+      "sources": [
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mhtn4wr7pc2s"
+        }
+      ],
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreiar434nvibprd26qmipf2cg64lnxsqntvq6ivybvupfouc5ho7q7e",
+        "alt": {
+          "en": "Image accompanying the original post",
+          "de": "Bild aus dem Originalbeitrag"
+        },
+        "sourceUrl": "https://bsky.app/profile/gillespe.bsky.social/post/3mhtn4wr7pc2s"
+      }
+    },
+    {
+      "id": "costs-end-of-life",
+      "date": "2026-02-06",
+      "approved": true,
+      "category": "post",
+      "originalLanguage": "en",
+      "title": {
+        "en": "The concentration of healthcare costs at the end of life",
+        "de": "Gesundheitskosten am Lebensende"
+      },
+      "summary": {
+        "en": "A look at the concentration of healthcare spending near the end of life and the questions this raises for care.",
+        "de": "Ein Blick auf die Konzentration von Gesundheitsausgaben am Lebensende und die Fragen, die daraus für die Versorgung entstehen."
+      },
+      "sources": [
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3me74el3wms2e"
+        }
+      ],
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreiagj7gsjcn45qjkdjcrzeq723x25vq3bw6oq5o5vd6dfpk4evovqu",
+        "alt": {
+          "en": "Image accompanying the original post",
+          "de": "Bild aus dem Originalbeitrag"
+        },
+        "sourceUrl": "https://bsky.app/profile/gillespe.bsky.social/post/3me74el3wms2e"
+      }
+    },
+    {
+      "id": "patient-google-maps-moment",
+      "date": "2026-02-03",
+      "approved": true,
+      "category": "article",
+      "originalLanguage": "de",
+      "title": {
+        "en": "Wenn der Patient die Route kennt: Der „Google-Maps-Moment“ der Medizin",
+        "de": "Wenn der Patient die Route kennt: Der „Google-Maps-Moment“ der Medizin"
+      },
+      "summary": {
+        "en": "How patient-facing AI may change the doctor-patient relationship, preparation for consultations and the role of clinical judgement.",
+        "de": "Wie KI auf Patientenseite das Arztgespräch, die Vorbereitung auf Termine und die Rolle ärztlichen Urteilsvermögens verändert."
+      },
+      "sources": [
+        {
+          "platform": "substack",
+          "url": "https://medtechsignal.substack.com/p/wenn-der-patient-die-route-kennt"
+        },
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mdxt4rjxtk2p"
+        }
+      ],
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreifpsyomq73n3lqiipaw6rnmvmc7lmj54xbr5qz44yyu5fvi2yelmm",
+        "alt": {
+          "en": "Image accompanying the original post",
+          "de": "Bild aus dem Originalbeitrag"
+        },
+        "sourceUrl": "https://bsky.app/profile/gillespe.bsky.social/post/3mdxt4rjxtk2p"
+      }
+    },
+    {
+      "id": "copilot-model-rankings",
+      "date": "2026-01-05",
+      "approved": true,
+      "category": "post",
+      "originalLanguage": "en",
+      "title": {
+        "en": "A paid AI product is not automatically a leading model",
+        "de": "Ein bezahltes KI-Produkt ist nicht automatisch ein Spitzenmodell"
+      },
+      "summary": {
+        "en": "A podcast prompted me to question the gap between enterprise AI branding, model choice and perceived capability.",
+        "de": "Ein Podcast als Anlass, über die Lücke zwischen Enterprise-KI-Marken, Modellwahl und wahrgenommener Leistungsfähigkeit nachzudenken."
+      },
+      "sources": [
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mbpgucjrhs2z"
+        }
+      ]
+    },
+    {
+      "id": "roomba-customer-focus",
+      "date": "2025-12-21",
+      "approved": true,
+      "category": "post",
+      "originalLanguage": "en",
+      "title": {
+        "en": "Roomba and the cost of losing customer focus",
+        "de": "Roomba und die Folgen verlorenen Kundenfokus"
+      },
+      "summary": {
+        "en": "A reflection on product decisions, customer needs and the tensions between capital-market priorities and useful technology.",
+        "de": "Gedanken zu Produktentscheidungen, Kundenbedürfnissen und dem Spannungsverhältnis zwischen Kapitalmarkt und nützlicher Technologie."
+      },
+      "sources": [
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3maiqk2rqfc2i"
+        }
+      ],
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreifjkckb5iqlw2hfkluotgwlnravz4r7zm2azkvv6c4e3ury2vccjq",
+        "alt": {
+          "en": "Image accompanying the original post",
+          "de": "Bild aus dem Originalbeitrag"
+        },
+        "sourceUrl": "https://bsky.app/profile/gillespe.bsky.social/post/3maiqk2rqfc2i"
+      }
+    },
+    {
+      "id": "ai-growth-and-headcount",
+      "date": "2025-11-04",
+      "approved": true,
+      "category": "post",
+      "originalLanguage": "en",
+      "title": {
+        "en": "AI changes the link between growth and hiring",
+        "de": "KI verändert den Zusammenhang zwischen Wachstum und Neueinstellungen"
+      },
+      "summary": {
+        "en": "AI may change the assumption that business growth requires a proportional increase in headcount, with robotics potentially following.",
+        "de": "KI könnte die Annahme verändern, dass Unternehmenswachstum proportional mehr Personal braucht. Robotik könnte folgen."
+      },
+      "sources": [
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3m4s66fr5ws22"
+        },
+        {
+          "platform": "linkedin",
+          "url": "https://www.linkedin.com/posts/gillespenning_food-for-thought-from-the-source-below-activity-7391456172748468224-QwG7"
+        }
+      ],
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreigznxg5mjjcv2uu25hkdsjumaz4f5tiz3swiynod4nty67djiymoy",
+        "alt": {
+          "en": "Image accompanying the original post",
+          "de": "Bild aus dem Originalbeitrag"
+        },
+        "sourceUrl": "https://bsky.app/profile/gillespe.bsky.social/post/3m4s66fr5ws22"
+      }
+    },
+    {
+      "id": "mrna-cancer-immunotherapy",
+      "date": "2025-10-25",
+      "approved": true,
+      "category": "post",
+      "originalLanguage": "en",
+      "title": {
+        "en": "mRNA vaccines and cancer immunotherapy",
+        "de": "mRNA-Impfstoffe und Krebsimmuntherapie"
+      },
+      "summary": {
+        "en": "My reaction to a study exploring how mRNA vaccination may interact with cancer immunotherapy.",
+        "de": "Meine Reaktion auf eine Studie zum möglichen Zusammenspiel von mRNA-Impfung und Krebsimmuntherapie."
+      },
+      "sources": [
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3m3zcvbjsu22k"
+        }
+      ],
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreifaotorfh6sgiel6rx4mktyngzc5gpu3xd733ifce75mpwqeonaty",
+        "alt": {
+          "en": "Image accompanying the original post",
+          "de": "Bild aus dem Originalbeitrag"
+        },
+        "sourceUrl": "https://bsky.app/profile/gillespe.bsky.social/post/3m3zcvbjsu22k"
+      }
     }
-  ]
+  ],
+  "coverage": {
+    "checkedAt": "2026-10-25",
+    "substack": {
+      "checkedAt": "2026-10-25",
+      "scope": "Public indexed Substack articles; canonical archive and RSS access attempted.",
+      "newArticles": 2,
+      "knownExistingArticles": 2,
+      "complete": false,
+      "limitation": "Direct public archive API and RSS return Site Unavailable. Search index exposes four verified articles total. Personal Context is unavailable, so Substack/TED project draft or unindexed publication links cannot be recovered through it. Do not claim complete archive coverage. Two additional Substack URLs were verified in the authored Bluesky feed by social_research, but their article-original dates/content/images could not be fetched. Do not replace unknown article-original dates with social share dates without labelling that basis.",
+      "thumbnailEvidence": "Accessible indexed article bodies show only account avatar links, not a verified article image. No avatar used as an article thumbnail. No guessed image URLs.",
+      "sources": [
+        {
+          "id": "patient-google-maps-moment",
+          "reference": "turn141view1",
+          "evidence": "Original article title, byline Gilles Penning, publication date 3 February 2026."
+        },
+        {
+          "id": "health-data-sovereignty",
+          "reference": "turn139search1 / turn145search0",
+          "evidence": "Original article title, publication date 15 June 2026 and full text indexed at its original Substack URL."
+        }
+      ],
+      "knownAdditionalUnfetchedArticles": [
+        {
+          "url": "https://medtechsignal.substack.com/p/ki-diagnostik-hat-ein-problem-mit",
+          "verifiedBlueskyShareDate": "2026-04-26",
+          "articlePublicationDate": null,
+          "thumbnail": null
+        },
+        {
+          "url": "https://medtechsignal.substack.com/p/hdrg-warum-das-bett-als-wahrung-ausgedient",
+          "verifiedBlueskyShareDate": "2026-03-24",
+          "articlePublicationDate": null,
+          "thumbnail": null
+        }
+      ]
+    },
+    "social": {
+      "retrievedAt": "2026-10-25",
+      "period": "2025-10-25 through 2026-10-25",
+      "bluesky": {
+        "endpoint": "https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=gillespe.bsky.social&limit=100",
+        "feedRecords": 91,
+        "authoredPosts": 75,
+        "cursor": null,
+        "completeAvailableFeed": true,
+        "notes": "Feed includes all available account records back to November 2024. Reposts by other authors and self-thread continuations are not separate news stories. Relevant original roots within the requested year were selected."
+      },
+      "linkedin": "Public search verified one additional matching crosspost; not a complete LinkedIn archive. Existing verified LinkedIn links should be retained.",
+      "x": "No verified author handle or complete archive found by public search; no guessed X URLs added.",
+      "exclusions": "Unrelated political comments, travel snapshots, reposts by other authors and non-topic personal posts omitted. Substack-linked stories are crosspost merges, not duplicate items.",
+      "notes": "ki-diagnostik-hat-ein-problem-mit and hdrg-warum-das-bett-als-wahrung-ausgedient were exact linked original URLs in public posts, but archive agent could not verify them live. Added Bluesky-only standalone share entries as safe fallback; merge if a verified original is recovered."
+    }
+  }
 }
