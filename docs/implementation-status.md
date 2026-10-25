@@ -260,3 +260,12 @@ Release verified: e7bf78e3aeda37691d73f5f5789e4db54115d575 passed 76 unit tests,
 ## 25 October 2026 - Microsoft MAI-DxO milestone (owner approved)
 
 Added one Science 2026 source and one Clinical Assistance milestone tile with an editorial card for MAI-DxO stepwise diagnostic reasoning (83.2% on 304 NEJM simulated cases; 36.1% physician comparator measured on 56 cases). Evidence date: 22 October 2026 (journal publication). Science article directly returned HTTP 403 during audit; official Microsoft research account and independent reports corroborated score/DOI, so status is reported and comparability different_protocol. No addition to quantitative benchmark curves, other studies or news. Documentation hash refreshed. Tests/build and publishing remain to be verified prior to release.
+
+
+## 25 October 2026 - Evidence taxonomy, milestone flag and patient-test distinction
+
+Owner requested visible tags, filters, Data table and Glossary explanations, with reusable agent instructions. Created docs/EVIDENCE_TAGGING.md and required it from AGENTS.md, MONITOR_STANDARD.md, DESIGN.md, FUNCTIONALITY.md and docs/data-entry-guide.md. Added meta.evidenceTaxonomy and all 115 card classifications to data/monitor-data.json, without changing any scores, score validation, model dates or evidence review date. Classifications are provisional unless specifically source-reviewed; this taxonomy labeling must not be mistaken for a second independent scientific validation.
+
+Added shared labels to point cards, milestone tiles, cross-linked AMIE news, Data table setting/design columns and Glossary; topic/setting/major-milestone filters affect milestone tiles only, never benchmark curves. Enabled translations via the existing locale system. Microsoft MAI-DxO is a benchmark-based capability milestone with no actual prospective patient testing; AMIE previsit is a supervised prospective single-arm clinical feasibility study with no demonstrated outcome benefit. Both maintain their original denominators and caveats. Included docs/EVIDENCE_TAGGING.md in portable ZIP and static hosting build.
+
+Automated checks: the initial CI exposed a typecheck issue in newly included translation code; fixed NodeList conversion and DOM element narrowing. The next PR CI run passed TypeScript, unit tests and static build; production browser acceptance and final deployment are tracked by GitHub Actions on PR #3. A source-by-source review of remaining provisional classifications is outstanding.
