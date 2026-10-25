@@ -6,14 +6,21 @@ Maintain a popular-science 'AI in Medicine' showing medical AI progress in three
 
 ## Read before work
 1. `MONITOR_STANDARD.md` - editorial/evidence rules, frontier definition and criteria.
-2. `DESIGN.md` - UI, chart and point-card requirements.
-3. `data/monitor-data.json` - portable data store.
-4. `VALIDATION_REPORT.md` - current evidence audit and unresolved blockers.
-5. `FUNCTIONALITY.md` - current features, interaction requirements and release acceptance.
-6. `TODO.md` - canonical active backlog; `docs/TODO.md` is historical.
-7. `docs/decisions.md` and `docs/implementation-status.md` - approved decisions and per-run change/test history.
-8. `docs/NEWS_COVERAGE.md` - archive provenance, exclusions and access limits.
-9. `docs/data-entry-guide.md`, `data/news.json`, `docs/news-editorial.md` - portable content entry and approved news.
+2. `docs/EVIDENCE_TAGGING.md` - MANDATORY topic, patient-test setting, study design and milestone rules for EVERY evidence entry.
+3. `DESIGN.md` - UI, chart and point-card requirements.
+4. `data/monitor-data.json` - portable data store.
+5. `VALIDATION_REPORT.md` - current evidence audit and unresolved blockers.
+6. `FUNCTIONALITY.md` - current features, interaction requirements and release acceptance.
+7. `TODO.md` - canonical active backlog; `docs/TODO.md` is historical.
+8. `docs/decisions.md` and `docs/implementation-status.md` - approved decisions and per-run change/test history.
+9. `docs/NEWS_COVERAGE.md` - archive provenance, exclusions and access limits.
+10. `docs/data-entry-guide.md`, `data/news.json`, `docs/news-editorial.md` - portable content entry and approved news.
+
+## Evidence classification - required on every new item
+- Follow `docs/EVIDENCE_TAGGING.md` and the machine vocabulary in `data/monitor-data.json` -> `meta.evidenceTaxonomy`. Add or verify `editorialCards[cardId].classification` before publishing a new evidence record; leave unknowns explicit.
+- Differentiate exam/vignette benchmarks, simulated workflows, actor studies, retrospective actual records and prospective real-patient studies. A case-based RCT is NOT a real-patient clinical RCT; peer review is NOT clinical validation.
+- A `milestone` flag is editorial significance, not an evidence level. Do not add without explicit justification and approval. Preserve `patientOutcomeEvidence=false/null` unless actual outcomes were assessed.
+- Use the same classification in cards, milestones, Data tables, Glossary and news with `linkedCardId`. Do not create parallel tags from free-form `tags[]`.
 
 ## Universal operating constraints
 - Never program or redesign unless asked; a research task produces candidate data and sources.
