@@ -68,6 +68,10 @@
       {
         "date": "2026-10-25",
         "action": "Added centralized evidence taxonomy and per-card classification for the existing 115 editorial cards. Conservative initial labeling: unverified methods retain provisional or unknown status; real-patient testing and outcome evidence separate from design and topic. Microsoft MAI-DxO tagged as capability milestone, explicitly simulated cases; AMIE previsit tagged prospective single-arm clinical feasibility. No score, benchmark frontier, source validation or lastReviewedAt modified."
+      },
+      {
+        "date": "2026-10-25",
+        "action": "Conservative editorial status correction: Microsoft MAI-DxO evidence setting remains simulated case benchmark and owner-approved capability milestone, but classificationStatus changed to provisional pending independent full Science Methods review (publisher access restricted). No numerical/source claims or lastReviewedAt modified."
       }
     ],
     "previousTitles": [
@@ -13024,7 +13028,7 @@
         "milestone": true,
         "realPatientTested": false,
         "patientOutcomeEvidence": false,
-        "classificationStatus": "reviewed"
+        "classificationStatus": "provisional"
       }
     }
   }
