@@ -242,3 +242,5 @@ Adjusted intro defaults, compact image/text fades, title casing, inline chart me
 Follow-up in the same run: moved milestone tiles below each lower plot and its context, immediately before the closed Data table disclosure. Styled native data-table triangles like Sources. Question and answer now have no milestone tiles between them. Added a production interaction/order check.
 
 Release check found a keyboard focus edge case after moving the timeline into the menu: controls inside a closed native disclosure were counted as focusable. The menu/chart focus filter now excludes elements that fail checkVisibility(); desktop/touch release tests are being rerun. The previous build was blocked before deployment (41 browser cases passed, 2 focus cases failed).
+
+The next release run passed 44 browser cases and exposed one desktop zoom edge case: a hover evidence card could cover the full-view exit button after the layout moved under the pointer. Hover cards in expanded charts now reserve the title/control row, keeping the exit button reachable. Deployment remained blocked until the release checks passed.
