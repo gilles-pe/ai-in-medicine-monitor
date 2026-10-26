@@ -99,6 +99,6 @@ Release verification for the responsive-density/table-order update: source 5ec86
 ## 26 October - export credit and sparse windows
 
 - [x] Append | ai.gillespenning.com to the PNG brand footer.
-- [ ] Consider a taller full-view plot and a sparse-measurement hint for short windows; preserve actual slopes, benchmark protocols and gaps. Proposal only; no axis change authorized by this run.
+- [ ] Consider a taller full-view plot and a sparse-measurement hint for short windows; preserve actual slopes, benchmark protocols and gaps. Proposal only; no artificial padding change made.
 
 - [x] Preserve the entering best value when clipping an existing frontier connection to a short time window; keep real dots and gaps unchanged.
