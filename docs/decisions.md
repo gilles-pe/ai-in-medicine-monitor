@@ -83,3 +83,11 @@ Owner requested an independent historical source validation and a **mandatory pr
 
 ## 25 October 2026 - owner-approved Clinician-chat benchmark setting
 Owner explicitly selected a new `clinician_chat_benchmark` test-setting category. Applied to existing HealthBench Professional model evaluations, system harness and physician reference cards, with legacy validation and publication decisions unchanged. Professional comprises offline rubric scoring of 525 clinician-authored tasks, derived from clinician ChatGPT interactions (15,079 candidate examples with deliberate difficulty enrichment and adversarial sampling). It is not a prospective test in actual patient care. Original HealthBench Core remains distinct and is not retagged as a physician-only cohort. Documented in `docs/EVIDENCE_TAGGING.md`, `docs/MEASUREMENT_INTAKE.md`, JSON taxonomy and bilingual Glossary. This editorial classification approval does not authorize new score or milestone inclusion.
+
+## 26 October 2026 - HealthBench Professional additional models and grader side lines
+
+Gilles explicitly approves the seven requested records and a different_protocol side line. Rationale: preserve comparability of the main line while transparently showing other laboratories. Main line stays confirmed + same_protocol. Raw/adjusted, Core/Professional remain separate. No news or milestone.
+
+Review: Astra Table 6 64.7 (raw 68.2), publication 2026-09-03, correction 2026-09-22 (old 63.4 per owner). Sol requires its own 2026-09-29 addendum, Table 7: 64.2 (raw 67.2). Full HTML and PDF HealthBench sections do not explicitly identify GPT-5.4-low; both stay reported / qualified, with no main-line promotion. Per-run effort and sample count are also not restated in these sections.
+
+Opus-4.8 grader group: Sonnet 5.5 69.2 (raw 77.1), Astra rerun 70.3 (raw 74.0), Opus 4.8 56.9, Mythos 5 66.0. Corrected locators: Fable/Mythos score p. 253, methods pp. 299-300; Sonnet pp. 137-138. Opus 4.7 51.9 uses Sonnet 4.6, per Opus 4.8 report pp. 228-229: retain as a separate isolated comparison point. Paper Opus 4.7 47.0 and physician 43.7 unchanged. Aggregator not cited or added.

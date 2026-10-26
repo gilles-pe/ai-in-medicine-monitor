@@ -66,3 +66,14 @@ The owner approved a distinct **`clinician_chat_benchmark` test setting** for of
 
 ## Historical verification agent
 Read `docs/HISTORICAL_EVIDENCE_AUDIT_2026-10-25.md` and its open checklist. Work in batches **grouped by unique original source/cohort**, not by each duplicated card. For each batch record audited IDs, original URL, exact Methods and Results locator, method classification, score check and discrepancies, test/clinical setting, remaining questions, audit date and reviewer; mark `reviewed` only for specifically source-checked cards. Post proposed patches in a PR, avoid changing frontier or public milestones without owner approval. Escalate conflicting evidence instead of choosing the more optimistic interpretation.
+
+
+## Owner decision 26 October 2026 - HealthBench Professional grader separation
+
+Main series healthbench_pro_2026: 525 tasks, 0-100 length-adjusted rubric points, grader GPT-5.4-low. Main-line eligibility stays strictly confirmed + same_protocol + checked primary locator, review and dates. Core and Professional never connect. Store rawValue separately from length-adjusted value, never as a comparable second point.
+
+Retain source-checked vendor results with other graders as reported + different_protocol and show a visibly separate dashed side line with "Different grader, not directly comparable". Compute a separate running maximum only within the exact grader + metric + sufficiently aligned harness comparisonGroup. Never bridge graders; a singleton remains an isolated point. This side line never changes main-line eligibility, headline result or physician reference 43.7.
+
+Every card, tooltip and Data table names the grader and original page/table/figure. A source-checked result with an unestablished grader remains reported + qualified as an unconnected point. A citation of the benchmark paper does not prove the run used GPT-5.4-low. Promotion requires explicit run-specific grader/protocol evidence. Unknown dates, effort and sample counts stay explicit. These are vendor reports, not independent clinical validation.
+
+Owner authorizes seven specified records for cross-laboratory coverage. healthbenchprofessional.com is a discovery hint only, never a source, entry or news. Opus 4.7 51.9 uses Sonnet 4.6 (Opus 4.8 card pp. 228-229), so it cannot join the Opus-4.8 grader group. Fable/Mythos Table 8.1.A spans pp. 252-253; the score row is p. 253 and grader methods pp. 299-300.

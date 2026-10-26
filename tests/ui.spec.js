@@ -19,7 +19,7 @@ test('clean header keeps preferences in the menu and three thumbnails',async({pa
   await expect(page.getByRole('tab')).toHaveCount(0);await expect(page.locator('#present-button,#timeline-panel,#model-filter')).toHaveCount(0);await expect(page.locator('[data-language="de"]')).not.toBeVisible();
   await expect(page.locator('.chart-thumbnail')).toHaveCount(3);await expect(page.locator('#content')).not.toContainText(/Timeline data|Under review|Benchmark results|About this benchmark|PPT|PowerPoint/);
   await expect(page.locator('.masthead-author')).toHaveText('Gilles Penning');await expect(page.locator('.author-byline')).toHaveText('Tracking what AI can do in medicine.');await expect(page.locator('.site-footer')).not.toContainText('Gilles Penning');
-  await expect(page.locator('#editorial-check')).toHaveText('Last reviewed 23 Oct 2026');
+  await expect(page.locator('#editorial-check')).toHaveText('Last reviewed 26 Oct 2026');
   await page.locator('#menu-button').click();await expect(page.locator('[data-language="de"]')).toBeVisible();
 });
 
@@ -55,9 +55,9 @@ test('both benchmark series stay visible without redundant filters',async({page}
 });
 
 test('only checked observations appear and 2026 MedQA stays an independent series',async({page})=>{
-  await expect(page.locator('.detail-charts .monitor-observation')).toHaveCount(37);await expect(page.locator('#chart-knowledge .monitor-observation')).toHaveCount(8);
-  await expect(page.locator('#chart-assistance .monitor-observation')).toHaveCount(12);await expect(page.locator('#chart-autonomy .monitor-observation')).toHaveCount(17);
-  await expect(page.locator('[data-observation-id="2.14"],[data-observation-id="1.4"]')).toHaveCount(0);
+  await expect(page.locator('.detail-charts .monitor-observation')).toHaveCount(44);await expect(page.locator('#chart-knowledge .monitor-observation')).toHaveCount(8);
+  await expect(page.locator('#chart-assistance .monitor-observation')).toHaveCount(19);await expect(page.locator('#chart-autonomy .monitor-observation')).toHaveCount(17);
+  await expect(page.locator('[data-observation-id="1.4"]')).toHaveCount(0);
   await expect(page.locator('#chart-knowledge .monitor-frontier[data-series-id="medqa_nyu_search_500_2026"]')).not.toHaveCount(0);await expect(page.locator('#chart-knowledge .monitor-frontier[data-series-id="medqa_main"]')).toHaveCount(0);
   await openMonitor(page,'knowledge-nyu-gemini31');const card=page.getByRole('dialog');await expect(card).toContainText('97.4%');await expect(card).toContainText('500');await expect(card.locator('.point-sources a').first()).toHaveAttribute('href','https://www.nature.com/articles/s41591-026-04431-5');await page.keyboard.press('Escape');
   await date(page,'2026-06-11');await expect(page.locator('[data-observation-id="knowledge-nyu-gemini31"]')).toHaveCount(0);
@@ -207,7 +207,7 @@ test('news previews expand and archive shares navigation and menu',async({page})
  });
 
 test('compact menu and close headline metrics reflect owner choices',async({page})=>{
- await expect(page.locator('.masthead-menu #editorial-check')).toHaveText('Last reviewed 23 Oct 2026');
+ await expect(page.locator('.masthead-menu #editorial-check')).toHaveText('Last reviewed 26 Oct 2026');
  const title=await page.locator('#track-knowledge').boundingBox(),value=await page.locator('#chart-knowledge .track-headline-result').boundingBox();expect(value.x-title.x-title.width).toBeLessThan(35);
  await page.locator('#menu-button').click();await expect(page.locator('#site-menu').getByRole('link',{name:'About Me',exact:true})).toBeVisible();await expect(page.locator('#site-menu .author-card-links a')).toHaveCount(1);await expect(page.locator('#site-menu .social-icons a')).toHaveCount(4);await expect(page.locator('.menu-bottom #feedback-button')).toBeVisible();await expect(page.locator('.menu-bottom [data-language="de"]')).toBeVisible();await expect(page.locator('#site-menu').getByRole('link',{name:'News',exact:true})).toHaveCount(0);
 });
@@ -221,4 +221,18 @@ test('time windows and PNG downloads work for every expanded chart',async({page}
   await page.keyboard.press('Escape');
  }
  await page.locator('#section-nav').getByRole('link',{name:'News',exact:true}).click();await expect(page.locator('#news-filters')).toHaveCount(0);
+});
+
+test('HealthBench Professional side line exposes exact graders and primary locators',async({page})=>{
+ await page.goto('./?cutoff=2026-10-26&lang=en');
+ await expect(page.locator('html')).toHaveAttribute('data-app-state','ready');
+ await expect(page.locator('.detail-charts .monitor-grader-side-line').first()).toBeVisible();
+ await openMonitor(page,'hbpro-astra-anthropic');
+ await expect(page.locator('#detail-dialog')).toContainText('Claude Opus 4.8');
+ await expect(page.locator('#detail-dialog')).toContainText('137-138');
+ await expect(page.locator('#detail-dialog')).toContainText('70.3');
+ await page.keyboard.press('Escape');
+ await openMonitor(page,'hbpro-opus47-anthropic');
+ await expect(page.locator('#detail-dialog')).toContainText('Claude Sonnet 4.6');
+ await expect(page.locator('#detail-dialog')).toContainText('228-229');
 });

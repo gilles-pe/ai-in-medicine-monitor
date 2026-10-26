@@ -89,3 +89,9 @@ Release verification for the responsive-density/table-order update: source 5ec86
 - [x] Owner approved and implemented distinct `clinician_chat_benchmark` testSetting for HealthBench Professional (18 evidence cards); maintain separate HealthBench Core evaluation series and unchanged source-validation statuses.
 - [ ] Independently reassess whether `exam_or_vignette` adequately describes HealthBench Core's mostly synthetic general health conversations; do not infer that its examples are exclusively physician chats.
 - [ ] Independent evidence audit of source-restricted papers and clinical patient outcome claims; no inferred upgrade from source title or PR.
+
+## 26 October 2026 - HealthBench Professional
+
+- [x] Check seven system-card records, separate raw/adjusted scores and exact graders.
+- [x] Preserve main line, paper Opus 4.7 47.0 and physician reference 43.7.
+- [ ] Obtain explicit run-specific GPT-5.4-low evidence, effort and sample count for Astra/Sol before promotion.

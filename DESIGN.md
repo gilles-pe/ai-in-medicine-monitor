@@ -64,12 +64,12 @@ The compact header includes a language switch and hamburger navigation. The menu
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `8bbe22eff02970fb0e4709d3d60b59ffa19a84f476b4e927524466bca2b35fad`
-- Tracks / benchmark series / measurements: 3 / 6 / 44
-- Score validation: 38 confirmed, 1 reported, 5 under review
-- Main-line eligible scores: 31; original-link gaps: 2
-- Chronology: 44 unknown evaluation dates; 40 month-precision release proxies
-- Last evidence review: 2026-10-23; last data change: 2026-10-25
+- SHA-256 (parsed JSON): `158174c68089356b9303d887b5960004866d115489750cf6e8310fa36b2da206`
+- Tracks / benchmark series / measurements: 3 / 6 / 49
+- Score validation: 38 confirmed, 8 reported, 3 under review
+- Main-line eligible scores: 31; original-link gaps: 0
+- Chronology: 49 unknown evaluation dates; 40 month-precision release proxies
+- Last evidence review: 2026-10-26; last data change: 2026-10-26
 - Calendar positioning uses model availability proxies, not evaluation dates. Confirmed scores do not validate release-month chronology or source-publication dates and versions.
 - Frontier must be recalculated separately within each benchmark series. Pending and qualified-only records do not form a confirmed main line.
 - Source policy: MONITOR_STANDARD.md; interface: DESIGN.md; collaboration: AGENTS.md.
@@ -122,3 +122,5 @@ Latest layout correction (25 October): lower charts read title/value → measure
 25 October 2026 - chart windows and image export: all four charts offer All time / 5Y / 2Y / 1Y / 6M controls below their plots; chosen windows survive full-view and resize. Axes show actual units and adapt with padding to the visible observations; zero remains when appropriate. The overview remains illustrative and all-time retains the 1950–2030 scenarios. Full-view charts offer PNG export with repeated low-contrast ai.gillespenning.com credits rasterized inside the plot, retaining title/date/evidence caveats. Image attribution discourages cropping but is not tamper-proof. News filters removed; owner-confirmed X profile installed. Three authorized Substack Notes are retained in data/news.json coverage.requestedNotes pending verifiable original text/date; see docs/NEWS_COVERAGE.md. No study scores or scientific review date changed. Release checks pending.
 
 Time-window release acceptance: the new 44px touch-target row plus margins adds up to 52px to the existing 620px lower-chart budget (672px total). The first release run passed 42 browser cases, including all eight PNG downloads, and failed only the obsolete mobile height budget (637px). Updated this layout budget explicitly; no interaction or data checks removed.
+
+HealthBench Professional: other-grader results appear as source-checked reported diamonds and a separately labeled dashed running-maximum line per exact grader/protocol. Unconfirmed grader results remain disconnected diamonds. The main line and its headline do not inherit these results. Show grader and locator in cards/tooltips/table, and warn that scores are not directly comparable.

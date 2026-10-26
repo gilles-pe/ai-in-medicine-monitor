@@ -18,6 +18,6 @@ test('summaries respect benchmark selection, publication cutoff and model choice
   const a=trackContext('autonomy','2026-10-18',{seriesView:'medagentbench_stanford'});assert.equal(a.selection.point.value,69.67);assert.equal(a.selection.series.seriesId,'medagentbench_stanford');
 });
 test('visible context labels true units and retains direct source-card triggers',()=>{
-  const html=renderTrackContext('assistance','2026-10-18');assert.match(html,/48.1 points/);assert.doesNotMatch(html,/48.1%/);assert.match(html,/data-monitor-point="2.10"/);assert.match(html,/Different tests; scores are not directly comparable/);
+  const html=renderTrackContext('assistance','2026-10-18');assert.match(html,/48.1 points/);assert.doesNotMatch(html,/48.1%/);assert.match(html,/data-monitor-point="2.10"/);assert.match(html,/Different grader, not directly comparable/);assert.match(html,/Core and Professional are separate tests/);
   assert.match(renderTrackContext('autonomy','2022-01-01'),/No published result for this selection/);
 });

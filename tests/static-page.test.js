@@ -8,7 +8,7 @@ const cutoff = REVIEWED_AT;
 
 test('public description stays within the search snippet limit', () => {
   assert.ok(SITE_DESCRIPTION.length <= 155);
-  assert.equal(REVIEWED_AT, '2026-10-23');
+  assert.equal(REVIEWED_AT, '2026-10-26');
 });
 
 test('takeaways use confirmed scores from the monitor data', () => {
@@ -53,15 +53,15 @@ test('structured data names the person without an employer', () => {
     'https://bsky.app/profile/gillespe.bsky.social',
     'https://medtechsignal.substack.com/',
   ]);
-  assert.equal(page.dateModified, '2026-10-23');
-  assert.equal(reviewedMarkup(), 'Last reviewed <time datetime="2026-10-23">23 Oct 2026</time>');
+  assert.equal(page.dateModified, '2026-10-26');
+  assert.equal(reviewedMarkup(), 'Last reviewed <time datetime="2026-10-26">26 Oct 2026</time>');
 });
 
 test('the prerendered home page is crawlable without a font host', async () => {
   const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
   assert.equal((html.match(/<figure\b/g) || []).length, 4);
   assert.match(html, /id="editorial-check"/);
-  assert.match(html, /datetime="2026-10-23"/);
+  assert.match(html, /datetime="2026-10-26"/);
   assert.doesNotMatch(html, /fonts\.googleapis\.com/);
   assert.match(html, /rel="canonical" href="https:\/\/gillespenning\.com\/"/);
   assert.doesNotMatch(html, /worksFor/);

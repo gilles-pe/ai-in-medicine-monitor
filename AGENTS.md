@@ -92,12 +92,12 @@ The primary publication target is GitHub Pages at `https://gilles-pe.github.io/a
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `8bbe22eff02970fb0e4709d3d60b59ffa19a84f476b4e927524466bca2b35fad`
-- Tracks / benchmark series / measurements: 3 / 6 / 44
-- Score validation: 38 confirmed, 1 reported, 5 under review
-- Main-line eligible scores: 31; original-link gaps: 2
-- Chronology: 44 unknown evaluation dates; 40 month-precision release proxies
-- Last evidence review: 2026-10-23; last data change: 2026-10-25
+- SHA-256 (parsed JSON): `158174c68089356b9303d887b5960004866d115489750cf6e8310fa36b2da206`
+- Tracks / benchmark series / measurements: 3 / 6 / 49
+- Score validation: 38 confirmed, 8 reported, 3 under review
+- Main-line eligible scores: 31; original-link gaps: 0
+- Chronology: 49 unknown evaluation dates; 40 month-precision release proxies
+- Last evidence review: 2026-10-26; last data change: 2026-10-26
 - Calendar positioning uses model availability proxies, not evaluation dates. Confirmed scores do not validate release-month chronology or source-publication dates and versions.
 - Frontier must be recalculated separately within each benchmark series. Pending and qualified-only records do not form a confirmed main line.
 - Source policy: MONITOR_STANDARD.md; interface: DESIGN.md; collaboration: AGENTS.md.
@@ -106,3 +106,5 @@ Run `node scripts/sync-monitor-docs.mjs` after a JSON change, and `node scripts/
 <!-- monitor-data-contract:end -->
 
 The owner explicitly authorized the 25 October 2026 historical-post import. Crossposts are one item with several verified URLs; follow one original per story, never invent unavailable X/LinkedIn links or article dates. See docs/decisions.md and docs/NEWS_COVERAGE.md for current news design and coverage.
+
+HealthBench Professional grader policy (owner, 26 October 2026): main line strictly confirmed + same_protocol. Source-checked other graders use separate different_protocol side lines grouped by exact grader and protocol; unknown graders remain unconnected qualified points. See docs/MEASUREMENT_INTAKE.md and docs/EVIDENCE_TAGGING.md.

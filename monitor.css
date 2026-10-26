@@ -309,3 +309,5 @@ html{scroll-padding-top:64px}
 #glossary .evidence-glossary-group dl>div{display:grid;grid-template-columns:140px minmax(0,1fr);gap:10px}
 #glossary .evidence-glossary-note{font:11px/1.5 var(--sans);color:var(--muted);margin:12px 0}
 @media(max-width:600px){.evidence-filter-bar{gap:7px 10px}.evidence-filter-bar .filter-label{width:100%}.evidence-filter-bar label:not(.milestone-only){flex:1 1 140px;display:grid;gap:3px}.evidence-filter-bar select{width:100%;max-width:none}.chart-stories button .evidence-tags{display:flex}.chart-stories button .evidence-tag:not(.evidence-setting):not(.evidence-milestone){display:none}.chart-stories button .evidence-setting{line-height:1.25;overflow-wrap:anywhere}#glossary .evidence-glossary-group dl>div{grid-template-columns:1fr;gap:2px}}
+
+.monitor-grader-legend{font-size:.67rem;color:#715b74;line-height:1.4;margin:.2rem 0}.monitor-grader-side-line{pointer-events:none}

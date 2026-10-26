@@ -110,9 +110,9 @@ test('series stay separate and canonical aliases resolve without changing portab
   assert.throws(() => buildTrackSeries('unknown', '2026-10', raw), RangeError);
 });
 
-test('portable v1.1 keeps 44 records and 31 same-protocol primary-source scores eligible', () => {
+test('portable v1.1 keeps 49 records and 31 same-protocol primary-source scores eligible', () => {
   const records = monitorData.tracks.flatMap(track => track.series.flatMap(series => series.data));
-  assert.equal(records.length, 44);
+  assert.equal(records.length, 49);
   assert.equal(records.filter(record => eligibilityReasons(record).length === 0).length, 31);
   assert.equal(buildTrackSeries('knowledge', '2026-10-18').eligibleCount, 3);
   assert.equal(buildTrackSeries('assistance', '2026-10-18').eligibleCount, 11);

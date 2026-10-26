@@ -5,7 +5,7 @@
       "start": "2022-01",
       "end": "2026-10"
     },
-    "lastUpdated": "2026-10-25",
+    "lastUpdated": "2026-10-26",
     "rules": {
       "xAxisMapping": "modelReleaseDate",
       "connectOnlyFrontier": true,
@@ -19,10 +19,10 @@
     "editorialStandard": "MONITOR_STANDARD.md",
     "designSpec": "DESIGN.md",
     "agentInstructions": "AGENTS.md",
-    "lastReviewedAt": "2026-10-23",
-    "lastDataChangeAt": "2026-10-25",
+    "lastReviewedAt": "2026-10-26",
+    "lastDataChangeAt": "2026-10-26",
     "importedFrom": "gemini-code-1792312905225.json",
-    "reviewNote": "38 numerical claims checked against original sources; 35 complete numeric records confirmed, 1 supplier-reported, 5 under review (including 3 source-checked values with unresolved commercial-model setup). MedQA protocols differ and do not form a confirmed frontier. Clinical base-model and product-harness comparisons remain distinct. Release-month positioning is provisional; evaluation dates remain unknown.",
+    "reviewNote": "Scoped review of seven HealthBench Professional system-card records and grader protocols on 26 October; other evidence keeps its prior review state.",
     "auditSummary": "38 numerical claims checked against original sources; 35 complete numeric records confirmed, 1 supplier-reported, 5 under review (including 3 source-checked values with unresolved commercial-model setup). MedQA protocols differ and do not form a confirmed frontier. Clinical base-model and product-harness comparisons remain distinct. Release-month positioning is provisional; evaluation dates remain unknown.",
     "timelineQualification": "Model release months are approximate availability proxies, not dates of the benchmark evaluations. Tests on older models are retrospective.",
     "packageVersion": "1.1",
@@ -80,6 +80,10 @@
       {
         "date": "2026-10-25",
         "action": "Owner-approved taxonomy refinement: added clinician_chat_benchmark for offline clinician-authored tasks derived from clinician–AI conversations. Applied to 18 existing HealthBench Professional/claimed Professional benchmark evidence cards incl. system variants, physician reference, vendor and unverified claims; kept their original validation.status, classificationStatus, scores, patient-outcome flags, milestone flags, dates, tools/protocol and frontier eligibility unchanged. Original general HealthBench Core and MedQA remain separate; see docs/EVIDENCE_TAGGING.md and docs/decisions.md."
+      },
+      {
+        "date": "2026-10-26",
+        "action": "Owner-approved Professional extension: Astra 64.7 / Sol 64.2 reported + qualified (grader not explicit). Separate Anthropic grader groups. Verified Opus 4.8 56.9 / Mythos 5 66.0; Opus 4.7 51.9 uses Sonnet 4.6, not Opus 4.8. Preserved paper 47.0, physician 43.7, Core and raw/adjusted separation. No aggregator source or news."
       }
     ],
     "previousTitles": [
@@ -2218,12 +2222,12 @@
               "id": "2.14",
               "model": "Claude Opus 4.8",
               "modelReleaseDate": "2026-05",
-              "evalPubDate": null,
+              "evalPubDate": "2026-06-09",
               "value": 56.9,
               "isFrontier": false,
               "isRetrospective": false,
-              "setup": "Third-party locator claims 56.9; original PDF not retrieved.",
-              "source": "Anthropic Benchmark Report (Juni 2026)",
+              "setup": "525 clinician-authored tasks; max effort; five trials; length-adjusted; grader Claude Opus 4.8; no tools or customized system prompt.",
+              "source": "Claude Fable 5 & Claude Mythos 5 System Card",
               "legacy": {
                 "verifiedFromImport": true,
                 "isFrontierFromImport": false,
@@ -2251,48 +2255,176 @@
                     "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
                   },
                   "eligibleForMainline": false
+                },
+                "beforeGraderReview20261026": {
+                  "point": {
+                    "id": "2.14",
+                    "model": "Claude Opus 4.8",
+                    "modelReleaseDate": "2026-05",
+                    "evalPubDate": null,
+                    "value": 56.9,
+                    "isFrontier": false,
+                    "isRetrospective": false,
+                    "setup": "Third-party locator claims 56.9; original PDF not retrieved.",
+                    "source": "Anthropic Benchmark Report (Juni 2026)",
+                    "legacy": {
+                      "verifiedFromImport": true,
+                      "isFrontierFromImport": false,
+                      "isRetrospectiveFromImport": false,
+                      "sourceCitationFromImport": "Anthropic Benchmark Report (Juni 2026)",
+                      "beforeResearchReview20261018": {
+                        "model": "Claude Opus 4.8",
+                        "modelReleaseDate": "2026-05",
+                        "publicationDate": "2026-06",
+                        "setup": "Base Model Eval",
+                        "source": "Anthropic Benchmark Report (Juni 2026)",
+                        "sources": [
+                          {
+                            "label": "Anthropic Benchmark Report (Juni 2026)",
+                            "url": null,
+                            "locator": null,
+                            "type": "unverified_import"
+                          }
+                        ],
+                        "validation": {
+                          "status": "needs_review",
+                          "comparability": "unknown",
+                          "reviewedAt": null,
+                          "reviewedBy": null,
+                          "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+                        },
+                        "eligibleForMainline": false
+                      }
+                    },
+                    "evaluationDate": null,
+                    "publicationDate": null,
+                    "sources": [
+                      {
+                        "label": "Anthropic Benchmark Report (Juni 2026)",
+                        "url": null,
+                        "locator": null,
+                        "type": "unverified_import"
+                      }
+                    ],
+                    "explain": {
+                      "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                      "whatValueMeans": "56.9 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                      "whyItMatters": null,
+                      "limitations": "Imported numerical claim; original system-card table, tested model configuration and grader could not be checked. Excluded from the dated curve and confirmed frontier."
+                    },
+                    "validation": {
+                      "status": "needs_review",
+                      "comparability": "unknown",
+                      "reviewedAt": "2026-10-18",
+                      "reviewedBy": "AI-assisted original-source research audit",
+                      "note": "Do not confirm; other reported evaluations differ, indicating grader/protocol sensitivity. Score verification does not establish the model release month or clinical safety."
+                    },
+                    "eligibleForMainline": false,
+                    "timeline_year": null,
+                    "comparisonGroup": "2.14-qualified-protocol",
+                    "cardId": "2.14",
+                    "teaser": "Claude Opus 4.8: 56.9 points on HealthBench Professional.",
+                    "journal_citation": null
+                  },
+                  "card": {
+                    "title": "Claude Opus 4.8",
+                    "badge": {
+                      "kind": "unverified",
+                      "year": null
+                    },
+                    "tags": [
+                      "525 clinician tasks",
+                      "Rubric score"
+                    ],
+                    "finding": {
+                      "headline": "Rubric score: 56.9 points",
+                      "explanation": "56.9 reported rubric points on clinical responses; points are not a percentage of correct diagnoses.",
+                      "value": 56.9,
+                      "unit": "points",
+                      "kind": "quantitative"
+                    },
+                    "setup": "Third-party locator claims 56.9; original PDF not retrieved.",
+                    "limitations": "Imported numerical claim; original system-card table, tested model configuration and grader could not be checked. Excluded from the dated curve and confirmed frontier.",
+                    "teaser": "Claude Opus 4.8: 56.9 points on HealthBench Professional.",
+                    "timeline_year": null,
+                    "evidence_date": null,
+                    "date_basis": "unresolved",
+                    "timeline_note": "Evidence publication date is not established. This result is retained outside the dated curve.",
+                    "sources": [
+                      {
+                        "title": "Anthropic Benchmark Report (Juni 2026)",
+                        "url": null,
+                        "journal_citation": null,
+                        "locator": "Candidate: Mythos/Fable system card Table8.1.A p252; PDF inaccessible"
+                      }
+                    ],
+                    "validation": {
+                      "status": "needs_review",
+                      "comparability": "unknown",
+                      "reviewedAt": "2026-10-18",
+                      "reviewedBy": "AI-assisted original-source research audit",
+                      "note": "Do not confirm; other reported evaluations differ, indicating grader/protocol sensitivity. Score verification does not establish the model release month or clinical safety."
+                    },
+                    "release": "2026-05",
+                    "publication": null,
+                    "evaluation": null,
+                    "classification": {
+                      "topic": "capability",
+                      "testSetting": "clinician_chat_benchmark",
+                      "studyDesign": "benchmark",
+                      "milestone": false,
+                      "realPatientTested": false,
+                      "patientOutcomeEvidence": false,
+                      "classificationStatus": "provisional"
+                    }
+                  }
                 }
               },
               "evaluationDate": null,
-              "publicationDate": null,
+              "publicationDate": "2026-06-09",
               "sources": [
                 {
-                  "label": "Anthropic Benchmark Report (Juni 2026)",
-                  "url": null,
-                  "locator": null,
-                  "type": "unverified_import"
+                  "label": "Claude Fable 5 & Claude Mythos 5 System Card",
+                  "url": "https://www-cdn.anthropic.com/d00db56fa754a1b115b6dd7cb2e3c342ee809620.pdf",
+                  "locator": "Table 8.1.A, pp. 252-253 (score row p. 253); section 8.18.2, Figure 8.18.2.A, pp. 299-300",
+                  "type": "official_primary",
+                  "journal_citation": "Official system card (2026-06-09)"
                 }
               ],
               "explain": {
-                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
-                "whatValueMeans": "56.9 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
-                "whyItMatters": null,
-                "limitations": "Imported numerical claim; original system-card table, tested model configuration and grader could not be checked. Excluded from the dated curve and confirmed frontier."
+                "whatWasTested": "Offline rubric scoring of HealthBench Professional clinician tasks.",
+                "whatValueMeans": "56.9 length-adjusted rubric points (0-100).",
+                "whyItMatters": "Owner-approved cross-laboratory coverage exposes grader sensitivity without changing the comparable frontier.",
+                "limitations": "Different grader, not directly comparable. Offline rubric benchmark, not diagnostic accuracy or patient-outcome evidence. Grader self-evaluation may introduce bias."
               },
               "validation": {
-                "status": "needs_review",
-                "comparability": "unknown",
-                "reviewedAt": "2026-10-18",
-                "reviewedBy": "AI-assisted original-source research audit",
-                "note": "Do not confirm; other reported evaluations differ, indicating grader/protocol sensitivity. Score verification does not establish the model release month or clinical safety."
+                "status": "reported",
+                "comparability": "different_protocol",
+                "reviewedAt": "2026-10-26",
+                "reviewedBy": "AI-assisted original system-card review",
+                "note": "Original vendor number, metric and grader source-checked. Vendor report, not independent replication; different grader from main line."
               },
               "eligibleForMainline": false,
-              "timeline_year": null,
-              "comparisonGroup": "2.14-qualified-protocol",
+              "timeline_year": 2026,
+              "comparisonGroup": "healthbench_pro_Claude_Opus_4.8_length_adjusted",
               "cardId": "2.14",
-              "teaser": "Claude Opus 4.8: 56.9 points on HealthBench Professional.",
-              "journal_citation": null
+              "teaser": "Claude Opus 4.8: 56.9 length-adjusted points; Claude Opus 4.8.",
+              "journal_citation": "Official system card (2026-06-09)",
+              "rawValue": null,
+              "metricVariant": "length_adjusted",
+              "grader": "Claude Opus 4.8",
+              "sampleSize": 525
             },
             {
               "id": "2.15",
               "model": "Claude Mythos 5",
-              "modelReleaseDate": "2026-06",
-              "evalPubDate": null,
+              "modelReleaseDate": "2026-06-09",
+              "evalPubDate": "2026-06-09",
               "value": 66,
-              "isFrontier": true,
+              "isFrontier": false,
               "isRetrospective": false,
-              "setup": "Third-party locator claims Mythos 66.0; primary numerical table not retrieved.",
-              "source": "Anthropic Mythos 5 Release (Juni 2026)",
+              "setup": "525 clinician-authored tasks; max effort; five trials; length-adjusted; grader Claude Opus 4.8; no tools or customized system prompt.",
+              "source": "Claude Fable 5 & Claude Mythos 5 System Card",
               "legacy": {
                 "verifiedFromImport": true,
                 "isFrontierFromImport": true,
@@ -2320,43 +2452,423 @@
                     "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
                   },
                   "eligibleForMainline": false
+                },
+                "beforeGraderReview20261026": {
+                  "point": {
+                    "id": "2.15",
+                    "model": "Claude Mythos 5",
+                    "modelReleaseDate": "2026-06",
+                    "evalPubDate": null,
+                    "value": 66,
+                    "isFrontier": true,
+                    "isRetrospective": false,
+                    "setup": "Third-party locator claims Mythos 66.0; primary numerical table not retrieved.",
+                    "source": "Anthropic Mythos 5 Release (Juni 2026)",
+                    "legacy": {
+                      "verifiedFromImport": true,
+                      "isFrontierFromImport": true,
+                      "isRetrospectiveFromImport": false,
+                      "sourceCitationFromImport": "Anthropic Mythos 5 Release (Juni 2026)",
+                      "beforeResearchReview20261018": {
+                        "model": "Claude Mythos 5",
+                        "modelReleaseDate": "2026-06",
+                        "publicationDate": "2026-06",
+                        "setup": "Frontier Model Eval (Unrouted)",
+                        "source": "Anthropic Mythos 5 Release (Juni 2026)",
+                        "sources": [
+                          {
+                            "label": "Anthropic Mythos 5 Release (Juni 2026)",
+                            "url": null,
+                            "locator": null,
+                            "type": "unverified_import"
+                          }
+                        ],
+                        "validation": {
+                          "status": "needs_review",
+                          "comparability": "unknown",
+                          "reviewedAt": null,
+                          "reviewedBy": null,
+                          "note": "Migrated without independent primary-source verification. Original claims kept in legacy."
+                        },
+                        "eligibleForMainline": false
+                      }
+                    },
+                    "evaluationDate": null,
+                    "publicationDate": null,
+                    "sources": [
+                      {
+                        "label": "Anthropic Mythos 5 Release (Juni 2026)",
+                        "url": null,
+                        "locator": null,
+                        "type": "unverified_import"
+                      }
+                    ],
+                    "explain": {
+                      "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
+                      "whatValueMeans": "66.0 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
+                      "whyItMatters": null,
+                      "limitations": "Imported numerical claim; original system-card table, tested model configuration and grader could not be checked. Excluded from the dated curve and confirmed frontier."
+                    },
+                    "validation": {
+                      "status": "needs_review",
+                      "comparability": "unknown",
+                      "reviewedAt": "2026-10-18",
+                      "reviewedBy": "AI-assisted original-source research audit",
+                      "note": "Launch verified June9,2026; score still pending exact primary-source access. Score verification does not establish the model release month or clinical safety."
+                    },
+                    "eligibleForMainline": false,
+                    "timeline_year": null,
+                    "comparisonGroup": "2.15-qualified-protocol",
+                    "cardId": "2.15",
+                    "teaser": "Claude Mythos 5: 66 points on HealthBench Professional.",
+                    "journal_citation": null
+                  },
+                  "card": {
+                    "title": "Claude Mythos 5",
+                    "badge": {
+                      "kind": "unverified",
+                      "year": null
+                    },
+                    "tags": [
+                      "525 clinician tasks",
+                      "Rubric score"
+                    ],
+                    "finding": {
+                      "headline": "Rubric score: 66 points",
+                      "explanation": "66 reported rubric points on clinical responses; points are not a percentage of correct diagnoses.",
+                      "value": 66,
+                      "unit": "points",
+                      "kind": "quantitative"
+                    },
+                    "setup": "Third-party locator claims Mythos 66.0; primary numerical table not retrieved.",
+                    "limitations": "Imported numerical claim; original system-card table, tested model configuration and grader could not be checked. Excluded from the dated curve and confirmed frontier.",
+                    "teaser": "Claude Mythos 5: 66 points on HealthBench Professional.",
+                    "timeline_year": null,
+                    "evidence_date": null,
+                    "date_basis": "unresolved",
+                    "timeline_note": "Evidence publication date is not established. This result is retained outside the dated curve.",
+                    "sources": [
+                      {
+                        "title": "Anthropic Mythos 5 Release (Juni 2026)",
+                        "url": null,
+                        "journal_citation": null,
+                        "locator": "Candidate: Mythos/Fable system card Table8.1.A p252; PDF inaccessible"
+                      }
+                    ],
+                    "validation": {
+                      "status": "needs_review",
+                      "comparability": "unknown",
+                      "reviewedAt": "2026-10-18",
+                      "reviewedBy": "AI-assisted original-source research audit",
+                      "note": "Launch verified June9,2026; score still pending exact primary-source access. Score verification does not establish the model release month or clinical safety."
+                    },
+                    "release": "2026-06",
+                    "publication": null,
+                    "evaluation": null,
+                    "classification": {
+                      "topic": "capability",
+                      "testSetting": "clinician_chat_benchmark",
+                      "studyDesign": "benchmark",
+                      "milestone": false,
+                      "realPatientTested": false,
+                      "patientOutcomeEvidence": false,
+                      "classificationStatus": "provisional"
+                    }
+                  }
                 }
               },
               "evaluationDate": null,
-              "publicationDate": null,
+              "publicationDate": "2026-06-09",
               "sources": [
                 {
-                  "label": "Anthropic Mythos 5 Release (Juni 2026)",
-                  "url": null,
-                  "locator": null,
-                  "type": "unverified_import"
+                  "label": "Claude Fable 5 & Claude Mythos 5 System Card",
+                  "url": "https://www-cdn.anthropic.com/d00db56fa754a1b115b6dd7cb2e3c342ee809620.pdf",
+                  "locator": "Table 8.1.A, pp. 252-253 (score row p. 253); section 8.18.2, Figure 8.18.2.A, pp. 299-300",
+                  "type": "official_primary",
+                  "journal_citation": "Official system card (2026-06-09)"
                 }
               ],
               "explain": {
-                "whatWasTested": "Responses to medical scenarios assessed against a medical-quality scoring rubric.",
-                "whatValueMeans": "66.0 points on the reported clinical-answer rubric; this is not the percentage of correct clinical diagnoses.",
-                "whyItMatters": null,
-                "limitations": "Imported numerical claim; original system-card table, tested model configuration and grader could not be checked. Excluded from the dated curve and confirmed frontier."
+                "whatWasTested": "Offline rubric scoring of HealthBench Professional clinician tasks.",
+                "whatValueMeans": "66 length-adjusted rubric points (0-100).",
+                "whyItMatters": "Owner-approved cross-laboratory coverage exposes grader sensitivity without changing the comparable frontier.",
+                "limitations": "Different grader, not directly comparable. Offline rubric benchmark, not diagnostic accuracy or patient-outcome evidence. Grader self-evaluation may introduce bias."
               },
               "validation": {
-                "status": "needs_review",
-                "comparability": "unknown",
-                "reviewedAt": "2026-10-18",
-                "reviewedBy": "AI-assisted original-source research audit",
-                "note": "Launch verified June9,2026; score still pending exact primary-source access. Score verification does not establish the model release month or clinical safety."
+                "status": "reported",
+                "comparability": "different_protocol",
+                "reviewedAt": "2026-10-26",
+                "reviewedBy": "AI-assisted original system-card review",
+                "note": "Original vendor number, metric and grader source-checked. Vendor report, not independent replication; different grader from main line."
               },
               "eligibleForMainline": false,
-              "timeline_year": null,
-              "comparisonGroup": "2.15-qualified-protocol",
+              "timeline_year": 2026,
+              "comparisonGroup": "healthbench_pro_Claude_Opus_4.8_length_adjusted",
               "cardId": "2.15",
-              "teaser": "Claude Mythos 5: 66 points on HealthBench Professional.",
-              "journal_citation": null
+              "teaser": "Claude Mythos 5: 66 length-adjusted points; Claude Opus 4.8.",
+              "journal_citation": "Official system card (2026-06-09)",
+              "rawValue": null,
+              "metricVariant": "length_adjusted",
+              "grader": "Claude Opus 4.8",
+              "sampleSize": 525
+            },
+            {
+              "id": "hbpro-astra-openai",
+              "model": "GPT-6 Astra",
+              "modelReleaseDate": "2026-09-03",
+              "evalPubDate": "2026-09-03",
+              "value": 64.7,
+              "isFrontier": false,
+              "isRetrospective": false,
+              "setup": "525-task HealthBench Professional; max reasoning (owner-supplied, not explicit in table), length-adjusted; per-run grader and sample count not explicitly restated.",
+              "source": "GPT-6 Astra System Card",
+              "legacy": {
+                "createdBy": "Owner-approved intake 2026-10-26"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-09-03",
+              "sources": [
+                {
+                  "label": "GPT-6 Astra System Card",
+                  "url": "https://deploymentsafety.openai.com/gpt-6-astra/healthbench",
+                  "locator": "Table 6, section 6.1; correction 2026-09-22",
+                  "type": "official_primary",
+                  "journal_citation": "Official system card (2026-09-03)"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Offline rubric scoring of HealthBench Professional clinician tasks.",
+                "whatValueMeans": "64.7 length-adjusted rubric points (0-100). Raw score: 68.2, stored separately.",
+                "whyItMatters": "Owner-approved cross-laboratory coverage exposes grader sensitivity without changing the comparable frontier.",
+                "limitations": "Grader GPT-5.4-low not explicitly established for this run. No main-line connection. Offline benchmark, not real-patient clinical validation."
+              },
+              "validation": {
+                "status": "reported",
+                "comparability": "qualified",
+                "reviewedAt": "2026-10-26",
+                "reviewedBy": "AI-assisted original system-card review",
+                "note": "Primary number and length adjustment checked in HTML and full PDF. Neither HealthBench section explicitly identifies GPT-5.4-low as this run’s grader; paper citation is insufficient. Max reasoning is owner-supplied; per-run effort and sample count not explicitly stated. Hold outside main line."
+              },
+              "eligibleForMainline": false,
+              "timeline_year": 2026,
+              "comparisonGroup": "healthbench_pro_openai_grader_unconfirmed",
+              "cardId": "hbpro-astra-openai",
+              "teaser": "GPT-6 Astra: 64.7 length-adjusted points; grader unconfirmed.",
+              "journal_citation": "Official system card (2026-09-03)",
+              "rawValue": 68.2,
+              "metricVariant": "length_adjusted",
+              "grader": null,
+              "sampleSize": 525,
+              "correction": {
+                "date": "2026-09-22",
+                "previousValue": 63.4,
+                "value": 64.7,
+                "note": "Previous value supplied by owner; source change log confirms misconfiguration correction."
+              }
+            },
+            {
+              "id": "hbpro-sol61-openai",
+              "model": "GPT-6.1 Sol",
+              "modelReleaseDate": "2026-09-29",
+              "evalPubDate": "2026-09-29",
+              "value": 64.2,
+              "isFrontier": false,
+              "isRetrospective": false,
+              "setup": "525-task HealthBench Professional; max reasoning (owner-supplied, not explicit in table), length-adjusted; per-run grader and sample count not explicitly restated.",
+              "source": "GPT-6.1 Sol System Card Addendum",
+              "legacy": {
+                "createdBy": "Owner-approved intake 2026-10-26"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-09-29",
+              "sources": [
+                {
+                  "label": "GPT-6.1 Sol System Card Addendum",
+                  "url": "https://deploymentsafety.openai.com/gpt-6-1-sol",
+                  "locator": "Table 7, section 5.1",
+                  "type": "official_primary",
+                  "journal_citation": "Official system card (2026-09-29)"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Offline rubric scoring of HealthBench Professional clinician tasks.",
+                "whatValueMeans": "64.2 length-adjusted rubric points (0-100). Raw score: 67.2, stored separately.",
+                "whyItMatters": "Owner-approved cross-laboratory coverage exposes grader sensitivity without changing the comparable frontier.",
+                "limitations": "Grader GPT-5.4-low not explicitly established for this run. No main-line connection. Offline benchmark, not real-patient clinical validation."
+              },
+              "validation": {
+                "status": "reported",
+                "comparability": "qualified",
+                "reviewedAt": "2026-10-26",
+                "reviewedBy": "AI-assisted original system-card review",
+                "note": "Primary number and length adjustment checked in HTML and full PDF. Neither HealthBench section explicitly identifies GPT-5.4-low as this run’s grader; paper citation is insufficient. Max reasoning is owner-supplied; per-run effort and sample count not explicitly stated. Hold outside main line."
+              },
+              "eligibleForMainline": false,
+              "timeline_year": 2026,
+              "comparisonGroup": "healthbench_pro_openai_grader_unconfirmed",
+              "cardId": "hbpro-sol61-openai",
+              "teaser": "GPT-6.1 Sol: 64.2 length-adjusted points; grader unconfirmed.",
+              "journal_citation": "Official system card (2026-09-29)",
+              "rawValue": 67.2,
+              "metricVariant": "length_adjusted",
+              "grader": null,
+              "sampleSize": 525
+            },
+            {
+              "id": "hbpro-sonnet55-anthropic",
+              "model": "Claude Sonnet 5.5",
+              "modelReleaseDate": "2026-09-28",
+              "evalPubDate": "2026-09-28",
+              "value": 69.2,
+              "isFrontier": false,
+              "isRetrospective": false,
+              "setup": "525 clinician-authored tasks; max effort; five trials; length-adjusted; grader Claude Opus 4.8; no tools or customized system prompt.",
+              "source": "Claude Sonnet 5.5 System Card",
+              "legacy": {
+                "createdBy": "Owner-approved intake 2026-10-26"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-09-28",
+              "sources": [
+                {
+                  "label": "Claude Sonnet 5.5 System Card",
+                  "url": "https://www.anthropic.com/claude-sonnet-5-5-system-card",
+                  "locator": "pp. 137-138, section 8.15, Figures 8.15.A/B and section 8.15.2",
+                  "type": "official_primary",
+                  "journal_citation": "Official system card (2026-09-28)"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Offline rubric scoring of HealthBench Professional clinician tasks.",
+                "whatValueMeans": "69.2 length-adjusted rubric points (0-100). Raw score: 77.1, stored separately.",
+                "whyItMatters": "Owner-approved cross-laboratory coverage exposes grader sensitivity without changing the comparable frontier.",
+                "limitations": "Different grader, not directly comparable. Offline rubric benchmark, not diagnostic accuracy or patient-outcome evidence. Grader self-evaluation may introduce bias."
+              },
+              "validation": {
+                "status": "reported",
+                "comparability": "different_protocol",
+                "reviewedAt": "2026-10-26",
+                "reviewedBy": "AI-assisted original system-card review",
+                "note": "Original vendor number, metric and grader source-checked. Vendor report, not independent replication; different grader from main line."
+              },
+              "eligibleForMainline": false,
+              "timeline_year": 2026,
+              "comparisonGroup": "healthbench_pro_Claude_Opus_4.8_length_adjusted",
+              "cardId": "hbpro-sonnet55-anthropic",
+              "teaser": "Claude Sonnet 5.5: 69.2 length-adjusted points; Claude Opus 4.8.",
+              "journal_citation": "Official system card (2026-09-28)",
+              "rawValue": 77.1,
+              "metricVariant": "length_adjusted",
+              "grader": "Claude Opus 4.8",
+              "sampleSize": 525
+            },
+            {
+              "id": "hbpro-astra-anthropic",
+              "model": "GPT-6 Astra (Anthropic run)",
+              "modelReleaseDate": "2026-09-03",
+              "evalPubDate": "2026-09-28",
+              "value": 70.3,
+              "isFrontier": false,
+              "isRetrospective": false,
+              "setup": "525 clinician-authored tasks; max effort; five trials; length-adjusted; grader Claude Opus 4.8; no tools or customized system prompt.",
+              "source": "Claude Sonnet 5.5 System Card",
+              "legacy": {
+                "createdBy": "Owner-approved intake 2026-10-26"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-09-28",
+              "sources": [
+                {
+                  "label": "Claude Sonnet 5.5 System Card",
+                  "url": "https://www.anthropic.com/claude-sonnet-5-5-system-card",
+                  "locator": "pp. 137-138, section 8.15, Figures 8.15.A/B and section 8.15.2",
+                  "type": "official_primary",
+                  "journal_citation": "Official system card (2026-09-28)"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Offline rubric scoring of HealthBench Professional clinician tasks.",
+                "whatValueMeans": "70.3 length-adjusted rubric points (0-100). Raw score: 74, stored separately.",
+                "whyItMatters": "Owner-approved cross-laboratory coverage exposes grader sensitivity without changing the comparable frontier.",
+                "limitations": "Different grader, not directly comparable. Offline rubric benchmark, not diagnostic accuracy or patient-outcome evidence. Grader self-evaluation may introduce bias."
+              },
+              "validation": {
+                "status": "reported",
+                "comparability": "different_protocol",
+                "reviewedAt": "2026-10-26",
+                "reviewedBy": "AI-assisted original system-card review",
+                "note": "Original vendor number, metric and grader source-checked. Vendor report, not independent replication; different grader from main line."
+              },
+              "eligibleForMainline": false,
+              "timeline_year": 2026,
+              "comparisonGroup": "healthbench_pro_Claude_Opus_4.8_length_adjusted",
+              "cardId": "hbpro-astra-anthropic",
+              "teaser": "GPT-6 Astra (Anthropic run): 70.3 length-adjusted points; Claude Opus 4.8.",
+              "journal_citation": "Official system card (2026-09-28)",
+              "rawValue": 74,
+              "metricVariant": "length_adjusted",
+              "grader": "Claude Opus 4.8",
+              "sampleSize": 525
+            },
+            {
+              "id": "hbpro-opus47-anthropic",
+              "model": "Claude Opus 4.7 (Anthropic grader)",
+              "modelReleaseDate": "2026-04",
+              "evalPubDate": "2026-05",
+              "value": 51.9,
+              "isFrontier": false,
+              "isRetrospective": false,
+              "setup": "525 clinician-authored tasks; max effort; five trials; length-adjusted; grader Claude Sonnet 4.6; no tools or customized system prompt.",
+              "source": "Claude Opus 4.8 System Card",
+              "legacy": {
+                "createdBy": "Owner-approved intake 2026-10-26"
+              },
+              "evaluationDate": null,
+              "publicationDate": "2026-05",
+              "sources": [
+                {
+                  "label": "Claude Opus 4.8 System Card",
+                  "url": "https://www-cdn.anthropic.com/0b4915911bb0d19eca5b5ee635c80fef830a37ea.pdf",
+                  "locator": "pp. 228-229, section 8.14.1, Figure 8.14.A (grader in caption)",
+                  "type": "official_primary",
+                  "journal_citation": "Official system card (2026-05)"
+                }
+              ],
+              "explain": {
+                "whatWasTested": "Offline rubric scoring of HealthBench Professional clinician tasks.",
+                "whatValueMeans": "51.9 length-adjusted rubric points (0-100).",
+                "whyItMatters": "Owner-approved cross-laboratory coverage exposes grader sensitivity without changing the comparable frontier.",
+                "limitations": "Different grader, not directly comparable. Offline rubric benchmark, not diagnostic accuracy or patient-outcome evidence. Grader self-evaluation may introduce bias."
+              },
+              "validation": {
+                "status": "reported",
+                "comparability": "different_protocol",
+                "reviewedAt": "2026-10-26",
+                "reviewedBy": "AI-assisted original system-card review",
+                "note": "Original vendor number, metric and grader source-checked. Vendor report, not independent replication; different grader from main line."
+              },
+              "eligibleForMainline": false,
+              "timeline_year": 2026,
+              "comparisonGroup": "healthbench_pro_Claude_Sonnet_4.6_length_adjusted",
+              "cardId": "hbpro-opus47-anthropic",
+              "teaser": "Claude Opus 4.7 (Anthropic grader): 51.9 length-adjusted points; Claude Sonnet 4.6.",
+              "journal_citation": "Official system card (2026-05)",
+              "rawValue": null,
+              "metricVariant": "length_adjusted",
+              "grader": "Claude Sonnet 4.6",
+              "sampleSize": 525
             }
           ],
           "sourceReviewStatus": "Reviewed per-point; see validation and date qualifications.",
           "readingGuide": {
             "label": "HealthBench Professional",
             "test": "professional clinical tasks"
+          },
+          "graderPolicy": {
+            "main": "GPT-5.4-low",
+            "sideLine": "different_protocol grouped by exact grader and comparisonGroup",
+            "metricVariant": "length_adjusted",
+            "sampleSize": 525
           }
         }
       ],
@@ -6319,7 +6831,7 @@
         "Details": "Details",
         "Published": "Veröffentlicht",
         "System": "System",
-        "Protocol": "Testbedingungen",
+        "Protocol": "Protokoll",
         "Sample": "Stichprobe",
         "Location": "Fundstelle",
         "Comparison group": "Vergleichsgruppe",
@@ -7090,7 +7602,30 @@
         "Medical Knowledge": "Medizinisches Wissen",
         "Clinical Assistance": "Klinische Assistenz",
         "Autonomous Workflows": "Selbstständige Abläufe",
-        "HealthBench Professional: 0–100 points; no verified human baseline in this dataset.": "HealthBench Professional: 0–100 Punkte; kein belegter menschlicher Referenzwert in diesem Datensatz."
+        "HealthBench Professional: 0–100 points; no verified human baseline in this dataset.": "HealthBench Professional: 0–100 Punkte; kein belegter menschlicher Referenzwert in diesem Datensatz.",
+        "Different grader, not directly comparable": "Anderer Grader, nicht direkt vergleichbar",
+        "Other grader: Claude Opus 4.8": "Anderer Grader: Claude Opus 4.8",
+        "Reported; grader unconfirmed": "Berichtet; Grader unbestätigt",
+        "Grader": "Grader",
+        "Length-adjusted": "Längenbereinigt",
+        "Raw score": "Rohwert",
+        "Source-checked measurements": "Quellengeprüfte Messwerte",
+        "Separate grader line; not directly comparable": "Separate Grader-Linie; nicht direkt vergleichbar",
+        "Offline rubric scoring of HealthBench Professional clinician tasks.": "Offline-Bewertung klinischer Fachaufgaben in HealthBench Professional anhand einer Rubrik.",
+        "56.9 length-adjusted rubric points (0-100).": "56.9 längenbereinigte Rubrikpunkte (0-100).",
+        "Different grader, not directly comparable. Offline rubric benchmark, not diagnostic accuracy or patient-outcome evidence. Grader self-evaluation may introduce bias.": "Anderer Grader, nicht direkt vergleichbar. Offline-Benchmark, keine diagnostische Genauigkeit oder Evidenz für bessere Patienten-Outcomes. Die Selbstbewertung durch den Grader kann verzerren.",
+        "66 length-adjusted rubric points (0-100).": "66 längenbereinigte Rubrikpunkte (0-100).",
+        "64.7 length-adjusted rubric points (0-100). Raw score: 68.2, stored separately.": "64.7 längenbereinigte Rubrikpunkte (0-100). Rohwert: 68.2, getrennt gespeichert.",
+        "Grader GPT-5.4-low not explicitly established for this run. No main-line connection. Offline benchmark, not real-patient clinical validation.": "Grader GPT-5.4-low für diesen Lauf nicht ausdrücklich belegt. Keine Verbindung mit der Hauptlinie. Offline-Benchmark, keine klinische Validierung an echten Patienten.",
+        "64.2 length-adjusted rubric points (0-100). Raw score: 67.2, stored separately.": "64.2 längenbereinigte Rubrikpunkte (0-100). Rohwert: 67.2, getrennt gespeichert.",
+        "69.2 length-adjusted rubric points (0-100). Raw score: 77.1, stored separately.": "69.2 längenbereinigte Rubrikpunkte (0-100). Rohwert: 77.1, getrennt gespeichert.",
+        "70.3 length-adjusted rubric points (0-100). Raw score: 74, stored separately.": "70.3 längenbereinigte Rubrikpunkte (0-100). Rohwert: 74, getrennt gespeichert.",
+        "51.9 length-adjusted rubric points (0-100).": "51.9 längenbereinigte Rubrikpunkte (0-100).",
+        "Reported; grader unconfirmed: unconnected points.": "Berichtet; Grader unbestätigt: unverbundene Punkte.",
+        "Other grader: Claude Opus 4.8. Different grader, not directly comparable. Claude Sonnet 4.6: isolated point.": "Anderer Grader: Claude Opus 4.8. Nicht direkt vergleichbar. Claude Sonnet 4.6: separater Punkt.",
+        "Not explicitly stated": "Nicht ausdrücklich angegeben",
+        "Different grader, not directly comparable. Offline rubric scores, not clinical accuracy.": "Anderer Grader, nicht direkt vergleichbar. Offline-Rubrikpunkte, keine klinische Genauigkeit.",
+        "Different grader, not directly comparable. Core and Professional are separate tests.": "Anderer Grader, nicht direkt vergleichbar. Core und Professional sind getrennte Tests."
       }
     },
     "navigation": {
@@ -8604,44 +9139,46 @@
     "2.14": {
       "title": "Claude Opus 4.8",
       "badge": {
-        "kind": "unverified",
-        "year": null
+        "kind": "vendor_report",
+        "year": 2026
       },
       "tags": [
-        "525 clinician tasks",
-        "Rubric score"
+        "HealthBench Professional",
+        "Length-adjusted",
+        "Grader: Claude Opus 4.8"
       ],
       "finding": {
-        "headline": "Rubric score: 56.9 points",
-        "explanation": "56.9 reported rubric points on clinical responses; points are not a percentage of correct diagnoses.",
+        "headline": "Length-adjusted rubric score: 56.9 points",
+        "explanation": "56.9 length-adjusted rubric points (0-100).",
         "value": 56.9,
         "unit": "points",
         "kind": "quantitative"
       },
-      "setup": "Third-party locator claims 56.9; original PDF not retrieved.",
-      "limitations": "Imported numerical claim; original system-card table, tested model configuration and grader could not be checked. Excluded from the dated curve and confirmed frontier.",
-      "teaser": "Claude Opus 4.8: 56.9 points on HealthBench Professional.",
-      "timeline_year": null,
-      "evidence_date": null,
-      "date_basis": "unresolved",
-      "timeline_note": "Evidence publication date is not established. This result is retained outside the dated curve.",
+      "setup": "525 clinician-authored tasks; max effort; five trials; length-adjusted; grader Claude Opus 4.8; no tools or customized system prompt.",
+      "limitations": "Different grader, not directly comparable. Offline rubric benchmark, not diagnostic accuracy or patient-outcome evidence. Grader self-evaluation may introduce bias.",
+      "teaser": "Claude Opus 4.8: 56.9 length-adjusted points; Claude Opus 4.8.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-06-09",
+      "date_basis": "verified_evidence_publication",
+      "timeline_note": "Model availability is a calendar proxy, not the evaluation date; evaluation date unknown.",
       "sources": [
         {
-          "title": "Anthropic Benchmark Report (Juni 2026)",
-          "url": null,
-          "journal_citation": null,
-          "locator": "Candidate: Mythos/Fable system card Table8.1.A p252; PDF inaccessible"
+          "url": "https://www-cdn.anthropic.com/d00db56fa754a1b115b6dd7cb2e3c342ee809620.pdf",
+          "locator": "Table 8.1.A, pp. 252-253 (score row p. 253); section 8.18.2, Figure 8.18.2.A, pp. 299-300",
+          "type": "official_primary",
+          "journal_citation": "Official system card (2026-06-09)",
+          "title": "Claude Fable 5 & Claude Mythos 5 System Card"
         }
       ],
       "validation": {
-        "status": "needs_review",
-        "comparability": "unknown",
-        "reviewedAt": "2026-10-18",
-        "reviewedBy": "AI-assisted original-source research audit",
-        "note": "Do not confirm; other reported evaluations differ, indicating grader/protocol sensitivity. Score verification does not establish the model release month or clinical safety."
+        "status": "reported",
+        "comparability": "different_protocol",
+        "reviewedAt": "2026-10-26",
+        "reviewedBy": "AI-assisted original system-card review",
+        "note": "Original vendor number, metric and grader source-checked. Vendor report, not independent replication; different grader from main line."
       },
       "release": "2026-05",
-      "publication": null,
+      "publication": "2026-06-09",
       "evaluation": null,
       "classification": {
         "topic": "capability",
@@ -8650,50 +9187,52 @@
         "milestone": false,
         "realPatientTested": false,
         "patientOutcomeEvidence": false,
-        "classificationStatus": "provisional"
+        "classificationStatus": "reviewed"
       }
     },
     "2.15": {
       "title": "Claude Mythos 5",
       "badge": {
-        "kind": "unverified",
-        "year": null
+        "kind": "vendor_report",
+        "year": 2026
       },
       "tags": [
-        "525 clinician tasks",
-        "Rubric score"
+        "HealthBench Professional",
+        "Length-adjusted",
+        "Grader: Claude Opus 4.8"
       ],
       "finding": {
-        "headline": "Rubric score: 66 points",
-        "explanation": "66 reported rubric points on clinical responses; points are not a percentage of correct diagnoses.",
+        "headline": "Length-adjusted rubric score: 66 points",
+        "explanation": "66 length-adjusted rubric points (0-100).",
         "value": 66,
         "unit": "points",
         "kind": "quantitative"
       },
-      "setup": "Third-party locator claims Mythos 66.0; primary numerical table not retrieved.",
-      "limitations": "Imported numerical claim; original system-card table, tested model configuration and grader could not be checked. Excluded from the dated curve and confirmed frontier.",
-      "teaser": "Claude Mythos 5: 66 points on HealthBench Professional.",
-      "timeline_year": null,
-      "evidence_date": null,
-      "date_basis": "unresolved",
-      "timeline_note": "Evidence publication date is not established. This result is retained outside the dated curve.",
+      "setup": "525 clinician-authored tasks; max effort; five trials; length-adjusted; grader Claude Opus 4.8; no tools or customized system prompt.",
+      "limitations": "Different grader, not directly comparable. Offline rubric benchmark, not diagnostic accuracy or patient-outcome evidence. Grader self-evaluation may introduce bias.",
+      "teaser": "Claude Mythos 5: 66 length-adjusted points; Claude Opus 4.8.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-06-09",
+      "date_basis": "verified_evidence_publication",
+      "timeline_note": "Model availability is a calendar proxy, not the evaluation date; evaluation date unknown.",
       "sources": [
         {
-          "title": "Anthropic Mythos 5 Release (Juni 2026)",
-          "url": null,
-          "journal_citation": null,
-          "locator": "Candidate: Mythos/Fable system card Table8.1.A p252; PDF inaccessible"
+          "url": "https://www-cdn.anthropic.com/d00db56fa754a1b115b6dd7cb2e3c342ee809620.pdf",
+          "locator": "Table 8.1.A, pp. 252-253 (score row p. 253); section 8.18.2, Figure 8.18.2.A, pp. 299-300",
+          "type": "official_primary",
+          "journal_citation": "Official system card (2026-06-09)",
+          "title": "Claude Fable 5 & Claude Mythos 5 System Card"
         }
       ],
       "validation": {
-        "status": "needs_review",
-        "comparability": "unknown",
-        "reviewedAt": "2026-10-18",
-        "reviewedBy": "AI-assisted original-source research audit",
-        "note": "Launch verified June9,2026; score still pending exact primary-source access. Score verification does not establish the model release month or clinical safety."
+        "status": "reported",
+        "comparability": "different_protocol",
+        "reviewedAt": "2026-10-26",
+        "reviewedBy": "AI-assisted original system-card review",
+        "note": "Original vendor number, metric and grader source-checked. Vendor report, not independent replication; different grader from main line."
       },
-      "release": "2026-06",
-      "publication": null,
+      "release": "2026-06-09",
+      "publication": "2026-06-09",
       "evaluation": null,
       "classification": {
         "topic": "capability",
@@ -8702,7 +9241,7 @@
         "milestone": false,
         "realPatientTested": false,
         "patientOutcomeEvidence": false,
-        "classificationStatus": "provisional"
+        "classificationStatus": "reviewed"
       }
     },
     "3.1": {
@@ -13135,6 +13674,276 @@
         "realPatientTested": false,
         "patientOutcomeEvidence": false,
         "classificationStatus": "provisional"
+      }
+    },
+    "hbpro-astra-openai": {
+      "title": "GPT-6 Astra",
+      "badge": {
+        "kind": "vendor_report",
+        "year": 2026
+      },
+      "tags": [
+        "HealthBench Professional",
+        "Length-adjusted",
+        "Grader: not explicitly stated"
+      ],
+      "finding": {
+        "headline": "Length-adjusted rubric score: 64.7 points",
+        "explanation": "64.7 length-adjusted rubric points (0-100). Raw score: 68.2, stored separately.",
+        "value": 64.7,
+        "unit": "points",
+        "kind": "quantitative"
+      },
+      "setup": "525-task HealthBench Professional; max reasoning (owner-supplied, not explicit in table), length-adjusted; per-run grader and sample count not explicitly restated.",
+      "limitations": "Grader GPT-5.4-low not explicitly established for this run. No main-line connection. Offline benchmark, not real-patient clinical validation.",
+      "teaser": "GPT-6 Astra: 64.7 length-adjusted points; grader unconfirmed.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-09-03",
+      "date_basis": "verified_evidence_publication",
+      "timeline_note": "Model availability is a calendar proxy, not the evaluation date; evaluation date unknown.",
+      "sources": [
+        {
+          "url": "https://deploymentsafety.openai.com/gpt-6-astra/healthbench",
+          "locator": "Table 6, section 6.1; correction 2026-09-22",
+          "type": "official_primary",
+          "journal_citation": "Official system card (2026-09-03)",
+          "title": "GPT-6 Astra System Card"
+        }
+      ],
+      "validation": {
+        "status": "reported",
+        "comparability": "qualified",
+        "reviewedAt": "2026-10-26",
+        "reviewedBy": "AI-assisted original system-card review",
+        "note": "Primary number and length adjustment checked in HTML and full PDF. Neither HealthBench section explicitly identifies GPT-5.4-low as this run’s grader; paper citation is insufficient. Max reasoning is owner-supplied; per-run effort and sample count not explicitly stated. Hold outside main line."
+      },
+      "release": "2026-09-03",
+      "publication": "2026-09-03",
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "clinician_chat_benchmark",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
+    },
+    "hbpro-sol61-openai": {
+      "title": "GPT-6.1 Sol",
+      "badge": {
+        "kind": "vendor_report",
+        "year": 2026
+      },
+      "tags": [
+        "HealthBench Professional",
+        "Length-adjusted",
+        "Grader: not explicitly stated"
+      ],
+      "finding": {
+        "headline": "Length-adjusted rubric score: 64.2 points",
+        "explanation": "64.2 length-adjusted rubric points (0-100). Raw score: 67.2, stored separately.",
+        "value": 64.2,
+        "unit": "points",
+        "kind": "quantitative"
+      },
+      "setup": "525-task HealthBench Professional; max reasoning (owner-supplied, not explicit in table), length-adjusted; per-run grader and sample count not explicitly restated.",
+      "limitations": "Grader GPT-5.4-low not explicitly established for this run. No main-line connection. Offline benchmark, not real-patient clinical validation.",
+      "teaser": "GPT-6.1 Sol: 64.2 length-adjusted points; grader unconfirmed.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-09-29",
+      "date_basis": "verified_evidence_publication",
+      "timeline_note": "Model availability is a calendar proxy, not the evaluation date; evaluation date unknown.",
+      "sources": [
+        {
+          "url": "https://deploymentsafety.openai.com/gpt-6-1-sol",
+          "locator": "Table 7, section 5.1",
+          "type": "official_primary",
+          "journal_citation": "Official system card (2026-09-29)",
+          "title": "GPT-6.1 Sol System Card Addendum"
+        }
+      ],
+      "validation": {
+        "status": "reported",
+        "comparability": "qualified",
+        "reviewedAt": "2026-10-26",
+        "reviewedBy": "AI-assisted original system-card review",
+        "note": "Primary number and length adjustment checked in HTML and full PDF. Neither HealthBench section explicitly identifies GPT-5.4-low as this run’s grader; paper citation is insufficient. Max reasoning is owner-supplied; per-run effort and sample count not explicitly stated. Hold outside main line."
+      },
+      "release": "2026-09-29",
+      "publication": "2026-09-29",
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "clinician_chat_benchmark",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "provisional"
+      }
+    },
+    "hbpro-sonnet55-anthropic": {
+      "title": "Claude Sonnet 5.5",
+      "badge": {
+        "kind": "vendor_report",
+        "year": 2026
+      },
+      "tags": [
+        "HealthBench Professional",
+        "Length-adjusted",
+        "Grader: Claude Opus 4.8"
+      ],
+      "finding": {
+        "headline": "Length-adjusted rubric score: 69.2 points",
+        "explanation": "69.2 length-adjusted rubric points (0-100). Raw score: 77.1, stored separately.",
+        "value": 69.2,
+        "unit": "points",
+        "kind": "quantitative"
+      },
+      "setup": "525 clinician-authored tasks; max effort; five trials; length-adjusted; grader Claude Opus 4.8; no tools or customized system prompt.",
+      "limitations": "Different grader, not directly comparable. Offline rubric benchmark, not diagnostic accuracy or patient-outcome evidence. Grader self-evaluation may introduce bias.",
+      "teaser": "Claude Sonnet 5.5: 69.2 length-adjusted points; Claude Opus 4.8.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-09-28",
+      "date_basis": "verified_evidence_publication",
+      "timeline_note": "Model availability is a calendar proxy, not the evaluation date; evaluation date unknown.",
+      "sources": [
+        {
+          "url": "https://www.anthropic.com/claude-sonnet-5-5-system-card",
+          "locator": "pp. 137-138, section 8.15, Figures 8.15.A/B and section 8.15.2",
+          "type": "official_primary",
+          "journal_citation": "Official system card (2026-09-28)",
+          "title": "Claude Sonnet 5.5 System Card"
+        }
+      ],
+      "validation": {
+        "status": "reported",
+        "comparability": "different_protocol",
+        "reviewedAt": "2026-10-26",
+        "reviewedBy": "AI-assisted original system-card review",
+        "note": "Original vendor number, metric and grader source-checked. Vendor report, not independent replication; different grader from main line."
+      },
+      "release": "2026-09-28",
+      "publication": "2026-09-28",
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "clinician_chat_benchmark",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "reviewed"
+      }
+    },
+    "hbpro-astra-anthropic": {
+      "title": "GPT-6 Astra (Anthropic run)",
+      "badge": {
+        "kind": "vendor_report",
+        "year": 2026
+      },
+      "tags": [
+        "HealthBench Professional",
+        "Length-adjusted",
+        "Grader: Claude Opus 4.8"
+      ],
+      "finding": {
+        "headline": "Length-adjusted rubric score: 70.3 points",
+        "explanation": "70.3 length-adjusted rubric points (0-100). Raw score: 74, stored separately.",
+        "value": 70.3,
+        "unit": "points",
+        "kind": "quantitative"
+      },
+      "setup": "525 clinician-authored tasks; max effort; five trials; length-adjusted; grader Claude Opus 4.8; no tools or customized system prompt.",
+      "limitations": "Different grader, not directly comparable. Offline rubric benchmark, not diagnostic accuracy or patient-outcome evidence. Grader self-evaluation may introduce bias.",
+      "teaser": "GPT-6 Astra (Anthropic run): 70.3 length-adjusted points; Claude Opus 4.8.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-09-28",
+      "date_basis": "verified_evidence_publication",
+      "timeline_note": "Model availability is a calendar proxy, not the evaluation date; evaluation date unknown.",
+      "sources": [
+        {
+          "url": "https://www.anthropic.com/claude-sonnet-5-5-system-card",
+          "locator": "pp. 137-138, section 8.15, Figures 8.15.A/B and section 8.15.2",
+          "type": "official_primary",
+          "journal_citation": "Official system card (2026-09-28)",
+          "title": "Claude Sonnet 5.5 System Card"
+        }
+      ],
+      "validation": {
+        "status": "reported",
+        "comparability": "different_protocol",
+        "reviewedAt": "2026-10-26",
+        "reviewedBy": "AI-assisted original system-card review",
+        "note": "Original vendor number, metric and grader source-checked. Vendor report, not independent replication; different grader from main line."
+      },
+      "release": "2026-09-03",
+      "publication": "2026-09-28",
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "clinician_chat_benchmark",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "reviewed"
+      }
+    },
+    "hbpro-opus47-anthropic": {
+      "title": "Claude Opus 4.7 (Anthropic grader)",
+      "badge": {
+        "kind": "vendor_report",
+        "year": 2026
+      },
+      "tags": [
+        "HealthBench Professional",
+        "Length-adjusted",
+        "Grader: Claude Sonnet 4.6"
+      ],
+      "finding": {
+        "headline": "Length-adjusted rubric score: 51.9 points",
+        "explanation": "51.9 length-adjusted rubric points (0-100).",
+        "value": 51.9,
+        "unit": "points",
+        "kind": "quantitative"
+      },
+      "setup": "525 clinician-authored tasks; max effort; five trials; length-adjusted; grader Claude Sonnet 4.6; no tools or customized system prompt.",
+      "limitations": "Different grader, not directly comparable. Offline rubric benchmark, not diagnostic accuracy or patient-outcome evidence. Grader self-evaluation may introduce bias.",
+      "teaser": "Claude Opus 4.7 (Anthropic grader): 51.9 length-adjusted points; Claude Sonnet 4.6.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-05",
+      "date_basis": "verified_evidence_publication",
+      "timeline_note": "Model availability is a calendar proxy, not the evaluation date; evaluation date unknown.",
+      "sources": [
+        {
+          "url": "https://www-cdn.anthropic.com/0b4915911bb0d19eca5b5ee635c80fef830a37ea.pdf",
+          "locator": "pp. 228-229, section 8.14.1, Figure 8.14.A (grader in caption)",
+          "type": "official_primary",
+          "journal_citation": "Official system card (2026-05)",
+          "title": "Claude Opus 4.8 System Card"
+        }
+      ],
+      "validation": {
+        "status": "reported",
+        "comparability": "different_protocol",
+        "reviewedAt": "2026-10-26",
+        "reviewedBy": "AI-assisted original system-card review",
+        "note": "Original vendor number, metric and grader source-checked. Vendor report, not independent replication; different grader from main line."
+      },
+      "release": "2026-04",
+      "publication": "2026-05",
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "clinician_chat_benchmark",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "reviewed"
       }
     }
   }

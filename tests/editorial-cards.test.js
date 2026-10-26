@@ -12,10 +12,10 @@ test('research corrections preserve observed scores while fixing setup, dates an
   assert.match(point('1.2').setup,/only on MedQA/);
   for(const id of ['1.4','1.5','1.6']){assert.equal(point(id).publicationDate,'2025-05-02');assert.match(point(id).sources[0].url,/01653-8/);assert.ok(eligibilityReasons(point(id)).length);}
   assert.equal(point('2.12').validation.comparability,'different_protocol');
-  for(const id of ['2.14','2.15']){assert.equal(point(id).validation.status,'needs_review');assert.equal(point(id).publicationDate,null);assert.ok(eligibilityReasons(point(id)).length);}
+  for(const id of ['2.14','2.15']){assert.equal(point(id).validation.status,'reported');assert.equal(point(id).publicationDate,'2026-06-09');assert.equal(point(id).validation.comparability,'different_protocol');assert.ok(eligibilityReasons(point(id)).length);}
 });
 test('every canonical card has one scannable layout, no Q&A or orphaned metadata delimiter',()=>{
-  assert.equal(Object.keys(monitorData.editorialCards).length,115);
+  assert.equal(Object.keys(monitorData.editorialCards).length,120);
   for(const id of Object.keys(monitorData.editorialCards)){
     const html=pointCardHtml(editorialCard(id));
     assert.match(html,/card-key-finding/);assert.match(html,/SETUP &amp; COHORT/);assert.match(html,/LIMITATIONS &amp; VALIDITY/);
