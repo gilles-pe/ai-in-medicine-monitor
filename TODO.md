@@ -95,3 +95,10 @@ Release verification for the responsive-density/table-order update: source 5ec86
 - [x] Check seven system-card records, separate raw/adjusted scores and exact graders.
 - [x] Preserve main line, paper Opus 4.7 47.0 and physician reference 43.7.
 - [ ] Obtain explicit run-specific GPT-5.4-low evidence, effort and sample count for Astra/Sol before promotion.
+
+## 26 October - export credit and sparse windows
+
+- [x] Append | ai.gillespenning.com to the PNG brand footer.
+- [ ] Consider a taller full-view plot and a sparse-measurement hint for short windows; preserve actual slopes, benchmark protocols and gaps. Proposal only; no axis change authorized by this run.
+
+- [x] Preserve the entering best value when clipping an existing frontier connection to a short time window; keep real dots and gaps unchanged.
