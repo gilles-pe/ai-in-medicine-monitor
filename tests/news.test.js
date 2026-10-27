@@ -33,6 +33,7 @@ test('dashboard has four recent stories and All opens the full translated archiv
   assert.match(en, />Post</);
   const archive = renderNewsArchive('en');
   assert.match(archive, /id="heart-blue-screen"/);
+  assert.doesNotMatch(archive, /<details|<summary|fold-preview/);
   assert.match(archive, /id="news-year-2026"/);
 });
 

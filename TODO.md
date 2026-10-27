@@ -102,3 +102,5 @@ Release verification for the responsive-density/table-order update: source 5ec86
 - [ ] Consider a taller full-view plot and a sparse-measurement hint for short windows; preserve actual slopes, benchmark protocols and gaps. Proposal only; no artificial padding change made.
 
 - [x] Preserve the entering best value when clipping an existing frontier connection to a short time window; keep real dots and gaps unchanged.
+
+27 October 2026 - owner request: the full Chronological News archive shows each existing story summary, thumbnail and source links permanently, using plain content instead of details/summary. There is no collapse control in either language; homepage previews retain their compact disclosures. Shared upper social navigation adds a normal Substack profile link (https://substack.com/@medtechsignal) immediately before LinkedIn and Bluesky, independent of Subscribe. News text, original dates and evidence remain unchanged. Checks/publication pending.

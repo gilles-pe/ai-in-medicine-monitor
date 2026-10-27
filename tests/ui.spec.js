@@ -185,7 +185,7 @@ test('news previews expand and archive shares navigation and menu',async({page})
  const first=page.locator('.news-fold').first();await expect(first).not.toHaveAttribute('open','');await first.locator('summary').click();await expect(first.locator('.news-meta-row')).toBeVisible();
  await page.locator('#section-nav').getByRole('link',{name:'News',exact:true}).click();await expect(page).toHaveURL(/news\/\?lang=en/);await expect(page.locator('#news-title')).toHaveText('Chronological News');await expect(page.locator('#news-back')).toHaveText('← Back to medical AI dashboard');await expect(page.locator('#news-reading-key,#news-order')).toHaveCount(0);
  await page.locator('#menu-button').click();await expect(page.locator('#site-menu')).toBeVisible();await page.locator('[data-language="de"]').click();await expect(page.locator('#news-title')).toHaveText('Chronologische News');await page.keyboard.press('Escape');
- await expect(page.locator('#news-items .news-card-item')).not.toHaveCount(0);await page.locator('#news-items .news-fold summary').first().click();await expect(page.locator('#news-items .news-meta-row').first()).toBeVisible();
+ await expect(page.locator('#news-items .news-card-item')).not.toHaveCount(0);await expect(page.locator('#section-nav .quiet-social a').first()).toHaveText('Substack');await expect(page.locator('#section-nav .quiet-social a').first()).toHaveAttribute('href','https://substack.com/@medtechsignal');await expect(page.locator('#news-items details,#news-items summary')).toHaveCount(0);await expect(page.locator('#news-items .news-meta-row').first()).toBeVisible();
 });
 
  test('responsive introduction and news thumbnails keep closed previews compact',async({page})=>{
