@@ -20,6 +20,7 @@ The source-linked taxonomy is specified in `docs/EVIDENCE_TAGGING.md`. Every edi
 - Desktop: every source-backed overview/lower-chart point reveals an interactive hover card. Moving onto the original-source link keeps the card reachable. Click or Enter pins the card.
 - Phone/tablet: tap opens the same evidence card as a bottom sheet. Hover is never required. Overview taps resolve a source within a 44px CSS target despite SVG scaling; nearby sources offer a switcher in one card.
 - A selected point/milestone stays highlighted. Grouped results have one active card and a working result switcher. Close and Escape dismiss the card and return focus to the trigger.
+- A news deep link to a lower-chart milestone shows that milestone with a subtle pulse and its canonical evidence card in the same chart view: side by side on desktop, stacked on phones. The card scrolls independently, closes with its button or Escape, and returns focus to the milestone. Reduced-motion preferences suppress the pulse animation.
 - Cards show the quantitative finding, setup/cohort, actual limitations, evidence status and original sources. Future or unconfirmed measurements never acquire an invented curve.
 - Horizontal overview dragging scrubs the cursor/milestones without opening a card. Vertical gestures remain page scrolling. Keyboard source activation is independent of scrubbing.
 

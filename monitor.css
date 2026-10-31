@@ -312,3 +312,14 @@ html{scroll-padding-top:64px}
 @media(max-width:600px){.evidence-filter-bar{gap:7px 10px}.evidence-filter-bar .filter-label{width:100%}.evidence-filter-bar label:not(.milestone-only){flex:1 1 140px;display:grid;gap:3px}.evidence-filter-bar select{width:100%;max-width:none}.chart-stories button .evidence-tags{display:flex}.chart-stories button .evidence-tag:not(.evidence-setting):not(.evidence-milestone){display:none}.chart-stories button .evidence-setting{line-height:1.25;overflow-wrap:anywhere}#glossary .evidence-glossary-group dl>div{grid-template-columns:1fr;gap:2px}}
 
 .monitor-grader-legend{font-size:.67rem;color:#715b74;line-height:1.4;margin:.2rem 0}.monitor-grader-side-line{pointer-events:none}
+/* A news deep link keeps its milestone and evidence card in the same view. */
+.chart-stories.has-linked-focus:has(>button:nth-child(4)){grid-template-columns:minmax(145px,1fr) minmax(0,2fr);align-items:start;gap:10px 16px}
+.chart-stories.has-linked-focus>.is-linked-target{grid-column:1;grid-row:1;order:-2;position:relative;align-self:start;min-height:52px;padding-left:30px;border-color:#b89048;background:#f8f2e4;box-shadow:0 0 0 2px #c7a76850;overflow:visible}
+.chart-stories.has-linked-focus>.is-linked-target::before{content:"";position:absolute;left:11px;top:18px;width:10px;height:10px;border-radius:50%;background:#a77726;box-shadow:0 0 0 4px #cba35a44;animation:linked-milestone-pulse 2.4s ease-out infinite}
+.chart-stories.has-linked-focus>.is-linked-target::after{content:"";position:absolute;left:100%;top:25px;width:16px;border-top:1px solid #b89048}
+.chart-stories.has-linked-focus>.linked-milestone-card{grid-column:2;grid-row:1;order:-1;min-width:0;max-height:min(48dvh,440px);overflow:auto;padding:16px 19px;background:rgba(255,253,248,.94);border:1px solid var(--line-strong);border-radius:9px;box-shadow:var(--shadow-md);overscroll-behavior:contain}
+.chart-stories.has-linked-focus>.linked-milestone-card .editorial-evidence-card h2{font-size:clamp(20px,2vw,26px)}
+.chart-stories.has-linked-focus>button:not(.is-linked-target){order:1}
+@keyframes linked-milestone-pulse{0%{box-shadow:0 0 0 0 #c4944880}70%,100%{box-shadow:0 0 0 10px #c4944800}}
+@media(max-width:600px){.chart-stories.has-linked-focus:has(>button:nth-child(4)){grid-template-columns:repeat(2,minmax(0,1fr))}.chart-stories.has-linked-focus>.is-linked-target{grid-column:1/-1;grid-row:auto}.chart-stories.has-linked-focus>.is-linked-target::after{display:none}.chart-stories.has-linked-focus>.linked-milestone-card{grid-column:1/-1;grid-row:auto;max-height:calc(100dvh - 210px);padding:13px 15px}}
+@media(prefers-reduced-motion:reduce){.chart-stories.has-linked-focus>.is-linked-target::before{animation:none;box-shadow:0 0 0 5px #cba35a55}}

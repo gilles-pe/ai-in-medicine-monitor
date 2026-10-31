@@ -46,10 +46,34 @@ function highlightCard(id){
 }
 function showEditorialCard(id){
   const card=editorialCard(id);if(!card)return;
+  if(shell.querySelector('.linked-milestone-card'))closeLinkedMilestone();
   hover?.hide();$('#detail-body').innerHTML=pointCardHtml(card);if(!dialog.open)dialog.showModal();highlightCard(id);
 }
 function showMeasurement(id){if(rows().some(item=>item.id===id))showEditorialCard(id);}
 function showTrackMilestone(id){if([...trackMilestones,trustContext].some(item=>item.id===id&&item.date<=state.cutoff))showEditorialCard(id);}
+function closeLinkedMilestone({returnFocus=false}={}){
+  const target=shell.querySelector('.is-linked-target');
+  shell.querySelector('.linked-milestone-card')?.remove();
+  target?.closest('.chart-stories')?.classList.remove('has-linked-focus');
+  target?.classList.remove('is-linked-target');
+  highlightCard(null);
+  if(returnFocus)target?.focus({preventScroll:true});
+}
+function showLinkedMilestone(id,target){
+  if(![...trackMilestones,trustContext].some(item=>item.id===id&&item.date<=state.cutoff))return;
+  const card=editorialCard(id),stories=target.closest('.chart-stories');if(!card||!stories)return;
+  closeLinkedMilestone();
+  if(dialog.open)dialog.close();
+  hover?.hide();
+  const panel=document.createElement('aside');
+  panel.className='linked-milestone-card';panel.setAttribute('aria-label','Milestone evidence');
+  panel.innerHTML=pointCardHtml(card);
+  target.insertAdjacentElement('afterend',panel);
+  stories.classList.add('has-linked-focus');target.classList.add('is-linked-target');
+  highlightCard(id);
+  panel.querySelector('[data-card-close]')?.addEventListener('click',()=>closeLinkedMilestone({returnFocus:true}));
+  target.scrollIntoView({block:'start'});
+}
 function showStudy(id){if(studies.some(item=>item.id===id&&item.date<=state.cutoff))showEditorialCard(id);}
 function showHistory(id){if(visibleHistory(state.cutoff).some(item=>item.id===id))showEditorialCard(id);}
 function showOverviewPoint(id){if(visibleAnchors(state.cutoff).some(item=>item.id===id))showEditorialCard(id);}
@@ -134,6 +158,8 @@ function exportData(){
   const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='ai-in-medicine-'+state.cutoff+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('Data exported.');
 }
 async function action(event){
+  if(event.target.closest('.is-linked-target')){event.preventDefault();return;}
+  if(event.target.closest('[data-track-milestone]')&&shell.querySelector('.linked-milestone-card'))closeLinkedMilestone();
   const rangeButton=event.target.closest('[data-chart-range]');if(rangeButton){hover?.hide();state.ranges[rangeButton.dataset.rangeChart]=rangeButton.dataset.chartRange;render();shell.querySelector('[data-range-chart="'+rangeButton.dataset.rangeChart+'"][data-chart-range="'+rangeButton.dataset.chartRange+'"]')?.focus({preventScroll:true});return;}
   const download=event.target.closest('[data-chart-download]');if(download){const chart=download.closest('.overview,.track'),svg=chart.querySelector('.overview-scroll svg,.monitor-chart-svg');download.disabled=true;try{announce(await exportChart(svg,{title:chart.querySelector('h2').textContent,cutoff:state.cutoff,filename:'ai-medicine-'+download.dataset.chartDownload+'.png',note:chart.querySelector('.chart-takeaway').textContent}));}catch(error){announce('Image export failed: '+error.message);}finally{download.disabled=false;}return;}
   if(event.type==='click'&&Date.now()<suppressOverviewClickUntil&&event.target.closest('#overview .overview-scroll svg'))return;
@@ -231,13 +257,13 @@ shell.addEventListener('pointerleave',event=>{
 },true);
 $('#detail-body').addEventListener('click',action);
 dialog.addEventListener('click',event=>{if(event.target.closest('[data-card-close]'))dialog.close();});
-dialog.addEventListener('close',()=>{hover.hide();highlightCard(null);});
+dialog.addEventListener('close',()=>{hover.hide();if(!shell.querySelector('.linked-milestone-card'))highlightCard(null);});
 $('#export-button')?.addEventListener('click',exportData);
 $('#editorial-check').innerHTML=reviewedMarkup();
 $('#package-export-button')?.addEventListener('click',async event=>{const button=event.currentTarget;button.disabled=true;try{announce(await downloadMonitorPackage());}catch(error){announce('Package export failed: '+error.message);}finally{button.disabled=false;}});
 // Old view hashes now lead to the single-page overview.
 if(['#verlauf','#anwendungen','#studien','#quellen'].includes(location.hash))history.replaceState(null,'','#top');
-document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!dialog.open){if(state.zoomedChart){toggleChartZoom(null);return;}}});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!dialog.open){if(shell.querySelector('.linked-milestone-card')){closeLinkedMilestone({returnFocus:true});return;}if(state.zoomedChart){toggleChartZoom(null);return;}}});
 document.addEventListener('keydown',event=>{
   if(event.key!=='Tab'||dialog.open)return;
   const scope=!siteMenu.hidden?siteMenu:state.zoomedChart?(state.zoomedChart==='overview'?$('#overview'):$('#chart-'+state.zoomedChart)):null;
@@ -252,13 +278,13 @@ document.addEventListener('keydown',event=>{
 render();
 function followLocationHash(){
   const hash=location.hash.slice(1);
-  if(!hash)return;
+  if(!hash){closeLinkedMilestone();return;}
   const target=document.getElementById(hash);
-  target?.scrollIntoView({block:'start'});
   if(hash.startsWith('track-milestone-')&&target){
     const id=hash.slice('track-milestone-'.length);
-    if(trackMilestones.some(point=>point.id===id))showTrackMilestone(id);
+    if(trackMilestones.some(point=>point.id===id)){showLinkedMilestone(id,target);return;}
   }
+  closeLinkedMilestone();target?.scrollIntoView({block:'start'});
 }
 if(location.hash)requestAnimationFrame(followLocationHash);
 window.addEventListener('hashchange',()=>requestAnimationFrame(followLocationHash));
@@ -276,8 +302,8 @@ function hoverCard(target,event){
   }
   return editorialCard(id);
 }
-const hover=installPointHover(shell,hoverCard,{onOpen:(id)=>{if(!dialog.open)highlightCard(id);},onClose:()=>{if(!dialog.open)highlightCard(null);}});
-let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{hover.hide();render();},150);});
+const hover=installPointHover(shell,hoverCard,{onOpen:(id)=>{if(!dialog.open&&!shell.querySelector('.linked-milestone-card'))highlightCard(id);},onClose:()=>{if(!dialog.open&&!shell.querySelector('.linked-milestone-card'))highlightCard(null);}});
+let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{hover.hide();render();if(location.hash)requestAnimationFrame(followLocationHash);},150);});
 
 // UI language changes preserve the active chart, cutoff, model and open details.
 function chooseLanguage(value,persist=true){

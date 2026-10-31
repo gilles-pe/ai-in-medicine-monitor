@@ -188,21 +188,36 @@ test('news previews expand and archive shares navigation and menu',async({page})
  await expect(page.locator('#news-items .news-card-item')).not.toHaveCount(0);await expect(page.locator('#section-nav .quiet-social a').first()).toHaveText('Substack');await expect(page.locator('#section-nav .quiet-social a').first()).toHaveAttribute('href','https://substack.com/@medtechsignal');await expect(page.locator('#news-items details,#news-items summary')).toHaveCount(0);await expect(page.locator('#news-items .news-meta-row').first()).toBeVisible();
 });
 
-test('news chart link selects the MAI-DxO milestone and opens its detail card',async({page})=>{
+test('news chart link keeps the pulsing MAI-DxO milestone beside its evidence card',async({page})=>{
+  await page.setViewportSize({width:1280,height:900});
   await page.clock.setFixedTime(new Date('2026-10-31T06:30:00Z'));
   await page.goto('./?cutoff=2026-10-31&lang=en');
   const link=page.locator('#news-ai-diagnosis-doctor-choice .news-chart-link');
   await expect(link).toHaveAttribute('href','./?lang=en#track-milestone-lower-mai-dxo-2026');
   await link.click();
   await expect(page).toHaveURL(/#track-milestone-lower-mai-dxo-2026$/);
-  await expect(page.locator('#track-milestone-lower-mai-dxo-2026')).toHaveClass(/is-selected/);
-  await expect(page.locator('#detail-dialog')).toBeVisible();
-  await expect(page.locator('#detail-dialog')).toContainText('MAI-DxO');
+  const marker=page.locator('#track-milestone-lower-mai-dxo-2026'),card=page.locator('.linked-milestone-card');
+  await expect(marker).toHaveClass(/is-linked-target/);
+  await expect(marker).toHaveClass(/is-selected/);
+  await expect(marker).toBeInViewport();
+  await expect(card).toBeInViewport();
+  await expect(card).toContainText('MAI-DxO');
+  await expect(page.locator('#detail-dialog')).not.toBeVisible();
+  const desktop=await Promise.all([marker.boundingBox(),card.boundingBox()]);
+  expect(desktop[1].x).toBeGreaterThan(desktop[0].x+desktop[0].width);
   await page.keyboard.press('Escape');
-  await expect(page.locator('#track-milestone-lower-mai-dxo-2026')).toBeInViewport();
+  await expect(card).toHaveCount(0);
+  await expect(marker).toBeInViewport();
   await page.goto('./news/?lang=de');
   await page.locator('#ai-diagnosis-doctor-choice .news-chart-link').click();
-  await expect(page.locator('#detail-dialog')).toContainText('MAI-DxO');
+  await expect(page.locator('.linked-milestone-card')).toContainText('MAI-DxO');
+  await page.setViewportSize({width:375,height:844});
+  await expect(marker).toBeInViewport();await expect(card).toBeInViewport();
+  const mobile=await Promise.all([marker.boundingBox(),card.boundingBox()]);
+  expect(mobile[1].y).toBeGreaterThan(mobile[0].y);
+  await card.locator('[data-card-close]').click();
+  await expect(card).toHaveCount(0);
+  await expect(marker).toBeFocused();
 });
 
  test('responsive introduction and news thumbnails keep closed previews compact',async({page})=>{
