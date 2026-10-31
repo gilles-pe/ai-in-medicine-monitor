@@ -189,6 +189,7 @@ test('news previews expand and archive shares navigation and menu',async({page})
 });
 
 test('news chart link selects the MAI-DxO milestone and opens its detail card',async({page})=>{
+  await page.clock.setFixedTime(new Date('2026-10-31T06:30:00Z'));
   await page.goto('./?cutoff=2026-10-31&lang=en');
   const link=page.locator('#news-ai-diagnosis-doctor-choice .news-chart-link');
   await expect(link).toHaveAttribute('href','./?lang=en#track-milestone-lower-mai-dxo-2026');
