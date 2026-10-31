@@ -9,3 +9,7 @@ Both the dashboard preview and `/news/` archive read `data/news.json` through `l
 5. Run the existing checks and build, then commit the approved update to the GitHub repository. The Publish GitHub Pages workflow deploys `main` after Pages is enabled. During migration, the existing Sites deployment remains available.
 
 The newest four stories appear on the dashboard. The archive retains all approved stories, newest first. Older entries stay available when newer items are added. There is no scheduled import or automatic publication.
+
+## Source preference (owner, 31 October 2026)
+
+When a story has a verified Substack, LinkedIn or Bluesky URL, omit all X/Twitter URLs from its published sources. X is a fallback only if none of those alternatives exists. Apply this to homepage and archive through the shared feed. This rule does not prevent publishing to X itself.

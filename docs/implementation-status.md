@@ -309,3 +309,5 @@ Verified archive release a309de99af754ce07365ff187e2f90a6037f4194: 90 unit tests
 ## 31 October 2026 - diagnosis commentary news
 
 Added owner-approved news item ai-diagnosis-doctor-choice to the shared feed used by the newest-four homepage preview and complete News archive, with English/German copy and verified Substack, LinkedIn and X links. Reused lower-mai-dxo-2026 classification. No scientific scores, frontiers or evidence-review timestamps changed. Corrected existing Substack-star handling to cover Notes as well as articles and made archive metadata assertions independent of the changing newest-four selection. Checks: 90 unit tests, TypeScript, static build and 167 Pages paths passed; both prerendered pages contain the news and cross-post links. Pages CI publication pending.
+
+31 October 2026 - owner follow-up: omit X links from ai.gillespenning.com whenever a verified Substack, LinkedIn or Bluesky alternative exists. Removed X from the diagnosis news item; retain Substack and LinkedIn. This does not remove the published X post.

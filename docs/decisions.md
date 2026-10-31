@@ -103,3 +103,5 @@ Owner requested the PNG footer Digital Health & AI in Medicine | ai.gillespennin
 ## 31 October 2026 - approved diagnosis commentary news
 
 Owner explicitly requested adding the newly published commentary to both homepage and News archive. One post/en item dated 2026-10-31 groups the browser-verified Substack, LinkedIn and X originals, and references the existing MAI-DxO card. Bluesky was blank and has no published URL. This is an editorial news update, not a new evidence review or graph measurement.
+
+31 October 2026 - owner follow-up: omit X links from ai.gillespenning.com whenever a verified Substack, LinkedIn or Bluesky alternative exists. Removed X from the diagnosis news item; retain Substack and LinkedIn. This does not remove the published X post.
