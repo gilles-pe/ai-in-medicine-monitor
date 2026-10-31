@@ -54,3 +54,12 @@ test('verified original metadata overrides translated-headline heuristics',()=>{
   assert.equal(newsLanguage(amie),'en');assert.equal(newsCategory(amie),'post');
   assert.equal(newsLanguage({...amie,originalLanguage:'de',title:{en:'English translation',de:'Deutsches Original'}}),'de');
 });
+
+test('linked diagnosis news opens its exact chart milestone in both languages',()=>{
+  const home=renderNewsSidebar('en');
+  const archive=renderNewsArchive('de');
+  assert.match(home, /id="news-ai-diagnosis-doctor-choice"[\s\S]*?href="\.\/\?lang=en#track-milestone-lower-mai-dxo-2026"/);
+  assert.match(archive, /id="ai-diagnosis-doctor-choice"[\s\S]*?href="\.\.\/\?lang=de#track-milestone-lower-mai-dxo-2026"/);
+  assert.match(home, /View point in chart/);
+  assert.match(archive, /Punkt im Diagramm ansehen/);
+});

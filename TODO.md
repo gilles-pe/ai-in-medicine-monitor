@@ -108,4 +108,5 @@ Release verification for the responsive-density/table-order update: source 5ec86
 ## 31 October 2026 - publishing follow-up
 
 - [x] Add the owner-approved diagnosis commentary to the shared homepage/News feed with Substack, LinkedIn and X cross-posts.
+- [x] Link the diagnosis news on the homepage and archive to its MAI-DxO milestone and open the evidence card on arrival.
 - [ ] Add its Bluesky cross-post only after publication and URL verification; no Bluesky post was published in this session.

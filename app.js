@@ -250,7 +250,18 @@ document.addEventListener('keydown',event=>{
 });
 
 render();
-if(location.hash)requestAnimationFrame(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView({block:'start'}));
+function followLocationHash(){
+  const hash=location.hash.slice(1);
+  if(!hash)return;
+  const target=document.getElementById(hash);
+  target?.scrollIntoView({block:'start'});
+  if(hash.startsWith('track-milestone-')&&target){
+    const id=hash.slice('track-milestone-'.length);
+    if(trackMilestones.some(point=>point.id===id))showTrackMilestone(id);
+  }
+}
+if(location.hash)requestAnimationFrame(followLocationHash);
+window.addEventListener('hashchange',()=>requestAnimationFrame(followLocationHash));
 
 function hoverCard(target,event){
   let id=target.dataset.observationId||target.dataset.monitorPoint||target.dataset.pointId||target.dataset.overviewPoint||target.dataset.trackMilestone||target.dataset.studyId||target.dataset.historyId;
