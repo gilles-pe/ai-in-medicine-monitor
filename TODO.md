@@ -104,3 +104,8 @@ Release verification for the responsive-density/table-order update: source 5ec86
 - [x] Preserve the entering best value when clipping an existing frontier connection to a short time window; keep real dots and gaps unchanged.
 
 27 October 2026 - owner request: the full Chronological News archive shows each existing story summary, thumbnail and source links permanently, using plain content instead of details/summary. There is no collapse control in either language; homepage previews retain their compact disclosures. Shared upper social navigation adds a normal Substack profile link (https://substack.com/@medtechsignal) immediately before LinkedIn and Bluesky, independent of Subscribe. News text, original dates and evidence remain unchanged. Checks/publication pending.
+
+## 31 October 2026 - publishing follow-up
+
+- [x] Add the owner-approved diagnosis commentary to the shared homepage/News feed with Substack, LinkedIn and X cross-posts.
+- [ ] Add its Bluesky cross-post only after publication and URL verification; no Bluesky post was published in this session.

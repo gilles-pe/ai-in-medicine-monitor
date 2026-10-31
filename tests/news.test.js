@@ -28,10 +28,10 @@ test('dashboard has four recent stories and All opens the full translated archiv
   assert.match(de, />Aktuelles</);
   assert.match(en, /class="news-teaser"/);
   assert.match(en, />EN</);
-  assert.match(en, />DE</);
-  assert.match(en, />Article</);
   assert.match(en, />Post</);
   const archive = renderNewsArchive('en');
+  assert.match(archive, />DE</);
+  assert.match(archive, />Article</);
   assert.match(archive, /id="heart-blue-screen"/);
   assert.doesNotMatch(archive, /<details|<summary|fold-preview/);
   assert.match(archive, /id="news-year-2026"/);

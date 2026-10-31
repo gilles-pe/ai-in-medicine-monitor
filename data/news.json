@@ -1,6 +1,36 @@
 {
   "items": [
     {
+      "id": "ai-diagnosis-doctor-choice",
+      "date": "2026-10-31",
+      "approved": true,
+      "category": "post",
+      "originalLanguage": "en",
+      "title": {
+        "en": "Would we choose AI over a human physician?",
+        "de": "Würden wir KI einem menschlichen Arzt vorziehen?"
+      },
+      "summary": {
+        "en": "My take on Microsoft’s sequential-diagnosis study and why patients may choose AI. The results come from simulated clinical encounters, not routine patient care.",
+        "de": "Meine Gedanken zu Microsofts Studie zur schrittweisen Diagnostik und dazu, warum Patienten KI wählen könnten. Die Ergebnisse stammen aus simulierten klinischen Begegnungen, nicht aus der regulären Patientenversorgung."
+      },
+      "sources": [
+        {
+          "platform": "substack",
+          "url": "https://substack.com/@medtechsignal/note/c-374869461"
+        },
+        {
+          "platform": "linkedin",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7522212712018317312/"
+        },
+        {
+          "platform": "x",
+          "url": "https://x.com/gilles_penning/status/2116447143854498130"
+        }
+      ],
+      "linkedCardId": "lower-mai-dxo-2026"
+    },
+    {
       "id": "amie-before-the-appointment",
       "date": "2026-10-24",
       "approved": true,
