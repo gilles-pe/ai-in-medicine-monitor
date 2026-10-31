@@ -190,7 +190,7 @@ test('news previews expand and archive shares navigation and menu',async({page})
 
  test('responsive introduction and news thumbnails keep closed previews compact',async({page})=>{
    await page.setViewportSize({width:1280,height:900});await page.clock.runFor(200);await expect(page.locator('.about-monitor')).toHaveAttribute('open','');
-   const fold=page.locator('.news-fold').first();await expect(fold).not.toHaveAttribute('open','');expect(await fold.locator('summary').evaluate(e=>e.getBoundingClientRect().height)).toBeLessThan(48);
+   const fold=page.locator('.news-fold').filter({has:page.locator('.news-thumbnail')}).first();await expect(fold).not.toHaveAttribute('open','');expect(await fold.locator('summary').evaluate(e=>e.getBoundingClientRect().height)).toBeLessThan(48);
    await expect(fold.locator('summary .news-thumbnail')).toBeVisible();
    await page.setViewportSize({width:375,height:844});await page.clock.runFor(200);await expect(page.locator('.about-monitor')).not.toHaveAttribute('open','');await expect(fold.locator('summary .news-thumbnail')).not.toBeVisible();
    await fold.locator('summary').click();await expect(fold.locator('.fold-content .news-thumbnail')).toBeVisible();
