@@ -111,3 +111,13 @@ Release verification for the responsive-density/table-order update: source 5ec86
 - [x] Link the diagnosis news on the homepage and archive to its MAI-DxO milestone and open the evidence card on arrival.
 - [x] Keep the linked milestone visible and subtly pulsing beside its evidence card on desktop, stacked with the card on phones.
 - [ ] Add its Bluesky cross-post only after publication and URL verification; no Bluesky post was published in this session.
+
+## HealthAgentBench v2 - 2 November 2026
+
+- [x] Verify v2 original PDF scores, baselines, task counts and comparison with v1.
+- [x] Preserve v1 Opus 5 55%; document separate v2 Opus 5 32%.
+- [x] Stage requested values plus v2 baseline as needs_review, different_protocol; no production publication.
+- [ ] Resolve model-availability chronology / explicit axis policy and pinned scaffold metadata before admitting an independent v2 series.
+
+- [x] Owner-approved HealthAgentBench v2 publication prepared as isolated, publication-dated observations with complete original-source cards and separate version headline.
+- [ ] HealthAgentBench v2: retain follow-up for exact model-availability/evaluation dates and pinned CLI versions; do not infer these from the paper date.

@@ -64,12 +64,12 @@ The compact header includes a language switch and hamburger navigation. The menu
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `158174c68089356b9303d887b5960004866d115489750cf6e8310fa36b2da206`
-- Tracks / benchmark series / measurements: 3 / 6 / 49
-- Score validation: 38 confirmed, 8 reported, 3 under review
+- SHA-256 (parsed JSON): `0b94d94dbf72744c197cb7d748b739d5050b4201f2e8526c61307d2957ec6b0b`
+- Tracks / benchmark series / measurements: 3 / 7 / 53
+- Score validation: 42 confirmed, 8 reported, 3 under review
 - Main-line eligible scores: 31; original-link gaps: 0
-- Chronology: 49 unknown evaluation dates; 40 month-precision release proxies
-- Last evidence review: 2026-10-26; last data change: 2026-10-26
+- Chronology: 53 unknown evaluation dates; 40 month-precision release proxies
+- Last evidence review: 2026-11-02; last data change: 2026-11-02
 - Calendar positioning uses model availability proxies, not evaluation dates. Confirmed scores do not validate release-month chronology or source-publication dates and versions.
 - Frontier must be recalculated separately within each benchmark series. Pending and qualified-only records do not form a confirmed main line.
 - Source policy: MONITOR_STANDARD.md; interface: DESIGN.md; collaboration: AGENTS.md.
@@ -128,3 +128,5 @@ HealthBench Professional: other-grader results appear as source-checked reported
 26 October 2026 - verified short-window clipping repair: the renderer now retains the entering best value when an existing comparable frontier segment crosses the window boundary. It clips the documented step connection at the boundary, adds no observation marker or source record, does not connect separate segments and does not extend a line beyond its final observation. Domain calculation includes this entering value. Example in the current dataset: HealthAgentBench April 42 → July 55 stays visible when the 6M window starts in May. No Y-padding, score or protocol changes. Taller full-view plots remain a proposal.
 
 27 October 2026 - owner request: the full Chronological News archive shows each existing story summary, thumbnail and source links permanently, using plain content instead of details/summary. There is no collapse control in either language; homepage previews retain their compact disclosures. Shared upper social navigation adds a normal Substack profile link (https://substack.com/@medtechsignal) immediately before LinkedIn and Bluesky, independent of Subscribe. News text, original dates and evidence remain unchanged. Checks/publication pending.
+
+2 November 2026: HealthAgentBench v2 is a separately coloured group of isolated, publication-dated points in the existing Autonomous Workflows canvas. Its 57.3% headline and compact context identify v2 and 75 tasks. Preserve the v1 line; never draw a bridge. Shared mobile cluster selector, hover/tap cards, data table and fullscreen/export continue to apply. Axis explicitly says v2 uses paper date.

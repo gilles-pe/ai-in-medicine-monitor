@@ -15,7 +15,7 @@ test('research corrections preserve observed scores while fixing setup, dates an
   for(const id of ['2.14','2.15']){assert.equal(point(id).validation.status,'reported');assert.equal(point(id).publicationDate,'2026-06-09');assert.equal(point(id).validation.comparability,'different_protocol');assert.ok(eligibilityReasons(point(id)).length);}
 });
 test('every canonical card has one scannable layout, no Q&A or orphaned metadata delimiter',()=>{
-  assert.equal(Object.keys(monitorData.editorialCards).length,120);
+  assert.equal(Object.keys(monitorData.editorialCards).length,124);
   for(const id of Object.keys(monitorData.editorialCards)){
     const html=pointCardHtml(editorialCard(id));
     assert.match(html,/card-key-finding/);assert.match(html,/SETUP &amp; COHORT/);assert.match(html,/LIMITATIONS &amp; VALIDITY/);

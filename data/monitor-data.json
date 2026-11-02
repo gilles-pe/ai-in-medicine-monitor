@@ -19,8 +19,8 @@
     "editorialStandard": "MONITOR_STANDARD.md",
     "designSpec": "DESIGN.md",
     "agentInstructions": "AGENTS.md",
-    "lastReviewedAt": "2026-10-26",
-    "lastDataChangeAt": "2026-10-26",
+    "lastReviewedAt": "2026-11-02",
+    "lastDataChangeAt": "2026-11-02",
     "importedFrom": "gemini-code-1792312905225.json",
     "reviewNote": "Scoped review of seven HealthBench Professional system-card records and grader protocols on 26 October; other evidence keeps its prior review state.",
     "auditSummary": "38 numerical claims checked against original sources; 35 complete numeric records confirmed, 1 supplier-reported, 5 under review (including 3 source-checked values with unresolved commercial-model setup). MedQA protocols differ and do not form a confirmed frontier. Clinical base-model and product-harness comparisons remain distinct. Release-month positioning is provisional; evaluation dates remain unknown.",
@@ -3347,7 +3347,7 @@
               "sources": [
                 {
                   "label": "Microsoft Research - official benchmark",
-                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "url": "https://microsoft.github.io/HealthAgentBench/v1/",
                   "locator": "Leaderboard: Success Rate",
                   "type": "official_primary"
                 }
@@ -3392,7 +3392,7 @@
               "sources": [
                 {
                   "label": "Microsoft Research - official benchmark",
-                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "url": "https://microsoft.github.io/HealthAgentBench/v1/",
                   "locator": "Leaderboard: Success Rate",
                   "type": "official_primary"
                 }
@@ -3437,7 +3437,7 @@
               "sources": [
                 {
                   "label": "Microsoft Research - official benchmark",
-                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "url": "https://microsoft.github.io/HealthAgentBench/v1/",
                   "locator": "Leaderboard: Success Rate",
                   "type": "official_primary"
                 }
@@ -3482,7 +3482,7 @@
               "sources": [
                 {
                   "label": "Microsoft Research - official benchmark",
-                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "url": "https://microsoft.github.io/HealthAgentBench/v1/",
                   "locator": "Leaderboard: Success Rate",
                   "type": "official_primary"
                 }
@@ -3527,7 +3527,7 @@
               "sources": [
                 {
                   "label": "Microsoft Research - official benchmark",
-                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "url": "https://microsoft.github.io/HealthAgentBench/v1/",
                   "locator": "Leaderboard: Success Rate",
                   "type": "official_primary"
                 }
@@ -3572,7 +3572,7 @@
               "sources": [
                 {
                   "label": "Microsoft Research - official benchmark",
-                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "url": "https://microsoft.github.io/HealthAgentBench/v1/",
                   "locator": "Leaderboard: Success Rate",
                   "type": "official_primary"
                 }
@@ -3617,7 +3617,7 @@
               "sources": [
                 {
                   "label": "Microsoft Research - official benchmark",
-                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "url": "https://microsoft.github.io/HealthAgentBench/v1/",
                   "locator": "Leaderboard: Success Rate",
                   "type": "official_primary"
                 }
@@ -3662,7 +3662,7 @@
               "sources": [
                 {
                   "label": "Microsoft Research - official benchmark",
-                  "url": "https://microsoft.github.io/HealthAgentBench/",
+                  "url": "https://microsoft.github.io/HealthAgentBench/v1/",
                   "locator": "Leaderboard: Success Rate",
                   "type": "official_primary"
                 }
@@ -3691,6 +3691,257 @@
           "readingGuide": {
             "label": "HealthAgentBench",
             "test": "simulated clinical workflows"
+          }
+        },
+        {
+          "seriesId": "healthagentbench_msft_2026_v2",
+          "benchmarkName": "HealthAgentBench v2: 75 tasks, 9 categories, one scored attempt",
+          "unit": "%",
+          "relationshipToExistingSeries": "different_protocol",
+          "published": true,
+          "data": [
+            {
+              "id": "hab-v2-opus55",
+              "model": "Claude Code / Opus 5.5",
+              "value": 57.3,
+              "successes": 43,
+              "tasks": 75,
+              "attemptsPerTask": 1,
+              "modelReleaseDate": null,
+              "evaluationDate": null,
+              "publicationDate": "2026-10-25",
+              "harness": "Claude Code",
+              "harnessVersion": null,
+              "reasoningEffort": "xhigh",
+              "webTools": false,
+              "agentNetwork": "model APIs only",
+              "numericVerification": "source_checked",
+              "sources": [
+                {
+                  "url": "https://arxiv.org/pdf/2606.31179v2",
+                  "version": "v2",
+                  "publicationDate": "2026-10-25",
+                  "locator": "Section 4.1, PDF/printed p. 10 (exact numerators); Figure 4 p. 11 (rounded bars); Table 4 p. 23 (category scores); Tables 2-3 p. 21 (task counts/criteria)",
+                  "type": "preprint_primary",
+                  "title": "HealthAgentBench v2"
+                }
+              ],
+              "validation": {
+                "status": "confirmed",
+                "comparability": "different_protocol",
+                "reviewedAt": "2026-11-02",
+                "reviewedBy": "AI-assisted original v1/v2 PDF review",
+                "note": "Exact score checked in original v2 PDF, section 4.1 p. 10. Different protocol from v1; no connected trend. Model-release/evaluation dates and exact harness versions remain unknown. Owner approved separate publication on 2 November 2026."
+              },
+              "eligibleForMainline": false,
+              "classification": {
+                "topic": "capability",
+                "testSetting": "simulated_workflow",
+                "studyDesign": "benchmark",
+                "milestone": false,
+                "realPatientTested": false,
+                "patientOutcomeEvidence": false,
+                "classificationStatus": "reviewed"
+              },
+              "cardId": "hab-v2-opus55",
+              "timelineDateBasis": "publication",
+              "timeline_year": 2026,
+              "teaser": "Claude Code / Opus 5.5: 57.3% (43/75 tasks), HealthAgentBench v2.",
+              "setup": "75 tasks across 9 categories; one scored attempt per task; Claude Code native agent harness; xhigh reasoning; web tools disabled.",
+              "explain": {
+                "whatWasTested": "75 tasks across 9 categories; one scored attempt per task; Claude Code native agent harness; xhigh reasoning; web tools disabled.",
+                "whatValueMeans": "43 of 75 tasks succeeded (57.3%).",
+                "whyItMatters": "Expanded coverage includes MRI, pathology and compositional record tasks.",
+                "limitations": "Offline controlled healthcare tasks using records and images, not prospective autonomous patient care or patient outcomes. One attempt per task; exact harness versions and model-release/evaluation dates unknown. v1 used different tasks, repetitions and scoring; do not compare the percentages as improvement."
+              },
+              "legacy": {
+                "origin": "New source-checked v2 record; no imported v1 score overwritten."
+              }
+            },
+            {
+              "id": "hab-v2-astra",
+              "model": "Codex / GPT-6 Astra",
+              "value": 50.7,
+              "successes": 38,
+              "tasks": 75,
+              "attemptsPerTask": 1,
+              "modelReleaseDate": null,
+              "evaluationDate": null,
+              "publicationDate": "2026-10-25",
+              "harness": "Codex",
+              "harnessVersion": null,
+              "reasoningEffort": "xhigh",
+              "webTools": false,
+              "agentNetwork": "model APIs only",
+              "numericVerification": "source_checked",
+              "sources": [
+                {
+                  "url": "https://arxiv.org/pdf/2606.31179v2",
+                  "version": "v2",
+                  "publicationDate": "2026-10-25",
+                  "locator": "Section 4.1, PDF/printed p. 10 (exact numerators); Figure 4 p. 11 (rounded bars); Table 4 p. 23 (category scores); Tables 2-3 p. 21 (task counts/criteria)",
+                  "type": "preprint_primary",
+                  "title": "HealthAgentBench v2"
+                }
+              ],
+              "validation": {
+                "status": "confirmed",
+                "comparability": "different_protocol",
+                "reviewedAt": "2026-11-02",
+                "reviewedBy": "AI-assisted original v1/v2 PDF review",
+                "note": "Exact score checked in original v2 PDF, section 4.1 p. 10. Different protocol from v1; no connected trend. Model-release/evaluation dates and exact harness versions remain unknown. Owner approved separate publication on 2 November 2026."
+              },
+              "eligibleForMainline": false,
+              "classification": {
+                "topic": "capability",
+                "testSetting": "simulated_workflow",
+                "studyDesign": "benchmark",
+                "milestone": false,
+                "realPatientTested": false,
+                "patientOutcomeEvidence": false,
+                "classificationStatus": "reviewed"
+              },
+              "cardId": "hab-v2-astra",
+              "timelineDateBasis": "publication",
+              "timeline_year": 2026,
+              "teaser": "Codex / GPT-6 Astra: 50.7% (38/75 tasks), HealthAgentBench v2.",
+              "setup": "75 tasks across 9 categories; one scored attempt per task; Codex native agent harness; xhigh reasoning; web tools disabled.",
+              "explain": {
+                "whatWasTested": "75 tasks across 9 categories; one scored attempt per task; Codex native agent harness; xhigh reasoning; web tools disabled.",
+                "whatValueMeans": "38 of 75 tasks succeeded (50.7%).",
+                "whyItMatters": "Expanded coverage includes MRI, pathology and compositional record tasks.",
+                "limitations": "Offline controlled healthcare tasks using records and images, not prospective autonomous patient care or patient outcomes. One attempt per task; exact harness versions and model-release/evaluation dates unknown. v1 used different tasks, repetitions and scoring; do not compare the percentages as improvement."
+              },
+              "legacy": {
+                "origin": "New source-checked v2 record; no imported v1 score overwritten."
+              }
+            },
+            {
+              "id": "hab-v2-sonnet55",
+              "model": "Claude Code / Sonnet 5.5",
+              "value": 50.7,
+              "successes": 38,
+              "tasks": 75,
+              "attemptsPerTask": 1,
+              "modelReleaseDate": null,
+              "evaluationDate": null,
+              "publicationDate": "2026-10-25",
+              "harness": "Claude Code",
+              "harnessVersion": null,
+              "reasoningEffort": "xhigh",
+              "webTools": false,
+              "agentNetwork": "model APIs only",
+              "numericVerification": "source_checked",
+              "sources": [
+                {
+                  "url": "https://arxiv.org/pdf/2606.31179v2",
+                  "version": "v2",
+                  "publicationDate": "2026-10-25",
+                  "locator": "Section 4.1, PDF/printed p. 10 (exact numerators); Figure 4 p. 11 (rounded bars); Table 4 p. 23 (category scores); Tables 2-3 p. 21 (task counts/criteria)",
+                  "type": "preprint_primary",
+                  "title": "HealthAgentBench v2"
+                }
+              ],
+              "validation": {
+                "status": "confirmed",
+                "comparability": "different_protocol",
+                "reviewedAt": "2026-11-02",
+                "reviewedBy": "AI-assisted original v1/v2 PDF review",
+                "note": "Exact score checked in original v2 PDF, section 4.1 p. 10. Different protocol from v1; no connected trend. Model-release/evaluation dates and exact harness versions remain unknown. Owner approved separate publication on 2 November 2026."
+              },
+              "eligibleForMainline": false,
+              "classification": {
+                "topic": "capability",
+                "testSetting": "simulated_workflow",
+                "studyDesign": "benchmark",
+                "milestone": false,
+                "realPatientTested": false,
+                "patientOutcomeEvidence": false,
+                "classificationStatus": "reviewed"
+              },
+              "cardId": "hab-v2-sonnet55",
+              "timelineDateBasis": "publication",
+              "timeline_year": 2026,
+              "teaser": "Claude Code / Sonnet 5.5: 50.7% (38/75 tasks), HealthAgentBench v2.",
+              "setup": "75 tasks across 9 categories; one scored attempt per task; Claude Code native agent harness; xhigh reasoning; web tools disabled.",
+              "explain": {
+                "whatWasTested": "75 tasks across 9 categories; one scored attempt per task; Claude Code native agent harness; xhigh reasoning; web tools disabled.",
+                "whatValueMeans": "38 of 75 tasks succeeded (50.7%).",
+                "whyItMatters": "Expanded coverage includes MRI, pathology and compositional record tasks.",
+                "limitations": "Offline controlled healthcare tasks using records and images, not prospective autonomous patient care or patient outcomes. One attempt per task; exact harness versions and model-release/evaluation dates unknown. v1 used different tasks, repetitions and scoring; do not compare the percentages as improvement."
+              },
+              "legacy": {
+                "origin": "New source-checked v2 record; no imported v1 score overwritten."
+              }
+            },
+            {
+              "id": "hab-v2-opus5",
+              "model": "Claude Code / Opus 5",
+              "value": 32.0,
+              "successes": 24,
+              "tasks": 75,
+              "attemptsPerTask": 1,
+              "modelReleaseDate": null,
+              "evaluationDate": null,
+              "publicationDate": "2026-10-25",
+              "harness": "Claude Code",
+              "harnessVersion": null,
+              "reasoningEffort": "xhigh",
+              "webTools": false,
+              "agentNetwork": "model APIs only",
+              "numericVerification": "source_checked",
+              "sources": [
+                {
+                  "url": "https://arxiv.org/pdf/2606.31179v2",
+                  "version": "v2",
+                  "publicationDate": "2026-10-25",
+                  "locator": "Section 4.1, PDF/printed p. 10 (exact numerators); Figure 4 p. 11 (rounded bars); Table 4 p. 23 (category scores); Tables 2-3 p. 21 (task counts/criteria)",
+                  "type": "preprint_primary",
+                  "title": "HealthAgentBench v2"
+                }
+              ],
+              "validation": {
+                "status": "confirmed",
+                "comparability": "different_protocol",
+                "reviewedAt": "2026-11-02",
+                "reviewedBy": "AI-assisted original v1/v2 PDF review",
+                "note": "Exact score checked in original v2 PDF, section 4.1 p. 10. Different protocol from v1; no connected trend. Model-release/evaluation dates and exact harness versions remain unknown. Owner approved separate publication on 2 November 2026."
+              },
+              "eligibleForMainline": false,
+              "classification": {
+                "topic": "capability",
+                "testSetting": "simulated_workflow",
+                "studyDesign": "benchmark",
+                "milestone": false,
+                "realPatientTested": false,
+                "patientOutcomeEvidence": false,
+                "classificationStatus": "reviewed"
+              },
+              "cardId": "hab-v2-opus5",
+              "timelineDateBasis": "publication",
+              "timeline_year": 2026,
+              "teaser": "Claude Code / Opus 5: 32.0% (24/75 tasks), HealthAgentBench v2.",
+              "setup": "75 tasks across 9 categories; one scored attempt per task; Claude Code native agent harness; xhigh reasoning; web tools disabled.",
+              "explain": {
+                "whatWasTested": "75 tasks across 9 categories; one scored attempt per task; Claude Code native agent harness; xhigh reasoning; web tools disabled.",
+                "whatValueMeans": "24 of 75 tasks succeeded (32.0%).",
+                "whyItMatters": "Expanded coverage includes MRI, pathology and compositional record tasks.",
+                "limitations": "Offline controlled healthcare tasks using records and images, not prospective autonomous patient care or patient outcomes. One attempt per task; exact harness versions and model-release/evaluation dates unknown. v1 used different tasks, repetitions and scoring; do not compare the percentages as improvement."
+              },
+              "legacy": {
+                "origin": "New source-checked v2 record; no imported v1 score overwritten."
+              }
+            }
+          ],
+          "verified": true,
+          "lineStyle": "separate",
+          "calendarBasis": "publication",
+          "headlinePolicy": "best_confirmed_separate_protocol",
+          "readingGuide": {
+            "label": "HealthAgentBench v2",
+            "test": "75 tasks · 9 categories · one attempt per task",
+            "metric": "Task success (%)",
+            "limitation": "Different protocol from v1; no connected trend. Points dated by paper publication, not model release."
           }
         }
       ],
@@ -7625,7 +7876,17 @@
         "Other grader: Claude Opus 4.8. Different grader, not directly comparable. Claude Sonnet 4.6: isolated point.": "Anderer Grader: Claude Opus 4.8. Nicht direkt vergleichbar. Claude Sonnet 4.6: separater Punkt.",
         "Not explicitly stated": "Nicht ausdrücklich angegeben",
         "Different grader, not directly comparable. Offline rubric scores, not clinical accuracy.": "Anderer Grader, nicht direkt vergleichbar. Offline-Rubrikpunkte, keine klinische Genauigkeit.",
-        "Different grader, not directly comparable. Core and Professional are separate tests.": "Anderer Grader, nicht direkt vergleichbar. Core und Professional sind getrennte Tests."
+        "Different grader, not directly comparable. Core and Professional are separate tests.": "Anderer Grader, nicht direkt vergleichbar. Core und Professional sind getrennte Tests.",
+        "75 tasks across 9 categories; one scored attempt per task; Claude Code native agent harness; xhigh reasoning; web tools disabled.": "75 Aufgaben in 9 Kategorien; ein bewerteter Versuch je Aufgabe; nativer Agent Claude Code; xhigh-Reasoning; Webtools deaktiviert.",
+        "43 of 75 tasks succeeded (57.3%).": "43 von 75 Aufgaben erfolgreich (57,3 %).",
+        "Expanded coverage includes MRI, pathology and compositional record tasks.": "Erweiterte Aufgabenabdeckung mit MRT, Pathologie und komplexen Abfragen von Patientenakten.",
+        "Offline controlled healthcare tasks using records and images, not prospective autonomous patient care or patient outcomes. One attempt per task; exact harness versions and model-release/evaluation dates unknown. v1 used different tasks, repetitions and scoring; do not compare the percentages as improvement.": "Kontrollierte Offline-Aufgaben mit Akten und Bildern, keine prospektive autonome Patientenversorgung oder Behandlungsergebnisse. Ein Versuch je Aufgabe; genaue Harness-Versionen sowie Modell- und Testdaten unbekannt. v1 verwendet andere Aufgaben, Wiederholungen und Bewertungen; die Prozentsätze belegen keinen Fortschritt.",
+        "75 tasks across 9 categories; one scored attempt per task; Codex native agent harness; xhigh reasoning; web tools disabled.": "75 Aufgaben in 9 Kategorien; ein bewerteter Versuch je Aufgabe; nativer Agent Codex; xhigh-Reasoning; Webtools deaktiviert.",
+        "38 of 75 tasks succeeded (50.7%).": "38 von 75 Aufgaben erfolgreich (50,7 %).",
+        "24 of 75 tasks succeeded (32.0%).": "24 von 75 Aufgaben erfolgreich (32,0 %).",
+        "HealthAgentBench v2: Claude Code / Opus 5.5 completed 43/75 tasks (57.3%). Different tasks and scoring from v1; no connected trend. v2 points use the paper date (25 October 2026), not model release.": "HealthAgentBench v2: Claude Code / Opus 5.5 löste 43/75 Aufgaben (57,3 %). Andere Aufgaben und Bewertung als v1; keine verbundene Trendlinie. Die v2-Punkte stehen beim Datum des Papers (25. Oktober 2026), nicht beim Modellstart.",
+        "Separate protocol; not directly comparable": "Separates Testverfahren; nicht direkt vergleichbar",
+        "Model release ≈ · v2: paper date": "Modellstart ≈ · v2: Paper-Datum"
       }
     },
     "navigation": {
@@ -7980,7 +8241,254 @@
         "Correct GPT-4-base evidence publication to April12; public-model availability remains a separate unresolved field.",
         "Retrieve dated Corti report and exact grading configuration; keep supplier score reported.",
         "Audit all release dates separately; source publication is not evaluation time."
-      ]
+      ],
+      "healthAgentBenchV2Review": {
+        "reviewedAt": "2026-11-02",
+        "decision": "add_separate_version",
+        "publicationAllowed": true,
+        "status": "confirmed",
+        "sourceScoreCheck": "passed",
+        "crossVersionComparability": "different_protocol",
+        "sources": [
+          {
+            "url": "https://arxiv.org/pdf/2606.31179v2",
+            "version": "v2",
+            "publicationDate": "2026-10-25",
+            "locator": "Section 4.1, PDF/printed p. 10 (exact numerators); Figure 4 p. 11 (rounded bars); Table 4 p. 23 (category scores); Tables 2-3 p. 21 (task counts/criteria)"
+          },
+          {
+            "url": "https://arxiv.org/pdf/2606.31179v1",
+            "locator": "Section 4.1 p. 10; Figure 4 p. 11; Tables 2-3 p. 21"
+          },
+          {
+            "url": "https://microsoft.github.io/HealthAgentBench/v1/",
+            "locator": "Leaderboard: Claude Code (Opus 5), 55%; 54 tasks x 3 attempts"
+          }
+        ],
+        "comparison": {
+          "v1": {
+            "tasks": 54,
+            "categories": 7,
+            "attemptsPerTask": 3,
+            "trialsPerAgent": 162,
+            "dataQualityMinimumPrecision": 0.01
+          },
+          "v2": {
+            "tasks": 75,
+            "categories": 9,
+            "attemptsPerTask": 1,
+            "trialsPerAgent": 75,
+            "dataQualityMinimumPrecision": 0.1
+          },
+          "taskSetChanges": {
+            "removed": [
+              "Clinical Trial Matching",
+              "EHR Format Conversion"
+            ],
+            "added": [
+              "MRI QA",
+              "Pathology Tumor Slide Selection",
+              "EHR Compositional QA",
+              "Cancer Survival Prediction"
+            ]
+          },
+          "harnesses": "Both versions use Codex/Claude Code; v1 also includes Copilot CLI. Family names do not establish identical pinned scaffold versions."
+        },
+        "existingOpus5": {
+          "pointId": "3.17",
+          "retainedV1Value": 55,
+          "v1Verification": "Confirmed in the official versioned v1 leaderboard; not in the June v1 PDF baseline sweep. Imported July publication/release month not independently verified.",
+          "separateV2Value": 32,
+          "separateV2Successes": 24,
+          "action": "Keep distinct observations; never overwrite 55 with 32 or interpret 55 to 57.3 as a like-for-like improvement."
+        },
+        "gateB": "Material change in benchmark coverage and baseline rerun, not evidence of a 2.3 percentage-point like-for-like advance. No milestone/news proposed.",
+        "proposedSeries": {
+          "seriesId": "healthagentbench_msft_2026_v2",
+          "benchmarkName": "HealthAgentBench v2: 75 tasks, 9 categories, one scored attempt",
+          "unit": "%",
+          "relationshipToExistingSeries": "different_protocol",
+          "published": false,
+          "data": [
+            {
+              "id": "hab-v2-opus55",
+              "model": "Claude Code / Opus 5.5",
+              "value": 57.3,
+              "successes": 43,
+              "tasks": 75,
+              "attemptsPerTask": 1,
+              "modelReleaseDate": null,
+              "evaluationDate": null,
+              "publicationDate": "2026-10-25",
+              "harness": "Claude Code",
+              "harnessVersion": null,
+              "reasoningEffort": "xhigh",
+              "webTools": false,
+              "agentNetwork": "model APIs only",
+              "numericVerification": "source_checked",
+              "sources": [
+                {
+                  "url": "https://arxiv.org/pdf/2606.31179v2",
+                  "version": "v2",
+                  "publicationDate": "2026-10-25",
+                  "locator": "Section 4.1, PDF/printed p. 10 (exact numerators); Figure 4 p. 11 (rounded bars); Table 4 p. 23 (category scores); Tables 2-3 p. 21 (task counts/criteria)"
+                }
+              ],
+              "validation": {
+                "status": "needs_review",
+                "comparability": "different_protocol",
+                "reviewedAt": "2026-11-02",
+                "reviewedBy": "AI-assisted original v1/v2 PDF review",
+                "note": "Exact score checked. Different tasks, repetitions and scoring from v1. Hold outside published series; model availability/evaluation dates and pinned harness snapshots are unverified. Do not join the v1 line."
+              },
+              "eligibleForMainline": false,
+              "classification": {
+                "topic": "capability",
+                "testSetting": "simulated_workflow",
+                "studyDesign": "benchmark",
+                "milestone": false,
+                "realPatientTested": false,
+                "patientOutcomeEvidence": false,
+                "classificationStatus": "reviewed"
+              }
+            },
+            {
+              "id": "hab-v2-astra",
+              "model": "Codex / GPT-6 Astra",
+              "value": 50.7,
+              "successes": 38,
+              "tasks": 75,
+              "attemptsPerTask": 1,
+              "modelReleaseDate": null,
+              "evaluationDate": null,
+              "publicationDate": "2026-10-25",
+              "harness": "Codex",
+              "harnessVersion": null,
+              "reasoningEffort": "xhigh",
+              "webTools": false,
+              "agentNetwork": "model APIs only",
+              "numericVerification": "source_checked",
+              "sources": [
+                {
+                  "url": "https://arxiv.org/pdf/2606.31179v2",
+                  "version": "v2",
+                  "publicationDate": "2026-10-25",
+                  "locator": "Section 4.1, PDF/printed p. 10 (exact numerators); Figure 4 p. 11 (rounded bars); Table 4 p. 23 (category scores); Tables 2-3 p. 21 (task counts/criteria)"
+                }
+              ],
+              "validation": {
+                "status": "needs_review",
+                "comparability": "different_protocol",
+                "reviewedAt": "2026-11-02",
+                "reviewedBy": "AI-assisted original v1/v2 PDF review",
+                "note": "Exact score checked. Different tasks, repetitions and scoring from v1. Hold outside published series; model availability/evaluation dates and pinned harness snapshots are unverified. Do not join the v1 line."
+              },
+              "eligibleForMainline": false,
+              "classification": {
+                "topic": "capability",
+                "testSetting": "simulated_workflow",
+                "studyDesign": "benchmark",
+                "milestone": false,
+                "realPatientTested": false,
+                "patientOutcomeEvidence": false,
+                "classificationStatus": "reviewed"
+              }
+            },
+            {
+              "id": "hab-v2-sonnet55",
+              "model": "Claude Code / Sonnet 5.5",
+              "value": 50.7,
+              "successes": 38,
+              "tasks": 75,
+              "attemptsPerTask": 1,
+              "modelReleaseDate": null,
+              "evaluationDate": null,
+              "publicationDate": "2026-10-25",
+              "harness": "Claude Code",
+              "harnessVersion": null,
+              "reasoningEffort": "xhigh",
+              "webTools": false,
+              "agentNetwork": "model APIs only",
+              "numericVerification": "source_checked",
+              "sources": [
+                {
+                  "url": "https://arxiv.org/pdf/2606.31179v2",
+                  "version": "v2",
+                  "publicationDate": "2026-10-25",
+                  "locator": "Section 4.1, PDF/printed p. 10 (exact numerators); Figure 4 p. 11 (rounded bars); Table 4 p. 23 (category scores); Tables 2-3 p. 21 (task counts/criteria)"
+                }
+              ],
+              "validation": {
+                "status": "needs_review",
+                "comparability": "different_protocol",
+                "reviewedAt": "2026-11-02",
+                "reviewedBy": "AI-assisted original v1/v2 PDF review",
+                "note": "Exact score checked. Different tasks, repetitions and scoring from v1. Hold outside published series; model availability/evaluation dates and pinned harness snapshots are unverified. Do not join the v1 line."
+              },
+              "eligibleForMainline": false,
+              "classification": {
+                "topic": "capability",
+                "testSetting": "simulated_workflow",
+                "studyDesign": "benchmark",
+                "milestone": false,
+                "realPatientTested": false,
+                "patientOutcomeEvidence": false,
+                "classificationStatus": "reviewed"
+              }
+            },
+            {
+              "id": "hab-v2-opus5",
+              "model": "Claude Code / Opus 5",
+              "value": 32.0,
+              "successes": 24,
+              "tasks": 75,
+              "attemptsPerTask": 1,
+              "modelReleaseDate": null,
+              "evaluationDate": null,
+              "publicationDate": "2026-10-25",
+              "harness": "Claude Code",
+              "harnessVersion": null,
+              "reasoningEffort": "xhigh",
+              "webTools": false,
+              "agentNetwork": "model APIs only",
+              "numericVerification": "source_checked",
+              "sources": [
+                {
+                  "url": "https://arxiv.org/pdf/2606.31179v2",
+                  "version": "v2",
+                  "publicationDate": "2026-10-25",
+                  "locator": "Section 4.1, PDF/printed p. 10 (exact numerators); Figure 4 p. 11 (rounded bars); Table 4 p. 23 (category scores); Tables 2-3 p. 21 (task counts/criteria)"
+                }
+              ],
+              "validation": {
+                "status": "needs_review",
+                "comparability": "different_protocol",
+                "reviewedAt": "2026-11-02",
+                "reviewedBy": "AI-assisted original v1/v2 PDF review",
+                "note": "Exact score checked. Different tasks, repetitions and scoring from v1. Hold outside published series; model availability/evaluation dates and pinned harness snapshots are unverified. Do not join the v1 line."
+              },
+              "eligibleForMainline": false,
+              "classification": {
+                "topic": "capability",
+                "testSetting": "simulated_workflow",
+                "studyDesign": "benchmark",
+                "milestone": false,
+                "realPatientTested": false,
+                "patientOutcomeEvidence": false,
+                "classificationStatus": "reviewed"
+              }
+            }
+          ]
+        },
+        "remainingWork": [
+          "Verify exact model availability dates independently, or obtain an explicit publication-date axis policy for this separate version; never backdate publication into model-release dates.",
+          "Resolve pinned harness/scaffold versions and per-version task/scorer revisions before assigning any within-version comparison group.",
+          "If admitted later, render a separately labelled v2 series, retain source status/caveats and version-pin all old v1 source links."
+        ],
+        "report": "docs/HEALTHAGENTBENCH_V2_REVIEW_2026-11-02.md",
+        "ownerDecisionDate": "2026-11-02",
+        "admissionNote": "Owner approved separate v2 publication; publication-date positioning is explicit, unknown model dates remain null. No v1/v2 bridge."
+      }
     }
   },
   "editorialCards": {
@@ -9749,7 +10257,7 @@
       "sources": [
         {
           "title": "HealthAgentBench",
-          "url": "https://microsoft.github.io/HealthAgentBench/",
+          "url": "https://microsoft.github.io/HealthAgentBench/v1/",
           "journal_citation": "Microsoft Research - official benchmark leaderboard",
           "locator": "Leaderboard: Success Rate"
         }
@@ -9802,7 +10310,7 @@
       "sources": [
         {
           "title": "HealthAgentBench",
-          "url": "https://microsoft.github.io/HealthAgentBench/",
+          "url": "https://microsoft.github.io/HealthAgentBench/v1/",
           "journal_citation": "Microsoft Research - official benchmark leaderboard",
           "locator": "Leaderboard: Success Rate"
         }
@@ -9855,7 +10363,7 @@
       "sources": [
         {
           "title": "HealthAgentBench",
-          "url": "https://microsoft.github.io/HealthAgentBench/",
+          "url": "https://microsoft.github.io/HealthAgentBench/v1/",
           "journal_citation": "Microsoft Research - official benchmark leaderboard",
           "locator": "Leaderboard: Success Rate"
         }
@@ -9908,7 +10416,7 @@
       "sources": [
         {
           "title": "HealthAgentBench",
-          "url": "https://microsoft.github.io/HealthAgentBench/",
+          "url": "https://microsoft.github.io/HealthAgentBench/v1/",
           "journal_citation": "Microsoft Research - official benchmark leaderboard",
           "locator": "Leaderboard: Success Rate"
         }
@@ -9961,7 +10469,7 @@
       "sources": [
         {
           "title": "HealthAgentBench",
-          "url": "https://microsoft.github.io/HealthAgentBench/",
+          "url": "https://microsoft.github.io/HealthAgentBench/v1/",
           "journal_citation": "Microsoft Research - official benchmark leaderboard",
           "locator": "Leaderboard: Success Rate"
         }
@@ -10014,7 +10522,7 @@
       "sources": [
         {
           "title": "HealthAgentBench",
-          "url": "https://microsoft.github.io/HealthAgentBench/",
+          "url": "https://microsoft.github.io/HealthAgentBench/v1/",
           "journal_citation": "Microsoft Research - official benchmark leaderboard",
           "locator": "Leaderboard: Success Rate"
         }
@@ -10067,7 +10575,7 @@
       "sources": [
         {
           "title": "HealthAgentBench",
-          "url": "https://microsoft.github.io/HealthAgentBench/",
+          "url": "https://microsoft.github.io/HealthAgentBench/v1/",
           "journal_citation": "Microsoft Research - official benchmark leaderboard",
           "locator": "Leaderboard: Success Rate"
         }
@@ -10120,7 +10628,7 @@
       "sources": [
         {
           "title": "HealthAgentBench",
-          "url": "https://microsoft.github.io/HealthAgentBench/",
+          "url": "https://microsoft.github.io/HealthAgentBench/v1/",
           "journal_citation": "Microsoft Research - official benchmark leaderboard",
           "locator": "Leaderboard: Success Rate"
         }
@@ -13939,6 +14447,234 @@
       "classification": {
         "topic": "capability",
         "testSetting": "clinician_chat_benchmark",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "reviewed"
+      }
+    },
+    "hab-v2-opus55": {
+      "title": "Claude Code / Opus 5.5 · HealthAgentBench v2",
+      "badge": {
+        "kind": "preprint",
+        "year": 2026
+      },
+      "tags": [
+        "75 tasks",
+        "9 categories",
+        "1 attempt per task",
+        "Claude Code"
+      ],
+      "finding": {
+        "headline": "43 of 75 tasks succeeded (57.3%).",
+        "explanation": "Binary task success under the v2 protocol; not a clinical-care success rate.",
+        "value": 57.3,
+        "unit": "%",
+        "kind": "quantitative"
+      },
+      "setup": "75 tasks across 9 categories; one scored attempt per task; Claude Code native agent harness; xhigh reasoning; web tools disabled.",
+      "limitations": "Offline controlled healthcare tasks using records and images, not prospective autonomous patient care or patient outcomes. One attempt per task; exact harness versions and model-release/evaluation dates unknown. v1 used different tasks, repetitions and scoring; do not compare the percentages as improvement.",
+      "teaser": "Claude Code / Opus 5.5: 57.3% (43/75 tasks), HealthAgentBench v2.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-10-25",
+      "date_basis": "publication",
+      "timeline_note": "Plotted at paper revision date 25 October 2026, not model availability or evaluation date. Different protocol from v1; points are unconnected.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/pdf/2606.31179v2",
+          "version": "v2",
+          "publicationDate": "2026-10-25",
+          "locator": "Section 4.1, PDF/printed p. 10 (exact numerators); Figure 4 p. 11 (rounded bars); Table 4 p. 23 (category scores); Tables 2-3 p. 21 (task counts/criteria)",
+          "type": "preprint_primary",
+          "title": "HealthAgentBench v2",
+          "journal_citation": "arXiv:2606.31179v2 (25 October 2026)"
+        }
+      ],
+      "validation": {
+        "status": "confirmed",
+        "comparability": "different_protocol",
+        "reviewedAt": "2026-11-02",
+        "reviewedBy": "AI-assisted original v1/v2 PDF review",
+        "note": "Exact score checked in original v2 PDF, section 4.1 p. 10. Different protocol from v1; no connected trend. Model-release/evaluation dates and exact harness versions remain unknown. Owner approved separate publication on 2 November 2026."
+      },
+      "release": null,
+      "publication": "2026-10-25",
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "reviewed"
+      }
+    },
+    "hab-v2-astra": {
+      "title": "Codex / GPT-6 Astra · HealthAgentBench v2",
+      "badge": {
+        "kind": "preprint",
+        "year": 2026
+      },
+      "tags": [
+        "75 tasks",
+        "9 categories",
+        "1 attempt per task",
+        "Codex"
+      ],
+      "finding": {
+        "headline": "38 of 75 tasks succeeded (50.7%).",
+        "explanation": "Binary task success under the v2 protocol; not a clinical-care success rate.",
+        "value": 50.7,
+        "unit": "%",
+        "kind": "quantitative"
+      },
+      "setup": "75 tasks across 9 categories; one scored attempt per task; Codex native agent harness; xhigh reasoning; web tools disabled.",
+      "limitations": "Offline controlled healthcare tasks using records and images, not prospective autonomous patient care or patient outcomes. One attempt per task; exact harness versions and model-release/evaluation dates unknown. v1 used different tasks, repetitions and scoring; do not compare the percentages as improvement.",
+      "teaser": "Codex / GPT-6 Astra: 50.7% (38/75 tasks), HealthAgentBench v2.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-10-25",
+      "date_basis": "publication",
+      "timeline_note": "Plotted at paper revision date 25 October 2026, not model availability or evaluation date. Different protocol from v1; points are unconnected.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/pdf/2606.31179v2",
+          "version": "v2",
+          "publicationDate": "2026-10-25",
+          "locator": "Section 4.1, PDF/printed p. 10 (exact numerators); Figure 4 p. 11 (rounded bars); Table 4 p. 23 (category scores); Tables 2-3 p. 21 (task counts/criteria)",
+          "type": "preprint_primary",
+          "title": "HealthAgentBench v2",
+          "journal_citation": "arXiv:2606.31179v2 (25 October 2026)"
+        }
+      ],
+      "validation": {
+        "status": "confirmed",
+        "comparability": "different_protocol",
+        "reviewedAt": "2026-11-02",
+        "reviewedBy": "AI-assisted original v1/v2 PDF review",
+        "note": "Exact score checked in original v2 PDF, section 4.1 p. 10. Different protocol from v1; no connected trend. Model-release/evaluation dates and exact harness versions remain unknown. Owner approved separate publication on 2 November 2026."
+      },
+      "release": null,
+      "publication": "2026-10-25",
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "reviewed"
+      }
+    },
+    "hab-v2-sonnet55": {
+      "title": "Claude Code / Sonnet 5.5 · HealthAgentBench v2",
+      "badge": {
+        "kind": "preprint",
+        "year": 2026
+      },
+      "tags": [
+        "75 tasks",
+        "9 categories",
+        "1 attempt per task",
+        "Claude Code"
+      ],
+      "finding": {
+        "headline": "38 of 75 tasks succeeded (50.7%).",
+        "explanation": "Binary task success under the v2 protocol; not a clinical-care success rate.",
+        "value": 50.7,
+        "unit": "%",
+        "kind": "quantitative"
+      },
+      "setup": "75 tasks across 9 categories; one scored attempt per task; Claude Code native agent harness; xhigh reasoning; web tools disabled.",
+      "limitations": "Offline controlled healthcare tasks using records and images, not prospective autonomous patient care or patient outcomes. One attempt per task; exact harness versions and model-release/evaluation dates unknown. v1 used different tasks, repetitions and scoring; do not compare the percentages as improvement.",
+      "teaser": "Claude Code / Sonnet 5.5: 50.7% (38/75 tasks), HealthAgentBench v2.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-10-25",
+      "date_basis": "publication",
+      "timeline_note": "Plotted at paper revision date 25 October 2026, not model availability or evaluation date. Different protocol from v1; points are unconnected.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/pdf/2606.31179v2",
+          "version": "v2",
+          "publicationDate": "2026-10-25",
+          "locator": "Section 4.1, PDF/printed p. 10 (exact numerators); Figure 4 p. 11 (rounded bars); Table 4 p. 23 (category scores); Tables 2-3 p. 21 (task counts/criteria)",
+          "type": "preprint_primary",
+          "title": "HealthAgentBench v2",
+          "journal_citation": "arXiv:2606.31179v2 (25 October 2026)"
+        }
+      ],
+      "validation": {
+        "status": "confirmed",
+        "comparability": "different_protocol",
+        "reviewedAt": "2026-11-02",
+        "reviewedBy": "AI-assisted original v1/v2 PDF review",
+        "note": "Exact score checked in original v2 PDF, section 4.1 p. 10. Different protocol from v1; no connected trend. Model-release/evaluation dates and exact harness versions remain unknown. Owner approved separate publication on 2 November 2026."
+      },
+      "release": null,
+      "publication": "2026-10-25",
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
+        "studyDesign": "benchmark",
+        "milestone": false,
+        "realPatientTested": false,
+        "patientOutcomeEvidence": false,
+        "classificationStatus": "reviewed"
+      }
+    },
+    "hab-v2-opus5": {
+      "title": "Claude Code / Opus 5 · HealthAgentBench v2",
+      "badge": {
+        "kind": "preprint",
+        "year": 2026
+      },
+      "tags": [
+        "75 tasks",
+        "9 categories",
+        "1 attempt per task",
+        "Claude Code"
+      ],
+      "finding": {
+        "headline": "24 of 75 tasks succeeded (32.0%).",
+        "explanation": "Binary task success under the v2 protocol; not a clinical-care success rate.",
+        "value": 32.0,
+        "unit": "%",
+        "kind": "quantitative"
+      },
+      "setup": "75 tasks across 9 categories; one scored attempt per task; Claude Code native agent harness; xhigh reasoning; web tools disabled.",
+      "limitations": "Offline controlled healthcare tasks using records and images, not prospective autonomous patient care or patient outcomes. One attempt per task; exact harness versions and model-release/evaluation dates unknown. v1 used different tasks, repetitions and scoring; do not compare the percentages as improvement.",
+      "teaser": "Claude Code / Opus 5: 32.0% (24/75 tasks), HealthAgentBench v2.",
+      "timeline_year": 2026,
+      "evidence_date": "2026-10-25",
+      "date_basis": "publication",
+      "timeline_note": "Plotted at paper revision date 25 October 2026, not model availability or evaluation date. Different protocol from v1; points are unconnected.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/pdf/2606.31179v2",
+          "version": "v2",
+          "publicationDate": "2026-10-25",
+          "locator": "Section 4.1, PDF/printed p. 10 (exact numerators); Figure 4 p. 11 (rounded bars); Table 4 p. 23 (category scores); Tables 2-3 p. 21 (task counts/criteria)",
+          "type": "preprint_primary",
+          "title": "HealthAgentBench v2",
+          "journal_citation": "arXiv:2606.31179v2 (25 October 2026)"
+        }
+      ],
+      "validation": {
+        "status": "confirmed",
+        "comparability": "different_protocol",
+        "reviewedAt": "2026-11-02",
+        "reviewedBy": "AI-assisted original v1/v2 PDF review",
+        "note": "Exact score checked in original v2 PDF, section 4.1 p. 10. Different protocol from v1; no connected trend. Model-release/evaluation dates and exact harness versions remain unknown. Owner approved separate publication on 2 November 2026."
+      },
+      "release": null,
+      "publication": "2026-10-25",
+      "evaluation": null,
+      "classification": {
+        "topic": "capability",
+        "testSetting": "simulated_workflow",
         "studyDesign": "benchmark",
         "milestone": false,
         "realPatientTested": false,

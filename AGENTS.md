@@ -92,12 +92,12 @@ The primary publication target is GitHub Pages at `https://gilles-pe.github.io/a
 This section is generated from `data/monitor-data.json`; do not edit it by hand. The original audit narrative is a dated snapshot; current counts are below.
 
 - Schema: 1.1
-- SHA-256 (parsed JSON): `158174c68089356b9303d887b5960004866d115489750cf6e8310fa36b2da206`
-- Tracks / benchmark series / measurements: 3 / 6 / 49
-- Score validation: 38 confirmed, 8 reported, 3 under review
+- SHA-256 (parsed JSON): `0b94d94dbf72744c197cb7d748b739d5050b4201f2e8526c61307d2957ec6b0b`
+- Tracks / benchmark series / measurements: 3 / 7 / 53
+- Score validation: 42 confirmed, 8 reported, 3 under review
 - Main-line eligible scores: 31; original-link gaps: 0
-- Chronology: 49 unknown evaluation dates; 40 month-precision release proxies
-- Last evidence review: 2026-10-26; last data change: 2026-10-26
+- Chronology: 53 unknown evaluation dates; 40 month-precision release proxies
+- Last evidence review: 2026-11-02; last data change: 2026-11-02
 - Calendar positioning uses model availability proxies, not evaluation dates. Confirmed scores do not validate release-month chronology or source-publication dates and versions.
 - Frontier must be recalculated separately within each benchmark series. Pending and qualified-only records do not form a confirmed main line.
 - Source policy: MONITOR_STANDARD.md; interface: DESIGN.md; collaboration: AGENTS.md.
@@ -108,3 +108,7 @@ Run `node scripts/sync-monitor-docs.mjs` after a JSON change, and `node scripts/
 The owner explicitly authorized the 25 October 2026 historical-post import. Crossposts are one item with several verified URLs; follow one original per story, never invent unavailable X/LinkedIn links or article dates. See docs/decisions.md and docs/NEWS_COVERAGE.md for current news design and coverage.
 
 HealthBench Professional grader policy (owner, 26 October 2026): main line strictly confirmed + same_protocol. Source-checked other graders use separate different_protocol side lines grouped by exact grader and protocol; unknown graders remain unconnected qualified points. See docs/MEASUREMENT_INTAKE.md and docs/EVIDENCE_TAGGING.md.
+
+HealthAgentBench version review (2 November 2026): see docs/HEALTHAGENTBENCH_V2_REVIEW_2026-11-02.md and the non-public candidate queue extensions.researchAudit.healthAgentBenchV2Review. Never join 54-task/3-attempt v1 with 75-task/1-attempt v2 or overwrite v1 Opus 5 55% with v2 32%.
+
+Owner approved v2 publication on 2 November 2026 after review. See docs/decisions.md and the intake exception: v2 is now a public, separate protocol with explicit publication-date positioning, no main-line eligibility and null model-release/evaluation dates. The research queue/report preserve the original hold decision as history.

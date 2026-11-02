@@ -8,7 +8,7 @@ const cutoff = REVIEWED_AT;
 
 test('public description stays within the search snippet limit', () => {
   assert.ok(SITE_DESCRIPTION.length <= 155);
-  assert.equal(REVIEWED_AT, '2026-10-26');
+  assert.equal(REVIEWED_AT, '2026-11-02');
 });
 
 test('takeaways use confirmed scores from the monitor data', () => {
@@ -22,8 +22,8 @@ test('takeaways use confirmed scores from the monitor data', () => {
   assert.match(assistance, /GPT-5\.4 \(Base\) at 48\.1 points/);
   assert.match(assistance, /OpenAI o3 reaches 59\.9 points/);
   const autonomy = autonomyTakeaway(cutoff);
-  assert.match(autonomy, /Claude Code \/ Opus 5 at 55%/);
-  assert.match(autonomy, /Claude 3\.5 Sonnet v2 reaches 69\.67%/);
+  assert.match(autonomy, /Claude Code \/ Opus 5\.5 completed 43\/75 tasks \(57\.3%\)/);
+  assert.match(autonomy, /Different tasks and scoring from v1/);
 });
 
 test('key numbers use the newest eligible series', () => {
@@ -36,8 +36,8 @@ test('key numbers use the newest eligible series', () => {
   assert.equal(assistance.model, 'GPT-5.4 (Base)');
   assert.equal(assistance.value, '48.1');
   const autonomy = keyResult('autonomy', cutoff);
-  assert.equal(autonomy.model, 'Claude Code / Opus 5');
-  assert.equal(autonomy.value, '55');
+  assert.equal(autonomy.model, 'Claude Code / Opus 5.5');
+  assert.equal(autonomy.value, '57.3');
 });
 
 test('structured data names the person without an employer', () => {
@@ -53,15 +53,15 @@ test('structured data names the person without an employer', () => {
     'https://bsky.app/profile/gillespe.bsky.social',
     'https://medtechsignal.substack.com/',
   ]);
-  assert.equal(page.dateModified, '2026-10-26');
-  assert.equal(reviewedMarkup(), 'Last reviewed <time datetime="2026-10-26">26 Oct 2026</time>');
+  assert.equal(page.dateModified, '2026-11-02');
+  assert.equal(reviewedMarkup(), 'Last reviewed <time datetime="2026-11-02">2 Nov 2026</time>');
 });
 
 test('the prerendered home page is crawlable without a font host', async () => {
   const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
   assert.equal((html.match(/<figure\b/g) || []).length, 4);
   assert.match(html, /id="editorial-check"/);
-  assert.match(html, /datetime="2026-10-26"/);
+  assert.match(html, /datetime="2026-11-02"/);
   assert.doesNotMatch(html, /fonts\.googleapis\.com/);
   assert.match(html, /rel="canonical" href="https:\/\/gillespenning\.com\/"/);
   assert.doesNotMatch(html, /worksFor/);

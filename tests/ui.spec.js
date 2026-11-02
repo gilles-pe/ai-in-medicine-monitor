@@ -19,7 +19,7 @@ test('clean header keeps preferences in the menu and three thumbnails',async({pa
   await expect(page.getByRole('tab')).toHaveCount(0);await expect(page.locator('#present-button,#timeline-panel,#model-filter')).toHaveCount(0);await expect(page.locator('[data-language="de"]')).not.toBeVisible();
   await expect(page.locator('.chart-thumbnail')).toHaveCount(3);await expect(page.locator('#content')).not.toContainText(/Timeline data|Under review|Benchmark results|About this benchmark|PPT|PowerPoint/);
   await expect(page.locator('.masthead-author')).toHaveText('Gilles Penning');await expect(page.locator('.author-byline')).toHaveText('Tracking what AI can do in medicine.');await expect(page.locator('.site-footer')).not.toContainText('Gilles Penning');
-  await expect(page.locator('#editorial-check')).toHaveText('Last reviewed 26 Oct 2026');
+  await expect(page.locator('#editorial-check')).toHaveText('Last reviewed 2 Nov 2026');
   await page.locator('#menu-button').click();await expect(page.locator('[data-language="de"]')).toBeVisible();
 });
 
@@ -47,7 +47,7 @@ test('both benchmark series stay visible without redundant filters',async({page}
   await expect(page.locator('[data-series-view]')).toHaveCount(0);
   await expect(page.locator('#milestones-panel')).toHaveCount(0);
   for(const id of ['knowledge','assistance','autonomy']){
-    const track=page.locator('#chart-'+id);await expect(track.locator('[data-legend-series]')).toHaveCount(2);
+    const track=page.locator('#chart-'+id);await expect(track.locator('[data-legend-series]')).toHaveCount(id==='autonomy'?3:2);
     const colors=await track.locator('[data-legend-series] line').evaluateAll(els=>els.map(e=>e.getAttribute('stroke')));expect(colors[0]).not.toBe(colors[1]);
     const heading=await track.locator('.track-top h2').boundingBox(),value=await track.locator('.track-headline-result').boundingBox();expect(Math.abs(heading.y+heading.height/2-value.y-value.height/2)).toBeLessThan(5);
   }
@@ -239,7 +239,7 @@ test('news chart link keeps the pulsing MAI-DxO milestone beside its evidence ca
  });
 
 test('compact menu and close headline metrics reflect owner choices',async({page})=>{
- await expect(page.locator('.masthead-menu #editorial-check')).toHaveText('Last reviewed 26 Oct 2026');
+ await expect(page.locator('.masthead-menu #editorial-check')).toHaveText('Last reviewed 2 Nov 2026');
  const title=await page.locator('#track-knowledge').boundingBox(),value=await page.locator('#chart-knowledge .track-headline-result').boundingBox();expect(value.x-title.x-title.width).toBeLessThan(35);
  await page.locator('#menu-button').click();await expect(page.locator('#site-menu').getByRole('link',{name:'About Me',exact:true})).toBeVisible();await expect(page.locator('#site-menu .author-card-links a')).toHaveCount(1);await expect(page.locator('#site-menu .social-icons a')).toHaveCount(4);await expect(page.locator('.menu-bottom #feedback-button')).toBeVisible();await expect(page.locator('.menu-bottom [data-language="de"]')).toBeVisible();await expect(page.locator('#site-menu').getByRole('link',{name:'News',exact:true})).toHaveCount(0);
 });
@@ -268,3 +268,11 @@ test('HealthBench Professional side line exposes exact graders and primary locat
  await expect(page.locator('#detail-dialog')).toContainText('Claude Sonnet 4.6');
  await expect(page.locator('#detail-dialog')).toContainText('228-229');
 });
+
+ test('HealthAgentBench v2 stays isolated and opens its original-source card',async({page})=>{
+ await page.goto('./?cutoff=2026-11-02&lang=en#chart-autonomy');
+ const track=page.locator('#chart-autonomy');await expect(track.locator('.track-headline-result')).toHaveText('57.3%');
+ await expect(track.locator('[data-observation-series="healthagentbench_msft_2026_v2"]')).toHaveCount(4);
+ await expect(track.locator('.monitor-frontier[data-series-id="healthagentbench_msft_2026_v2"]')).toHaveCount(0);
+ await openMonitor(page,'hab-v2-opus55');const card=page.locator('#detail-dialog');await expect(card).toContainText('43 of 75 tasks succeeded (57.3%)');await expect(card).toContainText('not model availability');await expect(card.locator('.point-sources a')).toHaveAttribute('href','https://arxiv.org/pdf/2606.31179v2');
+ });

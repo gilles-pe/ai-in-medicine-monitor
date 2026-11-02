@@ -110,13 +110,20 @@ test('series stay separate and canonical aliases resolve without changing portab
   assert.throws(() => buildTrackSeries('unknown', '2026-10', raw), RangeError);
 });
 
-test('portable v1.1 keeps 49 records and 31 same-protocol primary-source scores eligible', () => {
+test('portable v1.1 keeps 53 records and 31 same-protocol primary-source scores eligible', () => {
   const records = monitorData.tracks.flatMap(track => track.series.flatMap(series => series.data));
-  assert.equal(records.length, 49);
+  assert.equal(records.length, 53);
   assert.equal(records.filter(record => eligibilityReasons(record).length === 0).length, 31);
   assert.equal(buildTrackSeries('knowledge', '2026-10-18').eligibleCount, 3);
   assert.equal(buildTrackSeries('assistance', '2026-10-18').eligibleCount, 11);
   const autonomy = buildTrackSeries('autonomy', '2026-10-18');
   assert.equal(autonomy.eligibleCount, 17);
-  assert.equal(autonomy.series.length, 2);
+  assert.equal(autonomy.series.length, 3);
 });
+
+ test('v2 is publication-positioned with unknown release dates and no v1 bridge',()=>{
+ const early=buildTrackSeries('autonomy','2026-10-24').series.at(-1);assert.equal(early.points.length,0);
+ const v2=buildTrackSeries('autonomy','2026-11-02').series.at(-1);assert.equal(v2.points.length,4);assert.equal(v2.frontier.length,0);assert.equal(v2.segments.length,0);
+ assert.deepEqual(v2.points.map(p=>p.value).sort((a,b)=>a-b),[32,50.7,50.7,57.3]);
+ for(const p of v2.points){assert.equal(p.modelReleaseDate,null);assert.equal(p.releaseDate.value,'2026-10-25');assert.equal(p.eligible,false);assert.equal(p.validation.comparability,'different_protocol');}
+ });

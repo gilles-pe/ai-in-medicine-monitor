@@ -15,8 +15,8 @@ test('dynamic German takeaways preserve all named results and release-date preci
   assert.match(assistance,/Modellveröffentlichung 2026-03\)/);
   assert.doesNotMatch(assistance,/2026-03-01|48,1 %/);
   const autonomy=translateTakeawayText(trackTakeaway('autonomy','2026-10-25'),'de');
-  assert.match(autonomy,/Claude Code \/ Opus 5 mit 55 %/);
-  assert.match(autonomy,/Claude 3\.5 Sonnet v2 69,67 %/);
+  assert.match(autonomy,/Claude Code \/ Opus 5\.5 löste 43\/75 Aufgaben \(57,3 %\)/);
+  assert.match(autonomy,/keine verbundene Trendlinie/);
   for(const text of [knowledge,assistance,autonomy])assert.doesNotMatch(text,/\bOn |best confirmed|model release|reaches|task success|These scores|open questions/);
 });
 
