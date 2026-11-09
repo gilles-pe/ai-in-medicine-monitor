@@ -367,11 +367,11 @@ html{scroll-padding-top:var(--space-16)}
 .chart-stories>.is-linked-target{border-color:var(--gold);background:var(--gold-soft);box-shadow:0 0 0 2px color-mix(in srgb,var(--gold) 31%,transparent)}
 .track-visual{position:relative;scroll-margin-top:72px}
 .milestone-chart-marker{position:absolute;z-index:3;width:0;border-left:2px dashed var(--gold);pointer-events:none}
-.milestone-chart-marker::before{content:"";position:absolute;left:-7px;top:-6px;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 27%,transparent);animation:linked-milestone-pulse 2s ease-out 4}
+.milestone-chart-dot{position:absolute;display:block;left:-7px;top:-6px;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 27%,transparent);animation:linked-milestone-pulse 2s ease-out 4}
 .milestone-callout{position:absolute;z-index:3;height:2px;background:var(--gold);pointer-events:none}
 .milestone-callout.is-vertical{width:2px;margin-left:-1px}
 .has-linked-milestone .linked-milestone-card{min-width:0;margin-top:var(--space-3);max-height:min(60dvh,480px);overflow:auto;padding:var(--pad-card);background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);overscroll-behavior:contain}
 .is-linked-overlay .linked-milestone-card{position:absolute;z-index:4;margin:0}
 .has-linked-milestone .linked-milestone-card .editorial-evidence-card h2{font-size:var(--text-lg)}
 @keyframes linked-milestone-pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--gold) 55%,transparent)}70%,100%{box-shadow:0 0 0 12px color-mix(in srgb,var(--gold) 0%,transparent)}}
-@media(prefers-reduced-motion:reduce){.milestone-chart-marker::before{animation:none}}
+@media(prefers-reduced-motion:reduce){.milestone-chart-dot{animation:none}}

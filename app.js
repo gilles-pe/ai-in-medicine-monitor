@@ -52,6 +52,7 @@ function showEditorialCard(id){
 function showMeasurement(id){if(rows().some(item=>item.id===id))showEditorialCard(id);}
 function showTrackMilestone(id){if([...trackMilestones,trustContext].some(item=>item.id===id&&item.date<=state.cutoff))showEditorialCard(id);}
 function closeLinkedMilestone({returnFocus=false}={}){
+  linkedMilestoneObserver?.disconnect();linkedMilestoneObserver=null;
   const target=shell.querySelector('.is-linked-target');
   shell.querySelectorAll('.linked-milestone-card,.milestone-chart-marker,.milestone-callout').forEach(el=>el.remove());
   shell.querySelectorAll('.has-linked-milestone').forEach(el=>el.classList.remove('has-linked-milestone','is-linked-overlay'));
@@ -74,7 +75,7 @@ function placeLinkedMilestone(visual,date){
   if(!inWindow){panel.style.left=panel.style.top=panel.style.width='';return;}
   const xv=num('plotLeft')+(pos-start)/(end-start||1)*(num('plotRight')-num('plotLeft'));
   const dotX=sr.left-vr.left+xv*scale,dotY=sr.top-vr.top+num('plotTop')*scale,floorY=sr.top-vr.top+num('plotFloor')*scale;
-  const marker=document.createElement('div');marker.className='milestone-chart-marker';marker.setAttribute('aria-hidden','true');
+  const marker=document.createElement('div');marker.className='milestone-chart-marker';marker.setAttribute('aria-hidden','true');marker.innerHTML='<span class="milestone-chart-dot"></span>';
   marker.style.left=dotX+'px';marker.style.top=dotY+'px';marker.style.height=Math.max(0,floorY-dotY)+'px';
   const callout=document.createElement('div');callout.className='milestone-callout';callout.setAttribute('aria-hidden','true');
   visual.append(marker,callout);
@@ -90,6 +91,7 @@ function placeLinkedMilestone(visual,date){
   panel.style.width=width+'px';panel.style.left=left+'px';panel.style.top=Math.max(0,dotY-20)+'px';
   callout.style.top=dotY+'px';callout.style.left=(right?dotX:left+width)+'px';callout.style.width=(right?gap:dotX-left-width)+'px';
 }
+let linkedMilestoneObserver=null;
 function showLinkedMilestone(id,target){
   const item=[...trackMilestones,trustContext].find(entry=>entry.id===id&&entry.date<=state.cutoff);if(!item)return;
   const card=editorialCard(id),visual=target.closest('.track')?.querySelector('.track-visual');if(!card||!visual)return;
@@ -106,6 +108,9 @@ function showLinkedMilestone(id,target){
   highlightCard(id);
   panel.querySelector('[data-card-close]')?.addEventListener('click',()=>closeLinkedMilestone({returnFocus:true}));
   placeLinkedMilestone(visual,item.date);
+  // Fonts, images and late re-layout can move the chart after opening; keep marker, card and connector aligned.
+  let frame=0;linkedMilestoneObserver=new ResizeObserver(()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{if(visual.isConnected&&visual.contains(panel))placeLinkedMilestone(visual,item.date);});});
+  linkedMilestoneObserver.observe(visual);const svgEl=visual.querySelector('.monitor-chart-svg');if(svgEl)linkedMilestoneObserver.observe(svgEl);
   visual.scrollIntoView({block:'start'});
 }
 function showStudy(id){if(studies.some(item=>item.id===id&&item.date<=state.cutoff))showEditorialCard(id);}
