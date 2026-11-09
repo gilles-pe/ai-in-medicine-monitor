@@ -59,7 +59,7 @@ function closeLinkedMilestone({returnFocus=false}={}){
   highlightCard(null);
   if(returnFocus)target?.focus({preventScroll:true});
 }
-function showLinkedMilestone(id,target){
+function showLinkedMilestone(id,target,{scroll='start'}={}){
   if(![...trackMilestones,trustContext].some(item=>item.id===id&&item.date<=state.cutoff))return;
   const card=editorialCard(id),stories=target.closest('.chart-stories');if(!card||!stories)return;
   closeLinkedMilestone();
@@ -72,7 +72,7 @@ function showLinkedMilestone(id,target){
   stories.classList.add('has-linked-focus');target.classList.add('is-linked-target');
   highlightCard(id);
   panel.querySelector('[data-card-close]')?.addEventListener('click',()=>closeLinkedMilestone({returnFocus:true}));
-  target.scrollIntoView({block:'start'});
+  target.scrollIntoView({block:scroll});
 }
 function showStudy(id){if(studies.some(item=>item.id===id&&item.date<=state.cutoff))showEditorialCard(id);}
 function showHistory(id){if(visibleHistory(state.cutoff).some(item=>item.id===id))showEditorialCard(id);}
@@ -169,6 +169,8 @@ async function action(event){
   if(hit&&event.type==='click'&&event.pointerType==='mouse'){const card=hoverCard(hit,event);if(card){if(hit.dataset.monitorCluster){const ids=hit.dataset.monitorCluster.split(',');showCardSelection(ids,Math.max(0,ids.indexOf(card.id)));}else showMonitorPoint(card.id);return;}}
   const choice=event.target.closest('[data-card-choice]');
   if(choice){showCardSelection((dialog.dataset.cardIds||'').split(','),Number(choice.dataset.cardChoice));return;}
+  const storyTile=event.target.closest('.chart-stories [data-track-milestone]');
+  if(storyTile){showLinkedMilestone(storyTile.dataset.trackMilestone,storyTile,{scroll:'nearest'});return;}
   for(const [attribute,handler] of [['data-monitor-cluster',showMonitorCluster],['data-monitor-point',showMonitorPoint],['data-observation-id',showMonitorPoint],['data-overview-cluster',showOverviewCluster],['data-overview-point',showOverviewPoint],['data-history-id',showHistory],['data-track-milestone',showTrackMilestone],['data-point-id',showMeasurement],['data-study-id',showStudy]]){
     const target=event.target.closest('['+attribute+']');if(target){handler(target.getAttribute(attribute));return;}
   }
