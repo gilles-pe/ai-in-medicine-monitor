@@ -361,3 +361,8 @@ html{scroll-padding-top:var(--space-16)}
 /* Chip rows wrap instead of stretching their pills */
 .news-tags{flex-wrap:wrap;align-items:center;gap:var(--space-2) var(--gap-inline)}
 .news-meta-row{column-gap:var(--gap-inline)}
+/* Text contrast >= 4.5:1: small primary-coloured text uses teal-strong; track-coloured text is mixed with ink.
+   Large display headings (>= 24px) keep --teal, which meets the 3:1 large-text threshold. */
+.masthead-author em,.news-brand em,.news-chart-link,.chart-ranges button[aria-pressed=true],.site-menu>a:hover,.site-menu>button:hover,.social-icons a:hover,.contact-links a:hover,.feedback-dm-link:hover{color:var(--teal-strong)}
+.track-result-link strong,.measurement-chip .chip-score,.result-score,.track-index{color:color-mix(in srgb,var(--track,var(--teal)) 50%,var(--ink))}
+.overview-milestone-pill b{color:color-mix(in srgb,var(--pill-color,var(--muted)) 50%,var(--ink))}
