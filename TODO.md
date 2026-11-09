@@ -20,7 +20,7 @@ The original phase 3 acceptance remains partly open. Current feature behavior is
 
 - [x] Keyboard operation for current disclosures, selectors, point cards, menu and zoom, with visible focus styling; production browser coverage.
 - [x] Focus containment and Esc in the menu and expanded charts.
-- [ ] Complete a measured contrast audit (at least 4.5:1 for normal text).
+- [x] Complete a measured contrast audit (at least 4.5:1 for normal text). 9 Nov 2026: computed-colour audit of every visible text node on home, news, about, impressum and datenschutz at 390 and 1280px (menu open) finds no text below 4.5:1 (3:1 for >=24px). SVG chart labels and hover-only states beyond the menu were not measured.
 - [x] Accessible names/states for tested icon controls, source selection and chart zoom.
 - [x] Global `prefers-reduced-motion` disables smooth scrolling, animations and transitions.
 - [x] Responsive production checks at 320/375/768/1280px: no horizontal overflow; lower point targets and zoom controls at least 44px; lower track height under 620px.
