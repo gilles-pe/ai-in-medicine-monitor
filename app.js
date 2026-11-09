@@ -52,27 +52,66 @@ function showEditorialCard(id){
 function showMeasurement(id){if(rows().some(item=>item.id===id))showEditorialCard(id);}
 function showTrackMilestone(id){if([...trackMilestones,trustContext].some(item=>item.id===id&&item.date<=state.cutoff))showEditorialCard(id);}
 function closeLinkedMilestone({returnFocus=false}={}){
+  linkedMilestoneObserver?.disconnect();linkedMilestoneObserver=null;
   const target=shell.querySelector('.is-linked-target');
-  shell.querySelector('.linked-milestone-card')?.remove();
-  target?.closest('.chart-stories')?.classList.remove('has-linked-focus');
+  shell.querySelectorAll('.linked-milestone-card,.milestone-chart-marker,.milestone-callout').forEach(el=>el.remove());
+  shell.querySelectorAll('.has-linked-milestone').forEach(el=>el.classList.remove('has-linked-milestone','is-linked-overlay'));
   target?.classList.remove('is-linked-target');
   highlightCard(null);
+  if(location.hash.startsWith('#track-milestone-'))history.replaceState(null,'',location.pathname+location.search);
   if(returnFocus)target?.focus({preventScroll:true});
 }
-function showLinkedMilestone(id,target,{scroll='start'}={}){
-  if(![...trackMilestones,trustContext].some(item=>item.id===id&&item.date<=state.cutoff))return;
-  const card=editorialCard(id),stories=target.closest('.chart-stories');if(!card||!stories)return;
+/** Month position of an ISO date on the chart's month axis (monthIndex = year*12 + month - 1). */
+function monthPosition(date){const [y,m,d=1]=String(date).split('-').map(Number);return y*12+m-1+(d-1)/new Date(Date.UTC(y,m,0)).getUTCDate();}
+/** Places the milestone marker inside the chart plot, the evidence card beside it (below it on phones) and a connector between them. */
+function placeLinkedMilestone(visual,date){
+  const svg=visual.querySelector('.monitor-chart-svg'),panel=visual.querySelector('.linked-milestone-card');if(!svg||!panel)return;
+  visual.querySelectorAll('.milestone-chart-marker,.milestone-callout').forEach(el=>el.remove());
+  const num=name=>Number(svg.dataset[name]),pos=monthPosition(date),start=num('xStart'),end=num('xEnd');
+  const vb=svg.viewBox.baseVal,sr=svg.getBoundingClientRect(),vr=visual.getBoundingClientRect(),scale=sr.width/(vb.width||1);
+  const phone=matchMedia('(max-width:600px)').matches;
+  const inWindow=pos>=start&&pos<=end;
+  visual.classList.toggle('is-linked-overlay',inWindow&&!phone);
+  if(!inWindow){panel.style.left=panel.style.top=panel.style.width='';return;}
+  const xv=num('plotLeft')+(pos-start)/(end-start||1)*(num('plotRight')-num('plotLeft'));
+  const dotX=sr.left-vr.left+xv*scale,dotY=sr.top-vr.top+num('plotTop')*scale,floorY=sr.top-vr.top+num('plotFloor')*scale;
+  const marker=document.createElement('div');marker.className='milestone-chart-marker';marker.setAttribute('aria-hidden','true');marker.innerHTML='<span class="milestone-chart-dot"></span>';
+  marker.style.left=dotX+'px';marker.style.top=dotY+'px';marker.style.height=Math.max(0,floorY-dotY)+'px';
+  const callout=document.createElement('div');callout.className='milestone-callout';callout.setAttribute('aria-hidden','true');
+  visual.append(marker,callout);
+  if(phone){
+    panel.style.left=panel.style.top=panel.style.width='';
+    const cardTop=panel.getBoundingClientRect().top-vr.top;
+    callout.classList.add('is-vertical');callout.style.left=dotX+'px';callout.style.top=floorY+'px';callout.style.height=Math.max(0,cardTop-floorY)+'px';
+    return;
+  }
+  const gap=24,width=Math.min(440,Math.max(280,vr.width*.46));
+  const right=dotX+gap+width<=vr.width;
+  const left=right?dotX+gap:Math.max(0,dotX-gap-width);
+  panel.style.width=width+'px';panel.style.left=left+'px';panel.style.top=Math.max(0,dotY-20)+'px';
+  callout.style.top=dotY+'px';callout.style.left=(right?dotX:left+width)+'px';callout.style.width=(right?gap:dotX-left-width)+'px';
+}
+let linkedMilestoneObserver=null;
+function showLinkedMilestone(id,target){
+  const item=[...trackMilestones,trustContext].find(entry=>entry.id===id&&entry.date<=state.cutoff);if(!item)return;
+  const card=editorialCard(id),visual=target.closest('.track')?.querySelector('.track-visual');if(!card||!visual)return;
   closeLinkedMilestone();
   if(dialog.open)dialog.close();
   hover?.hide();
+  if(location.hash!=='#track-milestone-'+id)history.replaceState(null,'','#track-milestone-'+id);
   const panel=document.createElement('aside');
   panel.className='linked-milestone-card';panel.setAttribute('aria-label','Milestone evidence');
   panel.innerHTML=pointCardHtml(card);
-  target.insertAdjacentElement('afterend',panel);
-  stories.classList.add('has-linked-focus');target.classList.add('is-linked-target');
+  visual.classList.add('has-linked-milestone');
+  visual.querySelector('.monitor-chart')?.insertAdjacentElement('afterend',panel);
+  target.classList.add('is-linked-target');
   highlightCard(id);
   panel.querySelector('[data-card-close]')?.addEventListener('click',()=>closeLinkedMilestone({returnFocus:true}));
-  target.scrollIntoView({block:scroll});
+  placeLinkedMilestone(visual,item.date);
+  // Fonts, images and late re-layout can move the chart after opening; keep marker, card and connector aligned.
+  let frame=0;linkedMilestoneObserver=new ResizeObserver(()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{if(visual.isConnected&&visual.contains(panel))placeLinkedMilestone(visual,item.date);});});
+  linkedMilestoneObserver.observe(visual);const svgEl=visual.querySelector('.monitor-chart-svg');if(svgEl)linkedMilestoneObserver.observe(svgEl);
+  visual.scrollIntoView({block:'start'});
 }
 function showStudy(id){if(studies.some(item=>item.id===id&&item.date<=state.cutoff))showEditorialCard(id);}
 function showHistory(id){if(visibleHistory(state.cutoff).some(item=>item.id===id))showEditorialCard(id);}
@@ -170,7 +209,7 @@ async function action(event){
   const choice=event.target.closest('[data-card-choice]');
   if(choice){showCardSelection((dialog.dataset.cardIds||'').split(','),Number(choice.dataset.cardChoice));return;}
   const storyTile=event.target.closest('.chart-stories [data-track-milestone]');
-  if(storyTile){showLinkedMilestone(storyTile.dataset.trackMilestone,storyTile,{scroll:'nearest'});return;}
+  if(storyTile){showLinkedMilestone(storyTile.dataset.trackMilestone,storyTile);return;}
   for(const [attribute,handler] of [['data-monitor-cluster',showMonitorCluster],['data-monitor-point',showMonitorPoint],['data-observation-id',showMonitorPoint],['data-overview-cluster',showOverviewCluster],['data-overview-point',showOverviewPoint],['data-history-id',showHistory],['data-track-milestone',showTrackMilestone],['data-point-id',showMeasurement],['data-study-id',showStudy]]){
     const target=event.target.closest('['+attribute+']');if(target){handler(target.getAttribute(attribute));return;}
   }

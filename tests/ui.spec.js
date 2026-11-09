@@ -66,7 +66,7 @@ test('only checked observations appear and 2026 MedQA stays an independent serie
 test('point cards retain quantitative findings, validity, source and active context',async({page})=>{
   await openMonitor(page,'3.9');const card=page.getByRole('dialog');await expect(card).toContainText('69.67%');await expect(card.locator('.point-card-sections dt')).toHaveText(['SETUP & COHORT','LIMITATIONS & VALIDITY']);await expect(card.locator('.point-sources a')).toHaveAttribute('href','https://stanfordmlgroup.github.io/projects/medagentbench/');await expect(page.locator('.detail-charts [data-observation-id="3.9"]')).toHaveClass(/is-selected/);await page.keyboard.press('Escape');
   const tile=page.locator('[data-track-milestone="lower-amie-2025"]');await tile.click();const linked=page.locator('.linked-milestone-card');await expect(card).not.toBeVisible();await expect(tile).toHaveClass(/is-linked-target/);await expect(linked).toContainText('30/32');await expect(linked).toContainText('25/26');await expect(linked.locator('.semantic-badge')).toHaveText('Peer-reviewed · 2025');await expect(linked.locator('.card-tags')).not.toHaveText(/^\s*·/);await expect(linked).not.toContainText(/What was tested\?|How sure are we\?|Historical source-backed/);
-  expect(await tile.evaluate(e=>{const a=getComputedStyle(e,'::before');return a.animationIterationCount+'x'+a.animationDuration})).toBe('4x2s');
+  const chartMarker=page.locator('#chart-assistance .milestone-chart-marker');await expect(chartMarker).toHaveCount(1);expect(await chartMarker.locator('.milestone-chart-dot').evaluate(e=>{const a=getComputedStyle(e);return a.animationIterationCount+'x'+a.animationDuration})).toBe('4x2s');await expect(page.locator('#chart-assistance .milestone-callout')).toHaveCount(1);await page.keyboard.press('Escape');await expect(chartMarker).toHaveCount(0);await expect(linked).toHaveCount(0);
 });
 
 test('desktop hover sources remain reachable and keyboard pins the same card',async({page},info)=>{
@@ -204,17 +204,21 @@ test('news chart link keeps the pulsing MAI-DxO milestone beside its evidence ca
   await expect(card).toBeInViewport();
   await expect(card).toContainText('MAI-DxO');
   await expect(page.locator('#detail-dialog')).not.toBeVisible();
-  const desktop=await Promise.all([marker.boundingBox(),card.boundingBox()]);
-  expect(desktop[1].x).toBeGreaterThan(desktop[0].x+desktop[0].width);
+  const point=page.locator('#chart-assistance .milestone-chart-dot');
+  await expect(point).toBeInViewport();
+  const desktop=await Promise.all([point.boundingBox(),card.boundingBox(),page.locator('#chart-assistance .monitor-chart').boundingBox()]);
+  expect(desktop[0].x).toBeGreaterThan(desktop[2].x);expect(desktop[0].x).toBeLessThan(desktop[2].x+desktop[2].width);
+  expect(desktop[1].x>desktop[0].x||desktop[1].x+desktop[1].width<desktop[0].x).toBe(true);
   await page.keyboard.press('Escape');
   await expect(card).toHaveCount(0);
+  await expect(point).toHaveCount(0);
   await expect(marker).toBeInViewport();
   await page.goto('./news/?lang=de');
   await page.locator('#ai-diagnosis-doctor-choice .news-chart-link').click();
   await expect(page.locator('.linked-milestone-card')).toContainText('MAI-DxO');
   await page.setViewportSize({width:375,height:844});
-  await expect(marker).toBeInViewport();await expect(card).toBeInViewport();
-  const mobile=await Promise.all([marker.boundingBox(),card.boundingBox()]);
+  await expect(point).toBeInViewport();await expect(card).toBeInViewport();
+  const mobile=await Promise.all([point.boundingBox(),card.boundingBox()]);
   expect(mobile[1].y).toBeGreaterThan(mobile[0].y);
   await card.locator('[data-card-close]').click();
   await expect(card).toHaveCount(0);
