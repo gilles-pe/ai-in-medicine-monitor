@@ -112,3 +112,6 @@ Owner requested an original-PDF audit and default no publication if integration 
 
 ## 2 November 2026 - owner approves separate HealthAgentBench v2 publication
 Owner explicitly requested publication after the protocol distinction was explained. Admit four source-checked v2 results as confirmed + different_protocol relative to v1, in healthagentbench_msft_2026_v2. Do not connect these points to v1 or to one another as temporal improvement. Show 57.3% as the best reported-by-paper/source-checked v2 result, not as a same-protocol gain over 55%. Position these four observations at the known v2 paper date (25 October 2026), explicitly labelled; model-release and evaluation dates remain null. Exact CLI snapshots remain a limitation, not a reason to hide documented results. Pin historic v1 measurement/card links to the versioned v1 leaderboard. Gate B: expanded workflow coverage and the baseline rerun expose a material benchmark-version change; no new clinical-validity or milestone claim.
+
+
+9 November 2026 - owner explicitly approved adding and starring Can AI See Death in Your Eyes? as an article in the shared News feed. Use the original 6 November newsletter date, Substack title/link, public Bluesky cross-post and its article preview image. This is editorial news, not a new validated benchmark or clinical milestone.

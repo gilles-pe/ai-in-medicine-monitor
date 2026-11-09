@@ -121,3 +121,6 @@ Release verification for the responsive-density/table-order update: source 5ec86
 
 - [x] Owner-approved HealthAgentBench v2 publication prepared as isolated, publication-dated observations with complete original-source cards and separate version headline.
 - [ ] HealthAgentBench v2: retain follow-up for exact model-availability/evaluation dates and pinned CLI versions; do not infer these from the paper date.
+
+
+- [x] Add the owner-approved Can AI See Death in Your Eyes? article, starred in the shared news feed with thumbnail and verified original date/links.

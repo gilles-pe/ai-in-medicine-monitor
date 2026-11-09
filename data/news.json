@@ -1,6 +1,39 @@
 {
   "items": [
     {
+      "id": "can-ai-see-death-in-your-eyes",
+      "date": "2026-11-06",
+      "approved": true,
+      "category": "article",
+      "originalLanguage": "en",
+      "title": {
+        "en": "Can AI See Death in Your Eyes?",
+        "de": "Kann KI den Tod in deinen Augen sehen?"
+      },
+      "summary": {
+        "en": "My take on facial images, AI and cancer survival risk - and how a conversation with a palliative care doctor made me reconsider an unusual study.",
+        "de": "Meine Gedanken zu Gesichtsfotos, KI und Überlebensrisiken bei Krebs - und warum mich ein Gespräch mit einem Palliativmediziner eine ungewöhnliche Studie neu betrachten ließ."
+      },
+      "sources": [
+        {
+          "platform": "substack",
+          "url": "https://medtechsignal.substack.com/p/can-ai-see-death-in-your-eyes"
+        },
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/gillespe.bsky.social/post/3mzn6sju5zk2y"
+        }
+      ],
+      "thumbnail": {
+        "url": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ye6f5e4n6cq5a2uaq7hijtii/bafkreidqjfkwname2i53mae55chybqm5yxibnwkstwccadlirmkhkpewcu",
+        "alt": {
+          "en": "Illustration accompanying the original article; not a study measurement",
+          "de": "Illustration aus dem Originalartikel; keine Studienmessung"
+        },
+        "sourceUrl": "https://medtechsignal.substack.com/p/can-ai-see-death-in-your-eyes"
+      }
+    },
+    {
       "id": "ai-diagnosis-doctor-choice",
       "date": "2026-10-31",
       "approved": true,
