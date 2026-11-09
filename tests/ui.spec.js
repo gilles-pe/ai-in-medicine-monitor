@@ -40,7 +40,7 @@ test('nearby overview studies use one card with switchable results',async({page}
 });
 
 test('thumbnails navigate to three compact single-chart tracks',async({page})=>{
-  for(const id of ['knowledge','assistance','autonomy']){const preview=page.locator('.chart-thumbnail[href="#chart-'+id+'"]');await expect(preview.locator('svg')).toBeVisible();await preview.click();await expect(page).toHaveURL(new RegExp('#chart-'+id+'$'));const track=page.locator('#chart-'+id);await expect(track).toBeInViewport();await expect(track.locator('svg.monitor-chart-svg')).toHaveCount(1);await expect(track.locator('.chart-stories')).toBeVisible();await expect(track.locator('.track-description')).toBeVisible();await expect(track.locator('.track-test-summary')).toBeVisible();await expect(track.locator('.track-reading-key')).toBeVisible();await expect(track.locator('.track-reality')).toBeVisible();expect(await track.evaluate(e=>e.getBoundingClientRect().height)).toBeLessThan(720);}
+  for(const id of ['knowledge','assistance','autonomy']){const preview=page.locator('.chart-thumbnail[href="#chart-'+id+'"]');await expect(preview.locator('svg')).toBeVisible();await preview.click();await expect(page).toHaveURL(new RegExp('#chart-'+id+'$'));const track=page.locator('#chart-'+id);await expect(track).toBeInViewport();await expect(track.locator('svg.monitor-chart-svg')).toHaveCount(1);await expect(track.locator('.chart-stories')).toBeVisible();await expect(track.locator('.track-description')).toBeVisible();await expect(track.locator('.track-test-summary')).toBeVisible();await expect(track.locator('.track-reading-key')).toBeVisible();await expect(track.locator('.track-reality')).toBeVisible();await expect(track.locator('.monitor-chart .chart-ranges')).toHaveCount(1);expect(await track.evaluate(e=>e.getBoundingClientRect().height)).toBeLessThan(720);}
 });
 
 test('both benchmark series stay visible without redundant filters',async({page})=>{
@@ -65,7 +65,8 @@ test('only checked observations appear and 2026 MedQA stays an independent serie
 
 test('point cards retain quantitative findings, validity, source and active context',async({page})=>{
   await openMonitor(page,'3.9');const card=page.getByRole('dialog');await expect(card).toContainText('69.67%');await expect(card.locator('.point-card-sections dt')).toHaveText(['SETUP & COHORT','LIMITATIONS & VALIDITY']);await expect(card.locator('.point-sources a')).toHaveAttribute('href','https://stanfordmlgroup.github.io/projects/medagentbench/');await expect(page.locator('.detail-charts [data-observation-id="3.9"]')).toHaveClass(/is-selected/);await page.keyboard.press('Escape');
-  await page.locator('[data-track-milestone="lower-amie-2025"]').click();await expect(card).toContainText('30/32');await expect(card).toContainText('25/26');await expect(card.locator('.semantic-badge')).toHaveText('Peer-reviewed · 2025');await expect(card.locator('.card-tags')).not.toHaveText(/^\s*·/);await expect(card).not.toContainText(/What was tested\?|How sure are we\?|Historical source-backed/);
+  const tile=page.locator('[data-track-milestone="lower-amie-2025"]');await tile.click();const linked=page.locator('.linked-milestone-card');await expect(card).not.toBeVisible();await expect(tile).toHaveClass(/is-linked-target/);await expect(linked).toContainText('30/32');await expect(linked).toContainText('25/26');await expect(linked.locator('.semantic-badge')).toHaveText('Peer-reviewed · 2025');await expect(linked.locator('.card-tags')).not.toHaveText(/^\s*·/);await expect(linked).not.toContainText(/What was tested\?|How sure are we\?|Historical source-backed/);
+  expect(await tile.evaluate(e=>{const a=getComputedStyle(e,'::before');return a.animationIterationCount+'x'+a.animationDuration})).toBe('4x2s');
 });
 
 test('desktop hover sources remain reachable and keyboard pins the same card',async({page},info)=>{
@@ -176,7 +177,7 @@ test('German dynamic summaries and AMIE clinical card retain exact evidence',asy
   await page.locator('#menu-button').click();await page.locator('[data-language="en"]').click();await page.keyboard.press('Escape');
   await expect(page.locator('#chart-assistance .chart-takeaway')).toContainText('48.1 points');
   await page.locator('[data-track-milestone="lower-amie-previsit-2026"]').click();
-  const card=page.getByRole('dialog');await expect(card).toContainText('33/44');await expect(card).toContainText('25/44');await expect(card).toContainText('98 completed');await expect(card).toContainText('No control group');
+  const card=page.locator('.linked-milestone-card');await expect(card).toContainText('33/44');await expect(card).toContainText('25/44');await expect(card).toContainText('98 completed');await expect(card).toContainText('No control group');
   await expect(card.locator('.point-sources a')).toHaveAttribute('href',/^https:\/\/research.google\/pubs\//);
   await page.keyboard.press('Escape');await expect(page.locator('#news-amie-before-the-appointment')).toContainText('24 Oct');
 });

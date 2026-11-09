@@ -315,13 +315,13 @@ html{scroll-padding-top:var(--space-16)}
 /* A news deep link keeps its milestone and evidence card in the same view. */
 .chart-stories.has-linked-focus:has(>button:nth-child(4)){grid-template-columns:minmax(145px,1fr) minmax(0,2fr);align-items:start;gap:var(--space-3) var(--space-4)}
 .chart-stories.has-linked-focus>.is-linked-target{grid-column:1;grid-row:1;order:-2;position:relative;align-self:start;min-height:52px;padding-left:var(--space-8);border-color:var(--gold);background:var(--gold-soft);box-shadow:0 0 0 2px color-mix(in srgb,var(--gold) 31%,transparent);overflow:visible}
-.chart-stories.has-linked-focus>.is-linked-target::before{content:"";position:absolute;left:11px;top:18px;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 27%,transparent);animation:linked-milestone-pulse 2.4s ease-out infinite}
-.chart-stories.has-linked-focus>.is-linked-target::after{content:"";position:absolute;left:100%;top:25px;width:16px;border-top:1px solid var(--gold)}
+.chart-stories.has-linked-focus>.is-linked-target::before{content:"";position:absolute;left:11px;top:18px;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 27%,transparent);animation:linked-milestone-pulse 2s ease-out 4}
+.chart-stories.has-linked-focus>.is-linked-target::after{content:"";position:absolute;left:100%;top:22px;width:var(--space-4);height:2px;background:var(--gold)}
 .chart-stories.has-linked-focus>.linked-milestone-card{grid-column:2;grid-row:1;order:-1;min-width:0;max-height:min(48dvh,440px);overflow:auto;padding:var(--space-4) var(--space-5);background:color-mix(in srgb,var(--surface) 94%,transparent);border:1px solid var(--line-strong);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);overscroll-behavior:contain}
 .chart-stories.has-linked-focus>.linked-milestone-card .editorial-evidence-card h2{font-size:clamp(var(--text-lg),2vw,var(--text-xl))}
 .chart-stories.has-linked-focus>button:not(.is-linked-target){order:1}
 @keyframes linked-milestone-pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--gold) 50%,transparent)}70%,100%{box-shadow:0 0 0 10px color-mix(in srgb,var(--gold) 0%,transparent)}}
-@media(max-width:600px){.chart-stories.has-linked-focus:has(>button:nth-child(4)){grid-template-columns:repeat(2,minmax(0,1fr))}.chart-stories.has-linked-focus>.is-linked-target{grid-column:1/-1;grid-row:auto}.chart-stories.has-linked-focus>.is-linked-target::after{display:none}.chart-stories.has-linked-focus>.linked-milestone-card{grid-column:1/-1;grid-row:auto;max-height:calc(100dvh - 210px);padding:var(--space-3) var(--space-4)}}
+@media(max-width:600px){.chart-stories.has-linked-focus:has(>button:nth-child(4)){grid-template-columns:repeat(2,minmax(0,1fr))}.chart-stories.has-linked-focus>.is-linked-target{grid-column:1/-1;grid-row:auto}.chart-stories.has-linked-focus>.is-linked-target::after{left:15px;top:100%;width:2px;height:var(--space-3)}.chart-stories.has-linked-focus>.linked-milestone-card{grid-column:1/-1;grid-row:auto;max-height:calc(100dvh - 210px);padding:var(--space-3) var(--space-4)}}
 @media(prefers-reduced-motion:reduce){.chart-stories.has-linked-focus>.is-linked-target::before{animation:none;box-shadow:0 0 0 5px color-mix(in srgb,var(--gold) 33%,transparent)}}
 
 /* ===== Spacing system: final layer =====
@@ -366,3 +366,8 @@ html{scroll-padding-top:var(--space-16)}
 .masthead-author em,.news-brand em,.news-chart-link,.chart-ranges button[aria-pressed=true],.site-menu>a:hover,.site-menu>button:hover,.social-icons a:hover,.contact-links a:hover,.feedback-dm-link:hover{color:var(--teal-strong)}
 .track-result-link strong,.measurement-chip .chip-score,.result-score,.track-index{color:color-mix(in srgb,var(--track,var(--teal)) 50%,var(--ink))}
 .overview-milestone-pill b{color:color-mix(in srgb,var(--pill-color,var(--muted)) 50%,var(--ink))}
+
+/* Time-window controls sit inside the chart frame, below the axis */
+.detail-charts .monitor-chart.has-chart-footer{border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--surface);box-shadow:var(--shadow-sm);padding:0 var(--space-1)}
+.detail-charts .has-chart-footer .monitor-plot{border:0;border-radius:0;background:transparent;box-shadow:none;padding:0}
+.detail-charts .has-chart-footer .chart-ranges{margin:0;padding:var(--space-2) 0 var(--space-1);border-top:1px solid var(--line)}
