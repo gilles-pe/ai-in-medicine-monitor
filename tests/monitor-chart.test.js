@@ -13,3 +13,23 @@ test('one canvas per track retains confirmed observations and independent benchm
     assert.match(renderMonitorDetails({id},'2026-10-18'),/Different benchmarks use different tasks/);
   }
 });
+
+test('time zoom tightens the score scale and emphasizes only existing benchmark steps',()=>{
+  for(const [id,range] of [['knowledge','1y'],['assistance','1y'],['autonomy','6m']]){
+    const html=renderMonitorChart({id},'2026-11-13',{range});
+    const all=renderMonitorChart({id},'2026-11-13');
+    const span=markup=>{const [,min,max]=markup.match(/data-y-min="([^"]+)" data-y-max="([^"]+)"/);return Number(max)-Number(min);};
+    assert.ok(span(html)<span(all),id);
+    assert.match(html,/class="monitor-scale-note">Zoomed Y-axis/);
+    assert.match(html,/class="monitor-frontier[^"]*"[^>]+stroke-width="3\.5"/);
+    assert.match(all,/class="monitor-frontier[^"]*"[^>]+stroke-width="2\.5"/);
+    assert.doesNotMatch(all,/monitor-scale-note/);
+  }
+
+  const knowledge=renderMonitorChart({id:'knowledge'},'2026-11-13',{range:'6m'});
+  assert.match(knowledge,/No measurements in this time window/);
+  assert.doesNotMatch(knowledge,/class="monitor-frontier(?: |")|monitor-scale-note/);
+  const assistance=renderMonitorChart({id:'assistance'},'2026-11-13',{range:'6m'});
+  assert.match(assistance,/data-observation-id=/);
+  assert.doesNotMatch(assistance,/class="monitor-frontier(?: |")/);
+});

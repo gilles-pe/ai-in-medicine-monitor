@@ -2,6 +2,10 @@
 
 The original phase 3 acceptance remains partly open. Current feature behavior is specified in FUNCTIONALITY.md; each run is recorded in docs/implementation-status.md. Historical backlog: docs/TODO.md.
 
+## 13 November 2026
+
+- [x] Make the benchmark charts’ short windows easier to read with tighter Y-axis bounds and stronger lines.
+
 ## 25 October 2026 - current repair and owner requests
 
 - [x] Verify production JavaScript boot; restore cards, grouped sample selection, menu and chart zoom.

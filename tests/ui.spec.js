@@ -259,6 +259,9 @@ test('time windows and PNG downloads work for every expanded chart',async({page}
     await expect(curve).toHaveAttribute('d',/^M68\.00,327\.00 L/);
     await expect(curve).toHaveCSS('stroke-width','4px');
     await expect(chart.locator('.scenario-line')).toHaveCount(0);
+  }else if(id==='autonomy'){
+    await expect(chart.locator('.monitor-scale-note')).toHaveText('Zoomed Y-axis');
+    await expect(chart.locator('.monitor-frontier').first()).toHaveAttribute('stroke-width','3.5');
   }
   await chart.locator('[data-chart-range="all"]').click();await chart.locator('[data-chart-zoom]').click();
   const pending=page.waitForEvent('download');await chart.locator('[data-chart-download]').click();const {download,bytes}=await bytesOf(pending);expect(download.suggestedFilename()).toMatch(/\.png$/);expect(bytes.subarray(0,8).toString('hex')).toBe('89504e470d0a1a0a');

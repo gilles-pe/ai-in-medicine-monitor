@@ -343,3 +343,5 @@ Publication verification: release 8eeeef62989e10b60ea4977f5d8f0c13f1030715 passe
 13 November 2026 - removed the duplicate background watermark from the upper overview. The axis label and explanatory caption remain. The four existing overview tests passed, and rendered markup was checked in All time, 5Y, 2Y, 1Y and 6M. Publication target: GitHub Pages.
 
 13 November 2026 - the upper chart’s 5Y, 2Y, 1Y and 6M windows now rebase each illustrative line at the visible start, use one shared vertical range per window, and clip the entering segment. Line strokes are heavier in the zoom windows. All time retains the historical illustration and scenario. Renderer checks cover all four time windows; browser acceptance covers the 6M view and PNG export. Publication target: GitHub Pages.
+
+13 November 2026 - the three benchmark charts now use tighter Y-axis bounds, a taller plot and stronger frontier strokes in 5Y, 2Y, 1Y and 6M. The axis retains each benchmark’s original units and labels the zoom. All time and thumbnails retain their existing presentation. Source records and the frontier eligibility rules remain as before.
