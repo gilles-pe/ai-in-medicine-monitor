@@ -4,7 +4,7 @@ import { pointEvidence } from '../data/point-evidence.js';
 import { presentationSeries } from '../data/presentation-chart.js';
 import { historyEvents } from '../data/history.js';
 import { sourceCatalog } from '../data/evidence.js';
-import { renderOverview, clipIllustration, visibleHistory, visibleAnchors, illustrationPosition, fractionalYear } from '../lib/overview.js';
+import { renderOverview, clipIllustration, illustrationWindow, visibleHistory, visibleAnchors, illustrationPosition, fractionalYear } from '../lib/overview.js';
 
 test('PPT illustration preserves source years and remains separate from benchmark measurements', () => {
   assert.equal(presentationSeries.length, 4);
@@ -65,4 +65,27 @@ test('same-year papers have distinct dated x positions instead of hidden overlap
   const html = renderOverview('2026-10-17','2026-10-17');
   assert.match(html,/data-overview-cluster="mira-2026,residency-2026"/);
   assert.match(html,/data-overview-cluster="amie-2025,medagent-2025"/);
+});
+
+test('overview clips the entering segment and rebases all four zoom windows to a shared zero', () => {
+  const points = [{year:2024,index:10},{year:2026,index:18}];
+  assert.deepEqual(illustrationWindow(points,2025,2025.5),[
+    {year:2025,index:14},{year:2025.5,index:16}
+  ]);
+  assert.deepEqual(illustrationWindow(points,2027,2028),[]);
+
+  for (const range of ['5y','2y','1y','6m']) {
+    const html = renderOverview('2026-11-13','2026-11-13',{range});
+    assert.match(html,/Illustrative change from window start/);
+    assert.doesNotMatch(html,/IQ for illustration|Autonomy: software tasks|class="overview-line scenario-line"|NaN|undefined/);
+    const lines = [...html.matchAll(/<path d="M68\.00,327\.00 L[^"]*?,([\d.]+)" class="overview-line(?: medical-line)?"/g)];
+    assert.equal(lines.length,4,range);
+    assert.ok(Math.min(...lines.map(line=>Number(line[1]))) < 135,range);
+  }
+
+  const full = renderOverview('2026-11-13','2026-11-13');
+  assert.match(full,/IQ for illustration/);
+  assert.match(full,/class="overview-line scenario-line"/);
+  const early = renderOverview('1960-06-20','2026-11-13',{range:'6m'});
+  assert.doesNotMatch(early,/NaN|undefined|class="overview-point"/);
 });

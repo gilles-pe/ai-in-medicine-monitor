@@ -375,3 +375,5 @@ html{scroll-padding-top:var(--space-16)}
 .has-linked-milestone .linked-milestone-card .editorial-evidence-card h2{font-size:var(--text-lg)}
 @keyframes linked-milestone-pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--gold) 55%,transparent)}70%,100%{box-shadow:0 0 0 12px color-mix(in srgb,var(--gold) 0%,transparent)}}
 @media(prefers-reduced-motion:reduce){.milestone-chart-dot{animation:none}}
+
+.overview-change-chart .overview-line{stroke-width:4}
