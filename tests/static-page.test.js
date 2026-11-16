@@ -63,6 +63,6 @@ test('the prerendered home page is crawlable without a font host', async () => {
   assert.match(html, /id="editorial-check"/);
   assert.match(html, /datetime="2026-11-02"/);
   assert.doesNotMatch(html, /fonts\.googleapis\.com/);
-  assert.match(html, /rel="canonical" href="https:\/\/gillespenning\.com\/"/);
+  assert.match(html, /rel="canonical" href="https:\/\/ai\.gillespenning\.com\/"/);
   assert.doesNotMatch(html, /worksFor/);
 });
