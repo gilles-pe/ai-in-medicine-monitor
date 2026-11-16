@@ -46,3 +46,6 @@ The source repository is public and **Settings → Pages → Build and deploymen
 The archive is available at `news/`. To add news, follow [the editorial workflow](docs/news-editorial.md); individual approval, original publication dates and Substack stars remain required.
 
 GitHub Pages is the primary publication target. The previous Sites deployment and `.openai/hosting.json` are retained as a fallback at https://ai-in-medicine-monitor.gillesp.chatgpt.site; publishing to GitHub does not update that fallback.
+
+
+The public AI monitor is hosted at https://ai.gillespenning.com/. Keep canonical, social preview, sitemap and RSS URLs on this domain; gillespenning.com is reserved for a separate website.

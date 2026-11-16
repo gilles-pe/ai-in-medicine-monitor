@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gillespenning.com/sitemap.xml
+Sitemap: https://ai.gillespenning.com/sitemap.xml

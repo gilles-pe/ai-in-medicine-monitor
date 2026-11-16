@@ -128,3 +128,8 @@ Release verification for the responsive-density/table-order update: source 5ec86
 
 
 - [x] Add the owner-approved Can AI See Death in Your Eyes? article, starred in the shared news feed with thumbnail and verified original date/links.
+
+
+## 16 November 2026 - domain migration
+- [x] Move AI monitor canonical, social, sitemap and RSS addresses to ai.gillespenning.com.
+- [ ] Verify DNS propagation, GitHub Pages HTTPS certificate and the live site after deployment.

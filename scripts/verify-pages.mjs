@@ -7,10 +7,10 @@ import { MONITOR_PACKAGE_FILES } from '../lib/monitor-export.js';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../dist');
 // Relative links are checked against the project-site path so they keep working
 // both at https://gilles-pe.github.io/ai-in-medicine-monitor/ and at the custom
-// domain root https://gillespenning.com/ (GitHub Pages serves this project there).
+// domain root https://ai.gillespenning.com/ (GitHub Pages serves this project there).
 // Canonical, Open Graph, sitemap and JSON-LD use the custom-domain origin.
 const base = new URL('https://gilles-pe.github.io/ai-in-medicine-monitor/');
-const CANONICAL = 'https://gillespenning.com/';
+const CANONICAL = 'https://ai.gillespenning.com/';
 let checked = 0;
 
 async function localTarget(reference, source) {

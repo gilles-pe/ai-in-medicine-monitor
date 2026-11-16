@@ -112,3 +112,7 @@ HealthBench Professional grader policy (owner, 26 October 2026): main line stric
 HealthAgentBench version review (2 November 2026): see docs/HEALTHAGENTBENCH_V2_REVIEW_2026-11-02.md and the non-public candidate queue extensions.researchAudit.healthAgentBenchV2Review. Never join 54-task/3-attempt v1 with 75-task/1-attempt v2 or overwrite v1 Opus 5 55% with v2 32%.
 
 Owner approved v2 publication on 2 November 2026 after review. See docs/decisions.md and the intake exception: v2 is now a public, separate protocol with explicit publication-date positioning, no main-line eligibility and null model-release/evaluation dates. The research queue/report preserve the original hold decision as history.
+
+
+## Public domain
+The AI monitor's public canonical origin is https://ai.gillespenning.com. Keep generated metadata, sitemap and RSS links on this origin. The root domain gillespenning.com is reserved for a separate website. GitHub Pages custom domain and IONOS DNS must both remain configured for the subdomain.
