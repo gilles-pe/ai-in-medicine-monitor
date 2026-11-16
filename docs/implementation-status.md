@@ -348,3 +348,6 @@ Publication verification: release 8eeeef62989e10b60ea4977f5d8f0c13f1030715 passe
 
 
 16 November 2026 - domain migration: switched AI monitor metadata, generated RSS links, sitemap and canonical checks to https://ai.gillespenning.com. GitHub Pages custom domain and IONOS A records were configured. DNS propagation, HTTPS certificate and live deployment verification remain pending.
+
+
+16 November 2026 - replaced the temporary IONOS A records for ai.gillespenning.com with a CNAME to gilles-pe.github.io. The owner confirmed no mail is used on the ai subdomain; IONOS removed its conflicting mail records. Root-domain mail records remain in place. DNS and HTTPS verification pending.
