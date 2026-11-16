@@ -14141,7 +14141,7 @@
       ],
       "finding": {
         "headline": "83.2% correct diagnoses in stepwise simulation",
-        "explanation": "Microsoft's MAI-DxO achieved 83.2% diagnostic accuracy versus 36.1% for physicians in simulated NEJM cases (304 AI cases; physician comparison on a 56-case subset). One striking difference: the AI asked 4.5× more questions before its first test (25.5 vs 5.6). Cost-optimized, it still reached 81% accuracy at 53% lower estimated cost ($2.2k vs $4.7k). More tests are not necessarily wasteful - sometimes they are needed.",
+        "explanation": "Microsoft's MAI-DxO reached 83.2% diagnostic accuracy on 304 complex NEJM cases, versus 36.1% for physicians using reference tools on a 56-case subset. It asked 4.5× more questions before the first test (25.5 vs 5.6). Cost-optimized, it still achieved 81% accuracy at 53% lower cost ($2.2k vs $4.7k). More tests are not always wasteful - sometimes they are necessary.",
         "value": 83.2,
         "unit": "% diagnostic accuracy on 304 NEJM cases",
         "kind": "quantitative"
