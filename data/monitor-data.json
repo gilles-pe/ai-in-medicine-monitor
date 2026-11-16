@@ -5965,7 +5965,7 @@
           "sourceId": "mai-dxo-science-2026",
           "kind": "Peer-reviewed · simulated sequential diagnosis",
           "design": "SDBench simulated stepwise medical workups: AI requested histories and tests, considered results and iteratively updated differential diagnoses. Microsoft tested GPT-5-based MAI-DxO on 304 published NEJM clinicopathological cases.",
-          "finding": "Microsoft's MAI-DxO achieved 83.2% correct diagnoses on 304 simulated NEJM cases versus 36.1% for generalist physicians in a separate 56-case subset. It asked 4.5× more questions before the first test (25.5 vs 5.6). Cost-optimized, it still reached 81% accuracy at 53% lower estimated cost ($2.2k vs $4.7k). More tests are sometimes necessary.",
+          "finding": "Microsoft's MAI-DxO achieved 83.2% correct diagnoses on 304 simulated NEJM cases versus 36.1% for generalist physicians in a separate 56-case subset. It asked 4.5× more questions before the first test (25.5 vs 5.6). Cost-optimized, it still reached 81% accuracy at 53% lower estimated cost ($2.2k vs $4.7k).",
           "limitations": "Controlled text-only simulations, not prospective care or patient outcomes. The 304-case AI and 56-case physician samples are not identical in size. Complex teaching cases may not reflect routine practice; generalists do not represent specialist teams. Model-orchestrator result, not a stand-alone model score.",
           "locator": "Science: Abstract, SDBench evaluation and diagnostic-accuracy results; DOI 10.1126/science.aeh7930",
           "shortTitle": "MAI-DxO: Stepwise diagnosis",
