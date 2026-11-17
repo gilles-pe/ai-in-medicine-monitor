@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { shareItems, findShareItem, shareMetaForItem, renderCardTopSvg } from '../lib/share.js';
 import { renderShareHtml } from '../scripts/generate-share-pages.mjs';
 import { latestDataPoints, renderLatestDataPoints } from '../lib/latest-points.js';
+import { REVIEWED_AT, UPDATED_AT, reviewedMarkup, updatedMarkup } from '../lib/site-meta.js';
 
 const monitorData = JSON.parse(await readFile(new URL('../data/monitor-data.json', import.meta.url), 'utf8'));
 const newsData = JSON.parse(await readFile(new URL('../data/news.json', import.meta.url), 'utf8'));
@@ -60,7 +61,22 @@ test('latestDataPoints stays newest-first, respects cutoffs and uses non-collidi
   assert.ok(historical.every(item => item.sortDate <= '2020-12-31'));
 
   const html = renderLatestDataPoints('2026-10-18', 4);
-  assert.match(html, /Latest data points/);
+  assert.match(html, />Latest</);
   assert.equal((html.match(/data-latest-card=/g) || []).length, 4);
   assert.doesNotMatch(html, /data-study-id|data-overview-point|data-observation-id/);
+});
+
+test('academic editorial layout keeps Latest above News, collapsed milestones and separate Last updated date', async () => {
+  assert.equal(REVIEWED_AT, '2026-11-02');
+  assert.equal(UPDATED_AT, '2026-11-17');
+  assert.equal(reviewedMarkup(), 'Last reviewed <time datetime="2026-11-02">2 Nov 2026</time>');
+  assert.equal(updatedMarkup(), 'Last updated <time datetime="2026-11-17">17 Nov 2026</time>');
+
+  const home = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+  assert.match(home, /source-sans-3-latin\.woff2/);
+  assert.match(home, /source-serif-4-latin\.woff2/);
+  assert.match(home, /<details class="chart-data-table"><summary>Overview<\/summary>/);
+  assert.match(home, /<details class="overview-milestone-strip" id="overview-milestone-strip" aria-label="Medicine milestones"><summary class="overview-milestone-head"><span class="overview-milestone-title">Medicine milestones<\/span>/);
+  assert.match(home, /id="editorial-check"[\s\S]*?Last reviewed <time datetime="2026-11-02">2 Nov 2026<\/time>[\s\S]*?id="site-updated"[\s\S]*?Last updated <time datetime="2026-11-17">17 Nov 2026<\/time>/);
+  assert.ok(home.indexOf('id="latest-data-points"') < home.indexOf('id="interesting-news"'));
 });

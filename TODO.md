@@ -2,6 +2,11 @@
 
 The original phase 3 acceptance remains partly open. Current feature behavior is specified in FUNCTIONALITY.md; each run is recorded in docs/implementation-status.md. Historical backlog: docs/TODO.md.
 
+## 17 November 2026
+
+- [x] Ship card-top Open Graph previews (`./share/<slug>/`), direct card link sharing (`?card=<id>`/`?point=<id>`), `lib/i18n.js` caching speedup, and `app.js` hash-scroll fix (`f276014`).
+- [x] Apply decluttered Academic Editorial theme (`Source Serif 4` + `Source Sans 3`, `#f7f6f2` warm ivory paper, Prussian Blue `#1e3a8a`, Deep Amber `#8a4b00`), rename table disclosure to `Overview`, collapse `Medicine milestones` by default, place `Latest` above `Latest News`, and show `Last updated 17 Nov 2026` without altering `meta.lastReviewedAt`.
+
 ## 13 November 2026
 
 - [x] Make the benchmark charts’ short windows easier to read with tighter Y-axis bounds and stronger lines.

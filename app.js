@@ -215,7 +215,11 @@ function render(){
   resetAbbreviations();
   if(!$('#evidence-filter-bar'))$('#tracks-slot').insertAdjacentHTML('beforebegin',filterOptions());
   const openSources=[...shell.querySelectorAll('.section-sources[open]')].map(el=>el.id);
+  const openOverviewTable=shell.querySelector('#overview .chart-data-table')?.open;
+  const openOverviewMilestones=shell.querySelector('#overview-milestone-strip')?.open;
   $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false,range:state.ranges.overview||'all'});
+  if(openOverviewTable){const el=shell.querySelector('#overview .chart-data-table');if(el)el.open=true;}
+  if(openOverviewMilestones){const el=shell.querySelector('#overview-milestone-strip');if(el)el.open=true;}
   const latestEl=$('#latest-data-points');if(latestEl)latestEl.innerHTML=renderLatestDataPoints(state.cutoff,4);
   if($('#milestone-list'))$('#milestone-list').innerHTML=renderMilestoneLinks(state.cutoff);
   $('#previews-slot').innerHTML=renderPreviews();
@@ -286,9 +290,10 @@ function scrubOverviewAtClientX(svg,clientX){
     lastScrubYear=hoverYear;
     const strip=$('#overview-milestone-strip');
     if(strip){
+      const wasOpen=strip.open;
       const tmp=document.createElement('div');
       tmp.innerHTML=renderOverviewMilestoneStrip(state.cutoff,hoverYear);
-      if(tmp.firstElementChild)strip.replaceWith(tmp.firstElementChild);
+      if(tmp.firstElementChild){if(wasOpen)tmp.firstElementChild.open=true;strip.replaceWith(tmp.firstElementChild);}
     }
   }
 }
@@ -298,9 +303,10 @@ function resetOverviewScrub(){
   if(grp)updateOverviewCursor(Number(grp.dataset.defaultX),grp.dataset.defaultYear,grp.dataset.defaultStatus);
   const strip=$('#overview-milestone-strip');
   if(strip){
+    const wasOpen=strip.open;
     const tmp=document.createElement('div');
     tmp.innerHTML=renderOverviewMilestoneStrip(state.cutoff,Number(state.cutoff.slice(0,4)));
-    if(tmp.firstElementChild)strip.replaceWith(tmp.firstElementChild);
+    if(tmp.firstElementChild){if(wasOpen)tmp.firstElementChild.open=true;strip.replaceWith(tmp.firstElementChild);}
   }
 }
 shell.addEventListener('pointerdown',event=>{

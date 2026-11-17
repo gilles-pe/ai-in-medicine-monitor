@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { homeFragments } from '../lib/published-page.js';
 import {renderSiteHeader,renderSectionNav} from '../lib/site-header.js';
 import { renderNewsArchive, renderNewsRss, newsStructuredData } from '../lib/news.js';
-import { jsonLd, REVIEWED_AT, SITE_ORIGIN, SITE_DESCRIPTION, SITE_NAME } from '../lib/site-meta.js';
+import { jsonLd, REVIEWED_AT, UPDATED_AT, SITE_ORIGIN, SITE_DESCRIPTION, SITE_NAME } from '../lib/site-meta.js';
 
 function fill(html, key, value) {
   const pattern = new RegExp('<!--static:' + key + '-->[\\s\\S]*?<!--/static:' + key + '-->');
@@ -35,6 +35,7 @@ export async function prerenderTree(root) {
   let home = sharedFrame(await readFile(path.join(root, 'index.html'), 'utf8'));
   home = fill(home, 'jsonld', jsonScript('/', SITE_NAME, SITE_DESCRIPTION));
   home = fill(home, 'reviewed', fragments.reviewed);
+  if (home.includes('<!--static:updated-->')) home = fill(home, 'updated', fragments.updated);
   home = fill(home, 'overview', fragments.overview);
   home = fill(home, 'news', fragments.news);
   if(home.includes('<!--static:latestpoints-->'))home = fill(home, 'latestpoints', fragments.latestPoints);
@@ -46,6 +47,9 @@ export async function prerenderTree(root) {
   if(home.includes('<!--static:sources-->'))home = fill(home, 'sources', fragments.sources);
   if (!home.includes('id="editorial-check"') || !home.includes('datetime="' + REVIEWED_AT + '"')) {
     throw new Error('Last reviewed markup is missing from index.html');
+  }
+  if (!home.includes('id="site-updated"') || !home.includes('datetime="' + UPDATED_AT + '"')) {
+    throw new Error('Last updated markup is missing from index.html');
   }
   if (home.includes('fonts.googleapis.com')) throw new Error('External font stylesheet is still referenced.');
   await writeFile(path.join(root, 'index.html'), home);
