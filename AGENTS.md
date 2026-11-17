@@ -116,3 +116,6 @@ Owner approved v2 publication on 2 November 2026 after review. See docs/decision
 
 ## Public domain
 The AI monitor's public canonical origin is https://ai.gillespenning.com. Keep generated metadata, sitemap and RSS links on this origin. The root domain gillespenning.com is reserved for a separate website. GitHub Pages custom domain and IONOS DNS must both remain configured for the subdomain.
+
+## Per-item share pages and Latest data points
+`scripts/build.mjs` generates static per-item social share endpoints under `share/<slug>/` (`index.html`, `og.png`, `og.svg`) via `lib/share.js`, `scripts/generate-share-pages.mjs` and `scripts/glyph-atlas.json.gz`. All canonical URLs in generated share pages must stay on `https://ai.gillespenning.com/share/<slug>/`, and relative links inside `dist/share/` must keep working under the GitHub Pages project subdirectory (`scripts/verify-pages.mjs`). Adding share previews or updating `#latest-data-points` (`lib/latest-points.js`) counts as UI/publishing work only and must not advance `meta.lastReviewedAt` or `meta.lastDataChangeAt`.

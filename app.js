@@ -10,6 +10,9 @@ import { downloadMonitorPackage } from './lib/monitor-export.js';
 import { tracks, measurements, sourceCatalog, editorialStatus, studies } from './data/evidence.js';
 import { trackMilestones, trustContext } from './data/track-milestones.js';
 import { renderOverview, renderMilestoneLinks, renderOverviewMilestoneStrip, visibleHistory, visibleAnchors } from './lib/overview.js';
+import { renderLatestDataPoints } from './lib/latest-points.js';
+import { findShareItem, shareMetaForItem, shareUrlFor } from './lib/share.js';
+import newsData from './data/news.json' with { type: 'json' };
 import { renderPreviewSection, renderStudyButtons, renderTrackSection, renderSourceIndex, resetAbbreviations } from './lib/published-page.js';
 import { reviewedMarkup } from './lib/site-meta.js';
 import { filterOptions } from './lib/evidence-classification.js';
@@ -36,10 +39,45 @@ introduction.open=introViewport.matches;
 introViewport.addEventListener('change',event=>{introduction.open=event.matches;});
 function rows(){return filterMeasurements(measurements,{cutoff:state.cutoff}).filter(row=>!state.model||row.model===state.model);}
 function announce(text){$('#live-status').textContent=text;}
+function setHeadMeta(attr,key,value){
+  let el=document.head.querySelector(`meta[${attr}="${key}"]`);
+  if(!el){el=document.createElement('meta');el.setAttribute(attr,key);document.head.append(el);}
+  el.setAttribute('content',value);
+}
+const defaultShareMeta={
+  type:document.head.querySelector('meta[property="og:type"]')?.getAttribute('content')||'website',
+  title:document.head.querySelector('meta[property="og:title"]')?.getAttribute('content')||'Digital Health & AI in Medicine | Gilles Penning',
+  description:document.head.querySelector('meta[property="og:description"]')?.getAttribute('content')||'',
+  url:document.head.querySelector('meta[property="og:url"]')?.getAttribute('content')||location.href,
+  image:document.head.querySelector('meta[property="og:image"]')?.getAttribute('content')||new URL('./og-image.png',location.href).href
+};
+function syncCardShareMeta(id){
+  const item=id?findShareItem(id,monitorData,newsData.items):null;
+  if(!item){
+    setHeadMeta('property','og:type',defaultShareMeta.type);
+    setHeadMeta('property','og:title',defaultShareMeta.title);
+    setHeadMeta('property','og:description',defaultShareMeta.description);
+    setHeadMeta('property','og:url',defaultShareMeta.url);
+    setHeadMeta('property','og:image',defaultShareMeta.image);
+    setHeadMeta('name','twitter:title',defaultShareMeta.title);
+    setHeadMeta('name','twitter:description',defaultShareMeta.description);
+    setHeadMeta('name','twitter:image',defaultShareMeta.image);
+    return;
+  }
+  const meta=shareMetaForItem(item,new URL('./',location.href).href);
+  setHeadMeta('property','og:type','article');
+  setHeadMeta('property','og:title',meta.title);
+  setHeadMeta('property','og:description',meta.description);
+  setHeadMeta('property','og:url',meta.url);
+  setHeadMeta('property','og:image',meta.imageUrl);
+  setHeadMeta('name','twitter:title',meta.title);
+  setHeadMeta('name','twitter:description',meta.description);
+  setHeadMeta('name','twitter:image',meta.imageUrl);
+}
 function highlightCard(id){
   shell.querySelectorAll('.is-selected').forEach(el=>{el.classList.remove('is-selected');el.removeAttribute('aria-current');});
   if(!id)return;
-  const attrs=['data-monitor-point','data-monitor-cluster','data-point-id','data-overview-point','data-overview-cluster','data-track-milestone','data-study-id','data-history-id','data-observation-id'];
+  const attrs=['data-monitor-point','data-monitor-cluster','data-point-id','data-overview-point','data-overview-cluster','data-track-milestone','data-study-id','data-history-id','data-observation-id','data-latest-card'];
   shell.querySelectorAll(attrs.map(a=>'['+a+']').join(',')).forEach(el=>{
     if(attrs.some(a=>(el.getAttribute(a)||'').split(',').includes(id))){el.classList.add('is-selected');if(el.matches('button,[role="button"]'))el.setAttribute('aria-current','true');if(el.closest('.milestone-reading'))el.closest('.milestone-reading').classList.add('is-selected');}
   });
@@ -47,17 +85,18 @@ function highlightCard(id){
 function showEditorialCard(id){
   const card=editorialCard(id);if(!card)return;
   if(shell.querySelector('.linked-milestone-card'))closeLinkedMilestone();
-  hover?.hide();$('#detail-body').innerHTML=pointCardHtml(card);if(!dialog.open)dialog.showModal();highlightCard(id);
+  hover?.hide();$('#detail-body').innerHTML=pointCardHtml(card);if(!dialog.open)dialog.showModal();highlightCard(id);syncCardShareMeta(id);
 }
 function showMeasurement(id){if(rows().some(item=>item.id===id))showEditorialCard(id);}
 function showTrackMilestone(id){if([...trackMilestones,trustContext].some(item=>item.id===id&&item.date<=state.cutoff))showEditorialCard(id);}
+function showLatestCard(id){showEditorialCard(id);}
 function closeLinkedMilestone({returnFocus=false}={}){
   linkedMilestoneObserver?.disconnect();linkedMilestoneObserver=null;
   const target=shell.querySelector('.is-linked-target');
   shell.querySelectorAll('.linked-milestone-card,.milestone-chart-marker,.milestone-callout').forEach(el=>el.remove());
   shell.querySelectorAll('.has-linked-milestone').forEach(el=>el.classList.remove('has-linked-milestone','is-linked-overlay'));
   target?.classList.remove('is-linked-target');
-  highlightCard(null);
+  highlightCard(null);syncCardShareMeta(null);
   if(location.hash.startsWith('#track-milestone-'))history.replaceState(null,'',location.pathname+location.search);
   if(returnFocus)target?.focus({preventScroll:true});
 }
@@ -105,13 +144,13 @@ function showLinkedMilestone(id,target){
   visual.classList.add('has-linked-milestone');
   visual.querySelector('.monitor-chart')?.insertAdjacentElement('afterend',panel);
   target.classList.add('is-linked-target');
-  highlightCard(id);
+  highlightCard(id);syncCardShareMeta(id);
   panel.querySelector('[data-card-close]')?.addEventListener('click',()=>closeLinkedMilestone({returnFocus:true}));
   placeLinkedMilestone(visual,item.date);
   // Fonts, images and late re-layout can move the chart after opening; keep marker, card and connector aligned.
   let frame=0;linkedMilestoneObserver=new ResizeObserver(()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{if(visual.isConnected&&visual.contains(panel))placeLinkedMilestone(visual,item.date);});});
   linkedMilestoneObserver.observe(visual);const svgEl=visual.querySelector('.monitor-chart-svg');if(svgEl)linkedMilestoneObserver.observe(svgEl);
-  visual.scrollIntoView({block:'start'});
+  visual.scrollIntoView({block:'start',behavior:'instant'});
 }
 function showStudy(id){if(studies.some(item=>item.id===id&&item.date<=state.cutoff))showEditorialCard(id);}
 function showHistory(id){if(visibleHistory(state.cutoff).some(item=>item.id===id))showEditorialCard(id);}
@@ -123,7 +162,7 @@ function showCardSelection(ids,index=0){
   hover?.hide();
   const controls=cards.length>1?'<div class="card-selection" role="group" aria-label="Results">'+cards.map((card,i)=>'<button type="button" data-card-choice="'+i+'" aria-pressed="'+(i===selected)+'">'+e(card.title)+'</button>').join('')+'</div>':'';
   dialog.dataset.cardIds=cards.map(c=>c.id).join(',');
-  $('#detail-body').innerHTML=controls+pointCardHtml(cards[selected]);if(!dialog.open)dialog.showModal();highlightCard(cards[selected].id);
+  $('#detail-body').innerHTML=controls+pointCardHtml(cards[selected]);if(!dialog.open)dialog.showModal();highlightCard(cards[selected].id);syncCardShareMeta(cards[selected].id);
 }
 function showOverviewCluster(ids){const visible=new Set(visibleAnchors(state.cutoff).map(p=>p.id));showCardSelection(ids.split(',').filter(id=>visible.has(id)));}
 function renderPreviews(){
@@ -177,6 +216,7 @@ function render(){
   if(!$('#evidence-filter-bar'))$('#tracks-slot').insertAdjacentHTML('beforebegin',filterOptions());
   const openSources=[...shell.querySelectorAll('.section-sources[open]')].map(el=>el.id);
   $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false,range:state.ranges.overview||'all'});
+  const latestEl=$('#latest-data-points');if(latestEl)latestEl.innerHTML=renderLatestDataPoints(state.cutoff,4);
   if($('#milestone-list'))$('#milestone-list').innerHTML=renderMilestoneLinks(state.cutoff);
   $('#previews-slot').innerHTML=renderPreviews();
   $('#tracks-slot').innerHTML=tracks.map(renderTrack).join('');
@@ -196,8 +236,17 @@ function exportData(){
   const payload={title:monitorData.meta.title,cutoff:state.cutoff,model:state.model,exportedAt:new Date().toISOString(),measurements:results,monitorData,selection:{cutoff:state.cutoff,model:state.model,language:getLanguage()},overviewPoints,historicalTrackMilestones,studies:selectedStudies,historicalEvents,scaleNote:'Illustrative overview. Lower charts show benchmark-specific frontiers by provisional model availability; publication cutoffs apply.',sourceCatalog:sourceCatalog.filter(item=>ids.has(item.id)),editorialStatus};
   const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='ai-in-medicine-'+state.cutoff+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('Data exported.');
 }
+async function copyShareLink(button){
+  const url=shareUrlFor(button.dataset.cardShare,location.href);
+  try{await navigator.clipboard?.writeText(url);}catch{}
+  button.classList.add('is-copied');
+  setTimeout(()=>button.classList.remove('is-copied'),1500);
+  announce('Link copied.');
+}
 async function action(event){
   if(event.target.closest('.is-linked-target')){event.preventDefault();return;}
+  const shareBtn=event.target.closest('[data-card-share]');
+  if(shareBtn){await copyShareLink(shareBtn);return;}
   if(event.target.closest('[data-track-milestone]')&&shell.querySelector('.linked-milestone-card'))closeLinkedMilestone();
   const rangeButton=event.target.closest('[data-chart-range]');if(rangeButton){hover?.hide();state.ranges[rangeButton.dataset.rangeChart]=rangeButton.dataset.chartRange;render();shell.querySelector('[data-range-chart="'+rangeButton.dataset.rangeChart+'"][data-chart-range="'+rangeButton.dataset.chartRange+'"]')?.focus({preventScroll:true});return;}
   const download=event.target.closest('[data-chart-download]');if(download){const chart=download.closest('.overview,.track'),svg=chart.querySelector('.overview-scroll svg,.monitor-chart-svg');download.disabled=true;try{announce(await exportChart(svg,{title:chart.querySelector('h2').textContent,cutoff:state.cutoff,filename:'ai-medicine-'+download.dataset.chartDownload+'.png',note:chart.querySelector('.chart-takeaway').textContent}));}catch(error){announce('Image export failed: '+error.message);}finally{download.disabled=false;}return;}
@@ -210,7 +259,7 @@ async function action(event){
   if(choice){showCardSelection((dialog.dataset.cardIds||'').split(','),Number(choice.dataset.cardChoice));return;}
   const storyTile=event.target.closest('.chart-stories [data-track-milestone]');
   if(storyTile){showLinkedMilestone(storyTile.dataset.trackMilestone,storyTile);return;}
-  for(const [attribute,handler] of [['data-monitor-cluster',showMonitorCluster],['data-monitor-point',showMonitorPoint],['data-observation-id',showMonitorPoint],['data-overview-cluster',showOverviewCluster],['data-overview-point',showOverviewPoint],['data-history-id',showHistory],['data-track-milestone',showTrackMilestone],['data-point-id',showMeasurement],['data-study-id',showStudy]]){
+  for(const [attribute,handler] of [['data-monitor-cluster',showMonitorCluster],['data-monitor-point',showMonitorPoint],['data-observation-id',showMonitorPoint],['data-overview-cluster',showOverviewCluster],['data-overview-point',showOverviewPoint],['data-history-id',showHistory],['data-track-milestone',showTrackMilestone],['data-point-id',showMeasurement],['data-study-id',showStudy],['data-latest-card',showLatestCard]]){
     const target=event.target.closest('['+attribute+']');if(target){handler(target.getAttribute(attribute));return;}
   }
 }
@@ -298,7 +347,7 @@ shell.addEventListener('pointerleave',event=>{
 },true);
 $('#detail-body').addEventListener('click',action);
 dialog.addEventListener('click',event=>{if(event.target.closest('[data-card-close]'))dialog.close();});
-dialog.addEventListener('close',()=>{hover.hide();if(!shell.querySelector('.linked-milestone-card'))highlightCard(null);});
+dialog.addEventListener('close',()=>{hover.hide();if(!shell.querySelector('.linked-milestone-card')){highlightCard(null);syncCardShareMeta(null);}});
 $('#export-button')?.addEventListener('click',exportData);
 $('#editorial-check').innerHTML=reviewedMarkup();
 $('#package-export-button')?.addEventListener('click',async event=>{const button=event.currentTarget;button.disabled=true;try{announce(await downloadMonitorPackage());}catch(error){announce('Package export failed: '+error.message);}finally{button.disabled=false;}});
@@ -327,11 +376,18 @@ function followLocationHash(){
   }
   closeLinkedMilestone();target?.scrollIntoView({block:'start'});
 }
-if(location.hash)requestAnimationFrame(followLocationHash);
+if(location.hash){
+  requestAnimationFrame(followLocationHash);
+  if(document.readyState!=='complete')window.addEventListener('load',()=>setTimeout(followLocationHash,0),{once:true});
+}else{
+  const params=new URLSearchParams(location.search);
+  const requestedCard=params.get('card')||params.get('point');
+  if(requestedCard&&editorialCard(requestedCard))requestAnimationFrame(()=>showEditorialCard(requestedCard));
+}
 window.addEventListener('hashchange',()=>requestAnimationFrame(followLocationHash));
 
 function hoverCard(target,event){
-  let id=target.dataset.observationId||target.dataset.monitorPoint||target.dataset.pointId||target.dataset.overviewPoint||target.dataset.trackMilestone||target.dataset.studyId||target.dataset.historyId;
+  let id=target.dataset.observationId||target.dataset.monitorPoint||target.dataset.pointId||target.dataset.overviewPoint||target.dataset.trackMilestone||target.dataset.studyId||target.dataset.historyId||target.dataset.latestCard;
   if(target.matches('.monitor-point-hit')){
     const ids=(target.dataset.monitorCluster||target.dataset.monitorPoint||'').split(',');
     const box=target.getBoundingClientRect();

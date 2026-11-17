@@ -1,5 +1,6 @@
 import { syncMonitorDocs } from './sync-monitor-docs.mjs';
 import { prerenderTree } from './prerender.mjs';
+import { generateSharePages } from './generate-share-pages.mjs';
 import { mkdir, rm, cp, readFile, writeFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -19,6 +20,7 @@ for (const name of ['data-entry-guide.md', 'EVIDENCE_TAGGING.md', 'MEASUREMENT_I
   await cp(path.join(root, 'docs', name), path.join(output, 'docs', name));
 }
 await prerenderTree(output);
+const shareCount = await generateSharePages(root, output);
 const css = (await Promise.all(['styles.css', 'editorial.css', 'monitor.css'].map(name => readFile(path.join(output, name), 'utf8')))).join('\n');
 await writeFile(path.join(output, 'site.css'), css);
 // Returning visitors must not reuse a previous release's cached layout.
@@ -32,7 +34,7 @@ for (const file of ['index.html', 'news/index.html']) {
   const filename = path.join(output, file);
   const prefix = file.startsWith('news/') ? '../' : './';
   const block = ['styles.css', 'editorial.css', 'monitor.css'].map(name => '<link rel="stylesheet" href="' + prefix + name + '">').join('\n  ');
-  let html = await readFile(filename, 'utf8');
+  let html = (await readFile(filename, 'utf8')).replace(/\r\n/g, '\n');
   if (!html.includes(block)) throw new Error('Stylesheet block missing in ' + file);
   const asyncCss = '<style>' + criticalCss + '</style>\n  <link rel="stylesheet" href="' + prefix + stylesheet + '" media="print" onload="this.media=\'all\'">\n  <noscript><link rel="stylesheet" href="' + prefix + stylesheet + '"></noscript>';
   html = html.replace(block, asyncCss);
@@ -46,4 +48,4 @@ if (!html.includes('AI in Medicine')) throw new Error('Missing application title
 if (html.includes('fonts.googleapis.com')) throw new Error('External fonts must stay out of the build');
 await stat(path.join(output, 'og-image.png'));
 await stat(path.join(output, 'fonts/inter-latin.woff2'));
-console.log('Static site packaged in dist/. No network services or secrets required.');
+console.log(`Static site packaged in dist/ with ${shareCount} card-top share previews. No network services or secrets required.`);

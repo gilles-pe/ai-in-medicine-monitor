@@ -1,5 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { homeFragments } from '../lib/published-page.js';
 import {renderSiteHeader,renderSectionNav} from '../lib/site-header.js';
 import { renderNewsArchive, renderNewsRss, newsStructuredData } from '../lib/news.js';
@@ -36,6 +37,7 @@ export async function prerenderTree(root) {
   home = fill(home, 'reviewed', fragments.reviewed);
   home = fill(home, 'overview', fragments.overview);
   home = fill(home, 'news', fragments.news);
+  if(home.includes('<!--static:latestpoints-->'))home = fill(home, 'latestpoints', fragments.latestPoints);
   if(home.includes('<!--static:milestones-->'))home = fill(home, 'milestones', fragments.milestones);
   home = fill(home, 'previews', fragments.previews);
   home = fill(home, 'tracks', fragments.tracks);
@@ -70,8 +72,8 @@ export async function prerenderTree(root) {
   return { reviewedAt: REVIEWED_AT, pages };
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname)) {
-  const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
   const result = await prerenderTree(root);
   console.log('Prerendered public HTML. Last reviewed ' + result.reviewedAt + '.');
 }

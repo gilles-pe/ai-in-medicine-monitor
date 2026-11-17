@@ -110,3 +110,6 @@ Run `node scripts/sync-monitor-docs.mjs` after a JSON change, and `node scripts/
 <!-- monitor-data-contract:end -->
 
 Owner-approved exception (2 November 2026): HealthAgentBench v2 isolated observations use the verified paper revision date with timelineDateBasis=publication. Model availability and evaluation dates remain unknown, not inferred. Label the exception on the chart and in cards; these different_protocol points cannot form or extend a main line. The version-specific headline is the best source-checked v2 observation, not evidence of improvement over v1.
+
+## Share previews and latest-points feed (17 November 2026)
+Per-item social preview cards (`lib/share.js` -> `./share/<slug>/og.png`) and the `#latest-data-points` summary bar (`lib/latest-points.js`) derive directly from existing confirmed/published records in `data/monitor-data.json` and `data/news.json`. Only confirmed points enter `latestDataPoints`, unconfirmed candidates remain excluded, and share preview generation/UI exposure never advance `meta.lastReviewedAt` or `meta.lastDataChangeAt`.

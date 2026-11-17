@@ -18,6 +18,7 @@ export default defineConfig({
     timezoneId: 'Europe/Berlin',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
+    ...(process.env.PLAYWRIGHT_EXECUTABLE_PATH ? { launchOptions: { executablePath: process.env.PLAYWRIGHT_EXECUTABLE_PATH } } : {}),
   },
   projects: [
     {

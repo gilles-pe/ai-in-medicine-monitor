@@ -291,3 +291,26 @@ test('HealthBench Professional side line exposes exact graders and primary locat
  await expect(track.locator('.monitor-frontier[data-series-id="healthagentbench_msft_2026_v2"]')).toHaveCount(0);
  await openMonitor(page,'hab-v2-opus55');const card=page.locator('#detail-dialog');await expect(card).toContainText('43 of 75 tasks succeeded (57.3%)');await expect(card).toContainText('not model availability');await expect(card.locator('.point-sources a')).toHaveAttribute('href','https://arxiv.org/pdf/2606.31179v2');
  });
+
+test('Latest data points strip fits 320px and opens editorial cards',async({page})=>{
+ await expect(page.locator('#latest-data-points [data-latest-card]')).toHaveCount(4);
+ await page.setViewportSize({width:320,height:844});
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth)).toBe(true);
+ await page.locator('#latest-data-points [data-latest-card]').first().click();
+ const card=page.locator('#detail-dialog');await expect(card).toBeVisible();await expect(card.locator('.editorial-evidence-card')).toHaveCount(1);
+ await page.keyboard.press('Escape');await expect(card).not.toBeVisible();
+});
+
+test('Direct card link auto-opens card, syncs card-top OG metadata, copies link and restores default on close',async({page,context})=>{
+ await context.grantPermissions(['clipboard-read','clipboard-write']);
+ await page.goto('./?lang=en&card=3.9');
+ await expect(page.locator('html')).toHaveAttribute('data-app-state','ready');
+ const card=page.locator('#detail-dialog');await expect(card).toBeVisible();
+ const shareBtn=card.locator('[data-card-share="3.9"]');await expect(shareBtn).toBeVisible();
+ await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content','Claude 3.5 Sonnet v2');
+ await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content',/\/share\/3\.9\/og\.png$/);
+ await shareBtn.click();await expect(shareBtn).toHaveClass(/is-copied/);await expect(page.locator('#live-status')).toContainText('Link copied.');
+ expect(await page.evaluate(()=>navigator.clipboard.readText())).toMatch(/\/share\/3\.9\/$/);
+ await page.keyboard.press('Escape');await expect(card).not.toBeVisible();
+ await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content','Digital Health & AI in Medicine | Gilles Penning');
+});
