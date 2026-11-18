@@ -76,7 +76,7 @@ test('academic editorial layout keeps Latest above News, collapsed milestones an
   assert.match(home, /source-sans-3-latin\.woff2/);
   assert.match(home, /source-serif-4-latin\.woff2/);
   assert.match(home, /<details class="chart-data-table"><summary>Overview<\/summary>/);
-  assert.match(home, /<details class="overview-milestone-strip" id="overview-milestone-strip" aria-label="Medicine milestones"><summary class="overview-milestone-head"><span class="overview-milestone-title">Medicine milestones<\/span>/);
+  assert.match(home, /<details class="overview-milestone-strip" id="overview-milestone-strip" aria-label="Milestones"><summary class="overview-milestone-head"><span class="overview-milestone-title">Milestones<\/span>/);
   assert.match(home, /id="editorial-check"[\s\S]*?Last updated <time datetime="2026-11-17">17 Nov 2026<\/time>/);
   assert.doesNotMatch(home, /id="site-updated"|Last reviewed/);
   assert.ok(home.indexOf('id="latest-data-points"') < home.indexOf('id="interesting-news"'));

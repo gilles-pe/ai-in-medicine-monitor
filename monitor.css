@@ -459,9 +459,15 @@ body{caret-color:var(--teal)}
 .contact-links{gap:var(--space-4)}
 .contact-links a{background:transparent;border:0;border-radius:0;padding:var(--space-2) var(--space-1);min-height:var(--target-min);color:var(--teal);font-weight:600;text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:4px}
 .contact-links a:hover{color:var(--teal-strong);text-decoration-color:var(--teal-strong);background:transparent}
-.hero-overview .overview{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm)}
+.hero-overview .overview{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);padding:var(--space-3) var(--space-4)}
 .hero-overview .overview .section-title h2{font:600 var(--text-lg)/1.2 var(--serif);letter-spacing:-0.015em}
-#overview .overview-scroll{border:0;border-radius:0;background:transparent;padding:var(--space-2)}
+#overview .overview-scroll{border:0;border-radius:0;background:transparent;padding:var(--space-1)}
+#overview .chart-ranges{margin:var(--space-1) 0}
+#overview .chart-data-table{margin:var(--space-1) 0 0}
+#overview .chart-data-table>summary{min-height:36px;padding:var(--space-1) 0;font:var(--text-xs)/1.25 var(--sans);color:var(--ink)}
+.overview-milestone-strip{border-top:0;margin-top:0;padding:0}
+.overview-milestone-head{min-height:36px;padding:var(--space-1) 0}
+.overview-milestone-title{font:var(--text-xs)/1.25 var(--sans);color:var(--ink)}
 .overview-milestone-year{border:0;background:var(--surface-muted)}
 .intro .news-panel{border-top:1px solid var(--line);padding:var(--space-3) 0 var(--space-2)}
 .news-panel h2{font:600 var(--text-xl)/1.18 var(--serif);letter-spacing:-0.015em}
