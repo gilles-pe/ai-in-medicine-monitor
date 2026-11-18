@@ -61,7 +61,7 @@ test('the prerendered home page is crawlable without a font host', async () => {
   const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
   assert.equal((html.match(/<figure\b/g) || []).length, 4);
   assert.match(html, /id="editorial-check"/);
-  assert.match(html, /datetime="2026-11-02"/);
+  assert.match(html, /datetime="2026-11-17"/);
   assert.doesNotMatch(html, /fonts\.googleapis\.com/);
   assert.match(html, /rel="canonical" href="https:\/\/ai\.gillespenning\.com\/"/);
   assert.doesNotMatch(html, /worksFor/);

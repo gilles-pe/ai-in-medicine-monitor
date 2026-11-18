@@ -433,7 +433,6 @@ html{scroll-padding-top:var(--space-16)}
 body{caret-color:var(--teal)}
 .masthead{background:var(--paper)}
 .masthead::before{background:var(--paper);box-shadow:0 0 0 100vmax var(--paper)}
-.header-reviewed+.header-updated{margin-top:2px}
 .masthead-author em{font-style:normal;color:var(--teal)}
 .section-nav{background:var(--paper);border-bottom-color:var(--line)}
 .section-nav a[aria-current="true"]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--teal)}

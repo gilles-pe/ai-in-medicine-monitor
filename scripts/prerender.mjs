@@ -35,7 +35,6 @@ export async function prerenderTree(root) {
   let home = sharedFrame(await readFile(path.join(root, 'index.html'), 'utf8'));
   home = fill(home, 'jsonld', jsonScript('/', SITE_NAME, SITE_DESCRIPTION));
   home = fill(home, 'reviewed', fragments.reviewed);
-  if (home.includes('<!--static:updated-->')) home = fill(home, 'updated', fragments.updated);
   home = fill(home, 'overview', fragments.overview);
   home = fill(home, 'news', fragments.news);
   if(home.includes('<!--static:latestpoints-->'))home = fill(home, 'latestpoints', fragments.latestPoints);
@@ -45,10 +44,7 @@ export async function prerenderTree(root) {
   if(home.includes('<!--static:studies-->'))home = fill(home, 'studies', fragments.studies);
   home = fill(home, 'glossary', fragments.glossary);
   if(home.includes('<!--static:sources-->'))home = fill(home, 'sources', fragments.sources);
-  if (!home.includes('id="editorial-check"') || !home.includes('datetime="' + REVIEWED_AT + '"')) {
-    throw new Error('Last reviewed markup is missing from index.html');
-  }
-  if (!home.includes('id="site-updated"') || !home.includes('datetime="' + UPDATED_AT + '"')) {
+  if (!home.includes('id="editorial-check"') || !home.includes('datetime="' + UPDATED_AT + '"')) {
     throw new Error('Last updated markup is missing from index.html');
   }
   if (home.includes('fonts.googleapis.com')) throw new Error('External font stylesheet is still referenced.');

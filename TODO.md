@@ -137,4 +137,4 @@ Release verification for the responsive-density/table-order update: source 5ec86
 
 ## 16 November 2026 - domain migration
 - [x] Move AI monitor canonical, social, sitemap and RSS addresses to ai.gillespenning.com.
-- [ ] Verify DNS propagation, GitHub Pages HTTPS certificate and the live site after deployment.
+- [x] Verify DNS propagation, GitHub Pages HTTPS certificate and the live site after deployment.

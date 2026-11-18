@@ -14,7 +14,7 @@ import { renderLatestDataPoints } from './lib/latest-points.js';
 import { findShareItem, shareMetaForItem, shareUrlFor } from './lib/share.js';
 import newsData from './data/news.json' with { type: 'json' };
 import { renderPreviewSection, renderStudyButtons, renderTrackSection, renderSourceIndex, resetAbbreviations } from './lib/published-page.js';
-import { reviewedMarkup } from './lib/site-meta.js';
+import { updatedMarkup } from './lib/site-meta.js';
 import { filterOptions } from './lib/evidence-classification.js';
 import { filterMeasurements, latestByModel, escapeHtml as e } from './lib/selectors.js';
 
@@ -355,7 +355,7 @@ $('#detail-body').addEventListener('click',action);
 dialog.addEventListener('click',event=>{if(event.target.closest('[data-card-close]'))dialog.close();});
 dialog.addEventListener('close',()=>{hover.hide();if(!shell.querySelector('.linked-milestone-card')){highlightCard(null);syncCardShareMeta(null);}});
 $('#export-button')?.addEventListener('click',exportData);
-$('#editorial-check').innerHTML=reviewedMarkup();
+$('#editorial-check').innerHTML=updatedMarkup();
 $('#package-export-button')?.addEventListener('click',async event=>{const button=event.currentTarget;button.disabled=true;try{announce(await downloadMonitorPackage());}catch(error){announce('Package export failed: '+error.message);}finally{button.disabled=false;}});
 // Old view hashes now lead to the single-page overview.
 if(['#verlauf','#anwendungen','#studien','#quellen'].includes(location.hash))history.replaceState(null,'','#top');
