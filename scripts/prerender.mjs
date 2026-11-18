@@ -59,12 +59,12 @@ export async function prerenderTree(root) {
   if (news.includes('fonts.googleapis.com')) throw new Error('External font stylesheet is still referenced.');
   await writeFile(path.join(root, 'news/index.html'), news);
 
-  for(const page of ['about','impressum','datenschutz']){
+  for(const page of ['impressum','datenschutz']){
     const filename=path.join(root,page,'index.html');
     await writeFile(filename,sharedFrame(await readFile(filename,'utf8'),'../',{secondary:true}));
   }
 
-  const pages = ['', 'news/', 'about/', 'impressum/'];
+  const pages = ['', 'news/', 'impressum/'];
   await writeFile(path.join(root, 'rss.xml'), renderNewsRss());
   const body = pages.map(page => '  <url><loc>' + SITE_ORIGIN + '/' + page + '</loc><lastmod>' + REVIEWED_AT + '</lastmod></url>').join('\n');
   await writeFile(path.join(root, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + body + '\n</urlset>\n');
