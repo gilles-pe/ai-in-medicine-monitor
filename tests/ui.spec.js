@@ -18,7 +18,7 @@ test('clean header keeps preferences in the menu and three thumbnails',async({pa
   await expect(page.locator('.brand,.chart-tools,.back-link,.track-navigation,.result-row,.monitor-undated,.track-details')).toHaveCount(0);
   await expect(page.getByRole('tab')).toHaveCount(0);await expect(page.locator('#present-button,#timeline-panel,#model-filter')).toHaveCount(0);await expect(page.locator('[data-language="de"]')).not.toBeVisible();
   await expect(page.locator('.chart-thumbnail')).toHaveCount(3);await expect(page.locator('#content')).not.toContainText(/Timeline data|Under review|Benchmark results|About this benchmark|PPT|PowerPoint/);
-  await expect(page.locator('.masthead-author')).toHaveText('Gilles Penning');await expect(page.locator('.author-byline')).toHaveText('Tracking what AI can do in medicine.');await expect(page.locator('.site-footer')).not.toContainText('Gilles Penning');
+  await expect(page.locator('.masthead-author')).toHaveText('Gilles Penning');await expect(page.locator('.masthead-author a')).toHaveAttribute('href','https://gillespenning.com/');await expect(page.locator('.author-byline')).toHaveText('Tracking what AI can do in medicine.');await expect(page.locator('.site-footer')).toContainText('by Gilles Penning');await expect(page.locator('.site-footer a[href="https://gillespenning.com/"]')).toHaveText('Gilles Penning');
   await expect(page.locator('#editorial-check')).toHaveText('Last updated 17 Nov 2026');
   await page.locator('#menu-button').click();await expect(page.locator('[data-language="de"]')).toBeVisible();
 });
@@ -246,7 +246,7 @@ test('news chart link keeps the pulsing MAI-DxO milestone beside its evidence ca
 test('compact menu and close headline metrics reflect owner choices',async({page})=>{
  await expect(page.locator('.masthead-menu #editorial-check')).toHaveText('Last updated 17 Nov 2026');
  const title=await page.locator('#track-knowledge').boundingBox(),value=await page.locator('#chart-knowledge .track-headline-result').boundingBox();expect(value.x-title.x-title.width).toBeLessThan(35);
- await page.locator('#menu-button').click();await expect(page.locator('#site-menu').getByRole('link',{name:'About Me',exact:true})).toBeVisible();await expect(page.locator('#site-menu .author-card-links a')).toHaveCount(1);await expect(page.locator('#site-menu .social-icons a')).toHaveCount(4);await expect(page.locator('.menu-bottom #feedback-button')).toBeVisible();await expect(page.locator('.menu-bottom [data-language="de"]')).toBeVisible();await expect(page.locator('#site-menu').getByRole('link',{name:'News',exact:true})).toHaveCount(0);
+ await page.locator('#menu-button').click();await expect(page.locator('#site-menu').getByRole('link',{name:'About Me',exact:true})).toBeVisible();await expect(page.locator('#site-menu .author-card-links a')).toHaveCount(2);await expect(page.locator('#site-menu .author-card-links a[href="https://gillespenning.com/"]')).toBeVisible();await expect(page.locator('#site-menu .social-icons a')).toHaveCount(4);await expect(page.locator('.menu-bottom #feedback-button')).toBeVisible();await expect(page.locator('.menu-bottom [data-language="de"]')).toBeVisible();await expect(page.locator('#site-menu').getByRole('link',{name:'News',exact:true})).toHaveCount(0);
 });
 
 test('time windows and PNG downloads work for every expanded chart',async({page})=>{

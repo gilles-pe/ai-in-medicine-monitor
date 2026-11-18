@@ -45,6 +45,7 @@ test('structured data names the person without an employer', () => {
   const person = graph['@graph'].find(item => item['@type'] === 'Person');
   const page = graph['@graph'].find(item => item['@type'] === 'WebPage');
   assert.equal(person.name, 'Gilles Penning');
+  assert.equal(person.url, 'https://gillespenning.com/');
   assert.equal(person.jobTitle, 'Medtech executive');
   assert.equal(person.worksFor, undefined);
   assert.equal(person.affiliation, undefined);
@@ -52,6 +53,7 @@ test('structured data names the person without an employer', () => {
     'https://de.linkedin.com/in/gillespenning',
     'https://bsky.app/profile/gillespe.bsky.social',
     'https://medtechsignal.substack.com/',
+    'https://gillespenning.com/',
   ]);
   assert.equal(page.dateModified, '2026-11-02');
   assert.equal(reviewedMarkup(), 'Last reviewed <time datetime="2026-11-02">2 Nov 2026</time>');
