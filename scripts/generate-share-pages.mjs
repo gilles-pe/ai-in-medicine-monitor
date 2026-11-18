@@ -270,9 +270,19 @@ export async function renderCardTopPng(item, root) {
 
   drawRoundedBox(buf, 76, cardTop, 1048, cardH, 14, SURFACE, BORDER, 2);
 
-  // 1. Semantic badge pill
+  // 1. Semantic badge pill & corner monitor mark
   drawRoundedBox(buf, left, badgeTop, badgeW, 38, 6, PILL_BG, BORDER, 1.5);
   drawAtlasText(buf, atlas.badge, item.badge, left + 17, badgeTop + 26, PILL_INK);
+  drawRoundedBox(buf, 1038, badgeTop + 2, 34, 34, 8, [30, 58, 138], [30, 58, 138], 1);
+  fillRect(buf, 1047, badgeTop + 11, 2, 6, [247, 246, 242]);
+  fillRect(buf, 1054, badgeTop + 11, 2, 6, [247, 246, 242]);
+  fillRect(buf, 1047, badgeTop + 17, 9, 2, [247, 246, 242]);
+  fillRect(buf, 1051, badgeTop + 19, 2, 8, [247, 246, 242]);
+  fillRect(buf, 1051, badgeTop + 25, 11, 2, [247, 246, 242]);
+  fillRect(buf, 1060, badgeTop + 18, 2, 7, [247, 246, 242]);
+  fillRect(buf, 1059, badgeTop + 15, 4, 4, [247, 246, 242]);
+  fillRect(buf, 1063, badgeTop + 8, 2, 6, [245, 158, 11]);
+  fillRect(buf, 1061, badgeTop + 10, 6, 2, [245, 158, 11]);
 
   // 2. Serif title
   titleLines.forEach((line, i) => drawAtlasText(buf, atlas.title, line, left, badgeTop + titleRelY + i * titleStep, INK));
