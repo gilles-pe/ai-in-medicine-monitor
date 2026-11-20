@@ -364,3 +364,11 @@ Replaced `favicon.svg` with a refined Academic Editorial stethoscope + AI sparkl
 Placed the monitor signet in `#section-nav` (before `Overview`), in `.site-footer .footer-brand`, and in exported chart SVGs/PNGs (`lib/chart-export.js`) plus `share/<slug>/` previews (`lib/share.js`, `scripts/generate-share-pages.mjs`).
 Fixed `.about-monitor.compact-fold` open/closed alignment in `monitor.css` so the paragraph starts directly beside the `▾` triangle without an empty `44px` beige summary box, and tightened `<420px` `.section-nav` padding so `Workflows` fits cleanly on `390px` phones.
 Compactified the `#overview` card (`lib/overview.js`, `lib/i18n.js`, `monitor.css`): shortened caption to `Sources below, IQ scores are illustrative.`, removed redundant `.overview-caption`, removed the hairline between `Overview` and `#overview-milestone-strip`, renamed `Medicine milestones` to `Milestones` at identical size/spacing to `Overview`, and updated `tests/overview.test.js`, `tests/share.test.js`, and `DESIGN.md`.
+
+## 20 November 2026 - browser and shared-link favicon repair
+
+- Affected surface: metadata/branding only, not evidence or benchmark data.
+- Issue: the public site referenced only `favicon.svg`; clients that rely on `/favicon.ico`, PNG favicons or an Apple touch icon could show a generic or stale miniature next to links.
+- Added `scripts/render-favicons.mjs`, a deterministic no-dependency raster export of the existing approved stethoscope-and-spark mark. The Pages build produces `favicon.ico` (16/32/48), `favicon-16.png`, `favicon-32.png`, `favicon-48.png`, `apple-touch-icon.png` (180), and `icon-192.png`.
+- Updated root, news, imprint, privacy and generated per-card pages to advertise ICO/SVG/PNG with versioned favicon URLs; added `site.webmanifest`. Existing 1200x630 Open Graph artwork is unchanged; the home/news image URL has a cache-busting version query.
+- Deployment checks assert favicon outputs exist and the home page references them. Browser/platform link-preview caches may still require re-scraping; scientific `lastReviewedAt` remains unchanged.
