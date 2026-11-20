@@ -1,6 +1,19 @@
 # AGENTS.md - Instructions for AI collaborators
 Version: 1.1 | Date: 2026-10-25
 
+## Shared GP corporate identity - mandatory for visual work (2026-11-20)
+
+Before touching UI, layout, chart styling, image generation, overlays or export visuals, read:
+- [Cross-project visual guide](docs/brand/GP_CI_Master_2026.md) - editorial identity, project-specific rules and current vs proposed values.
+- [AI-readable tokens](docs/brand/GP_CI_Tokens_2026.json) - semantic colors, typography, radii and glass variants.
+- [CSS reference](docs/brand/GP_CI_Tokens_2026.css) - reference only, **not** an import replacing existing tokens.
+- [Three-project schematic](docs/brand/GP_CI_Visual_Overview_2026.png) and [glass comparison](docs/brand/GP_CI_Glass_Comparison_2026.png).
+
+The monitor is the **evidence-first academic editorial** expression of the shared system: warm paper #F7F6F2, ink #18181B, Prussian blue #1E3A8A, Source Serif 4 / Source Sans 3; 6/12px purposeful corners; fine rules; no decorative gradients or glass cards behind benchmark results. Keep the existing local `styles.css` token hierarchy and comply with `DESIGN.md` and `MONITOR_STANDARD.md`. Shared CI does not justify redefining benchmarks, dates, chart scales, evidence tiers, line connections or study conclusions. Scientific and source-integrity rules override any purely aesthetic suggestion.
+
+The glass-heavy Wimmelbild is an intentional exception; do not translate its 18-24px frosted glass into monitor data cards. Images are schematic guidance, not verified screenshots or benchmark datasets. Preserve existing measured results, accessibility, user interactions and publication canonical URLs. Future visual work should use the bundle, but do not perform an unrequested redesign or global token replacement. When exact styles conflict, preserve existing approved implementation and explicitly note any proposed migration.
+
+
 ## Mission
 Maintain a popular-science 'AI in Medicine' showing medical AI progress in three tracks. Clear for physicians, healthcare industry and non-experts. Credible but not framed as a medical clinical validation study.
 

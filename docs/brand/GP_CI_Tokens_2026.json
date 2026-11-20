@@ -1,0 +1,186 @@
+{
+  "title": "Gilles Penning Cross-Project CI",
+  "version": "1.0",
+  "date": "2026-11-20",
+  "status": "proposed-shared-contract-not-deployed",
+  "domains": {
+    "portfolio": "gillespenning.com",
+    "monitor": "ai.gillespenning.com",
+    "wimmel": "wimmelbild.gillespenning.com"
+  },
+  "voice": [
+    "credible",
+    "curious",
+    "human",
+    "precise",
+    "tactile",
+    "quietly sophisticated"
+  ],
+  "typography": {
+    "editorial": "Source Serif 4",
+    "interface": "Source Sans 3",
+    "wimmel_existing": "Inter",
+    "base_px": 16,
+    "scale_px": [
+      12,
+      14,
+      16,
+      20,
+      28,
+      40,
+      64
+    ]
+  },
+  "color": {
+    "paper": "#F7F6F2",
+    "surface": "#FFFFFF",
+    "surface_muted": "#EEECE5",
+    "ink": "#18181B",
+    "muted": "#4B5563",
+    "line": "#DCD9D0",
+    "line_strong": "#C4C0B5",
+    "primary": "#1E3A8A",
+    "primary_strong": "#172554",
+    "primary_soft": "#E8EDF7",
+    "primary_soft_alt": "#EFF6FF",
+    "gold": "#8A4B00",
+    "gold_soft": "#F6EFE2",
+    "petrol_material": "#12383A",
+    "sage_material": "#BFC9A8",
+    "limestone_material": "#F1E7D4",
+    "oak_material": "#D9BF93",
+    "brass_material": "#B8862F",
+    "satin_glass_material": "#E3EFE6",
+    "wimmel_background": "#143844",
+    "wimmel_ink": "#0E2A30",
+    "wimmel_gold": "#E7B43F",
+    "wimmel_focus": "#FFE08A"
+  },
+  "radius_px": {
+    "new_shared_controls": 6,
+    "new_shared_cards": 12,
+    "immersive_cards": 16,
+    "pill": 999,
+    "existing_portfolio": [
+      0,
+      6,
+      999
+    ],
+    "existing_monitor": [
+      6,
+      12,
+      999
+    ],
+    "existing_wimmel": [
+      8,
+      16,
+      999
+    ]
+  },
+  "spacing_px": {
+    "base": 4,
+    "portfolio_enforced": [
+      4,
+      8,
+      16,
+      24,
+      40,
+      64,
+      104
+    ],
+    "monitor_wimmel_examples": [
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      32,
+      48,
+      64
+    ]
+  },
+  "glass": {
+    "monitor": {
+      "default": "opaque",
+      "modal_blur_px": 3
+    },
+    "portfolio": {
+      "panels": {
+        "rgb": "247,246,242",
+        "opacity": 0.86,
+        "blur_px": 10
+      },
+      "intro": {
+        "opacity": 0.88,
+        "blur_px": 8
+      },
+      "header_footer": {
+        "opacity": 0.58,
+        "blur_px": 4
+      }
+    },
+    "wimmel": {
+      "bar": {
+        "rgb": "255,252,247",
+        "opacity": 0.48,
+        "blur_px": 18,
+        "saturate": 1.35
+      },
+      "chips": {
+        "opacity": 0.42,
+        "blur_px": 7,
+        "saturate": 1.2
+      },
+      "strong_proposed": {
+        "opacity": 0.62,
+        "blur_px": 24,
+        "saturate": 1.35
+      },
+      "reading_existing": {
+        "opacity": 0.72
+      },
+      "dark": {
+        "rgb": "16,52,58",
+        "opacity": 0.66
+      },
+      "opaque_fallback_opacity": 0.97
+    }
+  },
+  "image": {
+    "general": [
+      "authentic documentary or handcrafted exhibit",
+      "natural light",
+      "precise anatomy and objects",
+      "no decorative gradients",
+      "no neon/glowing brain",
+      "no text baked into art"
+    ],
+    "portfolio": "warm editorial photographic/model-world style",
+    "monitor": "clean factual evidence chart graphics",
+    "wimmel": "vibrant highly detailed colorful narrative atlas; preserve hotspots"
+  },
+  "motion_ms": {
+    "controls": 200,
+    "panels": 300,
+    "existing_wimmel_zoom_pan": 1100
+  },
+  "accessibility": {
+    "body_text_contrast_ratio_min": 4.5,
+    "large_text_contrast_ratio_min": 3,
+    "touch_target_px_min": 44,
+    "reduced_motion": true
+  },
+  "do_not": [
+    "replace approved icons",
+    "flatten Wimmel illustration into monochrome corporate colors",
+    "apply broad frosted glass to evidence charts",
+    "change legacy token scales without owner decision",
+    "create fake data or UI text inside illustration"
+  ],
+  "references": [
+    "https://github.com/gilles-pe/gillespenningcom",
+    "https://github.com/gilles-pe/ai-in-medicine-monitor",
+    "https://github.com/gilles-pe/medizin-wimmelbild"
+  ]
+}

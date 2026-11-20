@@ -1,0 +1,92 @@
+/* Gilles Penning ecosystem - proposed semantic tokens, 2026-11-20.
+   NOT a drop-in replacement for existing project token files.
+   Namespaced gp- to avoid collisions with current site variables. */
+:root {
+  --gp-paper: #F7F6F2;
+  --gp-surface: #FFFFFF;
+  --gp-surface-muted: #EEECE5;
+  --gp-ink: #18181B;
+  --gp-muted: #4B5563;
+  --gp-line: #DCD9D0;
+  --gp-line-strong: #C4C0B5;
+  --gp-primary: #1E3A8A;
+  --gp-primary-strong: #172554;
+  --gp-primary-soft: #E8EDF7;
+  --gp-primary-soft-alt: #EFF6FF;
+  --gp-evidence-gold: #8A4B00;
+  --gp-evidence-gold-soft: #F6EFE2;
+  --gp-material-petrol: #12383A;
+  --gp-material-sage: #BFC9A8;
+  --gp-material-limestone: #F1E7D4;
+  --gp-material-oak: #D9BF93;
+  --gp-material-brass: #B8862F;
+  --gp-material-satin-glass: #E3EFE6;
+  --gp-wimmel-bg: #143844;
+  --gp-wimmel-ink: #0E2A30;
+  --gp-wimmel-gold: #E7B43F;
+  --gp-wimmel-focus: #FFE08A;
+
+  --gp-sans: 'Source Sans 3', system-ui, sans-serif;
+  --gp-serif: 'Source Serif 4', Georgia, serif;
+  --gp-wimmel-sans: Inter, system-ui, sans-serif;
+  --gp-type-xs: 12px;
+  --gp-type-sm: 14px;
+  --gp-type-body: 16px;
+  --gp-type-lead: 20px;
+  --gp-type-heading: 28px;
+  --gp-type-display: 40px;
+
+  --gp-radius-square: 0;
+  --gp-radius-control: 6px;
+  --gp-radius-card: 12px;
+  --gp-radius-immersive: 16px;
+  --gp-radius-pill: 999px;
+  --gp-tap-min: 44px;
+
+  --gp-glass-spatial: rgba(247, 246, 242, .86);
+  --gp-glass-spatial-intro: rgba(247, 246, 242, .88);
+  --gp-glass-spatial-bar: rgba(247, 246, 242, .58);
+  --gp-glass-spatial-blur: blur(10px);
+  --gp-glass-spatial-bar-blur: blur(4px);
+
+  --gp-glass-wimmel-light: rgba(255, 252, 247, .42);
+  --gp-glass-wimmel-bar: rgba(255, 252, 247, .48);
+  --gp-glass-wimmel-strong: rgba(255, 252, 247, .62); /* proposed */
+  --gp-glass-wimmel-reading: rgba(255, 252, 247, .72);
+  --gp-glass-wimmel-dark: rgba(16, 52, 58, .66);
+  --gp-glass-wimmel-edge: rgba(255, 255, 255, .65);
+  --gp-glass-wimmel-blur: blur(18px) saturate(1.35);
+  --gp-glass-wimmel-soft-blur: blur(7px) saturate(1.2);
+  --gp-glass-wimmel-strong-blur: blur(24px) saturate(1.35); /* proposed */
+
+  --gp-shadow-small: 0 4px 16px rgba(8, 24, 30, .12);
+  --gp-shadow-overlay: 0 8px 24px rgba(8, 24, 30, .25);
+  --gp-transition-control: 200ms;
+  --gp-transition-panel: 300ms;
+  --gp-transition-wimmel-zoom: 1100ms; /* match existing CSS and JS */
+}
+
+/* Reference recipes. Apply only if project-specific existing styles permit. */
+.gp-glass-spatial {
+  background: var(--gp-glass-spatial);
+  backdrop-filter: var(--gp-glass-spatial-blur);
+  -webkit-backdrop-filter: var(--gp-glass-spatial-blur);
+  border: 1px solid var(--gp-line);
+  color: var(--gp-ink);
+}
+.gp-glass-wimmel-strong {
+  background: var(--gp-glass-wimmel-strong);
+  backdrop-filter: var(--gp-glass-wimmel-strong-blur);
+  -webkit-backdrop-filter: var(--gp-glass-wimmel-strong-blur);
+  border: 1px solid var(--gp-glass-wimmel-edge);
+  border-radius: var(--gp-radius-immersive);
+  color: var(--gp-wimmel-ink);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .gp-glass-spatial { background: rgba(247,246,242,.97); }
+  .gp-glass-wimmel-strong { background: rgba(255,252,247,.97); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .gp-glass-spatial { background: rgba(247,246,242,.97); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .gp-glass-wimmel-strong { background: rgba(255,252,247,.97); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
