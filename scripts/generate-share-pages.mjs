@@ -319,7 +319,10 @@ export function renderShareHtml(item, baseUrl = SITE_BASE) {
   <title>${e(meta.title)}</title>
   <meta name="description" content="${e(meta.description)}">
   <link rel="canonical" href="${e(meta.url)}">
-  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../favicon.ico?v=20261120" sizes="any">
+  <link rel="icon" href="../../favicon.svg?v=20261120" type="image/svg+xml">
+  <link rel="icon" href="../../favicon-32.png?v=20261120" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png?v=20261120" sizes="180x180">
   <meta property="og:type" content="article">
   <meta property="og:title" content="${e(meta.title)}">
   <meta property="og:description" content="${e(meta.description)}">
