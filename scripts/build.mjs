@@ -1,5 +1,6 @@
 import { syncMonitorDocs } from './sync-monitor-docs.mjs';
 import { prerenderTree } from './prerender.mjs';
+import { renderFavicons } from './render-favicons.mjs';
 import { generateSharePages } from './generate-share-pages.mjs';
 import { mkdir, rm, cp, readFile, writeFile, stat } from 'node:fs/promises';
 import path from 'node:path';
@@ -10,8 +11,9 @@ const output = path.join(root, 'dist');
 await syncMonitorDocs(root,{check:true});
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
+await renderFavicons(output);
 await writeFile(path.join(output, '.nojekyll'), '');
-for (const name of ['index.html', 'styles.css', 'editorial.css', 'monitor.css', 'AGENTS.md', 'MONITOR_STANDARD.md', 'DESIGN.md', 'FUNCTIONALITY.md', 'TODO.md', 'VALIDATION_REPORT.md', 'app.js', 'favicon.svg', 'data', 'lib', 'news', 'fonts', 'og-image.png', 'impressum', 'datenschutz', 'assets']) {
+for (const name of ['index.html', 'styles.css', 'editorial.css', 'monitor.css', 'AGENTS.md', 'MONITOR_STANDARD.md', 'DESIGN.md', 'FUNCTIONALITY.md', 'TODO.md', 'VALIDATION_REPORT.md', 'app.js', 'favicon.svg', 'data', 'lib', 'news', 'fonts', 'og-image.png', 'site.webmanifest', 'impressum', 'datenschutz', 'assets']) {
   await cp(path.join(root, name), path.join(output, name), { recursive: true });
 }
 await mkdir(path.join(output,'docs'),{recursive:true});
@@ -47,6 +49,7 @@ const html = await readFile(path.join(output, 'index.html'), 'utf8');
 if (!html.includes('AI in Medicine')) throw new Error('Missing application title');
 if (html.includes('fonts.googleapis.com')) throw new Error('External fonts must stay out of the build');
 await stat(path.join(output, 'og-image.png'));
+for (const file of ['favicon.ico','favicon-16.png','favicon-32.png','apple-touch-icon.png','icon-192.png','site.webmanifest']) await stat(path.join(output,file));
 await stat(path.join(output, 'fonts/source-sans-3-latin.woff2'));
 await stat(path.join(output, 'fonts/source-serif-4-latin.woff2'));
 console.log(`Static site packaged in dist/ with ${shareCount} card-top share previews. No network services or secrets required.`);
