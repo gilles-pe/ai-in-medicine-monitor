@@ -30,7 +30,7 @@ test('historical visibility distinguishes CASP 2020 from the 2021 paper and late
   assert.doesNotMatch(old,/class="overview-line scenario-line"/);
   const current = renderOverview('2026-10-17','2026-10-17');
   assert.match(current,/scenario-line/);
-  assert.match(current,/Sources below, IQ scores are illustrative/);
+  assert.match(current,/\d+ documented milestones\. IQ positions are illustrative/);
   assert.doesNotMatch(current,/overview-caption/);
   assert.doesNotMatch(current,/Dotted: medical context|Long dashes: scenarios/);
 });

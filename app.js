@@ -224,7 +224,7 @@ function render(){
   const openSources=[...shell.querySelectorAll('.section-sources[open]')].map(el=>el.id);
   const openOverviewTable=shell.querySelector('#overview .chart-data-table')?.open;
   const openOverviewMilestones=shell.querySelector('#overview-milestone-strip')?.open;
-  $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false,range:state.ranges.overview||'all'});
+  $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false,range:state.ranges.overview||'all',compact:matchMedia('(max-width:600px)').matches});
   if(openOverviewTable){const el=shell.querySelector('#overview .chart-data-table');if(el)el.open=true;}
   if(openOverviewMilestones){const el=shell.querySelector('#overview-milestone-strip');if(el)el.open=true;}
   const latestEl=$('#latest-data-points');if(latestEl)latestEl.innerHTML=renderLatestDataPoints(state.cutoff,3);
@@ -281,16 +281,17 @@ function updateOverviewCursor(svgX,yearText,statusText){
   const line=$('#overview-cursor-line'),box=$('#overview-cursor-box'),yr=$('#overview-cursor-year'),st=$('#overview-cursor-status');
   if(!line||!box||!yr||!st)return;
   line.setAttribute('x1',svgX);line.setAttribute('x2',svgX);
-  box.setAttribute('x',svgX-31);
+  box.setAttribute('x',svgX-Number(box.getAttribute('width')||62)/2);
   yr.setAttribute('x',svgX);yr.textContent=yearText;
   st.setAttribute('x',svgX);st.textContent=statusText;
 }
 function scrubOverviewAtClientX(svg,clientX){
   const rect=svg.getBoundingClientRect();
   if(!rect.width)return;
-  const rawX=(clientX-rect.left)/rect.width*1200;
-  const clampedX=Math.max(68,Math.min(1098,rawX));
-  const a=Number(svg.dataset.rangeStart||1950),b=Number(svg.dataset.rangeEnd||2030);const hoverYear=Math.round(a+(clampedX-68)/1030*(b-a));
+  const vbWidth=Number(svg.dataset.vbWidth||1200),plotLeft=Number(svg.dataset.plotLeft||68),plotWidth=Number(svg.dataset.plotWidth||1030);
+  const rawX=(clientX-rect.left)/rect.width*vbWidth;
+  const clampedX=Math.max(plotLeft,Math.min(plotLeft+plotWidth,rawX));
+  const a=Number(svg.dataset.rangeStart||1950),b=Number(svg.dataset.rangeEnd||2030);const hoverYear=Math.round(a+(clampedX-plotLeft)/plotWidth*(b-a));
   const currentYear=Number(today.slice(0,4));
   updateOverviewCursor(clampedX,String(hoverYear),hoverYear===currentYear?'TODAY':hoverYear>currentYear?'SCENARIO':'YEAR');
   if(hoverYear!==lastScrubYear){

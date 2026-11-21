@@ -494,3 +494,48 @@ body{caret-color:var(--teal)}
 .track-result-link:hover{border-color:transparent;background:transparent;box-shadow:none}
 .track-result-link strong{color:var(--ink);text-decoration-color:var(--track)}
 .track-result-link:hover strong{color:var(--teal);text-decoration-color:var(--teal)}
+
+/* Overview and Milestones disclosures share one type style. */
+#overview .chart-data-table>summary,#overview .overview-milestone-head{font:400 var(--text-sm)/1.3 var(--sans);color:var(--ink);min-height:40px;padding:0;margin:0;cursor:pointer;list-style:none}
+#overview .chart-data-table>summary{display:flex;align-items:center}
+#overview .chart-data-table>summary::-webkit-details-marker{display:none}
+#overview .chart-data-table>summary::before{content:'▸';margin-right:var(--space-2);color:var(--muted)}
+#overview .chart-data-table[open]>summary::before{content:'▾'}
+#overview .overview-milestone-title{font:400 var(--text-sm)/1.3 var(--sans);color:var(--ink)}
+
+/* Compact SVG (phones): the chart is the main object; its own text uses the narrower 600-unit coordinate system. */
+.overview-scroll svg.overview-compact .overview-tick{font-size:20px}
+.overview-scroll svg.overview-compact .overview-axis-title{font-size:19px;font-weight:600}
+.overview-scroll svg.overview-compact .overview-right-tick{font-size:18px}
+.overview-scroll svg.overview-compact .cursor-label{font-size:22px}
+.overview-scroll svg.overview-compact .cursor-small{font-size:13px}
+.overview-scroll svg.overview-compact .overview-line{stroke-width:3.4}
+.overview-scroll svg.overview-compact .overview-line.medical-line,.overview-scroll svg.overview-compact .overview-line.autonomy-line{stroke-dasharray:1 8}
+.overview-scroll svg.overview-compact .overview-line.scenario-line{stroke-dasharray:14 8}
+
+@media(max-width:600px){
+  /* Chart first: question, chart, then the introduction text. */
+  .intro{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:var(--space-3) 0 var(--space-2)}
+  .intro>*{min-width:0;max-width:100%}
+  .intro-copy{display:contents}
+  .intro-copy h1{font-size:30px;line-height:1.05;letter-spacing:-1px;margin:0 0 var(--space-1)}
+  .intro-question{font-size:var(--text-md);margin:0 0 var(--space-3)}
+  .hero-overview{order:1}
+  .about-monitor{order:2;margin-top:var(--space-3)}
+  .intro>.latest-points-bar{order:3}
+  .intro>.news-panel{order:4}
+  /* Card: title row is visually hidden; the expand button floats in the corner next to the range tabs. */
+  .hero-overview #overview:not(.is-zoomed){position:relative;padding:var(--space-1) var(--space-3) var(--space-1)}
+  .hero-overview #overview:not(.is-zoomed) .section-title{position:absolute;top:2px;right:2px;margin:0;z-index:2;display:block}
+  .hero-overview #overview:not(.is-zoomed) .section-title h2{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .hero-overview #overview:not(.is-zoomed) .overview-figure{display:flex;flex-direction:column;margin:0}
+  .hero-overview #overview:not(.is-zoomed) .chart-ranges{order:1;justify-content:flex-start;margin:0;padding-right:48px}
+  .hero-overview #overview:not(.is-zoomed) .chart-ranges button{padding:var(--space-1) var(--space-3);white-space:nowrap}
+  .hero-overview #overview:not(.is-zoomed) .overview-legend{order:2;flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;gap:var(--space-4);padding:var(--space-1) var(--space-6) var(--space-2) 0;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
+  .hero-overview #overview:not(.is-zoomed) .overview-legend::-webkit-scrollbar{display:none}
+  .hero-overview #overview:not(.is-zoomed) .overview-legend span{flex:0 0 auto}
+  .hero-overview #overview:not(.is-zoomed) .overview-scroll{order:3}
+  .hero-overview #overview:not(.is-zoomed) .chart-takeaway{order:4;font-size:var(--text-xs);line-height:1.4;color:var(--muted);margin:var(--space-1) 0 var(--space-1)}
+  .hero-overview #overview:not(.is-zoomed) .chart-data-table{order:5;margin:0}
+  .hero-overview #overview:not(.is-zoomed) .overview-milestone-strip{margin-top:0}
+}
