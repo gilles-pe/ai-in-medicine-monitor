@@ -410,3 +410,7 @@ Compactified the `#overview` card (`lib/overview.js`, `lib/i18n.js`, `monitor.cs
 ## 21 November 2026 - Introduction contact links
 
 - Order of the introduction links is now gillespenning.com (portfolio), Substack, LinkedIn, Bluesky. The portfolio link is new and opens in a new tab like the others. On phones the links use tighter spacing; at 360 px the fourth link wraps to a second line. No data or review change.
+
+## 21 November 2026 - Phone legend below the chart
+
+- On phones the overview legend sits below the chart as a wrapping two-row list, so all four series are visible without sideways scrolling. Desktop is unchanged. No data or review change.
