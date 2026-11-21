@@ -61,7 +61,9 @@ test('latestDataPoints stays newest-first, respects cutoffs and uses non-collidi
   assert.ok(historical.every(item => item.sortDate <= '2020-12-31'));
 
   const html = renderLatestDataPoints('2026-10-18', 4);
-  assert.match(html, />Latest</);
+  assert.match(html, />Latest Research</);
+  assert.equal(latestDataPoints('2026-11-21').length, 3);
+  assert.equal(latest[0].title, 'AI agent tackles clinical workflows');
   assert.equal((html.match(/data-latest-card=/g) || []).length, 4);
   assert.doesNotMatch(html, /data-study-id|data-overview-point|data-observation-id/);
 });

@@ -24,8 +24,8 @@ test('dashboard has four recent stories and All opens the full translated archiv
   assert.equal((en.match(/<li>/g) || []).length, 4);
   assert.match(en, /href="\.\/news\/\?lang=en"/);
   assert.match(de, /href="\.\/news\/\?lang=de"/);
-  assert.match(en, />Latest News</);
-  assert.match(de, />Aktuelles</);
+  assert.match(en, />My Posts</);
+  assert.match(de, />Meine Beiträge</);
   assert.match(en, /class="news-teaser"/);
   assert.match(en, />EN</);
   assert.match(en, />Post</);

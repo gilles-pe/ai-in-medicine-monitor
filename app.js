@@ -227,7 +227,7 @@ function render(){
   $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false,range:state.ranges.overview||'all'});
   if(openOverviewTable){const el=shell.querySelector('#overview .chart-data-table');if(el)el.open=true;}
   if(openOverviewMilestones){const el=shell.querySelector('#overview-milestone-strip');if(el)el.open=true;}
-  const latestEl=$('#latest-data-points');if(latestEl)latestEl.innerHTML=renderLatestDataPoints(state.cutoff,4);
+  const latestEl=$('#latest-data-points');if(latestEl)latestEl.innerHTML=renderLatestDataPoints(state.cutoff,3);
   if($('#milestone-list'))$('#milestone-list').innerHTML=renderMilestoneLinks(state.cutoff);
   $('#previews-slot').innerHTML=renderPreviews();
   $('#tracks-slot').innerHTML=tracks.map(renderTrack).join('');

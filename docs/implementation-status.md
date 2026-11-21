@@ -393,3 +393,7 @@ Compactified the `#overview` card (`lib/overview.js`, `lib/i18n.js`, `monitor.cs
 - Added the owner-approved social post to the shared news feed in English and German, grouping the verified LinkedIn and Bluesky posts. The copy describes an announced proof; no benchmark, chart point or scientific-review date was changed. The site update date remains 21 November 2026.
 
 - Verification: 102 unit tests passed; static build and 1,564 Pages path checks passed. Both built pages contain the new entry.
+
+## 21 November 2026 - clearer homepage labels
+
+- Renamed the research and personal-post sections, limited the latest research strip to three items and gave the HealthAgentBench v2 result a task-focused label. Scores, evidence and review dates are unchanged.
