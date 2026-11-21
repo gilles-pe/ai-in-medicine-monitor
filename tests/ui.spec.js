@@ -257,8 +257,8 @@ test('time windows and PNG downloads work for every expanded chart',async({page}
   if(id==='overview'){
     const curve=chart.locator('.overview-change-chart .overview-line').first();
     await expect(chart.locator('.overview-change-chart .overview-axis-title')).toHaveText('Illustrative change from window start');
-    await expect(curve).toHaveAttribute('d',/^M68\.00,327\.00 L/);
-    await expect(curve).toHaveCSS('stroke-width','4px');
+    await expect(curve).toHaveAttribute('d',/^M(68\.00,327\.00|50\.00,487\.00) L/);
+    await expect(curve).toHaveCSS('stroke-width',/^(4|3\.4)px$/);
     await expect(chart.locator('.scenario-line')).toHaveCount(0);
   }else if(id==='autonomy'){
     await expect(chart.locator('.monitor-scale-note')).toHaveText('Zoomed Y-axis');

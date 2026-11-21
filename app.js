@@ -16,7 +16,6 @@ import { appRootUrl, isSharePath, shareAddressPath } from './lib/address.js';
 import newsData from './data/news.json' with { type: 'json' };
 import { renderPreviewSection, renderStudyButtons, renderTrackSection, renderSourceIndex, resetAbbreviations } from './lib/published-page.js';
 import { updatedMarkup } from './lib/site-meta.js';
-import { filterOptions } from './lib/evidence-classification.js';
 import { filterMeasurements, latestByModel, escapeHtml as e } from './lib/selectors.js';
 
 const $=selector=>document.querySelector(selector);
@@ -211,20 +210,12 @@ function toggleChartZoom(target){
 function renderTrack(track){
   return renderTrackSection(track, state.cutoff, {model:state.model, zoomed:state.zoomedChart===track.id,range:state.ranges[track.id]||'all'});
 }
-function applyEvidenceFilters(){
-  const topic=$('#evidence-topic-filter')?.value||'all',setting=$('#evidence-setting-filter')?.value||'all',only=$('#evidence-milestone-only')?.checked||false;
-  shell.querySelectorAll('.chart-stories [data-evidence-topic]').forEach(button=>{
-    button.hidden=(topic!=='all'&&button.dataset.evidenceTopic!==topic)||(setting!=='all'&&button.dataset.evidenceSetting!==setting)||(only&&button.dataset.evidenceMilestone!=='true');
-  });
-}
-document.addEventListener('change',event=>{if(event.target.closest('#evidence-filter-bar'))applyEvidenceFilters();});
 function render(){
   resetAbbreviations();
-  if(!$('#evidence-filter-bar'))$('#tracks-slot').insertAdjacentHTML('beforebegin',filterOptions());
   const openSources=[...shell.querySelectorAll('.section-sources[open]')].map(el=>el.id);
   const openOverviewTable=shell.querySelector('#overview .chart-data-table')?.open;
   const openOverviewMilestones=shell.querySelector('#overview-milestone-strip')?.open;
-  $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false,range:state.ranges.overview||'all'});
+  $('#overview-slot').innerHTML=renderOverview(state.cutoff,today,{includeIndex:false,range:state.ranges.overview||'all',compact:matchMedia('(max-width:600px)').matches});
   if(openOverviewTable){const el=shell.querySelector('#overview .chart-data-table');if(el)el.open=true;}
   if(openOverviewMilestones){const el=shell.querySelector('#overview-milestone-strip');if(el)el.open=true;}
   const latestEl=$('#latest-data-points');if(latestEl)latestEl.innerHTML=renderLatestDataPoints(state.cutoff,3);
@@ -232,7 +223,6 @@ function render(){
   $('#previews-slot').innerHTML=renderPreviews();
   $('#tracks-slot').innerHTML=tracks.map(renderTrack).join('');
   openSources.forEach(id=>{const panel=document.getElementById(id);if(panel)panel.open=true;});
-  applyEvidenceFilters();
   if($('#study-list'))$('#study-list').innerHTML=renderStudyButtons(state.cutoff);
   const sourceIndex=$('#source-index');
   if(sourceIndex) sourceIndex.innerHTML=renderSourceIndex(state.cutoff);
@@ -281,16 +271,17 @@ function updateOverviewCursor(svgX,yearText,statusText){
   const line=$('#overview-cursor-line'),box=$('#overview-cursor-box'),yr=$('#overview-cursor-year'),st=$('#overview-cursor-status');
   if(!line||!box||!yr||!st)return;
   line.setAttribute('x1',svgX);line.setAttribute('x2',svgX);
-  box.setAttribute('x',svgX-31);
+  box.setAttribute('x',svgX-Number(box.getAttribute('width')||62)/2);
   yr.setAttribute('x',svgX);yr.textContent=yearText;
   st.setAttribute('x',svgX);st.textContent=statusText;
 }
 function scrubOverviewAtClientX(svg,clientX){
   const rect=svg.getBoundingClientRect();
   if(!rect.width)return;
-  const rawX=(clientX-rect.left)/rect.width*1200;
-  const clampedX=Math.max(68,Math.min(1098,rawX));
-  const a=Number(svg.dataset.rangeStart||1950),b=Number(svg.dataset.rangeEnd||2030);const hoverYear=Math.round(a+(clampedX-68)/1030*(b-a));
+  const vbWidth=Number(svg.dataset.vbWidth||1200),plotLeft=Number(svg.dataset.plotLeft||68),plotWidth=Number(svg.dataset.plotWidth||1030);
+  const rawX=(clientX-rect.left)/rect.width*vbWidth;
+  const clampedX=Math.max(plotLeft,Math.min(plotLeft+plotWidth,rawX));
+  const a=Number(svg.dataset.rangeStart||1950),b=Number(svg.dataset.rangeEnd||2030);const hoverYear=Math.round(a+(clampedX-plotLeft)/plotWidth*(b-a));
   const currentYear=Number(today.slice(0,4));
   updateOverviewCursor(clampedX,String(hoverYear),hoverYear===currentYear?'TODAY':hoverYear>currentYear?'SCENARIO':'YEAR');
   if(hoverYear!==lastScrubYear){

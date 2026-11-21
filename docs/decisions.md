@@ -131,3 +131,7 @@ Gate A passed after checking the JAMA Network Open full text (DOI 10.1001/jamane
 ## 21 November 2026 - Riemann Hypothesis social post
 
 - Owner requested adding the published social post to both homepage and news archive. Group LinkedIn and Bluesky as one story; no chart entry is authorized.
+
+## 21 November 2026 - Milestone filter bar removed
+
+- Owner asked to remove the "Filter milestones" bar (Topic, Test setting, "Major milestones only", benchmark-curve note) completely from the code. Markup, logic, CSS, German strings, tests and the per-tile `data-evidence-*` filter attributes were deleted. Topic and test-setting labels on cards, Data tables and the Glossary are unchanged, as are the classification data.

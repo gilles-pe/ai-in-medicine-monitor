@@ -13,7 +13,7 @@ Current specification: 25 October 2026. Read alongside DESIGN.md and MONITOR_STA
 Every new score, study or milestone must pass the source and impact gates in `docs/MEASUREMENT_INTAKE.md` before publication. Ambiguous inclusion, clinical meaning or milestones require owner approval and documented feedback before insertion. The portable ZIP includes the intake policy and historical source-audit ledger.
 
 ## Classification contract
-The source-linked taxonomy is specified in `docs/EVIDENCE_TAGGING.md`. Every editorial card has a standardized topic, test setting and design; milestone and real-patient/outcome evidence are independent. Detail cards, milestone filters, chart Data tables, Glossary and any linked clinical-news tags must derive from the same central JSON metadata. Evidence filtering must not alter chart observations or source-validation status.
+The source-linked taxonomy is specified in `docs/EVIDENCE_TAGGING.md`. Every editorial card has a standardized topic, test setting and design; milestone and real-patient/outcome evidence are independent. Detail cards, chart Data tables, Glossary and any linked clinical-news tags must derive from the same central JSON metadata.
 
 ## Evidence cards and sample selection
 

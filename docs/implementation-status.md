@@ -397,3 +397,12 @@ Compactified the `#overview` card (`lib/overview.js`, `lib/i18n.js`, `monitor.cs
 ## 21 November 2026 - clearer homepage labels
 
 - Renamed the research and personal-post sections, limited the latest research strip to three items and gave the HealthAgentBench v2 result a task-focused label. Scores, evidence and review dates are unchanged.
+
+## 21 November 2026 - Phone layout: larger overview chart
+
+- Phones (max-width 600px) now render the overview chart in a narrower, taller 600x540 coordinate system (`renderOverview(..., {compact:true})`, class `overview-compact`) instead of shrinking the 1200x380 desktop chart to roughly 90 px height. Plot height on a 360 px phone goes from about 90 px to about 250 px with readable axis text. Desktop output is unchanged. Hover/touch scrubbing reads the plot geometry from `data-vb-width`, `data-plot-left` and `data-plot-width`.
+- Card layout on phones: title row visually hidden (still the accessible name), expand button in the card corner next to the range tabs, range tabs above the chart, one-line horizontally scrolling legend, shorter explanatory sentence below the chart, introduction text moved below the card, smaller headline. The default "All time" window and all data, scales and series are unchanged.
+- Takeaway sentence shortened to "N documented milestones. IQ is illustrative." with a German rule in `lib/i18n.js`. The previous German dictionary entry for this sentence did not match the English source text and never applied.
+- "Overview" and "Milestones" disclosures use the same font, size, marker and row height on all screen sizes.
+- Checks: 102 unit tests, TypeScript, build with 196 share previews, `verify-pages.mjs`, Playwright desktop and mobile with local Chrome; two test expectations updated (takeaway wording; mobile curve geometry). Manual screenshots at 320, 360, 390 and 1280 px, German at 320 px, touch scrub at plot midpoint returns 1990. No scientific review or data change; `lastReviewedAt` unchanged.
+- Milestone filter bar removed on the owner's request (`filterOptions`, `evidenceAttributes`, `applyEvidenceFilters`, `.evidence-filter-bar` CSS, five German strings, filter assertions in `tests/evidence-classification.test.js`; DESIGN.md, FUNCTIONALITY.md and docs/EVIDENCE_TAGGING.md adjusted, logged in docs/decisions.md). Classification data and card, Data table and Glossary labels are untouched.
