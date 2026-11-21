@@ -135,3 +135,6 @@ The AI monitor's public canonical origin is https://ai.gillespenning.com. Keep g
 
 ## Site update date
 For every published site update, set UPDATED_AT in lib/site-meta.js to the publication date and refresh the visible Last updated markup and relevant tests. Evidence review dates advance only after an actual evidence review.
+
+## Owner approval for editorial titles and descriptions
+Before publishing new or materially revised milestone, study, benchmark or comparable research entry titles and descriptions, present the proposed title and description to Gilles and obtain explicit approval. Approval to investigate or add an item does not by itself approve its wording. Record the decision. Routine technical or formatting corrections that do not change the wording do not require renewed approval.
