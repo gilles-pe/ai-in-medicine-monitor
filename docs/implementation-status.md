@@ -414,3 +414,7 @@ Compactified the `#overview` card (`lib/overview.js`, `lib/i18n.js`, `monitor.cs
 ## 21 November 2026 - Phone legend below the chart
 
 - On phones the overview legend sits below the chart as a wrapping two-row list, so all four series are visible without sideways scrolling. Desktop is unchanged. No data or review change.
+
+## 21 November 2026 - Phone legend as one scrolling line
+
+- On phones the legend below the overview chart is a single horizontally scrolling row again (right-edge fade), replacing the wrapping two-row list. Desktop unchanged. No data or review change.
