@@ -524,7 +524,9 @@ body{caret-color:var(--teal)}
   .hero-overview #overview:not(.is-zoomed) .overview-figure{display:flex;flex-direction:column;margin:0}
   .hero-overview #overview:not(.is-zoomed) .chart-ranges{order:1;justify-content:flex-start;margin:0;padding-right:48px}
   .hero-overview #overview:not(.is-zoomed) .chart-ranges button{padding:var(--space-1) var(--space-3);white-space:nowrap}
-  .hero-overview #overview:not(.is-zoomed) .overview-legend{order:4;flex-wrap:wrap;gap:var(--space-1) var(--space-4);padding:var(--space-2) 0 var(--space-1)}
+  .hero-overview #overview:not(.is-zoomed) .overview-legend{order:4;flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;gap:var(--space-4);padding:var(--space-2) var(--space-6) var(--space-1) 0;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
+  .hero-overview #overview:not(.is-zoomed) .overview-legend::-webkit-scrollbar{display:none}
+  .hero-overview #overview:not(.is-zoomed) .overview-legend span{flex:0 0 auto}
   .hero-overview #overview:not(.is-zoomed) .overview-scroll{order:3}
   .hero-overview #overview:not(.is-zoomed) .chart-takeaway{order:5;font-size:var(--text-xs);line-height:1.4;color:var(--muted);margin:var(--space-1) 0 var(--space-1)}
   .hero-overview #overview:not(.is-zoomed) .chart-data-table{order:6;margin:0}
