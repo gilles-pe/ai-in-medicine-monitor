@@ -406,3 +406,7 @@ Compactified the `#overview` card (`lib/overview.js`, `lib/i18n.js`, `monitor.cs
 - "Overview" and "Milestones" disclosures use the same font, size, marker and row height on all screen sizes.
 - Checks: 102 unit tests, TypeScript, build with 196 share previews, `verify-pages.mjs`, Playwright desktop and mobile with local Chrome; two test expectations updated (takeaway wording; mobile curve geometry). Manual screenshots at 320, 360, 390 and 1280 px, German at 320 px, touch scrub at plot midpoint returns 1990. No scientific review or data change; `lastReviewedAt` unchanged.
 - Milestone filter bar removed on the owner's request (`filterOptions`, `evidenceAttributes`, `applyEvidenceFilters`, `.evidence-filter-bar` CSS, five German strings, filter assertions in `tests/evidence-classification.test.js`; DESIGN.md, FUNCTIONALITY.md and docs/EVIDENCE_TAGGING.md adjusted, logged in docs/decisions.md). Classification data and card, Data table and Glossary labels are untouched.
+
+## 21 November 2026 - Introduction contact links
+
+- Order of the introduction links is now gillespenning.com (portfolio), Substack, LinkedIn, Bluesky. The portfolio link is new and opens in a new tab like the others. On phones the links use tighter spacing; at 360 px the fourth link wraps to a second line. No data or review change.

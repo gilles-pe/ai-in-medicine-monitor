@@ -532,3 +532,4 @@ body{caret-color:var(--teal)}
   .hero-overview #overview:not(.is-zoomed) .chart-data-table{order:5;margin:0}
   .hero-overview #overview:not(.is-zoomed) .overview-milestone-strip{margin-top:0}
 }
+@media(max-width:600px){.contact-links{gap:var(--space-1) var(--space-3)}.contact-links a{padding-left:0;padding-right:0}}
