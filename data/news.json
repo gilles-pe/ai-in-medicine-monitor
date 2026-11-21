@@ -1,6 +1,31 @@
 {
   "items": [
     {
+      "id": "riemann-hypothesis-claude",
+      "date": "2026-11-21",
+      "approved": true,
+      "category": "post",
+      "originalLanguage": "en",
+      "title": {
+        "en": "The Riemann Hypothesis and AI",
+        "de": "Die Riemannsche Vermutung und KI"
+      },
+      "summary": {
+        "en": "A mathematician working with Claude has announced a proof of the Riemann Hypothesis. My thoughts on what increasingly complex AI-assisted work could mean for law and economics.",
+        "de": "Ein Mathematiker hat gemeinsam mit Claude einen Beweis der Riemannschen Vermutung vorgelegt. Meine Gedanken dazu, was immer komplexere Arbeit mit KI für Recht und Wirtschaft bedeuten könnte."
+      },
+      "sources": [
+        {
+          "platform": "linkedin",
+          "url": "https://www.linkedin.com/feed/update/urn:li:share:7529956035655081984/"
+        },
+        {
+          "platform": "bluesky",
+          "url": "https://bsky.app/profile/did:plc:ye6f5e4n6cq5a2uaq7hijtii/post/3n2tmwdzrw22k"
+        }
+      ]
+    },
+    {
       "id": "can-ai-see-death-in-your-eyes",
       "date": "2026-11-06",
       "approved": true,

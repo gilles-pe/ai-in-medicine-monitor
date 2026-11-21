@@ -127,3 +127,7 @@ Owner explicitly requested publication after the protocol distinction was explai
 The owner approved adding Goldsmith et al. to Clinical Assistance as a lower-chart study tile, using Ayers and Goh as precedents. The formal milestone flag is false. The approval covers one tile and its evidence card and sources. The study has no comparable benchmark series or separately approved news item.
 
 Gate A passed after checking the JAMA Network Open full text (DOI 10.1001/jamanetworkopen.2026.44496), Methods, Figures 1 and 2, and the primary and secondary Results. The head-to-head comparison used different stratified groups of admissions, with a subset receiving a second rating. Gate B passed because the study measures willingness to sign a draft against the actual admission record across five hospitals and provides a quantitative comparison with routine clinician-authored summaries. It also identifies omissions that make clinician verification important. The retrospective review did not assess time savings or patient outcomes. This decision applies to this study.
+
+## 21 November 2026 - Riemann Hypothesis social post
+
+- Owner requested adding the published social post to both homepage and news archive. Group LinkedIn and Bluesky as one story; no chart entry is authorized.

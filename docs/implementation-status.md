@@ -387,3 +387,9 @@ Compactified the `#overview` card (`lib/overview.js`, `lib/i18n.js`, `monitor.cs
 - Cause of generic link previews on shared data-point links: opening a lower-chart data point wrote `?lang=en#track-milestone-<id>` into the address bar. Crawlers never receive the fragment, so X and other platforms saw the home page and its generic Open Graph image. The per-item `share/<id>/` pages (own title, description and `og.png`) were already built and deployed, but only the card's copy-link button produced that URL.
 - An opened data point now replaces the address with `share/<id>/` (new `lib/address.js`; `app.js`, `lib/chart-export.js`). Reloading follows the existing share-page redirect and reopens the card; closing the card returns the address to the app root. Relative links clicked while the share address is shown resolve against the app root. Chart links and the card copy-link button strip the share path. No data, scientific review or `lastReviewedAt` change.
 - Checks: 102 unit tests (new `tests/address.test.js` incl. every linked milestone resolving to a share item), TypeScript, static build with 195 share previews, `verify-pages.mjs`, and 53 Playwright tests on desktop and mobile with local Chrome (3 intentional skips). The existing news-chart-link UI test now expects the share address. Live link-preview re-scrape not verified from the executor; platform card caches may keep old previews for already-posted URLs.
+
+## 21 November 2026 - Riemann Hypothesis news
+
+- Added the owner-approved social post to the shared news feed in English and German, grouping the verified LinkedIn and Bluesky posts. The copy describes an announced proof; no benchmark, chart point or scientific-review date was changed. The site update date remains 21 November 2026.
+
+- Verification: 102 unit tests passed; static build and 1,564 Pages path checks passed. Both built pages contain the new entry.
