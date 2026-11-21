@@ -305,18 +305,12 @@ html{scroll-padding-top:var(--space-16)}
 .chart-stories button[hidden]{display:none!important}
 .chart-stories button .evidence-tags{display:flex;gap:var(--space-1);justify-content:flex-start;margin-top:var(--space-1)}
 .chart-stories button .evidence-tag{font-size:var(--text-xs);padding:0 var(--space-1)}
-.evidence-filter-bar{display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-2) var(--space-4);margin:var(--space-4) 0 var(--space-3);padding:var(--space-2) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font:var(--text-xs)/1.4 var(--sans)}
-.evidence-filter-bar .filter-label{font-weight:650;white-space:nowrap}
-.evidence-filter-bar label{display:flex;gap:var(--space-1);align-items:center;color:var(--muted)}
-.evidence-filter-bar select{min-height:36px;max-width:175px;padding:var(--space-1) var(--space-2);background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-sm);color:var(--ink);font-size:var(--text-xs)}
-.evidence-filter-bar input[type=checkbox]{width:16px;height:16px;accent-color:var(--teal)}
-.evidence-filter-bar .filter-note{color:var(--muted);font-size:var(--text-xs)}
 .evidence-glossary-group{margin:var(--space-4) 0 var(--space-2)}
 .evidence-glossary-group h3{font:600 var(--text-xs)/1.4 var(--sans);margin:0 0 var(--space-2)}
 #glossary .evidence-glossary-group dl{margin:0}
 #glossary .evidence-glossary-group dl>div{display:grid;grid-template-columns:140px minmax(0,1fr);gap:var(--space-3)}
 #glossary .evidence-glossary-note{font:var(--text-xs)/1.5 var(--sans);color:var(--muted);margin:var(--space-3) 0}
-@media(max-width:600px){.evidence-filter-bar{gap:var(--space-2) var(--space-3)}.evidence-filter-bar .filter-label{width:100%}.evidence-filter-bar label:not(.milestone-only){flex:1 1 140px;display:grid;gap:var(--space-1)}.evidence-filter-bar select{width:100%;max-width:none}.chart-stories button .evidence-tags{display:flex}.chart-stories button .evidence-tag:not(.evidence-setting):not(.evidence-milestone){display:none}.chart-stories button .evidence-setting{line-height:1.25;overflow-wrap:anywhere}#glossary .evidence-glossary-group dl>div{grid-template-columns:1fr;gap:var(--space-1)}}
+@media(max-width:600px){.chart-stories button .evidence-tags{display:flex}.chart-stories button .evidence-tag:not(.evidence-setting):not(.evidence-milestone){display:none}.chart-stories button .evidence-setting{line-height:1.25;overflow-wrap:anywhere}#glossary .evidence-glossary-group dl>div{grid-template-columns:1fr;gap:var(--space-1)}}
 
 .monitor-grader-legend{font-size:var(--text-xs);color:var(--violet);line-height:1.4;margin:var(--space-1) 0}.monitor-grader-side-line{pointer-events:none}
 /* A news deep link keeps its milestone and evidence card in the same view. */
@@ -329,7 +323,7 @@ html{scroll-padding-top:var(--space-16)}
 @media(max-width:600px){.shell{width:100%;padding:0 var(--gutter)}}
 /* Inline rows: icon and text, and items within a row */
 .site-menu>a,.site-menu>button,.feedback-dm-link,.button,.contact-links a,.overview-milestone-pill,.news-sources a{gap:var(--gap-inline)}
-.news-sources,.related-resources,.social-icons,.contact-links,.track-result-link,.chart-stories,.overview-milestone-pills,.evidence-filter-bar,.section-nav{column-gap:var(--gap-inline)}
+.news-sources,.related-resources,.social-icons,.contact-links,.track-result-link,.chart-stories,.overview-milestone-pills,.section-nav{column-gap:var(--gap-inline)}
 /* Icons: one control size and one inline size, optically centred */
 .menu-button svg,.site-menu svg,.chart-zoom-button svg,.feedback-dm-link svg{width:20px;height:20px;flex-shrink:0;display:block}
 .news-sources svg{width:16px;height:16px;flex:none;display:block}
@@ -347,7 +341,6 @@ html{scroll-padding-top:var(--space-16)}
 /* Sections: 32px apart (48 on desktop) */
 .intro{padding-top:var(--space-6);padding-bottom:0}
 .benchmark-previews{margin:var(--section-gap) 0 0}
-.evidence-filter-bar{margin:var(--section-gap) 0 0}
 .detail-charts .track{margin-top:var(--section-gap);padding-top:var(--space-4)}
 @media(max-width:700px){.news-panel{margin-top:var(--section-gap);padding-top:var(--space-4)}}
 /* Compact chart context on the 4px grid: 12px text on a 16px line; the next section's margin provides the outer gap */

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { validateMonitor } from '../scripts/validate-monitor.mjs';
-import { evidenceCard, evidenceSummary, evidenceGlossaryHtml, filterOptions } from '../lib/evidence-classification.js';
+import { evidenceCard, evidenceSummary, evidenceGlossaryHtml } from '../lib/evidence-classification.js';
 import { renderTrackDataTable } from '../lib/monitor-chart.js';
 import { tracks } from '../data/evidence.js';
 
@@ -35,10 +35,9 @@ test('Reject upgrading vignette or actor evaluations to real-patient trials',()=
     assert.match(validateMonitor(edited).errors.join('; '),/simulations, actors, lab and exams are not real-patient care/);
   }
 });
-test('Data table, Glossary and filters use controlled test-setting values',()=>{
+test('Data table and Glossary use controlled test-setting values',()=>{
   assert.match(evidenceSummary(evidenceCard('lower-mai-dxo-2026')),/Exam \/ cases/);
   assert.match(evidenceGlossaryHtml(),/Retrospective records/);
-  assert.match(filterOptions(),/Major milestones only/);
   assert.match(renderTrackDataTable(tracks.find(x=>x.id==='knowledge'),'2026-10-25'),/Test setting/);
 });
 
@@ -58,10 +57,9 @@ test('HealthBench Professional uses clinician-chat benchmark across linked cards
   assert.equal(data.meta.evidenceTaxonomy.testSettings.clinician_chat_benchmark.label.de,'Benchmark mit Arzt-KI-Dialogen');
 });
 
-test('Bilingual glossary, data table and filter show new clinician-chat classification',()=>{
+test('Bilingual glossary and data table show new clinician-chat classification',()=>{
   assert.match(evidenceGlossaryHtml(),/Clinician-chat benchmark/);
   assert.match(evidenceGlossaryHtml(),/not patients in a prospective clinical trial/);
-  assert.match(filterOptions(),/option value="clinician_chat_benchmark"/);
   assert.match(evidenceSummary(evidenceCard('healthbench-2026'),'de'),/Arzt-KI-Dialogen/);
   const table=renderTrackDataTable(tracks.find(track=>track.id==='assistance'),'2026-10-25');
   assert.match(table,/Clinician-chat benchmark/);

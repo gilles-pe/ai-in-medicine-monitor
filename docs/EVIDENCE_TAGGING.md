@@ -4,7 +4,7 @@ Version: 1.1 · 2026-10-25 · Canonical policy for all AI editors
 ## Read order and single source of truth
 Every research, validation, data-entry, dashboard and publishing agent MUST read `AGENTS.md`, this document, `MONITOR_STANDARD.md` and `docs/data-entry-guide.md` BEFORE adding or changing studies, chart observations, historical events, milestones or evidence-backed news.
 The portable facts live in `data/monitor-data.json`: `meta.evidenceTaxonomy` owns the machine-readable controlled vocabulary; `editorialCards[cardId].classification` owns per-item classification. `data/news.json` remains the independently approved social/editorial feed; a news item MAY reference a source-backed card by `linkedCardId` but MUST NOT make up an evidence status for commentary. Keep no second classification registry.
-Use stable machine values in JSON, not localized labels. The UI, export, Data tables, cards, milestone filters and Glossary all read the same classification. Keep existing free-form `tags` for specific test descriptions; they are NOT replacements for the standardized classification.
+Use stable machine values in JSON, not localized labels. The UI, export, Data tables, cards and Glossary all read the same classification. Keep existing free-form `tags` for specific test descriptions; they are NOT replacements for the standardized classification.
 
 ## Two axes plus milestone - never flatten into one ladder
 1. `topic` (exactly one): `capability` (benchmarks/model performance), `clinical_evidence` (clinical validation/test of a tool, including experimental clinical studies), `real_world_use` (documented routine clinical implementation), `discovery` (scientific/biomedical discovery), `context` (background events outside these four areas), or `unclassified` (not assessed). Topic expresses what the item is ABOUT, not how mature or credible it is.
@@ -53,7 +53,7 @@ Assigning a correct classification or source-verifying a number never warrants a
 **AMIE before the appointment (Lancet 2026)**: topic=`clinical_evidence`, testSetting=`prospective_patients`, studyDesign=`prospective_single_arm`, realPatientTested=true, patientOutcomeEvidence=false, milestone=false unless separately editorially approved. 114 enrolled, 98 completed visits; physician survey endpoints concern 44 reviewed cases (33 helpful, 25 possibly changed approach); supervised feasibility, no control arm and no demonstrated improved patient outcomes.
 
 ## UI expectations
-Expose a compact Topic + Test setting label on evidence cards and milestone entries; where useful show design, real-patient testing and explicit caveat. The Data table shows the same canonical setting/design per measurement, not guesses derived from track name. Glossary explains each term with both English and German copy. Topic/setting filters apply only to the items they state they filter; a taxonomy change MUST NOT alter an independently measured benchmark frontier or silently hide original research data.
+Expose a compact Topic + Test setting label on evidence cards and milestone entries; where useful show design, real-patient testing and explicit caveat. The Data table shows the same canonical setting/design per measurement, not guesses derived from track name. Glossary explains each term with both English and German copy. A taxonomy change MUST NOT alter an independently measured benchmark frontier or silently hide original research data.
 
 
 ## Owner decision 26 October 2026 - HealthBench Professional grader separation
