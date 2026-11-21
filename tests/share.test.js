@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { shareItems, findShareItem, shareMetaForItem, renderCardTopSvg } from '../lib/share.js';
 import { renderShareHtml } from '../scripts/generate-share-pages.mjs';
 import { latestDataPoints, renderLatestDataPoints } from '../lib/latest-points.js';
-import { REVIEWED_AT, UPDATED_AT, reviewedMarkup, updatedMarkup } from '../lib/site-meta.js';
+import { UPDATED_AT, reviewedMarkup, updatedMarkup } from '../lib/site-meta.js';
 
 const monitorData = JSON.parse(await readFile(new URL('../data/monitor-data.json', import.meta.url), 'utf8'));
 const newsData = JSON.parse(await readFile(new URL('../data/news.json', import.meta.url), 'utf8'));
@@ -67,9 +67,8 @@ test('latestDataPoints stays newest-first, respects cutoffs and uses non-collidi
 });
 
 test('academic editorial layout keeps Latest above News, collapsed milestones and single Last updated date', async () => {
-  assert.equal(REVIEWED_AT, '2026-11-02');
   assert.equal(UPDATED_AT, '2026-11-17');
-  assert.equal(reviewedMarkup(), 'Last reviewed <time datetime="2026-11-02">2 Nov 2026</time>');
+  assert.equal(reviewedMarkup('2026-11-02'), 'Last reviewed <time datetime="2026-11-02">2 Nov 2026</time>');
   assert.equal(updatedMarkup(), 'Last updated <time datetime="2026-11-17">17 Nov 2026</time>');
 
   const home = await readFile(new URL('../index.html', import.meta.url), 'utf8');

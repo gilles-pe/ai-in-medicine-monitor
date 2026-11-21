@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { tracks, measurements, sourceCatalog, milestones, editorialStatus } from '../data/evidence.js';
+import { tracks, measurements, sourceCatalog, milestones } from '../data/evidence.js';
+import { monitorData } from '../lib/monitor-data.js';
 import { filterMeasurements, groupComparable, frontierPoints } from '../lib/selectors.js';
 
 test('every curated measurement has a unique ID, source, metric and explicit test context', () => {
@@ -32,7 +33,7 @@ test('source register uses versioned HTTPS originals and milestones reference kn
   for (const source of sourceCatalog) {
     assert.equal(new URL(source.url).protocol, 'https:');
     assert.ok(source.version && source.checkedAt && source.summary);
-    assert.ok(source.checkedAt <= editorialStatus.checkedAt);
+    assert.ok(source.checkedAt <= monitorData.meta.lastReviewedAt);
   }
   for (const milestone of milestones) {
     assert.ok(sourceCatalog.some(source => source.id === milestone.sourceId));

@@ -121,3 +121,9 @@ Owner explicitly requested publication after the protocol distinction was explai
 9 November 2026 - owner requested: (1) time-window controls inside the three lower chart frames for more room; (2) "View point in chart" pulse limited to 8 seconds; (3) clicking a lower-chart milestone tile opens the card beside it with an 8-second pulse and a connector, instead of the modal. Milestones have no marker inside the benchmark plot, so the tile itself is the anchored point; no milestone was added to a benchmark plot. UI behaviour only; no data or evidence-review date changed.
 
 9 November 2026 - owner correction: the 8-second pulse belongs in the chart, not on the tile. Owner chose a floating card beside an in-chart date marker. The marker is a temporary editorial date highlight on the calendar axis, not a benchmark observation; milestones still do not enter any series, frontier or Data table.
+
+## 21 November 2026 - Goldsmith discharge-summary evidence tile
+
+The owner approved adding Goldsmith et al. to Clinical Assistance as a lower-chart study tile, using Ayers and Goh as precedents. The formal milestone flag is false. The approval covers one tile and its evidence card and sources. The study has no comparable benchmark series or separately approved news item.
+
+Gate A passed after checking the JAMA Network Open full text (DOI 10.1001/jamanetworkopen.2026.44496), Methods, Figures 1 and 2, and the primary and secondary Results. The head-to-head comparison used different stratified groups of admissions, with a subset receiving a second rating. Gate B passed because the study measures willingness to sign a draft against the actual admission record across five hospitals and provides a quantitative comparison with routine clinician-authored summaries. It also identifies omissions that make clinician verification important. The retrospective review did not assess time savings or patient outcomes. This decision applies to this study.

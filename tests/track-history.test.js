@@ -1,12 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { trackMilestones,trustContext } from '../data/track-milestones.js';
-import { sourceCatalog,measurements } from '../data/evidence.js';
+import { sourceCatalog,measurements,studies } from '../data/evidence.js';
+import { monitorData } from '../lib/monitor-data.js';
+import { latestDataPoints } from '../lib/latest-points.js';
 import { visibleTrackMilestones,historyX,renderTrackHistory } from '../lib/track-history.js';
 
 test('each lower group has dated original-source milestones and valid evidence boundaries',()=>{
-  assert.equal(trackMilestones.length,11);
-  assert.equal(new Set([...trackMilestones,trustContext].map(item=>item.id)).size,12);
+  assert.equal(trackMilestones.length,12);
+  assert.equal(new Set([...trackMilestones,trustContext].map(item=>item.id)).size,13);
   for(const trackId of ['knowledge','assistance','autonomy']) {
     const group=visibleTrackMilestones(trackId,'2026-10-18');
     assert.equal(group.length,trackId==='assistance'?4:3);
@@ -63,4 +65,26 @@ test('MAI-DxO appears only once at publication date as an assistance milestone',
   assert.equal(visibleTrackMilestones('assistance','2026-10-21').length,4);
   assert.equal(visibleTrackMilestones('assistance','2026-10-22').length,5);
   assert.ok(!measurements.some(row=>row.id===mark.id));
+});
+
+test('Goldsmith is an assistance evidence tile dated by publication',()=>{
+  const id='lower-goldsmith-2026';
+  const date='2026-11-17';
+  const entries=visibleTrackMilestones('assistance',date);
+  const mark=entries.find(item=>item.id===id);
+  assert.equal(mark.date,date);
+  assert.equal(mark.cardId,id);
+  assert.equal(mark.sourceId,'goldsmith-jamanetworkopen-2026');
+  assert.ok(visibleTrackMilestones('assistance','2026-11-16').every(item=>item.id!==id));
+  assert.match(mark.finding,/646 of 720.*485 of 722.*Adjusted estimates were 92.2% vs 70.0%/);
+  const card=monitorData.editorialCards[id];
+  assert.equal(card.classification.milestone,false);
+  assert.equal(card.validation.comparability,'different_protocol');
+  assert.ok(!studies.some(study=>study.cardId===id||study.sourceId===mark.sourceId));
+  assert.ok(!monitorData.tracks.some(track=>track.series.some(series=>series.data.some(point=>point.cardId===id))));
+  const locale=monitorData.extensions.locales.de;
+  for(const copy of [mark.shortTitle,mark.note,mark.result,card.title,card.teaser,card.setup,card.limitations,card.finding.explanation,...card.tags]){
+    assert.ok(locale[copy],copy);
+  }
+  assert.equal(latestDataPoints(date).find(item=>item.cardId===id)?.metricLabel,'Study');
 });

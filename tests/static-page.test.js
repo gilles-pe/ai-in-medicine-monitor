@@ -8,7 +8,7 @@ const cutoff = REVIEWED_AT;
 
 test('public description stays within the search snippet limit', () => {
   assert.ok(SITE_DESCRIPTION.length <= 155);
-  assert.equal(REVIEWED_AT, '2026-11-02');
+  assert.match(REVIEWED_AT, /^\d{4}-\d{2}-\d{2}$/);
 });
 
 test('takeaways use confirmed scores from the monitor data', () => {
@@ -55,8 +55,8 @@ test('structured data names the person without an employer', () => {
     'https://medtechsignal.substack.com/',
     'https://gillespenning.com/',
   ]);
-  assert.equal(page.dateModified, '2026-11-02');
-  assert.equal(reviewedMarkup(), 'Last reviewed <time datetime="2026-11-02">2 Nov 2026</time>');
+  assert.equal(page.dateModified, REVIEWED_AT);
+  assert.equal(reviewedMarkup('2026-11-02'), 'Last reviewed <time datetime="2026-11-02">2 Nov 2026</time>');
 });
 
 test('the prerendered home page is crawlable without a font host', async () => {

@@ -2,6 +2,10 @@
 
 The original phase 3 acceptance remains partly open. Current feature behavior is specified in FUNCTIONALITY.md; each run is recorded in docs/implementation-status.md. Historical backlog: docs/TODO.md.
 
+## 21 November 2026
+
+- [x] Review the Goldsmith discharge-summary study and add one bilingual Clinical Assistance evidence tile.
+
 ## 17 November 2026
 
 - [x] Ship card-top Open Graph previews (`./share/<slug>/`), direct card link sharing (`?card=<id>`/`?point=<id>`), `lib/i18n.js` caching speedup, and `app.js` hash-scroll fix (`f276014`).
