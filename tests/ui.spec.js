@@ -294,7 +294,7 @@ test('HealthBench Professional side line exposes exact graders and primary locat
  });
 
 test('Latest data points strip fits 320px and opens editorial cards',async({page})=>{
- await expect(page.locator('#latest-data-points [data-latest-card]')).toHaveCount(4);
+ await expect(page.locator('#latest-data-points [data-latest-card]')).toHaveCount(3);
  await page.setViewportSize({width:320,height:844});
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth)).toBe(true);
  await page.locator('#latest-data-points [data-latest-card]').first().click();
