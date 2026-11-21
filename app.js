@@ -12,6 +12,7 @@ import { trackMilestones, trustContext } from './data/track-milestones.js';
 import { renderOverview, renderMilestoneLinks, renderOverviewMilestoneStrip, visibleHistory, visibleAnchors } from './lib/overview.js';
 import { renderLatestDataPoints } from './lib/latest-points.js';
 import { findShareItem, shareMetaForItem, shareUrlFor } from './lib/share.js';
+import { appRootUrl, isSharePath, shareAddressPath } from './lib/address.js';
 import newsData from './data/news.json' with { type: 'json' };
 import { renderPreviewSection, renderStudyButtons, renderTrackSection, renderSourceIndex, resetAbbreviations } from './lib/published-page.js';
 import { updatedMarkup } from './lib/site-meta.js';
@@ -49,7 +50,7 @@ const defaultShareMeta={
   title:document.head.querySelector('meta[property="og:title"]')?.getAttribute('content')||'Digital Health & AI in Medicine | Gilles Penning',
   description:document.head.querySelector('meta[property="og:description"]')?.getAttribute('content')||'',
   url:document.head.querySelector('meta[property="og:url"]')?.getAttribute('content')||location.href,
-  image:document.head.querySelector('meta[property="og:image"]')?.getAttribute('content')||new URL('./og-image.png',location.href).href
+  image:document.head.querySelector('meta[property="og:image"]')?.getAttribute('content')||new URL('./og-image.png',appRootUrl(location.href)).href
 };
 function syncCardShareMeta(id){
   const item=id?findShareItem(id,monitorData,newsData.items):null;
@@ -64,7 +65,7 @@ function syncCardShareMeta(id){
     setHeadMeta('name','twitter:image',defaultShareMeta.image);
     return;
   }
-  const meta=shareMetaForItem(item,new URL('./',location.href).href);
+  const meta=shareMetaForItem(item,appRootUrl(location.href));
   setHeadMeta('property','og:type','article');
   setHeadMeta('property','og:title',meta.title);
   setHeadMeta('property','og:description',meta.description);
@@ -90,6 +91,11 @@ function showEditorialCard(id){
 function showMeasurement(id){if(rows().some(item=>item.id===id))showEditorialCard(id);}
 function showTrackMilestone(id){if([...trackMilestones,trustContext].some(item=>item.id===id&&item.date<=state.cutoff))showEditorialCard(id);}
 function showLatestCard(id){showEditorialCard(id);}
+/** Leaves the share address (or a milestone anchor) and returns the address bar to the app root. */
+function resetAddress(){
+  const rootPath=new URL(appRootUrl(location.href)).pathname,hash=location.hash.startsWith('#track-milestone-')?'':location.hash;
+  if(location.pathname!==rootPath||hash!==location.hash)history.replaceState(null,'',rootPath+location.search+hash);
+}
 function closeLinkedMilestone({returnFocus=false}={}){
   linkedMilestoneObserver?.disconnect();linkedMilestoneObserver=null;
   const target=shell.querySelector('.is-linked-target');
@@ -97,7 +103,7 @@ function closeLinkedMilestone({returnFocus=false}={}){
   shell.querySelectorAll('.has-linked-milestone').forEach(el=>el.classList.remove('has-linked-milestone','is-linked-overlay'));
   target?.classList.remove('is-linked-target');
   highlightCard(null);syncCardShareMeta(null);
-  if(location.hash.startsWith('#track-milestone-'))history.replaceState(null,'',location.pathname+location.search);
+  resetAddress();
   if(returnFocus)target?.focus({preventScroll:true});
 }
 /** Month position of an ISO date on the chart's month axis (monthIndex = year*12 + month - 1). */
@@ -137,7 +143,8 @@ function showLinkedMilestone(id,target){
   closeLinkedMilestone();
   if(dialog.open)dialog.close();
   hover?.hide();
-  if(location.hash!=='#track-milestone-'+id)history.replaceState(null,'','#track-milestone-'+id);
+  if(findShareItem(id,monitorData,newsData.items)){const address=shareAddressPath(id,location.href);if(location.pathname!==address||location.search||location.hash)history.replaceState(null,'',address);}
+  else if(location.hash!=='#track-milestone-'+id)history.replaceState(null,'','#track-milestone-'+id);
   const panel=document.createElement('aside');
   panel.className='linked-milestone-card';panel.setAttribute('aria-label','Milestone evidence');
   panel.innerHTML=pointCardHtml(card);
@@ -241,7 +248,7 @@ function exportData(){
   const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='ai-in-medicine-'+state.cutoff+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('Data exported.');
 }
 async function copyShareLink(button){
-  const url=shareUrlFor(button.dataset.cardShare,location.href);
+  const url=shareUrlFor(button.dataset.cardShare,appRootUrl(location.href));
   try{await navigator.clipboard?.writeText(url);}catch{}
   button.classList.add('is-copied');
   setTimeout(()=>button.classList.remove('is-copied'),1500);
@@ -373,7 +380,9 @@ document.addEventListener('keydown',event=>{
 
 render();
 function followLocationHash(){
-  const hash=location.hash.slice(1);
+  // An open data point shows /share/<id>/ without a hash; treat that address as the milestone anchor.
+  const sharedId=isSharePath(location.pathname)?decodeURIComponent(location.pathname.replace(/\/$/,'').split('/').pop()):'';
+  const hash=location.hash.slice(1)||(sharedId?'track-milestone-'+sharedId:'');
   if(!hash){closeLinkedMilestone();return;}
   const target=document.getElementById(hash);
   if(hash.startsWith('track-milestone-')&&target){
@@ -391,6 +400,13 @@ if(location.hash){
   if(requestedCard&&editorialCard(requestedCard))requestAnimationFrame(()=>showEditorialCard(requestedCard));
 }
 window.addEventListener('hashchange',()=>requestAnimationFrame(followLocationHash));
+// While a data point shows its share address, relative links would resolve below /share/<id>/; resolve them against the app root instead.
+document.addEventListener('click',event=>{
+  if(!isSharePath(location.pathname)||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+  const link=event.target.closest('a[href]');if(!link||link.target==='_blank'||link.hasAttribute('download'))return;
+  const raw=link.getAttribute('href');if(!raw||raw.startsWith('#')||/^[a-z][a-z0-9+.-]*:/i.test(raw))return;
+  event.preventDefault();location.assign(new URL(raw,appRootUrl(location.href)).href);
+},true);
 
 function hoverCard(target,event){
   let id=target.dataset.observationId||target.dataset.monitorPoint||target.dataset.pointId||target.dataset.overviewPoint||target.dataset.trackMilestone||target.dataset.studyId||target.dataset.historyId||target.dataset.latestCard;
@@ -406,7 +422,7 @@ function hoverCard(target,event){
   return editorialCard(id);
 }
 const hover=installPointHover(shell,hoverCard,{onOpen:(id)=>{if(!dialog.open&&!shell.querySelector('.linked-milestone-card'))highlightCard(id);},onClose:()=>{if(!dialog.open&&!shell.querySelector('.linked-milestone-card'))highlightCard(null);}});
-let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{hover.hide();render();if(location.hash)requestAnimationFrame(followLocationHash);},150);});
+let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{hover.hide();render();if(location.hash||isSharePath(location.pathname))requestAnimationFrame(followLocationHash);},150);});
 
 // UI language changes preserve the active chart, cutoff, model and open details.
 function chooseLanguage(value,persist=true){

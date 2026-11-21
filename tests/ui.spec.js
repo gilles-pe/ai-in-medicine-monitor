@@ -196,7 +196,7 @@ test('news chart link keeps the pulsing MAI-DxO milestone beside its evidence ca
   const link=page.locator('#news-ai-diagnosis-doctor-choice .news-chart-link');
   await expect(link).toHaveAttribute('href','./?lang=en#track-milestone-lower-mai-dxo-2026');
   await link.click();
-  await expect(page).toHaveURL(/#track-milestone-lower-mai-dxo-2026$/);
+  await expect(page).toHaveURL(/\/share\/lower-mai-dxo-2026\/$/);
   const marker=page.locator('#track-milestone-lower-mai-dxo-2026'),card=page.locator('.linked-milestone-card');
   await expect(marker).toHaveClass(/is-linked-target/);
   await expect(marker).toHaveClass(/is-selected/);
@@ -212,6 +212,7 @@ test('news chart link keeps the pulsing MAI-DxO milestone beside its evidence ca
   await page.keyboard.press('Escape');
   await expect(card).toHaveCount(0);
   await expect(point).toHaveCount(0);
+  await expect(page).not.toHaveURL(/\/share\//);
   await expect(marker).toBeInViewport();
   await page.goto('./news/?lang=de');
   await page.locator('#ai-diagnosis-doctor-choice .news-chart-link').click();
