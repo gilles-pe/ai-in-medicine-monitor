@@ -132,3 +132,6 @@ The AI monitor's public canonical origin is https://ai.gillespenning.com. Keep g
 
 ## Per-item share pages and Latest data points
 `scripts/build.mjs` generates static per-item social share endpoints under `share/<slug>/` (`index.html`, `og.png`, `og.svg`) via `lib/share.js`, `scripts/generate-share-pages.mjs` and `scripts/glyph-atlas.json.gz`. All canonical URLs in generated share pages must stay on `https://ai.gillespenning.com/share/<slug>/`, and relative links inside `dist/share/` must keep working under the GitHub Pages project subdirectory (`scripts/verify-pages.mjs`). Adding share previews or updating `#latest-data-points` (`lib/latest-points.js`) counts as UI/publishing work only and must not advance `meta.lastReviewedAt` or `meta.lastDataChangeAt`.
+
+## Site update date
+For every published site update, set UPDATED_AT in lib/site-meta.js to the publication date and refresh the visible Last updated markup and relevant tests. Evidence review dates advance only after an actual evidence review.
