@@ -77,6 +77,7 @@ test('the prerendered home page is crawlable without a font host and includes SE
   assert.match(html, /name="twitter:image:alt"/);
   assert.match(html, /data-href-en="https:\/\/wimmelbild\.gillespenning\.com\/en\/"/);
   assert.match(html, /data-href-de="https:\/\/wimmelbild\.gillespenning\.com\/"/);
+  assert.match(html, /src="https:\/\/cloud\.umami\.is\/script\.js" data-website-id="5af25f91-45a9-45ba-b36c-5668b4ccfb00" data-domains="gillespenning\.com,ai\.gillespenning\.com,wimmelbild\.gillespenning\.com"/);
   assert.doesNotMatch(html, /worksFor/);
 
   const llms = await readFile(new URL('../llms.txt', import.meta.url), 'utf8');

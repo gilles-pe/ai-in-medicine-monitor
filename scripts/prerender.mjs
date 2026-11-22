@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { homeFragments } from '../lib/published-page.js';
 import {renderSiteHeader,renderSectionNav} from '../lib/site-header.js';
 import { renderNewsArchive, renderNewsRss, newsStructuredData } from '../lib/news.js';
-import { jsonLd, REVIEWED_AT, UPDATED_AT, SITE_ORIGIN, SITE_DESCRIPTION, SITE_NAME } from '../lib/site-meta.js';
+import { jsonLd, umamiScript, REVIEWED_AT, UPDATED_AT, SITE_ORIGIN, SITE_DESCRIPTION, SITE_NAME } from '../lib/site-meta.js';
 
 function fill(html, key, value) {
   const pattern = new RegExp('<!--static:' + key + '-->[\\s\\S]*?<!--/static:' + key + '-->');
@@ -13,6 +13,10 @@ function fill(html, key, value) {
 }
 
 function sharedFrame(html,prefix='./',{secondary=false}={}) {
+  const analytics='<!--shared:analytics-->'+umamiScript()+'<!--/shared:analytics-->';
+  const analyticsMarker=/<!--shared:analytics-->[\s\S]*?<!--\/shared:analytics-->/;
+  if(analyticsMarker.test(html))html=html.replace(analyticsMarker,analytics);
+  else html=html.replace('</head>','  '+analytics+'\n</head>');
   const header='<!--shared:header-->'+renderSiteHeader(prefix)+'<!--/shared:header-->';
   const nav='<!--shared:nav-->'+renderSectionNav(prefix)+'<!--/shared:nav-->';
   const headerMarker=/<!--shared:header-->[\s\S]*?<!--\/shared:header-->/;
