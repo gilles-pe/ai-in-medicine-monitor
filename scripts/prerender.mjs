@@ -66,9 +66,30 @@ export async function prerenderTree(root) {
 
   const pages = ['', 'news/', 'impressum/'];
   await writeFile(path.join(root, 'rss.xml'), renderNewsRss());
-  const body = pages.map(page => '  <url><loc>' + SITE_ORIGIN + '/' + page + '</loc><lastmod>' + REVIEWED_AT + '</lastmod></url>').join('\n');
+  const body = pages.map(page => '  <url><loc>' + SITE_ORIGIN + '/' + page + '</loc><lastmod>' + UPDATED_AT + '</lastmod></url>').join('\n');
   await writeFile(path.join(root, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + body + '\n</urlset>\n');
   await writeFile(path.join(root, 'robots.txt'), 'User-agent: *\nAllow: /\n\nSitemap: ' + SITE_ORIGIN + '/sitemap.xml\n');
+  const llms = [
+    '# ' + SITE_NAME,
+    '',
+    '> ' + SITE_DESCRIPTION,
+    '',
+    'Published by Gilles Penning (https://gillespenning.com/). Last evidence review: ' + REVIEWED_AT + '. Last site update: ' + UPDATED_AT + '.',
+    '',
+    '## Key pages',
+    '- [AI in Medicine Monitor](' + SITE_ORIGIN + '/): Benchmarks, milestones and original studies across medical knowledge, clinical assistance and autonomous workflows (EN/DE).',
+    '- [Chronological News](' + SITE_ORIGIN + '/news/): Posts and articles on AI, medicine and healthcare.',
+    '- [RSS Feed](' + SITE_ORIGIN + '/rss.xml): Chronological news feed.',
+    '- [Portable Monitor Data](' + SITE_ORIGIN + '/data/monitor-data.json): Structured JSON dataset of benchmarks, studies, sources and evidence classifications.',
+    '- [Evidence Standard](' + SITE_ORIGIN + '/MONITOR_STANDARD.md): Editorial, frontier and source-verification rules.',
+    '',
+    '## Companion projects',
+    '- [AI in Medicine Wimmelbook (EN)](https://wimmelbild.gillespenning.com/en/): Interactive illustrated exploration of AI in medicine.',
+    '- [KI-Wimmelbild (DE)](https://wimmelbild.gillespenning.com/): Interaktives Wimmelbild zu KI in der Medizin.',
+    '- [Portfolio](https://gillespenning.com/): Gilles Penning.',
+    '',
+  ].join('\n');
+  await writeFile(path.join(root, 'llms.txt'), llms);
   return { reviewedAt: REVIEWED_AT, pages };
 }
 

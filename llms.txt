@@ -1,0 +1,17 @@
+# Digital Health & AI in Medicine
+
+> Digital health and AI in medicine: milestones, benchmarks and original studies.
+
+Published by Gilles Penning (https://gillespenning.com/). Last evidence review: 2026-11-21. Last site update: 2026-11-22.
+
+## Key pages
+- [AI in Medicine Monitor](https://ai.gillespenning.com/): Benchmarks, milestones and original studies across medical knowledge, clinical assistance and autonomous workflows (EN/DE).
+- [Chronological News](https://ai.gillespenning.com/news/): Posts and articles on AI, medicine and healthcare.
+- [RSS Feed](https://ai.gillespenning.com/rss.xml): Chronological news feed.
+- [Portable Monitor Data](https://ai.gillespenning.com/data/monitor-data.json): Structured JSON dataset of benchmarks, studies, sources and evidence classifications.
+- [Evidence Standard](https://ai.gillespenning.com/MONITOR_STANDARD.md): Editorial, frontier and source-verification rules.
+
+## Companion projects
+- [AI in Medicine Wimmelbook (EN)](https://wimmelbild.gillespenning.com/en/): Interactive illustrated exploration of AI in medicine.
+- [KI-Wimmelbild (DE)](https://wimmelbild.gillespenning.com/): Interaktives Wimmelbild zu KI in der Medizin.
+- [Portfolio](https://gillespenning.com/): Gilles Penning.

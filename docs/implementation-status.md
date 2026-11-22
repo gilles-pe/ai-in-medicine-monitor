@@ -418,3 +418,11 @@ Compactified the `#overview` card (`lib/overview.js`, `lib/i18n.js`, `monitor.cs
 ## 21 November 2026 - Phone legend as one scrolling line
 
 - On phones the legend below the overview chart is a single horizontally scrolling row again (right-edge fade), replacing the wrapping two-row list. Desktop unchanged. No data or review change.
+
+## 2026-11-22 — Bilingual Wimmelbild links & SEO basics (UI/publishing only)
+- Added bilingual links to `wimmelbild.gillespenning.com` (EN → `https://wimmelbild.gillespenning.com/en/` "AI in Medicine Wimmelbook ↗"; DE → `https://wimmelbild.gillespenning.com/` "KI-Wimmelbild ↗") in `#site-menu` directly below Portfolio (`lib/site-header.js`) and in `.contact-links` (`index.html`), with automatic `data-href-en` / `data-href-de` switching in `lib/i18n.js`.
+- Added subtle presentation-layer Wimmelbild scene deep-links (`.card-wimmelbild`, outside `.point-sources` and omitted in compact hover tooltips) via `lib/wimmelbild.js` and `lib/point-card.js` for unambiguously matching study cards: AMIE (`#patient/P01-S02`), MAI-DxO (`#patient/P01-S03`), MIRA (`#all/ALL-KLINIK`), AlphaFold (`#all/MED`), STAR (`#all/OP`), and Ayers (`#all/ALL-KIND`). FAHR-Face has no study card in `data/monitor-data.json` and was not fabricated.
+- Closed SEO/visibility gaps without altering study data or editorial design: added `hreflang="en"` and `hreflang="x-default"` (avoiding canonical conflicts with client-side `?lang=de`), `og:locale:alternate` (`de_DE`), `twitter:image:alt`, `meta[name="author"]`, `impressum/index.html` description, linked `WebSite`/`WebPage`/`Person` JSON-LD with `wimmelbild.gillespenning.com` (`lib/site-meta.js`), updated `sitemap.xml` `<lastmod>` to `UPDATED_AT`, and generated `llms.txt` in `scripts/prerender.mjs`.
+- Updated `UPDATED_AT` to `2026-11-22`; `data/monitor-data.json`, `meta.lastReviewedAt` (`2026-11-21`), and `meta.lastDataChangeAt` (`2026-11-21`) remain unchanged.
+- Verified with `node scripts/prerender.mjs`, `npm run build`, `node scripts/verify-pages.mjs`, `node scripts/sync-monitor-docs.mjs --check`, `npm run typecheck`, `npm test` (103/103), and Playwright UI tests (desktop + mobile).
+
