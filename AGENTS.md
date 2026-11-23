@@ -90,6 +90,12 @@ Location: `data/monitor-data.json` (UTF-8 JSON). Sections: `meta`, `tracks[]`, `
 ## Editorial card maintenance
 Every active point, study and milestone references the shared `editorialCards` registry by stable `cardId`. Card content must agree with chart values and validation status. Preserve old imported content in the change log/archive. Read the schema 2.0 card contract in DESIGN.md. Historical conceptual events use documented categorical outcomes, not invented IQ or accuracy values.
 
+## Structured data (JSON-LD) - Search Console rules (2026-11-23)
+Search Console treats `SocialMediaPosting` and `BlogPosting` items as discussion-forum / article markup and reports problems even when they are non-critical. Whenever JSON-LD is added or changed (`lib/news.js` `newsStructuredData`, `lib/site-meta.js`, prerender):
+- Every `datePublished` / `dateModified` is a full ISO 8601 datetime with a time zone, for example `2026-11-21T00:00:00+01:00`. A bare date is not enough. If the source only has a day, use `isoDateTimeBerlin()` (00:00 Europe/Berlin with the right winter/summer offset); never invent a publication time.
+- Every `author` and `publisher` person has `name` and `url` (`https://gillespenning.com/`), or an `@id` that resolves to such a node.
+- Keep the check in `tests/news.test.js` green and extend it when a new item type or property is added. After a deploy, re-test the page in Google's Rich Results Test and use "Validate fix" in Search Console for open issues.
+
 ## Before declaring ready
 Check JSON parses, IDs unique, every published line point eligible, no joined incompatible series, source links valid, point cards complete, mobile behavior, and last-updated semantics. Update `meta.lastReviewedAt` only after actual evidence review and `meta.lastDataChangeAt` for factual data changes. UI/news changes do not imply scientific review. Run `node scripts/sync-monitor-docs.mjs` after central JSON changes. Test the built dist artifact under the GitHub project subdirectory, including phone taps, source cards, grouped selection and full-view controls. Append this run's changes, actual checks, source and publication result to `docs/implementation-status.md`; update root `TODO.md`. Produce a brief list of unresolved issues for the human owner.
 
