@@ -63,3 +63,14 @@ test('linked diagnosis news opens its exact chart milestone in both languages',(
   assert.match(home, /View point in chart/);
   assert.match(archive, /Punkt im Diagramm ansehen/);
 });
+
+import { isoDateTimeBerlin, newsStructuredData } from '../lib/news.js';
+test('structured data: datePublished has time and zone, author has url', () => {
+  assert.equal(isoDateTimeBerlin('2026-11-21'), '2026-11-21T00:00:00+01:00');
+  assert.equal(isoDateTimeBerlin('2026-07-06'), '2026-07-06T00:00:00+02:00');
+  const data = JSON.parse(newsStructuredData());
+  for (const { item } of data.itemListElement) {
+    assert.match(item.datePublished, /^\d{4}-\d{2}-\d{2}T00:00:00[+-]\d{2}:\d{2}$/);
+    assert.equal(item.author.url, 'https://gillespenning.com/');
+  }
+});
